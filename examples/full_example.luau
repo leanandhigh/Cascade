@@ -10,19 +10,19 @@
 		- Watermark + keybind list overlays
 		- Theme / accent settings, minimize keybind, unload button + cleanup
 
-	!! The features above are on the `claude/friendly-ride-yf5y59` branch. Build `dist.luau`
-	   from that branch (see docs/Getting Started/building-from-source.md) and load it
-	   below, an older release will not have them.
+	Loads the build committed on the `claude/friendly-ride-yf5y59` branch (dist/dist.luau).
+	Once these features are in a GitHub release you can switch back to the release loader.
 ]]
 
 --// Import
-local function importRelease(owner: string, repo: string, version: string, file: string)
-	local tag = (version == "latest" and "latest/download" or "download/" .. version)
+local CASCADE_URL = "https://raw.githubusercontent.com/leanandhigh/Cascade/claude/friendly-ride-yf5y59/dist/dist.luau"
 
-	return loadstring(game:HttpGetAsync(("https://github.com/%s/%s/releases/%s/%s"):format(owner, repo, tag, file)), file)()
-end
+local source = game:HttpGet(CASCADE_URL)
+local chunk, compileError = loadstring(source, "Cascade")
+assert(chunk, "Cascade failed to compile: " .. tostring(compileError))
 
-local cascade = importRelease("leanandhigh", "Cascade", "latest", "dist.luau")
+local cascade = chunk()
+assert(type(cascade) == "table" and cascade.New, "Cascade did not load, check CASCADE_URL")
 
 --// Services
 local players = game:GetService("Players")

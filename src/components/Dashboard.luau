@@ -34,7 +34,7 @@ return function(self, properties: types.DashboardProperties): types.Dashboard
 	local object = {
 		Type = "Dashboard",
 		Theme = self.Theme,
-		Tab = tab,
+		HomeTab = tab,
 		__container = tab.__container,
 		__window = self.__window or self,
 	}
@@ -45,7 +45,7 @@ return function(self, properties: types.DashboardProperties): types.Dashboard
 		Subtitle = properties.Version and ("Version " .. tostring(properties.Version)) or nil,
 	})
 
-	object.UpdateLog = updates:UpdateLog({
+	object.Updates = updates:UpdateLog({
 		Title = properties.LogsTitle or "Update Logs",
 		Preview = properties.Preview or 5,
 		Entries = properties.Logs or {},
@@ -70,16 +70,18 @@ return function(self, properties: types.DashboardProperties): types.Dashboard
 		})
 
 		for _, link in ipairs(links) do
-			table.insert(object.Links, section:InviteCard(link))
+			table.insert(object.Links, (section:InviteCard(link)))
 		end
 	end
 
 	--// Methods
 	object.Log = function(_, entry)
-		return object.UpdateLog:Add(entry)
+		return object.Updates:Add(entry)
 	end
 
 	-- Everything else (PageSection, Groupbox, Form...) is forwarded to the tab, so the
 	-- dashboard behaves like a normal page.
+	-- Note: field names must not match component names (Tab, UpdateLog...), the component
+	-- wrapper assigns every component constructor onto returned objects.
 	return setmetatable(object, { __index = tab })
 end

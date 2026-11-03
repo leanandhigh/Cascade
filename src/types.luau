@@ -645,8 +645,8 @@ export type DashboardProperties = {
 }
 
 export type Dashboard = BaseComponent & Components & {
-	Tab: Tab,
-	UpdateLog: UpdateLog,
+	HomeTab: Tab,
+	Updates: UpdateLog,
 	Links: { InviteCard },
 	Log: (self: Dashboard, entry: UpdateLogEntry) -> any,
 }

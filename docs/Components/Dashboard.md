@@ -16,7 +16,7 @@
 | `Discord`    | `#!luau string?`             | Shortcut for a Discord `InviteCard`.                            |
 | `Links`      | `#!luau {InviteCardProperties}?` | Extra link cards.                                           |
 
-The returned object forwards everything to its tab, so you can keep adding components (`dashboard:PageSection(...)`). Use `dashboard:Log(entry)` to add update log entries later.
+The returned object forwards everything to its tab, so you can keep adding components (`dashboard:PageSection(...)`). Use `dashboard:Log(entry)` to add update log entries later. `dashboard.Updates` is the `UpdateLog`, `dashboard.HomeTab` the tab and `dashboard.Links` the link cards.
 
 ```luau
 local dashboard = window:Dashboard({
