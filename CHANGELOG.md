@@ -35,8 +35,6 @@
 - Update log badges use centred Lucide icons (text glyphs only as a fallback).
 - Key countdown shows a ticking clock (`3d 04:00:00`).
 
-- `PopUpButton`: options can have an image (`{ Name, Icon }` or `Icons`), shown after the tick and in front of the name; the button shows the selected option's image.
-
 ### Fixed
 
 - Mobile (0.8 UI scale): sidebar sections, groupboxes and rows measured screen pixels as offsets, so tabs and groupboxes were clipped and labels overlapped controls; the resize handles shrank the window when grabbed and dragging moved slower than the finger; slider fills were short.

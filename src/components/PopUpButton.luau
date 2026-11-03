@@ -56,29 +56,6 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 		return labels
 	end
 
-	-- Options can be names, or tables with an image: { Name = "Slime", Icon = 1234567 }
-	-- (Text / Title and Image work too). `Icons` gives images by index or by name instead.
-	local optionIcons = {}
-
-	local function parseOption(entry, index: number): (string, any?)
-		local name, icon = entry, nil
-
-		if typeof(entry) == "table" then
-			name = entry.Name or entry.Text or entry.Title or entry[1] or ""
-			icon = entry.Icon or entry.Image
-		end
-
-		name = tostring(name)
-
-		local iconMap = properties.Icons or properties.Images
-
-		if icon == nil and typeof(iconMap) == "table" then
-			icon = iconMap[index] or iconMap[name]
-		end
-
-		return name, icon
-	end
-
 	--// UI
 	properties = properties or {}
 	properties.Maximum = properties.Maximum or 1
@@ -148,21 +125,6 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 				}),
 			}),
 
-			-- Image of the selected option (single select), in front of its name
-			create("ImageLabel")({
-				Name = "SelectedIcon",
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				LayoutOrder = -1,
-				ScaleType = Enum.ScaleType.Fit,
-				Size = UDim2.fromOffset(18, 18),
-				Visible = false,
-
-				create("UICorner")({
-					CornerRadius = UDim.new(0, 4),
-				}),
-			}),
-
 			create("TextLabel")({
 				Name = "Label",
 				AutomaticSize = Enum.AutomaticSize.XY,
@@ -188,22 +150,6 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 	--// Initialize
 	structures.PopUpIndicator = structures.Body:FindFirstChild("PopUpIndicator") :: Frame
 	structures.CurrentTab = structures.Body:FindFirstChild("Label") :: TextLabel
-	structures.SelectedIcon = structures.Body:FindFirstChild("SelectedIcon") :: ImageLabel
-
-	local function showSelectedIcon(icon)
-		local image = structures.SelectedIcon
-
-		if icon == nil then
-			image.Visible = false
-			return
-		end
-
-		local icons = require("@modules/icons")
-		local isGlyph = icons.IsGlyph(icon)
-
-		image.Visible = icons.Apply(image, icon, nil, 16)
-		image.ImageColor3 = isGlyph and self.Theme.Text.Primary[1].Value or Color3.new(1, 1, 1)
-	end
 
 	local object
 	local menu = dropdownMenu.new(self, structures, {
@@ -258,8 +204,6 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 		if isMulti then
 			local labels = selectedLabels(value)
 
-			showSelectedIcon(nil)
-
 			if #labels == 0 then
 				structures.CurrentTab.Text = "None"
 			else
@@ -275,8 +219,6 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 			else
 				structures.CurrentTab.Text = truncate(optionLabel.Text)
 			end
-
-			showSelectedIcon(value and optionIcons[value] or nil)
 
 			menu:SetSelectedMap(selectedMap(value))
 		end
@@ -295,13 +237,8 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 		Options = function(value: { [number]: string })
 			menu:ClearOptions()
 
-			table.clear(optionIcons)
-
-			for index, entry in ipairs(value) do
-				local optionName, icon = parseOption(entry, index)
-
-				optionIcons[index] = icon
-				menu:AddOption(optionName, index, icon)
+			for index, optionName in ipairs(value) do
+				menu:AddOption(optionName, index)
 			end
 
 			if object then
@@ -317,14 +254,6 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 		Value = function(value)
 			updateValue(value, true)
 		end,
-
-		Icons = function(value)
-			properties.Icons = value
-
-			if object then
-				object.Options = object.Options
-			end
-		end,
 	}
 
 	object = binder.Wrap(properties, bindings, structures.Body)
@@ -334,13 +263,9 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 	object.Type = "PopUpButton"
 	object.Theme = self.Theme
 	object.Structures = structures
-	object.Option = function(self, name, icon)
+	object.Option = function(self, name: string?)
 		local index = #structures.Options + 1
-		local optionName, parsedIcon = parseOption(name, index)
-
-		optionIcons[index] = icon or parsedIcon
-
-		local option = menu:AddOption(optionName, index, optionIcons[index])
+		local option = menu:AddOption(name, index)
 
 		table.insert(object.Options, name)
 		updateValue(object.Value, false)

@@ -170,16 +170,7 @@ local targetBox = farmingTab:Groupbox({
 	Icon = "crosshair",
 })
 
-targetBox:Row({ Title = "Enemy" }):Right():PopUpButton({
-	Flag = "Enemy",
-	Options = {
-		{ Name = "Slime", Icon = "droplet" },
-		{ Name = "Goblin", Icon = "skull" },
-		{ Name = "Orc", Icon = "swords" },
-		{ Name = "Dragon", Icon = "flame" },
-	},
-	Value = 1,
-})
+targetBox:Row({ Title = "Enemy" }):Right():PopUpButton({ Flag = "Enemy", Options = { "Slime", "Goblin", "Orc", "Dragon" }, Value = 1 })
 
 targetBox:Row({ Title = "Drops", Subtitle = "Pick up to 3" }):Right():PopUpButton({ Flag = "Drops", Options = { "Gold", "Gems", "Items", "Pets" }, Maximum = 3 })
 
