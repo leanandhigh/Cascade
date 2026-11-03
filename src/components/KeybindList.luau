@@ -49,7 +49,7 @@ return function(self, properties: types.KeybindListProperties): types.KeybindLis
 		Active = true,
 		AutomaticSize = Enum.AutomaticSize.Y,
 		BorderSizePixel = 0,
-		Size = UDim2.fromOffset(220, 0),
+		Size = UDim2.fromOffset(200, 0),
 		ZIndex = 50,
 		Parent = utility.OverlayRoot(self),
 
@@ -234,7 +234,7 @@ return function(self, properties: types.KeybindListProperties): types.KeybindLis
 			Name = "Entry",
 			BackgroundTransparency = 1,
 			LayoutOrder = #entries + 1,
-			Size = UDim2.new(1, 0, 0, 24),
+			Size = UDim2.new(1, 0, 0, 22),
 			Parent = structures.List,
 
 			create("Frame")({
@@ -269,12 +269,12 @@ return function(self, properties: types.KeybindListProperties): types.KeybindLis
 				AutomaticSize = Enum.AutomaticSize.X,
 				BackgroundTransparency = 1,
 				Position = UDim2.fromScale(1, 0.5),
-				Size = UDim2.fromOffset(0, 20),
+				Size = UDim2.fromOffset(0, 18),
 
 				create("UIListLayout")({
 					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalAlignment = Enum.HorizontalAlignment.Right,
-					Padding = UDim.new(0, 6),
+					Padding = UDim.new(0, 5),
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					VerticalAlignment = Enum.VerticalAlignment.Center,
 				}),
@@ -283,16 +283,14 @@ return function(self, properties: types.KeybindListProperties): types.KeybindLis
 					Name = "Mode",
 					AutomaticSize = Enum.AutomaticSize.X,
 					BackgroundTransparency = 1,
-					-- 11px regular in the faintest colour looked thin and blurry; 12px medium, secondary colour
-					FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
-					Size = UDim2.fromOffset(0, 20),
-					TextSize = 12,
-					TextYAlignment = Enum.TextYAlignment.Center,
+					FontFace = Font.new("rbxassetid://12187365364"),
+					Size = UDim2.fromOffset(0, 14),
+					TextSize = 11,
 					ZIndex = 50,
 
 					__dynamicKeys = {
-						TextColor3 = theme.Text.Secondary[1],
-						TextTransparency = theme.Text.Secondary[2],
+						TextColor3 = theme.Text.Tertiary[1],
+						TextTransparency = theme.Text.Tertiary[2],
 					},
 				}),
 
@@ -300,33 +298,26 @@ return function(self, properties: types.KeybindListProperties): types.KeybindLis
 					Name = "Key",
 					AutomaticSize = Enum.AutomaticSize.X,
 					BorderSizePixel = 0,
-					FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
+					FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
 					LayoutOrder = 1,
-					Size = UDim2.fromOffset(0, 20),
-					TextSize = 12,
-					TextXAlignment = Enum.TextXAlignment.Center,
-					TextYAlignment = Enum.TextYAlignment.Center,
+					Size = UDim2.fromOffset(0, 18),
+					TextSize = 11,
 					ZIndex = 50,
 
 					__dynamicKeys = {
 						BackgroundColor3 = theme.Controls.Card.Hover[1],
 						BackgroundTransparency = theme.Controls.Card.Hover[2],
-						TextColor3 = theme.Text.Primary[1],
-						TextTransparency = theme.Text.Primary[2],
+						TextColor3 = theme.Text.Secondary[1],
+						TextTransparency = theme.Text.Secondary[2],
 					},
 
 					create("UICorner")({
-						CornerRadius = UDim.new(0, 5),
-					}),
-
-					-- Single letters ("F") get a square key cap instead of a sliver
-					create("UISizeConstraint")({
-						MinSize = Vector2.new(22, 20),
+						CornerRadius = UDim.new(0, 4),
 					}),
 
 					create("UIPadding")({
-						PaddingLeft = UDim.new(0, 7),
-						PaddingRight = UDim.new(0, 7),
+						PaddingLeft = UDim.new(0, 6),
+						PaddingRight = UDim.new(0, 6),
 					}),
 				}),
 			}),
@@ -335,7 +326,8 @@ return function(self, properties: types.KeybindListProperties): types.KeybindLis
 		local trailing = frame:FindFirstChild("Trailing")
 		local nameLabel = frame:FindFirstChild("Name")
 
-		-- The name gets whatever space the mode + key cap leave, so they never overlap
+		-- The name only gets the space the mode + key leave, so a long key ("LeftShift") or mode
+		-- never draws over it
 		local function fitName()
 			nameLabel.Size = UDim2.new(1, -(13 + trailing.AbsoluteSize.X + 8), 0, 16)
 		end
@@ -370,8 +362,7 @@ return function(self, properties: types.KeybindListProperties): types.KeybindLis
 				entry.KeyLabel.Text = formatKey(value)
 			end,
 			Mode = function(value: string)
-				-- "Toggle" / "Hold" / "Always"
-				entry.ModeLabel.Text = string.upper(string.sub(value, 1, 1)) .. string.sub(value, 2)
+				entry.ModeLabel.Text = string.lower(value)
 			end,
 			Active = function(value: boolean)
 				entry.Active = value == true

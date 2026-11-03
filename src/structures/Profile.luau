@@ -56,9 +56,11 @@ return function(self)
 				},
 			}),
 
+			-- Right padding is smaller than the left: the gear's 22px button has ~4px of empty space
+			-- around its 14px icon, so this puts the icon as close to the edge as the avatar
 			create("UIPadding")({
 				PaddingLeft = UDim.new(0, 9),
-				PaddingRight = UDim.new(0, 8),
+				PaddingRight = UDim.new(0, 5),
 			}),
 
 			create("UIListLayout")({
@@ -116,7 +118,8 @@ return function(self)
 				Name = "Info",
 				BackgroundTransparency = 1,
 				LayoutOrder = 1,
-				Size = UDim2.new(1, -78, 1, 0),
+				-- avatar 30 + gap 8 + gap 8 + gear 22 = 68: fills the card exactly, no leftover after the gear
+				Size = UDim2.new(1, -68, 1, 0),
 
 				create("UIListLayout")({
 					Padding = UDim.new(0, 1),
