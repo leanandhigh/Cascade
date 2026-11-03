@@ -8320,24 +8320,25 @@ BackgroundColor3=ai.Controls.View[1],BackgroundTransparency=ai.Controls.View[2]}
 ,ag'UICorner'{CornerRadius=UDim.new(0,8)},ag'UIStroke'{ApplyStrokeMode=Enum.
 ApplyStrokeMode.Border,__dynamicKeys={Color=ai.Controls.ViewBorder[1],
 Transparency=ai.Controls.ViewBorder[2]}},ag'UIPadding'{PaddingBottom=UDim.new(0,
-12),PaddingLeft=UDim.new(0,12),PaddingRight=UDim.new(0,12),PaddingTop=UDim.new(0
+14),PaddingLeft=UDim.new(0,14),PaddingRight=UDim.new(0,14),PaddingTop=UDim.new(0
 ,12)},ag'UIListLayout'{Padding=UDim.new(0,12),SortOrder=Enum.SortOrder.
 LayoutOrder},ag'TextButton'{Name='Header',AutoButtonColor=false,AutomaticSize=
 Enum.AutomaticSize.Y,BackgroundTransparency=1,BorderSizePixel=0,Size=UDim2.
 fromScale(1,0),Text='',ag'Frame'{Name='Texts',AutomaticSize=Enum.AutomaticSize.Y
 ,BackgroundTransparency=1,Size=UDim2.new(1,-28,0,0),ag'UIListLayout'{Padding=
-UDim.new(0,3),SortOrder=Enum.SortOrder.LayoutOrder},ag'TextLabel'{Name='Title',
-AutomaticSize=Enum.AutomaticSize.Y,BackgroundTransparency=1,FontFace=Font.new(
-'rbxassetid://12187365364',Enum.FontWeight.SemiBold,Enum.FontStyle.Normal),Size=
-UDim2.fromScale(1,0),Text=ab.Title or'',TextSize=15,TextWrapped=true,
-TextXAlignment=Enum.TextXAlignment.Left,__dynamicKeys={TextColor3=ai.Text.
-Primary[1],TextTransparency=ai.Text.Primary[2]}},ag'TextLabel'{Name='Subtitle',
-AutomaticSize=Enum.AutomaticSize.Y,BackgroundTransparency=1,FontFace=Font.new
-'rbxassetid://12187365364',LayoutOrder=1,Size=UDim2.fromScale(1,0),Text=ab.
-Subtitle or'',TextSize=12,TextWrapped=true,TextXAlignment=Enum.TextXAlignment.
-Left,Visible=ab.Subtitle~=nil and ab.Subtitle~='',__dynamicKeys={TextColor3=ai.
-Text.Secondary[1],TextTransparency=ai.Text.Secondary[2]}}},ag'Frame'{Name=
-'Trailing',AnchorPoint=Vector2.new(1,0.5),AutomaticSize=Enum.AutomaticSize.X,
+UDim.new(0,1),SortOrder=Enum.SortOrder.LayoutOrder},ag'TextLabel'{Name='Title',
+BackgroundTransparency=1,FontFace=Font.new('rbxassetid://12187365364',Enum.
+FontWeight.SemiBold,Enum.FontStyle.Normal),Size=UDim2.new(1,0,0,17),Text=ab.
+Title or'',TextSize=15,TextTruncate=Enum.TextTruncate.AtEnd,TextXAlignment=Enum.
+TextXAlignment.Left,TextYAlignment=Enum.TextYAlignment.Center,__dynamicKeys={
+TextColor3=ai.Text.Primary[1],TextTransparency=ai.Text.Primary[2]}},ag
+'TextLabel'{Name='Subtitle',AutomaticSize=Enum.AutomaticSize.Y,
+BackgroundTransparency=1,FontFace=Font.new'rbxassetid://12187365364',LayoutOrder
+=1,Size=UDim2.new(1,0,0,14),Text=ab.Subtitle or'',TextSize=12,TextWrapped=true,
+TextXAlignment=Enum.TextXAlignment.Left,TextYAlignment=Enum.TextYAlignment.Top,
+Visible=ab.Subtitle~=nil and ab.Subtitle~='',__dynamicKeys={TextColor3=ai.Text.
+Secondary[1],TextTransparency=ai.Text.Secondary[2]}}},ag'Frame'{Name='Trailing',
+AnchorPoint=Vector2.new(1,0.5),AutomaticSize=Enum.AutomaticSize.X,
 BackgroundTransparency=1,Position=UDim2.new(1,-24,0.5,0),Size=UDim2.fromOffset(0
 ,20),ag'UIListLayout'{FillDirection=Enum.FillDirection.Horizontal,
 HorizontalAlignment=Enum.HorizontalAlignment.Right,Padding=UDim.new(0,6),

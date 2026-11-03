@@ -58,9 +58,9 @@ return function(self, config)
 		}),
 
 		create("UIPadding")({
-			PaddingBottom = UDim.new(0, 12),
-			PaddingLeft = UDim.new(0, 12),
-			PaddingRight = UDim.new(0, 12),
+			PaddingBottom = UDim.new(0, 14),
+			PaddingLeft = UDim.new(0, 14),
+			PaddingRight = UDim.new(0, 14),
 			PaddingTop = UDim.new(0, 12),
 		}),
 
@@ -84,21 +84,22 @@ return function(self, config)
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, -28, 0, 0),
 
+				-- Same metrics as the Groupbox header (title 15 / 17px line, subtitle 12, 1px gap)
 				create("UIListLayout")({
-					Padding = UDim.new(0, 3),
+					Padding = UDim.new(0, 1),
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 
 				create("TextLabel")({
 					Name = "Title",
-					AutomaticSize = Enum.AutomaticSize.Y,
 					BackgroundTransparency = 1,
 					FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
-					Size = UDim2.fromScale(1, 0),
+					Size = UDim2.new(1, 0, 0, 17),
 					Text = config.Title or "",
 					TextSize = 15,
-					TextWrapped = true,
+					TextTruncate = Enum.TextTruncate.AtEnd,
 					TextXAlignment = Enum.TextXAlignment.Left,
+					TextYAlignment = Enum.TextYAlignment.Center,
 
 					__dynamicKeys = {
 						TextColor3 = theme.Text.Primary[1],
@@ -112,11 +113,12 @@ return function(self, config)
 					BackgroundTransparency = 1,
 					FontFace = Font.new("rbxassetid://12187365364"),
 					LayoutOrder = 1,
-					Size = UDim2.fromScale(1, 0),
+					Size = UDim2.new(1, 0, 0, 14),
 					Text = config.Subtitle or "",
 					TextSize = 12,
 					TextWrapped = true,
 					TextXAlignment = Enum.TextXAlignment.Left,
+					TextYAlignment = Enum.TextYAlignment.Top,
 					Visible = config.Subtitle ~= nil and config.Subtitle ~= "",
 
 					__dynamicKeys = {
