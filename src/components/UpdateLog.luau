@@ -209,6 +209,7 @@ return function(self, properties: types.UpdateLogProperties): types.UpdateLog
 				}),
 
 				create("ImageLabel")({
+					ScaleType = Enum.ScaleType.Fit,
 					Name = "Chevron",
 					BackgroundTransparency = 1,
 					Image = symbols.chevronRight,

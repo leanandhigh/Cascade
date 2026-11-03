@@ -5,15 +5,22 @@ local creator = {}
 
 function creator.Value(value: any): types.ValueState
 	local callbacks = {}
-
-	return binder.Wrap({
+	local state = {
 		Value = value,
 		Connect = function(self, fn)
 			table.insert(callbacks, fn)
 			return fn
 		end,
-	}, {
+	}
+
+	return binder.Wrap(state, {
 		Value = function(newValue)
+			-- Re-applying a theme sets every value again; only notify listeners on a real change,
+			-- otherwise every themed instance re-renders (thousands of deferred updates on load).
+			if newValue == state.Value then
+				return
+			end
+
 			for _, callback in pairs(callbacks) do
 				pcall(callback, newValue)
 			end

@@ -96,6 +96,7 @@ return function(self, properties: types.KeybindListProperties): types.KeybindLis
 			}),
 
 			create("ImageLabel")({
+				ScaleType = Enum.ScaleType.Fit,
 				Name = "Icon",
 				BackgroundTransparency = 1,
 				Image = symbols.keyboardFill or symbols.keyboard,

@@ -77,6 +77,7 @@ return function(self, manager)
 			}),
 
 			create("ImageLabel")({
+				ScaleType = Enum.ScaleType.Fit,
 				Name = "Icon",
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				BackgroundTransparency = 1,
@@ -134,6 +135,7 @@ return function(self, manager)
 		}),
 
 		create("ImageLabel")({
+			ScaleType = Enum.ScaleType.Fit,
 			Name = "Icon",
 			AnchorPoint = Vector2.new(0, 0.5),
 			BackgroundTransparency = 1,
@@ -166,6 +168,7 @@ return function(self, manager)
 		}),
 
 		create("ImageLabel")({
+			ScaleType = Enum.ScaleType.Fit,
 			Name = "Chevron",
 			AnchorPoint = Vector2.new(1, 0.5),
 			BackgroundTransparency = 1,
@@ -269,6 +272,7 @@ return function(self, manager)
 				}),
 
 				create("ImageLabel")({
+					ScaleType = Enum.ScaleType.Fit,
 					Name = "Icon",
 					BackgroundTransparency = 1,
 					Image = symbols.cloudFill,
@@ -343,6 +347,7 @@ return function(self, manager)
 				}),
 
 				create("ImageLabel")({
+					ScaleType = Enum.ScaleType.Fit,
 					Name = "Icon",
 					AnchorPoint = Vector2.new(0, 0.5),
 					BackgroundTransparency = 1,

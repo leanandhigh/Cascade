@@ -189,7 +189,8 @@ local window = app:Window({
 table.insert(
 	connections,
 	userInputService.InputEnded:Connect(function(input, gameProcessedEvent)
-		if input.KeyCode == minimizeKeybind and not gameProcessedEvent then
+		-- Only skip while typing in a TextBox (chat etc.), not when the game also uses the key
+		if input.KeyCode == minimizeKeybind and not userInputService:GetFocusedTextBox() then
 			window.Minimized = not window.Minimized
 		end
 	end)
@@ -295,7 +296,8 @@ do -- Farming tab
 		KeybindName = "Auto Farm",
 		KeybindMode = "Toggle",
 		BindPressed = function(self, key: Enum.KeyCode, inputComplete: boolean, gameProcessedEvent: boolean)
-			if inputComplete or gameProcessedEvent then
+			-- gameProcessedEvent is ignored on purpose so keys the game also uses still work
+			if inputComplete then
 				return
 			end
 
@@ -480,16 +482,16 @@ do -- Settings tab
 		end,
 	})
 
-	local defaults = configs:Row({ Title = "Set as default" })
-	defaults:Right():Button({
-		Label = "This account",
+	configs:Row({ Title = "Default (this account)" }):Right():Button({
+		Label = "Set",
 		State = "Secondary",
 		Pushed = function()
 			window.Configs:SetDefault(configName, "Account")
 		end,
 	})
-	defaults:Right():Button({
-		Label = "All accounts",
+
+	configs:Row({ Title = "Default (all accounts)" }):Right():Button({
+		Label = "Set",
 		State = "Secondary",
 		Pushed = function()
 			window.Configs:SetDefault(configName, "All")

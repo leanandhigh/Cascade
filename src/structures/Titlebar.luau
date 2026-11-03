@@ -197,6 +197,7 @@ return function(self)
 						TextSize = 14,
 
 						create("ImageLabel")({
+							ScaleType = Enum.ScaleType.Fit,
 							Name = "Image",
 							AnchorPoint = Vector2.new(0.5, 0.5),
 							BackgroundTransparency = 1,
@@ -242,6 +243,7 @@ return function(self)
 						TextSize = 14,
 
 						create("ImageLabel")({
+							ScaleType = Enum.ScaleType.Fit,
 							Name = "Image",
 							AnchorPoint = Vector2.new(0.5, 0.5),
 							BackgroundColor3 = Color3.fromRGB(255, 255, 255),
@@ -389,6 +391,7 @@ return function(self)
 	structures.SearchField.Corner = UDim.new(0, 6)
 
 	create("ImageLabel")({
+		ScaleType = Enum.ScaleType.Fit,
 		Name = "ImageLabel",
 		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 		BackgroundTransparency = 1,
@@ -430,6 +433,7 @@ return function(self)
 		}),
 
 		create("ImageLabel")({
+			ScaleType = Enum.ScaleType.Fit,
 			Name = "Icon",
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			BackgroundTransparency = 1,

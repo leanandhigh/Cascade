@@ -118,6 +118,7 @@ return function(self, properties: types.InviteCardProperties): types.InviteCard
 				}),
 
 				create("ImageLabel")({
+					ScaleType = Enum.ScaleType.Fit,
 					Name = "Icon",
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					BackgroundTransparency = 1,

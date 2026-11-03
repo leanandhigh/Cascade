@@ -57,8 +57,8 @@ return function(self)
 			}),
 
 			create("UIPadding")({
-				PaddingLeft = UDim.new(0, 7),
-				PaddingRight = UDim.new(0, 6),
+				PaddingLeft = UDim.new(0, 9),
+				PaddingRight = UDim.new(0, 8),
 			}),
 
 			create("UIListLayout")({
@@ -96,6 +96,7 @@ return function(self)
 				}),
 
 				create("ImageLabel")({
+					ScaleType = Enum.ScaleType.Fit,
 					Name = "Placeholder",
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					BackgroundTransparency = 1,
@@ -115,7 +116,7 @@ return function(self)
 				Name = "Info",
 				BackgroundTransparency = 1,
 				LayoutOrder = 1,
-				Size = UDim2.new(1, -68, 1, 0),
+				Size = UDim2.new(1, -78, 1, 0),
 
 				create("UIListLayout")({
 					Padding = UDim.new(0, 1),
@@ -174,6 +175,7 @@ return function(self)
 				}),
 
 				create("ImageLabel")({
+					ScaleType = Enum.ScaleType.Fit,
 					Name = "Icon",
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					BackgroundTransparency = 1,

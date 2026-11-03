@@ -102,6 +102,7 @@ return function(self, properties: types.WatermarkProperties): types.Watermark
 		}),
 
 		create("ImageLabel")({
+			ScaleType = Enum.ScaleType.Fit,
 			Name = "Icon",
 			BackgroundTransparency = 1,
 			LayoutOrder = 1,

@@ -200,6 +200,7 @@ function Popover:AddItem(properties: PopoverItemProperties)
 		}),
 
 		create("ImageLabel")({
+			ScaleType = Enum.ScaleType.Fit,
 			Name = "Check",
 			BackgroundTransparency = 1,
 			Image = symbols.checkmark,
@@ -213,6 +214,7 @@ function Popover:AddItem(properties: PopoverItemProperties)
 		}),
 
 		create("ImageLabel")({
+			ScaleType = Enum.ScaleType.Fit,
 			Name = "Icon",
 			BackgroundTransparency = 1,
 			LayoutOrder = 1,

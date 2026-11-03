@@ -63,7 +63,11 @@ return function(self, properties: types.KeybindFieldProperties): types.KeybindFi
 			return
 		end
 
-		if listEntry and not gameProcessedEvent and not structures.Field:IsFocused() then
+		-- Like other hub libraries: only ignore the bind while the player is typing in a TextBox.
+		-- Keys the game itself uses (gameProcessedEvent) still toggle the bind.
+		local typing = userInputService:GetFocusedTextBox() ~= nil
+
+		if listEntry and not typing and not structures.Field:IsFocused() then
 			local mode = properties.KeybindMode or "Toggle"
 
 			if mode == "Toggle" then

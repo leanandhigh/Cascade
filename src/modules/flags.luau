@@ -83,7 +83,10 @@ function Flags:Get(name: string): any
 	if accessor then
 		local ok, value = pcall(accessor.Get)
 
-		return ok and value or nil
+		-- note: not `ok and value or nil`, that would turn `false` into nil and drop it from configs
+		if ok then
+			return value
+		end
 	end
 
 	return nil

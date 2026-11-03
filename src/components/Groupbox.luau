@@ -106,12 +106,12 @@ return function(self, properties: types.GroupboxProperties): types.Groupbox
 			AutoButtonColor = false,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
-			Size = UDim2.new(1, 0, 0, 48),
+			Size = UDim2.new(1, 0, 0, 52),
 			Text = "",
 
 			create("UIPadding")({
-				PaddingLeft = UDim.new(0, 12),
-				PaddingRight = UDim.new(0, 12),
+				PaddingLeft = UDim.new(0, 14),
+				PaddingRight = UDim.new(0, 14),
 			}),
 
 			create("Frame")({
@@ -120,7 +120,7 @@ return function(self, properties: types.GroupboxProperties): types.Groupbox
 				BackgroundTransparency = 0.85,
 				BorderSizePixel = 0,
 				Position = UDim2.fromScale(0, 0.5),
-				Size = UDim2.fromOffset(28, 28),
+				Size = UDim2.fromOffset(30, 30),
 				Visible = false,
 
 				__dynamicKeys = {
@@ -132,11 +132,12 @@ return function(self, properties: types.GroupboxProperties): types.Groupbox
 				}),
 
 				create("ImageLabel")({
+					ScaleType = Enum.ScaleType.Fit,
 					Name = "Icon",
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					BackgroundTransparency = 1,
 					Position = UDim2.fromScale(0.5, 0.5),
-					Size = UDim2.fromOffset(16, 16),
+					Size = UDim2.fromOffset(18, 18),
 
 					__dynamicKeys = {
 						ImageColor3 = self.Theme.Controls.Selection[1],
@@ -193,6 +194,7 @@ return function(self, properties: types.GroupboxProperties): types.Groupbox
 			}),
 
 			create("ImageLabel")({
+				ScaleType = Enum.ScaleType.Fit,
 				Name = "Chevron",
 				AnchorPoint = Vector2.new(1, 0.5),
 				BackgroundTransparency = 1,
@@ -241,10 +243,10 @@ return function(self, properties: types.GroupboxProperties): types.Groupbox
 
 				create("UIPadding")({
 					Name = "Margins",
-					PaddingBottom = UDim.new(0, 2),
-					PaddingLeft = UDim.new(0, 12),
-					PaddingRight = UDim.new(0, 12),
-					PaddingTop = UDim.new(0, 2),
+					PaddingBottom = UDim.new(0, 6),
+					PaddingLeft = UDim.new(0, 14),
+					PaddingRight = UDim.new(0, 14),
+					PaddingTop = UDim.new(0, 4),
 				}),
 			}),
 		}),
@@ -278,7 +280,7 @@ return function(self, properties: types.GroupboxProperties): types.Groupbox
 
 	local function layoutHeader()
 		local hasIcon = structures.IconHolder.Visible
-		local leading = hasIcon and 38 or 0
+		local leading = hasIcon and 42 or 0
 		local trailing = properties.Collapsible and 24 or 0
 
 		structures.TitleStack.Position = UDim2.new(0, leading, 0.5, 0)
