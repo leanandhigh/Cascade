@@ -178,6 +178,15 @@ return function(self, properties: types.PriorityListProperties): types.PriorityL
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 	})
 
+	-- Full-screen layer: the ghost is positioned relative to it, so the top-bar inset (and
+	-- whatever IgnoreGuiInset the guis use) can't shift the card away from the pointer
+	local dragLayer = create("Frame")({
+		Name = "Layer",
+		BackgroundTransparency = 1,
+		Size = UDim2.fromScale(1, 1),
+		Parent = dragGui.__instance,
+	}).__instance :: Frame
+
 	utility.ProtectUI(dragGui.__instance)
 	structures.DragLayer = dragGui.__instance
 
@@ -276,10 +285,16 @@ return function(self, properties: types.PriorityListProperties): types.PriorityL
 			ghostBadge.TextTransparency = 0
 		end
 
-		drag.Offset = Vector2.new(drag.Start.X, drag.Start.Y) - button.AbsolutePosition
-		ghost.Position = UDim2.fromOffset(button.AbsolutePosition.X, button.AbsolutePosition.Y)
-		ghost.Parent = dragGui.__instance
+		-- Everything below works with pointer *movement* (delta from where the card was
+		-- grabbed) plus the card's own AbsolutePosition, never raw pointer coordinates: pointer
+		-- positions exclude the top-bar inset while gui positions may not.
+		drag.CardStart = button.AbsolutePosition
+		ghost.Parent = dragLayer
 		dragGui.Enabled = true
+		ghost.Position = UDim2.fromOffset(
+			drag.CardStart.X - dragLayer.AbsolutePosition.X,
+			drag.CardStart.Y - dragLayer.AbsolutePosition.Y
+		)
 
 		drag.Ghost = ghost
 		setGap(item, true)
@@ -291,19 +306,23 @@ return function(self, properties: types.PriorityListProperties): types.PriorityL
 		end
 
 		if not drag.Started then
-			if (position - Vector2.new(drag.Start.X, drag.Start.Y)).Magnitude < DRAG_THRESHOLD then
+			if (position - drag.PointerStart).Magnitude < DRAG_THRESHOLD then
 				return
 			end
 
 			beginDrag()
 		end
 
-		local topLeft = position - drag.Offset
+		local delta = position - drag.PointerStart
+		local topLeft = drag.CardStart + delta
 
-		drag.Ghost.Position = UDim2.fromOffset(topLeft.X, topLeft.Y)
+		drag.Ghost.Position = UDim2.fromOffset(
+			topLeft.X - dragLayer.AbsolutePosition.X,
+			topLeft.Y - dragLayer.AbsolutePosition.Y
+		)
 
-		-- Move the gap to wherever the pointer is
-		local target = targetIndex(position)
+		-- Move the gap to wherever the grabbed point of the card is now
+		local target = targetIndex(topLeft + drag.GrabInCard)
 		local current = table.find(drag.Preview, drag.Name)
 
 		if target ~= current then
@@ -351,10 +370,18 @@ return function(self, properties: types.PriorityListProperties): types.PriorityL
 			return
 		end
 
+		local button = items[name].Button
+
 		drag = {
 			Name = name,
 			Input = input,
 			Start = input.Position,
+			PointerStart = Vector2.new(input.Position.X, input.Position.Y),
+			-- where inside the card it was grabbed (clamped, so the target maths stays sane)
+			GrabInCard = Vector2.new(
+				math.clamp(input.Position.X - button.AbsolutePosition.X, 0, button.AbsoluteSize.X),
+				math.clamp(button.AbsoluteSize.Y / 2, 0, button.AbsoluteSize.Y)
+			),
 			Started = false,
 		}
 
