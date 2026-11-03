@@ -198,12 +198,15 @@ farmBox:Row({ Title = "Wave Count" }):Right():Stepper({ Flag = "WaveCount", Mini
 --   KeybindList / KeybindName / KeybindMode show it in the keybind list.
 --   With a Flag, configs save the key (Flag) and the mode (Flag .. "Mode").
 --   Works even when the game also uses the key; ignored only while typing in a text box.
-local farmKey = farmBox:Row({ Title = "Toggle Farm Key" }):Right():KeybindField({
+--   ToggleFlag links it to a toggle: the mode drives the toggle (Toggle flips it, Hold = on while
+--   held, Always = on), and clicking the toggle updates the keybind (like Obsidian's SyncToggleState).
+farmBox:Row({ Title = "Toggle Farm Key" }):Right():KeybindField({
 	Flag = "ToggleFarmKey",
 	Value = Enum.KeyCode.F,
 	KeybindList = keybinds,
 	KeybindName = "Auto Farm",
 	KeybindMode = "Toggle",
+	ToggleFlag = "AutoFarm",
 })
 
 farmBox:Row({ Title = "Speed Boost (Hold)" }):Right():KeybindField({
@@ -268,11 +271,12 @@ local espColor = espRow:Right():ColorPicker({
 	Title = "ESP Color",
 })
 
-local espKey = espRow:Right():KeybindField({
+espRow:Right():KeybindField({
 	Flag = "EspKey",
 	Value = Enum.KeyCode.E,
 	KeybindList = keybinds,
 	KeybindName = "ESP",
+	ToggleFlag = "Esp", -- the key drives the ESP toggle, using the mode picked with right-click
 })
 
 espRow:Right():Toggle({ Flag = "Esp", Value = false })
@@ -303,35 +307,20 @@ track(settingsTab, "Title", "Settings")
 -- Flags:Get("Name") reads a value anywhere.
 
 Flags:OnChanged("AutoFarm", function(enabled: boolean)
-	print("Auto farm:", enabled)
-	farmKey.KeybindEntry.Active = enabled -- keep the keybind list in sync with the toggle
+	print("Auto farm:", enabled) -- fires for clicks, the F key (any mode) and config loads
 end)
 
 Flags:OnChanged("ToggleFarmKey", function(key: Enum.KeyCode)
 	print("Farm key is now", key.Name)
 end)
 
--- The keybind list flips its own state when F is pressed; mirror that onto the toggle
-farmKey.BindPressed = function(self, _, inputComplete: boolean)
-	if not inputComplete then
-		Flags:Set("AutoFarm", self:IsActive())
-	end
-end
-
 Flags:OnChanged("FarmDistance", function(value: number)
 	distanceLabel.Text = tostring(math.floor(value + 0.5))
 end)
 
--- Chained ESP row: the key flips the toggle, the colors only show while their toggle is on
-espKey.BindPressed = function(self, _, inputComplete: boolean)
-	if not inputComplete then
-		Flags:Set("Esp", not Flags:Get("Esp"))
-	end
-end
-
+-- Chained ESP row: the key drives the toggle (ToggleFlag), the colors only show while their toggle is on
 Flags:OnChanged("Esp", function(enabled: boolean)
 	espColor.Visible = enabled
-	espKey.KeybindEntry.Active = enabled
 	print("ESP:", enabled)
 end)
 
@@ -360,8 +349,6 @@ task.spawn(function()
 	end
 end)
 
-farmKey.KeybindEntry.Active = Flags:Get("AutoFarm") == true
-espKey.KeybindEntry.Active = Flags:Get("Esp") == true
 espColor.Visible = Flags:Get("Esp") == true
 namesColor.Visible = Flags:Get("EspNames") == true
 
