@@ -2,7 +2,7 @@
 
 `window:Settings()` builds a complete Settings tab in one call. Everything is shown directly in the tab:
 
-- **Interface** (left): theme, accent, menu keybind (show / hide the menu), censor name, hide avatar, show watermark, show keybind list, unload
+- **Interface** (left): theme, accent, menu keybind (show / hide the menu), show watermark, show keybind list, unload. Censor name / hide avatar stay on the profile card's settings button.
 - **Configs** (right): the [ConfigManager](./Configs.md) groupbox
 
 Theme, accent, menu keybind and the overlay toggles are saved in configs.

@@ -42,7 +42,7 @@ return function(self, properties: types.ConfigManagerProperties): types.ConfigMa
 	end
 
 	-- Status (always visible: which config auto-loads)
-	local statusRow = row({ Title = "Auto-load", Subtitle = "No default config" })
+	local statusRow = row({ Title = "Loads on start", Subtitle = "No default config" })
 	local statusStack = statusRow.Structures.TitleStack
 
 	-- Config list
@@ -203,7 +203,10 @@ return function(self, properties: types.ConfigManagerProperties): types.ConfigMa
 	})
 
 	-- Defaults: per account or every account
-	row({ Title = "Auto-load for this account" }):Right():Button({
+	row({
+		Title = "Auto-load for this account",
+		Subtitle = "The selected config loads every time you run the script on this account",
+	}):Right():Button({
 		Label = "Set",
 		State = "Secondary",
 		Pushed = function()
@@ -215,7 +218,10 @@ return function(self, properties: types.ConfigManagerProperties): types.ConfigMa
 			end
 		end,
 	})
-	row({ Title = "Auto-load for all accounts" }):Right():Button({
+	row({
+		Title = "Auto-load for all accounts",
+		Subtitle = "Used by every account that has no auto-load of its own",
+	}):Right():Button({
 		Label = "Set",
 		State = "Secondary",
 		Pushed = function()
@@ -227,7 +233,10 @@ return function(self, properties: types.ConfigManagerProperties): types.ConfigMa
 			end
 		end,
 	})
-	row({ Title = "Remove auto-load" }):Right():Button({
+	row({
+		Title = "Remove auto-load",
+		Subtitle = "Nothing loads on start, you load configs yourself",
+	}):Right():Button({
 		Label = "Clear",
 		State = "Destructive",
 		Pushed = function()

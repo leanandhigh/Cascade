@@ -2,8 +2,8 @@
 	Settings
 	Builds a complete Settings tab in one call. Everything is shown directly in the tab:
 
-		Left  "Interface": theme, accent, menu keybind, censor name, hide avatar,
-		                   watermark / keybind list toggles, unload
+		Left  "Interface": theme, accent, menu keybind, watermark / keybind list toggles,
+		                   unload (censor name / hide avatar are on the profile card)
 		Right "Configs":   the ConfigManager groupbox
 
 	window:Settings({
@@ -62,21 +62,24 @@ return function(self, properties: types.SettingsProperties): types.Tab
 
 	if app then
 		local themeNames = { "Dark", "Light" }
+		local currentTheme = (app.Theme and app.Theme._id == "Light") and "Light" or "Dark"
 
 		interface:Row({ Title = "Theme" }):Right():RadioButtonGroup({
 			Flag = properties.ThemeFlag or "UI_Theme",
 			Options = themeNames,
-			Value = (app.Theme and app.Theme._id == "Light") and 2 or 1,
+			Value = table.find(themeNames, currentTheme),
 			ValueChanged = function(_, index: number)
-				local theme = themes[themeNames[index]]
+				local name = themeNames[index]
 
-				if theme and (not app.Theme or app.Theme._id ~= theme._id) then
-					app.Theme = theme
+				if name and themes[name] and name ~= currentTheme then
+					currentTheme = name
+					app.Theme = themes[name]
 				end
 			end,
 		})
 
 		local accentNames = {}
+		local currentAccent = app.Accent and app.Accent._id or "Blue"
 
 		for name in pairs(accents) do
 			table.insert(accentNames, name)
@@ -91,7 +94,8 @@ return function(self, properties: types.SettingsProperties): types.Tab
 			ValueChanged = function(popup, index: number)
 				local accent = accents[popup.Options[index]]
 
-				if accent and (not app.Accent or app.Accent._id ~= accent._id) then
+				if accent and accent._id ~= currentAccent then
+					currentAccent = accent._id
 					app.Accent = accent
 				end
 			end,
@@ -121,19 +125,7 @@ return function(self, properties: types.SettingsProperties): types.Tab
 		menuConnection:Disconnect()
 	end)
 
-	interface:Row({ Title = "Censor name" }):Right():Toggle({
-		Value = window.CensorName == true,
-		ValueChanged = function(_, value: boolean)
-			window.CensorName = value
-		end,
-	})
-
-	interface:Row({ Title = "Hide avatar" }):Right():Toggle({
-		Value = window.HideAvatar == true,
-		ValueChanged = function(_, value: boolean)
-			window.HideAvatar = value
-		end,
-	})
+	-- Censor name / hide avatar live in the profile card's settings button, not here
 
 	if properties.Watermark then
 		interface:Row({ Title = "Show watermark" }):Right():Toggle({

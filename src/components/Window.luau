@@ -788,8 +788,7 @@ return function(self, properties: types.WindowProperties): types.Window
 	-- Branding (logo + name at the top of the sidebar)
 	local function refreshBrand()
 		local logo = properties.Logo
-		local icon = logo ~= nil and require("@modules/icons").Get(logo)
-		local isGlyph = icon and icon.ImageRectSize.X > 0
+		local isGlyph = logo ~= nil and require("@modules/icons").IsGlyph(logo)
 
 		brandLogoHolder.Visible = logo ~= nil
 

@@ -18,10 +18,17 @@
 - `Tab`: 8px gap between icon and title; icon sits slightly below center so it lines up with the text.
 - `ButtonRow`: full-width rows of equal buttons (used by the Configs groupbox).
 - Divider under the brand header.
+
+### Fixed
+
+- Switching the theme back to Dark after Light did nothing (`app.Theme._id` kept the first theme's name).
+- Real images (logo asset ids) on the watermark are no longer tinted with the accent colour.
 - `Settings` tab sits in its own sidebar group at the bottom.
 - Lucide icons load in the background (no HttpGet while building the UI) and are sized down to match the old symbols.
 
 ### Performance
+
+- Closed dropdown menus no longer re-position themselves every time their button moves (window drag, scrolling), which forced extra layout passes every frame.
 
 - Theme values only notify on real changes (thousands fewer updates on load).
 - The window's layout fix no longer resizes every element twice in one frame; it nudges once and spreads a single pass over auto-sized elements across frames.

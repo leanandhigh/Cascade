@@ -256,6 +256,14 @@ function DropdownMenu:AnchorMenu()
 		return
 	end
 
+	-- Closed menus aren't mounted; positioning them anyway (on every scroll / window drag, for
+	-- every dropdown) forced extra layout passes each frame. Opening the menu anchors it again.
+	local container = unwrap(self.Structures.MenuContainer)
+
+	if typeof(container) == "Instance" and not container.Parent then
+		return
+	end
+
 	local camera = workspace.CurrentCamera
 	if not camera then
 		return

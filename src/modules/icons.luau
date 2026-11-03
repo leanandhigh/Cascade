@@ -105,6 +105,40 @@ function icons.LoadLucide(): boolean
 	return icons.Provider ~= nil
 end
 
+local symbolValues = nil
+
+-- True for monochrome glyphs (Lucide icons, Cascade symbols) that should take a theme colour;
+-- false for real images such as your logo (asset ids, thumbnails), which keep their own colours.
+function icons.IsGlyph(name): boolean
+	if name == nil then
+		return false
+	end
+
+	local icon = icons.Get(name)
+
+	if icon and icon.ImageRectSize.X > 0 then
+		return true
+	end
+
+	if typeof(name) == "string" then
+		if symbols[name] then
+			return true
+		end
+
+		if not symbolValues then
+			symbolValues = {}
+
+			for _, id in pairs(symbols) do
+				symbolValues[id] = true
+			end
+		end
+
+		return symbolValues[name] == true
+	end
+
+	return false
+end
+
 -- Runs `callback` once Lucide finished loading (right away if it already has)
 function icons.WhenReady(callback: () -> ())
 	if icons.Loaded then

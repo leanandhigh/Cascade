@@ -187,6 +187,10 @@ cascade.New = function(properties: types.AppProperties): types.App
 		Theme = function(newTheme)
 			currentBaseTheme = newTheme
 			updateThemes(properties.Theme, newTheme, properties.Accent)
+
+			-- Keep the name in sync: only the colour values are copied, so without this
+			-- app.Theme._id stayed "Dark" after switching to Light (and Dark could never be re-picked)
+			properties.Theme._id = newTheme._id
 		end,
 		Accent = function(newAccent)
 			properties.Accent = deepCopy(newAccent, newAccent._id)
@@ -223,6 +227,10 @@ cascade.Component = function(properties: types.ComponentProperties?): types.Comp
 		Theme = function(newTheme)
 			currentBaseTheme = newTheme
 			updateThemes(properties.Theme, newTheme, properties.Accent)
+
+			-- Keep the name in sync: only the colour values are copied, so without this
+			-- app.Theme._id stayed "Dark" after switching to Light (and Dark could never be re-picked)
+			properties.Theme._id = newTheme._id
 		end,
 		Accent = function(newAccent)
 			properties.Accent = deepCopy(newAccent, newAccent._id)

@@ -37,6 +37,7 @@ return function(self, properties: types.WatermarkProperties): types.Watermark
 	local frames = 0
 	local elapsed = 0
 	local fps = 0
+	local customIcon = false -- your own image (logo): shown in its own colours, not accent-tinted
 
 	--// UI
 	properties = properties or {}
@@ -112,6 +113,11 @@ return function(self, properties: types.WatermarkProperties): types.Watermark
 
 			__dynamicKeys = {
 				ImageColor3 = theme.Controls.Selection[1],
+			},
+			__contextKeys = {
+				ImageColor3 = function()
+					return customIcon and Color3.new(1, 1, 1) or theme.Controls.Selection[1].Value
+				end,
 			},
 		}),
 
@@ -227,7 +233,15 @@ return function(self, properties: types.WatermarkProperties): types.Watermark
 			properties.Draggable = value
 		end,
 		Icon = function(value: string?)
-			structures.Icon.Visible = value ~= nil and require("@modules/icons").Apply(structures.Icon, value, nil, 15)
+			local icons = require("@modules/icons")
+
+			structures.Icon.Visible = value ~= nil and icons.Apply(structures.Icon, value, nil, 15)
+
+			-- Glyphs (Lucide / symbols) take the accent colour, real images (your logo) keep theirs
+			customIcon = value ~= nil and not icons.IsGlyph(value)
+
+			structures.Icon.ImageColor3 = customIcon and Color3.new(1, 1, 1) or theme.Controls.Selection[1].Value
+			structures.Icon.Size = customIcon and UDim2.fromOffset(18, 18) or structures.Icon.Size
 		end,
 	}, structures.Body)
 

@@ -73,6 +73,12 @@ local function applyLanguage(language: string)
 	end
 end
 
+--// Branding
+-- Your logo's image asset id (the number from create.roblox.com / the image's URL).
+-- Use the Image id, not the Decal id. Left at 0, the game's own icon is used.
+local LOGO_ID = 0
+local LOGO = LOGO_ID ~= 0 and LOGO_ID or ("rbxthumb://type=GameIcon&id=" .. game.GameId .. "&w=150&h=150")
+
 --// App
 local app = cascade.New({
 	WindowPill = true, -- tap target to re-open the window on mobile
@@ -83,7 +89,7 @@ local app = cascade.New({
 --// Overlays (live on the app, outside of the window)
 local watermark = app:Watermark({
 	Title = "My Hub",
-	Icon = "gem", -- same as the window logo
+	Icon = LOGO, -- same as the window logo
 	Text = "Premium",
 	ShowFPS = true,
 	ShowPing = true,
@@ -96,7 +102,6 @@ local keybinds = app:KeybindList({
 })
 
 --// Window
-local LOGO = "gem" -- your logo: an asset id (eg. 1234567890 / "rbxassetid://1234567890") or a Lucide icon name
 
 local window = app:Window({
 	Title = "My Hub",
@@ -114,33 +119,8 @@ local window = app:Window({
 	-- Profile card (bottom-left). The gear opens Censor Name / Hide Avatar + the options below.
 	ProfileName = localPlayer.Name,
 	CensorName = false,
-	ProfileOptions = {
-		{
-			Title = "Show Watermark",
-			Icon = "eye",
-			Checked = true,
-			Changed = function(value: boolean)
-				watermark.Visible = value
-			end,
-		},
-		{
-			Title = "Show Keybinds",
-			Icon = "keyboard",
-			Checked = true,
-			Changed = function(value: boolean)
-				keybinds.Visible = value
-			end,
-		},
-		{
-			Title = "Copy User Id",
-			Icon = "copy",
-			Pushed = function()
-				if setclipboard then
-					setclipboard(tostring(localPlayer.UserId))
-				end
-			end,
-		},
-	},
+	-- The gear on the profile card has Censor Name / Hide Avatar.
+	-- Watermark / keybind list toggles are in the Settings tab (window:Settings below).
 	ProfileSettingChanged = function(self, setting: string, value: boolean)
 		print("Profile setting", setting, "=", value)
 	end,
