@@ -1,18 +1,3 @@
---[[
-	Cascade — full example
-
-	Layout of this file (same idea as Obsidian's Example.lua):
-		1. Load Cascade
-		2. Create the app, overlays and window (branding, profile card, key time, language, configs)
-		3. Build the UI: tabs, groupboxes and elements — every element is commented
-		4. Hook up your logic with cascade.Flags:OnChanged (UI code and logic code stay separate)
-
-	Icons: every `Icon = ...` accepts a Lucide name ("house", "swords" — see https://lucide.dev/icons),
-	a Cascade symbol (cascade.Symbols.gearshapeFill) or an image asset id (1234567890).
-
-	Loads the build committed on the `claude/friendly-ride-yf5y59` branch (dist/dist.luau).
-]]
-
 --// 1. Load Cascade
 local CASCADE_URL = "https://raw.githubusercontent.com/leanandhigh/Cascade/claude/friendly-ride-yf5y59/dist/dist.luau"
 
@@ -23,24 +8,22 @@ assert(chunk, "Cascade failed to compile: " .. tostring(compileError))
 local cascade = chunk()
 assert(type(cascade) == "table" and cascade.New, "Cascade did not load, check CASCADE_URL")
 
-local Flags = cascade.Flags -- every element created with `Flag = "Name"` lives here
+local Flags = cascade.Flags
 
 --// Services
 local players = game:GetService("Players")
 local userInputService = game:GetService("UserInputService")
 
 local localPlayer = players.LocalPlayer
-local connections = {} -- your own connections, disconnected on unload
+local connections = {}
 
 --// Language
--- Cascade only reports which language was picked (LanguageChanged); your script decides the text.
 local texts = {
 	EN = { Main = "Main", Farming = "Farming", AutoFarm = "Auto Farm", AutoFarmInfo = "Automatically farms the selected enemy.", Settings = "Settings" },
 	TH = { Main = "หลัก", Farming = "ฟาร์ม", AutoFarm = "ฟาร์มอัตโนมัติ", AutoFarmInfo = "ฟาร์มศัตรูที่เลือกโดยอัตโนมัติ", Settings = "ตั้งค่า" },
 }
-local translatable = {} -- { object, property, text key }
+local translatable = {}
 
--- Remember which property of which object shows which text, so it can be swapped later
 local function track(object, property: string, key: string)
 	table.insert(translatable, { object, property, key })
 	return object
@@ -55,74 +38,56 @@ local function applyLanguage(language: string)
 end
 
 --// Branding
--- Your logo's asset id. Loaded as a thumbnail, so both Image ids and Decal ids work.
--- Set to 0 to use the game's own icon.
 local LOGO_ID = 77668182651543
 local LOGO = LOGO_ID ~= 0 and ("rbxthumb://type=Asset&id=" .. LOGO_ID .. "&w=150&h=150")
 	or ("rbxthumb://type=GameIcon&id=" .. game.GameId .. "&w=150&h=150")
 
 --// 2. App, overlays and window
 local app = cascade.New({
-	WindowPill = true, -- small pill at the top of the screen to re-open the window (mobile)
-	Theme = cascade.Themes.Dark, -- Dark / Light (changeable in the Settings tab)
-	Accent = cascade.Accents.Blue, -- see cascade.Accents (changeable in the Settings tab)
+	WindowPill = true,
+	Theme = cascade.Themes.Dark,
+	Accent = cascade.Accents.Blue,
 })
 
--- Watermark: draggable pill with your logo, FPS, ping and time
 local watermark = app:Watermark({
 	Title = "MTwin HUB",
 	Icon = LOGO,
-	Text = "Premium", -- any extra text, change it later with watermark.Text = "..."
+	Text = "Premium",
 })
 
--- Keybind list: shows every KeybindField linked to it and whether it's on
 local keybinds = app:KeybindList({
 	Title = "Keybinds",
 })
 
 local window = app:Window({
 	Title = "MTwin HUB",
-	Subtitle = "https://discord.gg/y35kyZM8sV", -- shown under the page title in the titlebar
+	Subtitle = "https://discord.gg/y35kyZM8sV",
 	Size = userInputService.TouchEnabled and UDim2.fromOffset(550, 325) or UDim2.fromOffset(850, 530),
-	UIBlur = false, -- the acrylic blur costs FPS on weaker devices
+	UIBlur = false,
 
-	-- Phones / tablets are detected automatically: 0.8 scale, window fitted to the screen, and a
-	-- round draggable button with the logo that shows / hides the window (tap = toggle, drag = move).
-	-- MobileToggleSide = "Left",   -- default "Right"
-	-- MobileToggle = true,         -- also show the round button on PC
-
-	-- Branding (top-left of the sidebar). With a brand set, the titlebar shows the current tab.
 	Logo = LOGO,
 	Brand = "MTwin HUB",
 	BrandSubtitle = "Premium",
 
-	-- Profile card (bottom-left). Its gear button has Censor Name / Hide Avatar.
 	ProfileName = localPlayer.Name,
 
-	-- Key time for paid scripts, shown on the profile card and the Dashboard:
-	--   KeyExpires = 1767225600   -- unix timestamp from your key system
-	--   KeyDuration = 3 * 86400   -- or seconds from now
-	--   KeyExpires = "Lifetime"
 	KeyExpires = os.time() + 3 * 86400 + 4 * 3600,
 	KeyExpired = function()
 		app:Notification({ Title = "Key expired", Subtitle = "Get a new key to keep using the script.", App = "MTwin HUB", Duration = 10 })
 	end,
 
-	-- Language picker next to the search field
 	Languages = { "EN", "TH" },
 	Language = "EN",
 	LanguageChanged = function(_, language: string)
 		applyLanguage(language)
 	end,
 
-	-- Configs. The UI is in the Settings tab; everything created with `Flag = "..."` is saved.
 	Config = {
 		Folder = "MTwinHub",
-		SubFolder = tostring(game.PlaceId), -- one set of configs per game
-		AutoLoad = true, -- loads this account's auto-load config, else the all-accounts one
+		SubFolder = tostring(game.PlaceId),
+		AutoLoad = true,
 	},
 
-	-- The titlebar's right button minimizes; Unload (Settings tab) removes the UI — clean up here
 	Unloaded = function()
 		for _, connection in ipairs(connections) do
 			connection:Disconnect()
@@ -133,26 +98,23 @@ local window = app:Window({
 })
 
 --// 3. UI
-
--- Dashboard: Information (player, key time, game, executor, version), update logs, links
 local dashboard = window:Dashboard({
 	Version = "1.0.16",
 	Logs = {
-		-- "+" added, "~" changed / fixed, "-" removed, "!" info
+
 		"+ More maps in Dungeon and Macro settings",
 		"~ Card priority could stop the script from loading",
 		"+ Improved UI loading on slower devices",
 		"+ Save Dungeon path previews by floor",
 		"~ Dungeon ignores unwanted maps in current and next-floor paths",
-		{ Type = "Removed", Text = "Old macro recorder" }, -- table form works too
+		{ Type = "Removed", Text = "Old macro recorder" },
 	},
 	LinksTitle = "MTwin HUB",
-	Discord = "https://discord.gg/y35kyZM8sV", -- click to copy
+	Discord = "https://discord.gg/y35kyZM8sV",
 })
 
-dashboard:Log("+ Thanks for using MTwin HUB!") -- add log entries at any time
+dashboard:Log("+ Thanks for using MTwin HUB!")
 
--- Sections group tabs in the sidebar
 local mainSection = window:Section({ Title = "Main", Disclosure = false })
 track(mainSection, "Title", "Main")
 
@@ -162,44 +124,28 @@ local farmingTab = mainSection:Tab({
 })
 track(farmingTab, "Title", "Farming")
 
--- Groupbox: titled box. Side = "Left" / "Right" puts boxes in two columns.
 local farmBox = farmingTab:Groupbox({
 	Side = "Left",
 	Title = "Auto Farm",
 	Description = "Farming options",
 	Icon = "sparkles",
-	-- Collapsed = true,      -- start closed
-	-- Collapsible = false,   -- header can't be clicked
+
 })
 
--- Row: a label on the left (Title / Subtitle), controls on the right via :Right()
 local autoFarmRow = farmBox:Row({ Title = "Auto Farm", Subtitle = "Automatically farms the selected enemy." })
 track(autoFarmRow.Structures.TitleStack, "Title", "AutoFarm")
 track(autoFarmRow.Structures.TitleStack, "Subtitle", "AutoFarmInfo")
 
--- Toggle
---   Flag:  name for configs / Flags:Get / Flags:OnChanged
---   Value: starting state
 autoFarmRow:Right():Toggle({ Flag = "AutoFarm", Value = false })
 
 farmBox:Row({ Title = "Auto Collect" }):Right():Toggle({ Flag = "AutoCollect", Value = true })
 
--- Slider (Minimum, Maximum, Value). A Label next to it shows the number (updated in the logic section).
 local distanceRow = farmBox:Row({ Title = "Farm Distance" })
 distanceRow:Right():Slider({ Flag = "FarmDistance", Minimum = 5, Maximum = 50, Value = 15 })
 local distanceLabel = distanceRow:Right():Label({ Text = "15" })
 
--- Stepper (Minimum, Maximum, Step, Value, Fielded = typeable)
 farmBox:Row({ Title = "Wave Count" }):Right():Stepper({ Flag = "WaveCount", Minimum = 1, Maximum = 50, Step = 1, Value = 10, Fielded = true })
 
--- KeybindField
---   Click it and press a key to bind (Escape = no key).
---   Right-click it (long-press on mobile) to pick the mode — Toggle / Hold / Always — or Remove the bind.
---   KeybindList / KeybindName / KeybindMode show it in the keybind list.
---   With a Flag, configs save the key (Flag) and the mode (Flag .. "Mode").
---   Works even when the game also uses the key; ignored only while typing in a text box.
---   ToggleFlag links it to a toggle: the mode drives the toggle (Toggle flips it, Hold = on while
---   held, Always = on), and clicking the toggle updates the keybind (like Obsidian's SyncToggleState).
 farmBox:Row({ Title = "Toggle Farm Key" }):Right():KeybindField({
 	Flag = "ToggleFarmKey",
 	Value = Enum.KeyCode.F,
@@ -224,19 +170,14 @@ local targetBox = farmingTab:Groupbox({
 	Icon = "crosshair",
 })
 
--- PopUpButton (dropdown): Value is the index of the selected option
 targetBox:Row({ Title = "Enemy" }):Right():PopUpButton({ Flag = "Enemy", Options = { "Slime", "Goblin", "Orc", "Dragon" }, Value = 1 })
 
--- Multi-select dropdown: Maximum > 1, Value is a list of indexes
 targetBox:Row({ Title = "Drops", Subtitle = "Pick up to 3" }):Right():PopUpButton({ Flag = "Drops", Options = { "Gold", "Gems", "Items", "Pets" }, Maximum = 3 })
 
--- RadioButtonGroup: Value is the index of the selected option
 targetBox:Row({ Title = "Priority" }):Right():RadioButtonGroup({ Flag = "Priority", Options = { "Closest", "Lowest HP" }, Value = 1 })
 
--- TextField (Placeholder, Value)
 targetBox:Row({ Title = "Webhook" }):Right():TextField({ Flag = "Webhook", Placeholder = "https://..." })
 
--- ButtonRow: buttons sharing the full width (State = "Primary" | "Secondary" | "Destructive")
 targetBox:ButtonRow({
 	Buttons = {
 		{ Label = "Teleport", State = "Primary", Pushed = function() print("Teleport!") end },
@@ -251,8 +192,6 @@ targetBox:ButtonRow({
 	},
 })
 
--- Chaining: a row's right side holds several controls, in creation order.
--- This row is  ESP .......... [color] [key] [toggle]  (like Obsidian's Toggle:AddColorPicker / AddKeyPicker)
 local visualsBox = farmingTab:Groupbox({
 	Side = "Right",
 	Title = "Visuals",
@@ -262,8 +201,6 @@ local visualsBox = farmingTab:Groupbox({
 
 local espRow = visualsBox:Row({ Title = "ESP", Subtitle = "Highlight enemies" })
 
--- ColorPicker: click the swatch (saturation / brightness, hue, hex, RGB, copy / paste).
---   Transparency = number adds a transparency bar; ValueChanged gets (color, transparency).
 local espColor = espRow:Right():ColorPicker({
 	Flag = "EspColor",
 	Value = Color3.fromRGB(0, 255, 140),
@@ -276,12 +213,11 @@ espRow:Right():KeybindField({
 	Value = Enum.KeyCode.E,
 	KeybindList = keybinds,
 	KeybindName = "ESP",
-	ToggleFlag = "Esp", -- the key drives the ESP toggle, using the mode picked with right-click
+	ToggleFlag = "Esp",
 })
 
 espRow:Right():Toggle({ Flag = "Esp", Value = false })
 
--- Same idea with just a color: the text color of the ESP labels
 local namesRow = visualsBox:Row({ Title = "Show Names" })
 local namesColor = namesRow:Right():ColorPicker({ Flag = "EspNameColor", Value = Color3.new(1, 1, 1), Title = "Name Color" })
 namesRow:Right():Toggle({ Flag = "EspNames", Value = true })
@@ -294,15 +230,13 @@ farmingTab:Groupbox({
 	Collapsed = true,
 }):Row({ Title = "Debug Prints" }):Right():Toggle({ Flag = "DebugPrints" })
 
--- Teleport tab: a PriorityList. Drag a card (mouse or finger) to reorder; the others make room.
--- Value = list of names, first = highest priority. Saved in configs like everything with a Flag.
 local teleportTab = mainSection:Tab({ Title = "Teleport", Icon = "map-pin" })
 
 teleportTab:PageSection({ Title = "Priority teleport" }):PriorityList({
 	Flag = "JoinPriority",
 	Title = "Join priority",
 	Subtitle = "Top enabled route wins; routing repeats after every visit to the lobby.",
-	Columns = 2, -- phones drop to 1 column automatically
+	Columns = 2,
 	Values = {
 		"Auto Join Challenge",
 		"Auto Join Story / Inf",
@@ -315,8 +249,6 @@ teleportTab:PageSection({ Title = "Priority teleport" }):PriorityList({
 	},
 })
 
--- FarmStats: external full-screen "black screen" (outside the window): big session timer,
--- stat tiles and materials. 3D rendering is off while it's up (Disable3D = false keeps it on).
 local farmStats = app:FarmStats({
 	Title = "MTwin HUB",
 	Subtitle = "https://discord.gg/y35kyZM8sV",
@@ -334,12 +266,10 @@ local farmStats = app:FarmStats({
 		{ Name = "Gold Ore", Count = 1840, Gain = 120 },
 	},
 	VisibleChanged = function(_, visible)
-		Flags:Set("FarmScreen", visible) -- keep the toggle below in sync with the Close button
+		Flags:Set("FarmScreen", visible)
 	end,
 })
 
--- FarmHud: small draggable panel over the game. Source = farmStats shows the same numbers,
--- the button opens the black screen, StatusFlag shows "Farming" / "Idle".
 local hud = app:FarmHud({
 	Title = "MTwin HUB",
 	Icon = LOGO,
@@ -358,20 +288,16 @@ screenBox:ButtonRow({
 	},
 })
 
--- Settings tab in one call: theme, accent, menu key, watermark / keybind list toggles, unload, Configs
 local settingsTab = window:Settings({
 	Watermark = watermark,
 	KeybindList = keybinds,
-	MenuKey = Enum.KeyCode.RightControl, -- shows / hides the menu; changeable in the tab
+	MenuKey = Enum.KeyCode.RightControl,
 })
 track(settingsTab, "Title", "Settings")
 
 --// 4. Logic
--- Flags:OnChanged runs on clicks, drags, Flags:Set and config loads.
--- Flags:Get("Name") reads a value anywhere.
-
 Flags:OnChanged("JoinPriority", function(order)
-	print("Join priority:", table.concat(order, " > ")) -- order[1] = try this route first
+	print("Join priority:", table.concat(order, " > "))
 end)
 
 Flags:OnChanged("FarmScreen", function(enabled: boolean)
@@ -383,7 +309,7 @@ Flags:OnChanged("ShowFarmHud", function(enabled: boolean)
 end)
 
 Flags:OnChanged("AutoFarm", function(enabled: boolean)
-	print("Auto farm:", enabled) -- fires for clicks, the F key (any mode) and config loads
+	print("Auto farm:", enabled)
 end)
 
 Flags:OnChanged("ToggleFarmKey", function(key: Enum.KeyCode)
@@ -394,7 +320,6 @@ Flags:OnChanged("FarmDistance", function(value: number)
 	distanceLabel.Text = tostring(math.floor(value + 0.5))
 end)
 
--- Chained ESP row: the key drives the toggle (ToggleFlag), the colors only show while their toggle is on
 Flags:OnChanged("Esp", function(enabled: boolean)
 	espColor.Visible = enabled
 	print("ESP:", enabled)
@@ -412,14 +337,12 @@ Flags:OnChanged("Enemy", function(index: number)
 	print("Enemy:", ({ "Slime", "Goblin", "Orc", "Dragon" })[index])
 end)
 
--- Example loop that reads flags (stopped on unload by checking the global)
 getgenv().MTwinHubLoaded = true
 
 task.spawn(function()
 	while getgenv().MTwinHubLoaded do
 		if Flags:Get("AutoFarm") then
-			-- farm here, using Flags:Get("FarmDistance"), Flags:Get("Enemy")...
-			-- then update the stats (the black screen and the HUD both show them):
+
 			farmStats:Increment("Gems", math.random(5, 20))
 			farmStats:UpdateMaterial("Gold Ore", (farmStats:Get("Gems") or 0) // 10, 4)
 			hud:SetItems({ { Name = "Gold Ore", Amount = 4 }, { Name = "Star Fruit", Amount = 1 } })
