@@ -146,6 +146,8 @@ return function(self, onTap: () -> ())
 		end
 
 		moved = true
+		-- Placed by the player: overlays (eg. the farm HUD) stop moving it out of their way
+		structures.Body:SetAttribute("UserMoved", true)
 		structures.Body.Position = UDim2.new(
 			positionStart.X.Scale,
 			positionStart.X.Offset + delta.X,

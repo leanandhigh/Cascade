@@ -635,6 +635,10 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 				structures.Timer.Text = Store.Clock(os.clock() - timerStart)
 			end
 
+			if structures.PlaceMobileToggle then
+				structures.PlaceMobileToggle()
+			end
+
 			task.wait(1)
 		end
 	end)
@@ -653,6 +657,53 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 	draggable(body, body, function()
 		return properties.Draggable
 	end)
+
+	-- Phones: the round menu toggle lives in the same top-right corner. While they'd overlap,
+	-- the toggle sits just under the HUD; it goes back home when the HUD is hidden / moved away.
+	-- (Not once the player has dragged the toggle themselves.)
+	local toggleHome = nil
+	local GAP = 10
+
+	local function placeMobileToggle()
+		local root = body.Parent
+		local toggle = root and root:FindFirstChild("MobileToggle")
+
+		if not toggle or not toggle:IsA("GuiObject") or toggle:GetAttribute("UserMoved") then
+			return
+		end
+
+		toggleHome = toggleHome or toggle.Position
+
+		local rootSize = root.AbsoluteSize
+		local rootPosition = root:IsA("GuiObject") and root.AbsolutePosition or Vector2.zero
+		local size = toggle.AbsoluteSize
+		local homeX = rootSize.X * toggleHome.X.Scale + toggleHome.X.Offset - size.X * toggle.AnchorPoint.X
+		local homeY = rootSize.Y * toggleHome.Y.Scale + toggleHome.Y.Offset - size.Y * toggle.AnchorPoint.Y
+
+		local hudPosition = body.AbsolutePosition - rootPosition
+		local hudSize = body.AbsoluteSize
+
+		local overlaps = body.Visible
+			and homeX < hudPosition.X + hudSize.X
+			and hudPosition.X < homeX + size.X
+			and homeY < hudPosition.Y + hudSize.Y + GAP
+			and hudPosition.Y < homeY + size.Y
+
+		if overlaps then
+			local y = hudPosition.Y + hudSize.Y + GAP + size.Y * toggle.AnchorPoint.Y
+
+			toggle.Position = UDim2.new(toggleHome.X.Scale, toggleHome.X.Offset, 0, y)
+		else
+			toggle.Position = toggleHome
+		end
+	end
+
+	for _, property in ipairs({ "AbsolutePosition", "AbsoluteSize", "Visible" }) do
+		body:GetPropertyChangedSignal(property):Connect(placeMobileToggle)
+	end
+
+	task.defer(placeMobileToggle)
+	structures.PlaceMobileToggle = placeMobileToggle
 
 	structures.Button.MouseButton1Click:Connect(function()
 		local button = buttonConfig
