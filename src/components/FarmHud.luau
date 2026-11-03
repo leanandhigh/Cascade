@@ -348,9 +348,8 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 		if row then
 			local text, rate = store:Format(name)
 
-			row.Value.Text = text
-			row.Rate.Text = rate or ""
-			row.Rate.Visible = rate ~= nil
+			row.Value.Text = rate and string.format('%s  <font size="11" transparency="0.45">%s</font>', text, rate)
+				or text
 		end
 	end
 
@@ -394,52 +393,24 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 				},
 			}),
 
-			create("Frame")({
-				Name = "Values",
+			-- One right-aligned label: value, then the rate in smaller / dimmer text (two
+			-- auto-sized labels could overlap before the font finished loading)
+			label({
+				Name = "Value",
 				AnchorPoint = Vector2.new(1, 0.5),
-				BackgroundTransparency = 1,
+				FontFace = SEMIBOLD,
 				Position = UDim2.fromScale(1, 0.5),
+				RichText = true,
 				Size = UDim2.new(0.55, 0, 0, 16),
-				ZIndex = 50,
+				Text = "--",
+				TextSize = 13,
+				TextTruncate = Enum.TextTruncate.AtEnd,
+				TextXAlignment = Enum.TextXAlignment.Right,
 
-				create("UIListLayout")({
-					FillDirection = Enum.FillDirection.Horizontal,
-					HorizontalAlignment = Enum.HorizontalAlignment.Right,
-					Padding = UDim.new(0, 6),
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-				}),
-
-				label({
-					Name = "Value",
-					AutomaticSize = Enum.AutomaticSize.X,
-					FontFace = SEMIBOLD,
-					LayoutOrder = 1,
-					Size = UDim2.fromOffset(0, 16),
-					Text = "--",
-					TextSize = 13,
-
-					__dynamicKeys = {
-						TextColor3 = theme.Text.Primary[1],
-						TextTransparency = theme.Text.Primary[2],
-					},
-				}),
-
-				label({
-					Name = "Rate",
-					AutomaticSize = Enum.AutomaticSize.X,
-					FontFace = REGULAR,
-					LayoutOrder = 2,
-					Size = UDim2.fromOffset(0, 16),
-					Text = "",
-					TextSize = 11,
-					Visible = false,
-
-					__dynamicKeys = {
-						TextColor3 = theme.Text.Secondary[1],
-						TextTransparency = theme.Text.Secondary[2],
-					},
-				}),
+				__dynamicKeys = {
+					TextColor3 = theme.Text.Primary[1],
+					TextTransparency = theme.Text.Primary[2],
+				},
 			}),
 		}).__instance :: Frame
 
@@ -454,12 +425,9 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 			text.Size = UDim2.new(0.45, 0, 0, 16)
 		end
 
-		local values = frame:FindFirstChild("Values")
-
 		rows[definition.Name] = {
 			Frame = frame,
-			Value = values:FindFirstChild("Value") :: TextLabel,
-			Rate = values:FindFirstChild("Rate") :: TextLabel,
+			Value = frame:FindFirstChild("Value") :: TextLabel,
 		}
 		renderRow(definition.Name)
 	end
@@ -664,6 +632,18 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 	local toggleHome = nil
 	local GAP = 10
 
+	-- Rectangle of an overlay element in layout (Position) space. Uses Position + AnchorPoint and
+	-- the element's size only, never AbsolutePosition (which can be shifted by the top-bar inset).
+	local function layoutRect(gui: GuiObject, rootSize: Vector2, position: UDim2?)
+		position = position or gui.Position
+
+		local size = gui.AbsoluteSize
+		local x = rootSize.X * position.X.Scale + position.X.Offset - size.X * gui.AnchorPoint.X
+		local y = rootSize.Y * position.Y.Scale + position.Y.Offset - size.Y * gui.AnchorPoint.Y
+
+		return x, y, size
+	end
+
 	local function placeMobileToggle()
 		local root = body.Parent
 		local toggle = root and root:FindFirstChild("MobileToggle")
@@ -675,30 +655,27 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 		toggleHome = toggleHome or toggle.Position
 
 		local rootSize = root.AbsoluteSize
-		local rootPosition = root:IsA("GuiObject") and root.AbsolutePosition or Vector2.zero
-		local size = toggle.AbsoluteSize
-		local homeX = rootSize.X * toggleHome.X.Scale + toggleHome.X.Offset - size.X * toggle.AnchorPoint.X
-		local homeY = rootSize.Y * toggleHome.Y.Scale + toggleHome.Y.Offset - size.Y * toggle.AnchorPoint.Y
-
-		local hudPosition = body.AbsolutePosition - rootPosition
-		local hudSize = body.AbsoluteSize
+		local homeX, homeY, size = layoutRect(toggle, rootSize, toggleHome)
+		local hudX, hudY, hudSize = layoutRect(body, rootSize)
 
 		local overlaps = body.Visible
-			and homeX < hudPosition.X + hudSize.X
-			and hudPosition.X < homeX + size.X
-			and homeY < hudPosition.Y + hudSize.Y + GAP
-			and hudPosition.Y < homeY + size.Y
+			and homeX < hudX + hudSize.X
+			and hudX < homeX + size.X
+			and homeY < hudY + hudSize.Y + GAP
+			and hudY < homeY + size.Y
+
+		local target = toggleHome
 
 		if overlaps then
-			local y = hudPosition.Y + hudSize.Y + GAP + size.Y * toggle.AnchorPoint.Y
+			target = UDim2.new(toggleHome.X.Scale, toggleHome.X.Offset, 0, hudY + hudSize.Y + GAP + size.Y * toggle.AnchorPoint.Y)
+		end
 
-			toggle.Position = UDim2.new(toggleHome.X.Scale, toggleHome.X.Offset, 0, y)
-		else
-			toggle.Position = toggleHome
+		if toggle.Position ~= target then
+			toggle.Position = target
 		end
 	end
 
-	for _, property in ipairs({ "AbsolutePosition", "AbsoluteSize", "Visible" }) do
+	for _, property in ipairs({ "Position", "AbsoluteSize", "Visible" }) do
 		body:GetPropertyChangedSignal(property):Connect(placeMobileToggle)
 	end
 

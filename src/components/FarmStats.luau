@@ -598,9 +598,14 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 		if tile then
 			local value, rate = store:Format(name)
 
-			tile.Value.Text = value
-			tile.Rate.Text = rate or ""
-			tile.Rate.Visible = rate ~= nil
+			tile.Value.Text = rate
+					and string.format(
+						'%s  <font size="12" color="#%s">%s</font>',
+						value,
+						theme.Controls.Status.Added[1].Value:ToHex(),
+						rate
+					)
+				or value
 		end
 	end
 
@@ -641,43 +646,19 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 				},
 			}),
 
-			create("Frame")({
-				Name = "Values",
+			-- Value with the rate in smaller green text, as one label (no overlap while fonts load)
+			primary({
+				Name = "Value",
 				AnchorPoint = Vector2.new(0, 1),
-				BackgroundTransparency = 1,
+				FontFace = SEMIBOLD,
 				Position = UDim2.fromScale(0, 1),
+				RichText = true,
 				Size = UDim2.new(1, 0, 0, 28),
-
-				create("UIListLayout")({
-					FillDirection = Enum.FillDirection.Horizontal,
-					Padding = UDim.new(0, 8),
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					VerticalAlignment = Enum.VerticalAlignment.Bottom,
-				}),
-
-				primary({
-					Name = "Value",
-					AutomaticSize = Enum.AutomaticSize.X,
-					FontFace = SEMIBOLD,
-					Size = UDim2.fromOffset(0, 28),
-					Text = "0",
-					TextSize = 22,
-					TextXAlignment = Enum.TextXAlignment.Left,
-				}),
-
-				text({
-					Name = "Rate",
-					AutomaticSize = Enum.AutomaticSize.X,
-					LayoutOrder = 1,
-					Size = UDim2.fromOffset(0, 18),
-					Text = "",
-					TextSize = 12,
-					Visible = false,
-
-					__dynamicKeys = {
-						TextColor3 = theme.Controls.Status.Added[1],
-					},
-				}),
+				Text = "0",
+				TextSize = 22,
+				TextTruncate = Enum.TextTruncate.AtEnd,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Bottom,
 			}),
 		}).__instance :: Frame
 
@@ -685,12 +666,9 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 			icons.Apply(frame:FindFirstChild("Icon"), definition.Icon, nil, 14)
 		end
 
-		local values = frame:FindFirstChild("Values")
-
 		tiles[definition.Name] = {
 			Frame = frame,
-			Value = values:FindFirstChild("Value") :: TextLabel,
-			Rate = values:FindFirstChild("Rate") :: TextLabel,
+			Value = frame:FindFirstChild("Value") :: TextLabel,
 		}
 
 		renderTile(definition.Name)

@@ -146,8 +146,12 @@ return function(self, onTap: () -> ())
 		end
 
 		moved = true
-		-- Placed by the player: overlays (eg. the farm HUD) stop moving it out of their way
-		structures.Body:SetAttribute("UserMoved", true)
+
+		-- Placed by the player (a real drag, not a shaky tap): overlays such as the farm HUD
+		-- stop moving it out of their way
+		if math.abs(delta.X) + math.abs(delta.Y) > 24 then
+			structures.Body:SetAttribute("UserMoved", true)
+		end
 		structures.Body.Position = UDim2.new(
 			positionStart.X.Scale,
 			positionStart.X.Offset + delta.X,

@@ -6750,33 +6750,34 @@ Connect(function()if q.UserInputState~=Enum.UserInputState.End then return end r
 Connect(function(q)if not n or not o or not p then return end if q.UserInputType
 ~=Enum.UserInputType.Touch and q.UserInputType~=Enum.UserInputType.MouseMovement
 then return end local r=q.Position-o if not m and math.abs(r.X)+math.abs(r.Y)<j
-then return end m=true l.Body:SetAttribute('UserMoved',true)l.Body.Position=
-UDim2.new(p.X.Scale,p.X.Offset+r.X,p.Y.Scale,p.Y.Offset+r.Y)end)return l end end
-function a.t()local c=a.cache.t if not c then c={c=b()}a.cache.t=c end return c.
-c end end do local aa=function()a.b()return function(b,c)local d,e,f,g,h,i=a.k()
-,a.e(),a.d(),a.c(),a.o()(b)local j,k,l,m,n,o,p,q,r,s=a.p(),a.q(),a.i(),a.r()(b),
-a.h(),f.Create,e.UserInputService,e.TweenService,e.Players,b.__container or b.
-__instance or b local t,u,v,w,x,y,z,A=o'Frame'{Name='Window',
-BackgroundTransparency=1,BorderSizePixel=0,Size=UDim2.fromScale(1,1),AnchorPoint
-=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Parent=s}.__instance,{}c
-=c or{}local B=c.Mobile if B==nil then B=a.a().IsMobile()end local C=B and(c.
-MobileScale or 0.8)or 1 c.Size=c.Size or(B and UDim2.fromOffset(620,380)or UDim2
-.fromOffset(850,530))if B then local D=workspace.CurrentCamera local E=D and D.
-ViewportSize or Vector2.new(1280,720)local F,G=math.floor((E.X-24)/C),math.
-floor((E.Y-24)/C)c.Size=UDim2.fromOffset(math.min(c.Size.X.Offset,F),math.min(c.
-Size.Y.Offset,G))end c.Maximized=c.Maximized==true c.Minimized=c.Minimized==true
-c.Searching=c.Searching~=false c.Resizable=c.Resizable~=false c.Draggable=c.
-Draggable~=false c.CanExit=c.CanExit~=false c.CanMinimize=c.CanMinimize~=false c
-.CanZoom=c.CanZoom~=false c.Resizable=c.Resizable~=false c.Dropshadow=c.
-Dropshadow~=false c.UIBlur=c.UIBlur~=false c.Title=c.Title or'Title'c.
-WindowControls=c.WindowControls==true c.CanUnload=c.CanUnload~=false c.
-UserProfile=c.UserProfile~=false c.CensorName=c.CensorName==true c.HideAvatar=c.
-HideAvatar==true c.ProfileSubtitle=c.ProfileSubtitle or'Account'if c.KeyDuration
-then c.KeyExpires=os.time()+c.KeyDuration end if c.Languages and not c.Language
-then c.Language=c.Languages[1]end local D,E=a.s()(b,c)u.Body=(g.Apply(c,o'Frame'
-{Name='Body',BorderSizePixel=0,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.
-fromScale(0.5,0.5),Parent=t,__dynamicKeys={BackgroundColor3=b.Theme.Controls.
-Sidebar[1],BackgroundTransparency=b.Theme.Controls.Sidebar[2]},__contextKeys={
+then return end m=true if math.abs(r.X)+math.abs(r.Y)>24 then l.Body:
+SetAttribute('UserMoved',true)end l.Body.Position=UDim2.new(p.X.Scale,p.X.Offset
++r.X,p.Y.Scale,p.Y.Offset+r.Y)end)return l end end function a.t()local c=a.cache
+.t if not c then c={c=b()}a.cache.t=c end return c.c end end do local aa=
+function()a.b()return function(b,c)local d,e,f,g,h,i=a.k(),a.e(),a.d(),a.c(),a.
+o()(b)local j,k,l,m,n,o,p,q,r,s=a.p(),a.q(),a.i(),a.r()(b),a.h(),f.Create,e.
+UserInputService,e.TweenService,e.Players,b.__container or b.__instance or b
+local t,u,v,w,x,y,z,A=o'Frame'{Name='Window',BackgroundTransparency=1,
+BorderSizePixel=0,Size=UDim2.fromScale(1,1),AnchorPoint=Vector2.new(0.5,0.5),
+Position=UDim2.fromScale(0.5,0.5),Parent=s}.__instance,{}c=c or{}local B=c.
+Mobile if B==nil then B=a.a().IsMobile()end local C=B and(c.MobileScale or 0.8)
+or 1 c.Size=c.Size or(B and UDim2.fromOffset(620,380)or UDim2.fromOffset(850,530
+))if B then local D=workspace.CurrentCamera local E=D and D.ViewportSize or
+Vector2.new(1280,720)local F,G=math.floor((E.X-24)/C),math.floor((E.Y-24)/C)c.
+Size=UDim2.fromOffset(math.min(c.Size.X.Offset,F),math.min(c.Size.Y.Offset,G))
+end c.Maximized=c.Maximized==true c.Minimized=c.Minimized==true c.Searching=c.
+Searching~=false c.Resizable=c.Resizable~=false c.Draggable=c.Draggable~=false c
+.CanExit=c.CanExit~=false c.CanMinimize=c.CanMinimize~=false c.CanZoom=c.CanZoom
+~=false c.Resizable=c.Resizable~=false c.Dropshadow=c.Dropshadow~=false c.UIBlur
+=c.UIBlur~=false c.Title=c.Title or'Title'c.WindowControls=c.WindowControls==
+true c.CanUnload=c.CanUnload~=false c.UserProfile=c.UserProfile~=false c.
+CensorName=c.CensorName==true c.HideAvatar=c.HideAvatar==true c.ProfileSubtitle=
+c.ProfileSubtitle or'Account'if c.KeyDuration then c.KeyExpires=os.time()+c.
+KeyDuration end if c.Languages and not c.Language then c.Language=c.Languages[1]
+end local D,E=a.s()(b,c)u.Body=(g.Apply(c,o'Frame'{Name='Body',BorderSizePixel=0
+,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Parent=t,
+__dynamicKeys={BackgroundColor3=b.Theme.Controls.Sidebar[1],
+BackgroundTransparency=b.Theme.Controls.Sidebar[2]},__contextKeys={
 BackgroundTransparency=function()return c.UIBlur and b.Theme.Controls.Sidebar[2]
 .Value or 0 end},o'UICorner'{Name='UICorner',CornerRadius=UDim.new(0,10)},o
 'UIListLayout'{Name='UIListLayout',FillDirection=Enum.FillDirection.Horizontal,
@@ -9348,33 +9349,29 @@ Started=(u:FindFirstChild'Started')ar.Stats=v ar.Materials=x ar.MaterialsCount=(
 w:FindFirstChild'Count')ar.Empty=(q:FindFirstChild'Empty')ar.Hint=(y:
 FindFirstChild'Hint')ar.Close=(y:FindFirstChild'Close')ah.FitText(ar.StatusLabel
 ,0,18)ah.ProtectUI(n)local A=function(A)local B=as[A]if B then local C,D=g:
-Format(A)B.Value.Text=C B.Rate.Text=D or''B.Rate.Visible=D~=nil end end local B=
-function(B,C)local D=(l{Name='Stat',LayoutOrder=C,Parent=v,ak'UIPadding'{
-PaddingBottom=UDim.new(0,12),PaddingLeft=UDim.new(0,16),PaddingRight=UDim.new(0,
-12),PaddingTop=UDim.new(0,12)},i{Name='Caption',FontFace=ao,Size=UDim2.new(1,-22
-,0,14),Text=string.upper(B.Label),TextSize=11,TextTruncate=Enum.TextTruncate.
-AtEnd,TextXAlignment=Enum.TextXAlignment.Left},ak'ImageLabel'{Name='Icon',
-AnchorPoint=Vector2.new(1,0),BackgroundTransparency=1,Position=UDim2.fromScale(1
-,0),ScaleType=Enum.ScaleType.Fit,Size=UDim2.fromOffset(14,14),Visible=B.Icon~=
-nil,__dynamicKeys={ImageColor3=aq.Controls.Selection[1]}},ak'Frame'{Name=
-'Values',AnchorPoint=Vector2.new(0,1),BackgroundTransparency=1,Position=UDim2.
-fromScale(0,1),Size=UDim2.new(1,0,0,28),ak'UIListLayout'{FillDirection=Enum.
-FillDirection.Horizontal,Padding=UDim.new(0,8),SortOrder=Enum.SortOrder.
-LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Bottom},k{Name='Value',
-AutomaticSize=Enum.AutomaticSize.X,FontFace=ao,Size=UDim2.fromOffset(0,28),Text=
-'0',TextSize=22,TextXAlignment=Enum.TextXAlignment.Left},h{Name='Rate',
-AutomaticSize=Enum.AutomaticSize.X,LayoutOrder=1,Size=UDim2.fromOffset(0,18),
-Text='',TextSize=12,Visible=false,__dynamicKeys={TextColor3=aq.Controls.Status.
-Added[1]}}}}.__instance)if B.Icon then ai.Apply(D:FindFirstChild'Icon',B.Icon,
-nil,14)end local E=D:FindFirstChild'Values'as[B.Name]={Frame=D,Value=(E:
-FindFirstChild'Value'),Rate=(E:FindFirstChild'Rate')}A(B.Name)end local C,D,E=
-function()for C,D in pairs(as)do if not g.ByName[C]then D.Frame:Destroy()as[C]=
-nil end end local C=0 for D,E in ipairs(g.Stats)do if E.Type~='Timer'then C+=1
-if as[E.Name]then as[E.Name].Frame.LayoutOrder=D else B(E,D)end end end local D,
-E=math.clamp(C,1,4),v:FindFirstChildOfClass'UIGridLayout'E.CellSize=UDim2.new(1/
-D,-math.ceil(12*(D-1)/D),0,74)v.Visible=C>0 end,function(C,D,E)D.Text=(E>0 and
-'+'or'')..aj.FormatNumber(E,'short')local F,G=aq.Controls.Status.Added[1].Value,
-aq.Controls.Status.Removed[1].Value if E>0 then C.BackgroundColor3=F C.
+Format(A)B.Value.Text=D and string.format(
+'%s  <font size="12" color="#%s">%s</font>',C,aq.Controls.Status.Added[1].Value:
+ToHex(),D)or C end end local B=function(B,C)local D=(l{Name='Stat',LayoutOrder=C
+,Parent=v,ak'UIPadding'{PaddingBottom=UDim.new(0,12),PaddingLeft=UDim.new(0,16),
+PaddingRight=UDim.new(0,12),PaddingTop=UDim.new(0,12)},i{Name='Caption',FontFace
+=ao,Size=UDim2.new(1,-22,0,14),Text=string.upper(B.Label),TextSize=11,
+TextTruncate=Enum.TextTruncate.AtEnd,TextXAlignment=Enum.TextXAlignment.Left},ak
+'ImageLabel'{Name='Icon',AnchorPoint=Vector2.new(1,0),BackgroundTransparency=1,
+Position=UDim2.fromScale(1,0),ScaleType=Enum.ScaleType.Fit,Size=UDim2.
+fromOffset(14,14),Visible=B.Icon~=nil,__dynamicKeys={ImageColor3=aq.Controls.
+Selection[1]}},k{Name='Value',AnchorPoint=Vector2.new(0,1),FontFace=ao,Position=
+UDim2.fromScale(0,1),RichText=true,Size=UDim2.new(1,0,0,28),Text='0',TextSize=22
+,TextTruncate=Enum.TextTruncate.AtEnd,TextXAlignment=Enum.TextXAlignment.Left,
+TextYAlignment=Enum.TextYAlignment.Bottom}}.__instance)if B.Icon then ai.Apply(D
+:FindFirstChild'Icon',B.Icon,nil,14)end as[B.Name]={Frame=D,Value=(D:
+FindFirstChild'Value')}A(B.Name)end local C,D,E=function()for C,D in pairs(as)do
+if not g.ByName[C]then D.Frame:Destroy()as[C]=nil end end local C=0 for D,E in
+ipairs(g.Stats)do if E.Type~='Timer'then C+=1 if as[E.Name]then as[E.Name].Frame
+.LayoutOrder=D else B(E,D)end end end local D,E=math.clamp(C,1,4),v:
+FindFirstChildOfClass'UIGridLayout'E.CellSize=UDim2.new(1/D,-math.ceil(12*(D-1)/
+D),0,74)v.Visible=C>0 end,function(C,D,E)D.Text=(E>0 and'+'or'')..aj.
+FormatNumber(E,'short')local F,G=aq.Controls.Status.Added[1].Value,aq.Controls.
+Status.Removed[1].Value if E>0 then C.BackgroundColor3=F C.
 BackgroundTransparency=0.84 D.TextColor3=F D.TextTransparency=0 elseif E<0 then
 C.BackgroundColor3=G C.BackgroundTransparency=0.84 D.TextColor3=G D.
 TextTransparency=0 else C.BackgroundColor3=aq.Controls.Card.Hover[1].Value C.
@@ -9531,33 +9528,27 @@ ar.StatusLabel=(ar.Status:FindFirstChild'Label')ar.Divider=(g:FindFirstChild
 'Divider')ar.Rows=(g:FindFirstChild'Rows')ar.ItemsDivider=(g:FindFirstChild
 'ItemsDivider')ar.Items=(g:FindFirstChild'Items')ah.FitText(ar.StatusLabel,0,16)
 local h,i=function(h)local i=ae.Only return typeof(i)~='table'or table.find(i,h)
-~=nil end,function(h)local i=as[h]if i then local k,l=e:Format(h)i.Value.Text=k
-i.Rate.Text=l or''i.Rate.Visible=l~=nil end end local k=function(k,l)local m=(am
-'Frame'{Name='Row',BackgroundTransparency=1,LayoutOrder=l,Size=UDim2.new(1,0,0,
-ac),Parent=ar.Rows,ZIndex=50,am'ImageLabel'{Name='Icon',AnchorPoint=Vector2.new(
-0,0.5),BackgroundTransparency=1,Position=UDim2.fromScale(0,0.5),ScaleType=Enum.
+~=nil end,function(h)local i=as[h]if i then local k,l=e:Format(h)i.Value.Text=l
+and string.format('%s  <font size="11" transparency="0.45">%s</font>',k,l)or k
+end end local k=function(k,l)local m=(am'Frame'{Name='Row',
+BackgroundTransparency=1,LayoutOrder=l,Size=UDim2.new(1,0,0,ac),Parent=ar.Rows,
+ZIndex=50,am'ImageLabel'{Name='Icon',AnchorPoint=Vector2.new(0,0.5),
+BackgroundTransparency=1,Position=UDim2.fromScale(0,0.5),ScaleType=Enum.
 ScaleType.Fit,Size=UDim2.fromOffset(14,14),ZIndex=50,__dynamicKeys={ImageColor3=
 aq.Controls.Selection[1]}},f{Name='Label',AnchorPoint=Vector2.new(0,0.5),
 FontFace=an,Position=UDim2.new(0,22,0.5,0),Size=UDim2.new(0.45,-22,0,16),Text=k.
 Label,TextSize=13,TextTruncate=Enum.TextTruncate.AtEnd,TextXAlignment=Enum.
 TextXAlignment.Left,__dynamicKeys={TextColor3=aq.Text.Secondary[1],
-TextTransparency=aq.Text.Secondary[2]}},am'Frame'{Name='Values',AnchorPoint=
-Vector2.new(1,0.5),BackgroundTransparency=1,Position=UDim2.fromScale(1,0.5),Size
-=UDim2.new(0.55,0,0,16),ZIndex=50,am'UIListLayout'{FillDirection=Enum.
-FillDirection.Horizontal,HorizontalAlignment=Enum.HorizontalAlignment.Right,
-Padding=UDim.new(0,6),SortOrder=Enum.SortOrder.LayoutOrder,VerticalAlignment=
-Enum.VerticalAlignment.Center},f{Name='Value',AutomaticSize=Enum.AutomaticSize.X
-,FontFace=ao,LayoutOrder=1,Size=UDim2.fromOffset(0,16),Text='--',TextSize=13,
-__dynamicKeys={TextColor3=aq.Text.Primary[1],TextTransparency=aq.Text.Primary[2]
-}},f{Name='Rate',AutomaticSize=Enum.AutomaticSize.X,FontFace=an,LayoutOrder=2,
-Size=UDim2.fromOffset(0,16),Text='',TextSize=11,Visible=false,__dynamicKeys={
-TextColor3=aq.Text.Secondary[1],TextTransparency=aq.Text.Secondary[2]}}}}.
-__instance)local n,o=(m:FindFirstChild'Icon'),(m:FindFirstChild'Label')if k.Icon
-then ai.Apply(n,k.Icon,nil,14)else n.Visible=false o.Position=UDim2.new(0,0,0.5,
-0)o.Size=UDim2.new(0.45,0,0,16)end local p=m:FindFirstChild'Values'as[k.Name]={
-Frame=m,Value=(p:FindFirstChild'Value'),Rate=(p:FindFirstChild'Rate')}i(k.Name)
-end local l,m,n=function()for l,m in pairs(as)do if not e.ByName[l]or not h(l)
-then m.Frame:Destroy()as[l]=nil end end for l,m in ipairs(e.Stats)do if m.Type~=
+TextTransparency=aq.Text.Secondary[2]}},f{Name='Value',AnchorPoint=Vector2.new(1
+,0.5),FontFace=ao,Position=UDim2.fromScale(1,0.5),RichText=true,Size=UDim2.new(
+0.55,0,0,16),Text='--',TextSize=13,TextTruncate=Enum.TextTruncate.AtEnd,
+TextXAlignment=Enum.TextXAlignment.Right,__dynamicKeys={TextColor3=aq.Text.
+Primary[1],TextTransparency=aq.Text.Primary[2]}}}.__instance)local n,o=(m:
+FindFirstChild'Icon'),(m:FindFirstChild'Label')if k.Icon then ai.Apply(n,k.Icon,
+nil,14)else n.Visible=false o.Position=UDim2.new(0,0,0.5,0)o.Size=UDim2.new(0.45
+,0,0,16)end as[k.Name]={Frame=m,Value=(m:FindFirstChild'Value')}i(k.Name)end
+local l,m,n=function()for l,m in pairs(as)do if not e.ByName[l]or not h(l)then m
+.Frame:Destroy()as[l]=nil end end for l,m in ipairs(e.Stats)do if m.Type~=
 'Timer'and h(m.Name)then if as[m.Name]then as[m.Name].Frame.LayoutOrder=l else
 k(m,l)end end end local l=next(as)~=nil ar.Divider.Visible=l ar.Rows.Visible=l
 end,function(l)for m,n in ipairs(at)do n:Destroy()end table.clear(at)l=l or{}
@@ -9592,38 +9583,38 @@ true task.spawn(function()while q do if g.Visible then ar.Timer.Text=al.Clock(os
 .clock()-av)end if ar.PlaceMobileToggle then ar.PlaceMobileToggle()end task.
 wait(1)end end)aq.Controls.Status.Info[1]:Connect(n)g.Destroying:Connect(
 function()q=false p()if d then e:Destroy()end end)ak(g,g,function()return ae.
-Draggable end)local r,s=10 local t=function()local t=g.Parent local u=t and t:
-FindFirstChild'MobileToggle'if not u or not u:IsA'GuiObject'or u:GetAttribute
-'UserMoved'then return end s=s or u.Position local v,w,x=t.AbsoluteSize,t:IsA
-'GuiObject'and t.AbsolutePosition or Vector2.zero,u.AbsoluteSize local y,z,A,B=v
-.X*s.X.Scale+s.X.Offset-x.X*u.AnchorPoint.X,v.Y*s.Y.Scale+s.Y.Offset-x.Y*u.
-AnchorPoint.Y,g.AbsolutePosition-w,g.AbsoluteSize local C=g.Visible and y<A.X+B.
-X and A.X<y+x.X and z<A.Y+B.Y+r and A.Y<z+x.Y if C then local D=A.Y+B.Y+r+x.Y*u.
-AnchorPoint.Y u.Position=UDim2.new(s.X.Scale,s.X.Offset,0,D)else u.Position=s
-end end for u,v in ipairs{'AbsolutePosition','AbsoluteSize','Visible'}do g:
-GetPropertyChangedSignal(v):Connect(t)end task.defer(t)ar.PlaceMobileToggle=t ar
-.Button.MouseButton1Click:Connect(function()local u=b if typeof(u)=='table'and u
-.Callback then task.spawn(u.Callback,c)end end)c=ag.Wrap(ae,{Title=function(u)ar
-.Title.Text=tostring(u or'')end,Icon=function(u)u=u or'chart-column'local v=ai.
-Apply(ar.Icon,u,nil,16)ar.Icon.Visible=v==true aw=not ai.IsGlyph(u)ar.Icon.
+Draggable end)local r,s,t=10,function(r,s,t)t=t or r.Position local u=r.
+AbsoluteSize local v,w=s.X*t.X.Scale+t.X.Offset-u.X*r.AnchorPoint.X,s.Y*t.Y.
+Scale+t.Y.Offset-u.Y*r.AnchorPoint.Y return v,w,u end local u=function()local u=
+g.Parent local v=u and u:FindFirstChild'MobileToggle'if not v or not v:IsA
+'GuiObject'or v:GetAttribute'UserMoved'then return end t=t or v.Position local w
+=u.AbsoluteSize local x,y,z=s(v,w,t)local A,B,C=s(g,w)local D,E=g.Visible and x<
+A+C.X and A<x+z.X and y<B+C.Y+r and B<y+z.Y,t if D then E=UDim2.new(t.X.Scale,t.
+X.Offset,0,B+C.Y+r+z.Y*v.AnchorPoint.Y)end if v.Position~=E then v.Position=E
+end end for v,w in ipairs{'Position','AbsoluteSize','Visible'}do g:
+GetPropertyChangedSignal(w):Connect(u)end task.defer(u)ar.PlaceMobileToggle=u ar
+.Button.MouseButton1Click:Connect(function()local v=b if typeof(v)=='table'and v
+.Callback then task.spawn(v.Callback,c)end end)c=ag.Wrap(ae,{Title=function(v)ar
+.Title.Text=tostring(v or'')end,Icon=function(v)v=v or'chart-column'local w=ai.
+Apply(ar.Icon,v,nil,16)ar.Icon.Visible=w==true aw=not ai.IsGlyph(v)ar.Icon.
 ImageColor3=aw and Color3.new(1,1,1)or aq.Controls.Selection[1].Value ar.Title.
-Position=UDim2.new(0,v and 23 or 0,0.5,0)end,Button=function(u)if typeof(u)==
-'function'then return end b=u local v=typeof(u)=='table'and u.Text or nil ar.
-Button.Text=tostring(v or'')ar.Button.Visible=v~=nil and v~=''end,Timer=function
-(u)ar.TimerRow.Visible=u~=false end,Only=function(u)ae.Only=u l()end,Draggable=
-function(u)ae.Draggable=u end,Status=function(u)o(u,ae.StatusKind)end,Items=
-function(u)m(u)end},ar.Body)c.Type='FarmHud'c.Theme=aq c.Structures=ar c.Store=e
-c.SetStatus=function(u,v,w)ae.Status=v ae.StatusKind=w o(v,w)end c.SetItems=
-function(u,v)ae.Items=v m(v)end c.SetButton=function(u,v,w)c.Button=v and{Text=v
-,Callback=w}or false end c.ResetTimer=function()av=os.clock()ar.Timer.Text=al.
-Clock(0)end c.SetElapsed=function(u,v)av=os.clock()-(tonumber(v)or 0)end c.Set=
-function(u,v,w)e:Set(tostring(v),w)end c.SetRow=c.Set c.Get=function(u,v)return
-e:Get(tostring(v))end c.Increment=function(u,v,w)e:Increment(tostring(v),w)end c
-.Reset=function(u,v)e:Reset(v and tostring(v)or nil)if v==nil then c:ResetTimer(
+Position=UDim2.new(0,w and 23 or 0,0.5,0)end,Button=function(v)if typeof(v)==
+'function'then return end b=v local w=typeof(v)=='table'and v.Text or nil ar.
+Button.Text=tostring(w or'')ar.Button.Visible=w~=nil and w~=''end,Timer=function
+(v)ar.TimerRow.Visible=v~=false end,Only=function(v)ae.Only=v l()end,Draggable=
+function(v)ae.Draggable=v end,Status=function(v)o(v,ae.StatusKind)end,Items=
+function(v)m(v)end},ar.Body)c.Type='FarmHud'c.Theme=aq c.Structures=ar c.Store=e
+c.SetStatus=function(v,w,x)ae.Status=w ae.StatusKind=x o(w,x)end c.SetItems=
+function(v,w)ae.Items=w m(w)end c.SetButton=function(v,w,x)c.Button=w and{Text=w
+,Callback=x}or false end c.ResetTimer=function()av=os.clock()ar.Timer.Text=al.
+Clock(0)end c.SetElapsed=function(v,w)av=os.clock()-(tonumber(w)or 0)end c.Set=
+function(v,w,x)e:Set(tostring(w),x)end c.SetRow=c.Set c.Get=function(v,w)return
+e:Get(tostring(w))end c.Increment=function(v,w,x)e:Increment(tostring(w),x)end c
+.Reset=function(v,w)e:Reset(w and tostring(w)or nil)if w==nil then c:ResetTimer(
 )end end ag.Apply(ae,c)if ae.Icon==nil then c.Icon=nil end l()if ae.StatusFlag~=
-nil then local u,v=ae.StatusOn or'Farming',ae.StatusOff or'Idle'local w=function
-(w)c:SetStatus(w and u or v,w and'Added'or'Removed')end w(aj:Get(ae.StatusFlag)
-==true)aj:OnChanged(ae.StatusFlag,function(x)w(x==true)end)end return c end end
+nil then local v,w=ae.StatusOn or'Farming',ae.StatusOff or'Idle'local x=function
+(x)c:SetStatus(x and v or w,x and'Added'or'Removed')end x(aj:Get(ae.StatusFlag)
+==true)aj:OnChanged(ae.StatusFlag,function(y)x(y==true)end)end return c end end
 function a.ar()local ab=a.cache.ar if not ab then ab={c=aa()}a.cache.ar=ab end
 return ab.c end end do local aa=function()local aa,ab,ac,ad,ae=a.c(),a.f(),a.g()
 ,{Window=a.u(),Section=a.v(),Tab=a.x(),PageSection=a.z(),Form=a.A(),Row=a.C(),
