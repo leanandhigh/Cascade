@@ -1,7 +1,7 @@
 --[[
 	FarmStats
 	Full-screen farm stats screen (its own ScreenGui, outside the window): a black backdrop with
-	one card — logo, title, status pill, a big session timer, stat tiles and a materials grid
+	one card — logo, title, status pill, a big session timer (with the start time), stat tiles and a materials grid
 	(owned count + gain). The game doesn't need drawing behind an opaque screen, so 3D
 	rendering is turned off while it's shown (big FPS / CPU save on long farms).
 
@@ -436,14 +436,6 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 							TextXAlignment = Enum.TextXAlignment.Right,
 						}),
 
-						secondary({
-							Name = "Running",
-							LayoutOrder = 1,
-							Size = UDim2.new(1, 0, 0, 16),
-							Text = "",
-							TextSize = 12,
-							TextXAlignment = Enum.TextXAlignment.Right,
-						}),
 					}),
 				}),
 
@@ -589,7 +581,6 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 	structures.StatusLabel = status:FindFirstChild("Label") :: TextLabel
 	structures.Timer = timerRow:FindFirstChild("Timer") :: TextLabel
 	structures.Started = meta:FindFirstChild("Started") :: TextLabel
-	structures.Running = meta:FindFirstChild("Running") :: TextLabel
 	structures.Stats = statsGrid
 	structures.Materials = materialsGrid
 	structures.MaterialsCount = materialsHead:FindFirstChild("Count") :: TextLabel
@@ -599,21 +590,6 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 
 	utility.FitText(structures.StatusLabel, 0, 18)
 	utility.ProtectUI(gui)
-
-	--// Formatting
-	local function duration(seconds: number): string
-		seconds = math.max(0, math.floor(seconds))
-
-		local hours, minutes, secs = seconds // 3600, (seconds % 3600) // 60, seconds % 60
-
-		if hours > 0 then
-			return string.format("%dh %02dm", hours, minutes)
-		elseif minutes > 0 then
-			return string.format("%dm %02ds", minutes, secs)
-		end
-
-		return string.format("%ds", secs)
-	end
 
 	--// Stat tiles
 	local function renderTile(name: string)
@@ -967,7 +943,6 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 
 		structures.Timer.Text = Store.Clock(elapsed)
 		structures.Started.Text = "Started  " .. tostring(startedAt)
-		structures.Running.Text = "Running  " .. duration(elapsed)
 	end
 
 	local function setVisible(value: boolean)

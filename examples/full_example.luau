@@ -350,7 +350,8 @@ local hud = app:FarmHud({
 })
 
 local screenBox = farmingTab:Groupbox({ Side = "Left", Title = "Farm screen", Icon = "monitor" })
-screenBox:Row({ Title = "Black screen", Subtitle = "Farm stats, 3D off (saves FPS)" }):Right():Toggle({ Flag = "FarmScreen", Value = false })
+screenBox:Row({ Title = "Black screen" }):Right():Toggle({ Flag = "FarmScreen", Value = false })
+screenBox:Row({ Title = "Farm HUD" }):Right():Toggle({ Flag = "ShowFarmHud", Value = true })
 screenBox:ButtonRow({
 	Buttons = {
 		{ Label = "Reset session", State = "Secondary", Pushed = function() farmStats:Reset() hud:ResetTimer() end },
@@ -361,7 +362,6 @@ screenBox:ButtonRow({
 local settingsTab = window:Settings({
 	Watermark = watermark,
 	KeybindList = keybinds,
-	FarmHud = hud, -- adds "Show farm HUD"
 	MenuKey = Enum.KeyCode.RightControl, -- shows / hides the menu; changeable in the tab
 })
 track(settingsTab, "Title", "Settings")
@@ -376,6 +376,10 @@ end)
 
 Flags:OnChanged("FarmScreen", function(enabled: boolean)
 	farmStats:SetVisible(enabled)
+end)
+
+Flags:OnChanged("ShowFarmHud", function(enabled: boolean)
+	hud.Visible = enabled
 end)
 
 Flags:OnChanged("AutoFarm", function(enabled: boolean)
