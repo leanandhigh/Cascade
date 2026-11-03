@@ -317,7 +317,7 @@ export type WindowProperties = Frame & {
 	Mobile: boolean?,
 	MobileScale: number?, -- default 0.8 on mobile
 	MobileToggle: boolean?, -- round logo button that shows / hides the window (default: on for mobile)
-	MobileToggleSide: ("Left" | "Right")?,
+	MobileToggleSide: ("Top" | "Left" | "Right")?,
 
 	-- Branding (logo header at the top of the sidebar)
 	Logo: (string | number)?,

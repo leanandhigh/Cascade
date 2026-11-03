@@ -29,7 +29,7 @@ Branding: `Logo` (your logo's **Image** asset id, eg. `1234567890` or `"rbxasset
 
 Titlebar: the button on the far right minimizes the window (restore it with the menu key, the window pill or the mobile toggle). Unloading is done from the [Settings](./Settings.md) tab.
 
-Mobile: phones and tablets are detected automatically (like Obsidian). The window is drawn at `MobileScale` (default `0.8`), fitted to the screen, and a round draggable **mobile toggle** with your `Logo` shows / hides it (tap to toggle, drag to move). Options: `Mobile` (force on / off), `MobileScale`, `MobileToggle` (show the toggle on any device), `MobileToggleSide` (`"Left"` / `"Right"`). Keybind list entries can be tapped to switch them on phones.
+Mobile: phones and tablets are detected automatically (like Obsidian). The window is drawn at `MobileScale` (default `0.8`), fitted to the screen, and a round draggable **mobile toggle** with your `Logo` shows / hides it (tap to toggle, drag to move). Options: `Mobile` (force on / off), `MobileScale`, `MobileToggle` (show the toggle on any device), `MobileToggleSide` (`"Top"` centred under the window pill by default, `"Left"` / `"Right"`). Keybind list entries can be tapped to switch them on phones.
 
 Performance: `UIBlur = false` turns off the acrylic blur (a DepthOfField effect that costs FPS on weaker devices).
 

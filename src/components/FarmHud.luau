@@ -603,10 +603,6 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 				structures.Timer.Text = Store.Clock(os.clock() - timerStart)
 			end
 
-			if structures.PlaceMobileToggle then
-				structures.PlaceMobileToggle()
-			end
-
 			task.wait(1)
 		end
 	end)
@@ -625,62 +621,6 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 	draggable(body, body, function()
 		return properties.Draggable
 	end)
-
-	-- Phones: the round menu toggle lives in the same top-right corner. While they'd overlap,
-	-- the toggle sits just under the HUD; it goes back home when the HUD is hidden / moved away.
-	-- (Not once the player has dragged the toggle themselves.)
-	local toggleHome = nil
-	local GAP = 10
-
-	-- Rectangle of an overlay element in layout (Position) space. Uses Position + AnchorPoint and
-	-- the element's size only, never AbsolutePosition (which can be shifted by the top-bar inset).
-	local function layoutRect(gui: GuiObject, rootSize: Vector2, position: UDim2?)
-		position = position or gui.Position
-
-		local size = gui.AbsoluteSize
-		local x = rootSize.X * position.X.Scale + position.X.Offset - size.X * gui.AnchorPoint.X
-		local y = rootSize.Y * position.Y.Scale + position.Y.Offset - size.Y * gui.AnchorPoint.Y
-
-		return x, y, size
-	end
-
-	local function placeMobileToggle()
-		local root = body.Parent
-		local toggle = root and root:FindFirstChild("MobileToggle")
-
-		if not toggle or not toggle:IsA("GuiObject") or toggle:GetAttribute("UserMoved") then
-			return
-		end
-
-		toggleHome = toggleHome or toggle.Position
-
-		local rootSize = root.AbsoluteSize
-		local homeX, homeY, size = layoutRect(toggle, rootSize, toggleHome)
-		local hudX, hudY, hudSize = layoutRect(body, rootSize)
-
-		local overlaps = body.Visible
-			and homeX < hudX + hudSize.X
-			and hudX < homeX + size.X
-			and homeY < hudY + hudSize.Y + GAP
-			and hudY < homeY + size.Y
-
-		local target = toggleHome
-
-		if overlaps then
-			target = UDim2.new(toggleHome.X.Scale, toggleHome.X.Offset, 0, hudY + hudSize.Y + GAP + size.Y * toggle.AnchorPoint.Y)
-		end
-
-		if toggle.Position ~= target then
-			toggle.Position = target
-		end
-	end
-
-	for _, property in ipairs({ "Position", "AbsoluteSize", "Visible" }) do
-		body:GetPropertyChangedSignal(property):Connect(placeMobileToggle)
-	end
-
-	task.defer(placeMobileToggle)
-	structures.PlaceMobileToggle = placeMobileToggle
 
 	structures.Button.MouseButton1Click:Connect(function()
 		local button = buttonConfig

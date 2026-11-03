@@ -25,10 +25,10 @@ return function(self, onTap: () -> ())
 	structures.Body = create("ImageButton")({
 		Name = "MobileToggle",
 		Active = true,
-		AnchorPoint = Vector2.new(1, 0),
+		AnchorPoint = Vector2.new(0.5, 0),
 		AutoButtonColor = false,
 		BorderSizePixel = 0,
-		Position = UDim2.new(1, -14, 0, 74),
+		Position = UDim2.new(0.5, 0, 0, 22),
 		Size = UDim2.fromOffset(SIZE, SIZE),
 		ZIndex = 60,
 
@@ -79,14 +79,17 @@ return function(self, onTap: () -> ())
 		structures.Logo.ImageColor3 = isGlyph and theme.Controls.Selection[1].Value or Color3.new(1, 1, 1)
 	end
 
-	-- Left or right edge of the screen
+	-- Where it sits: "Top" (default, centred under the window pill), "Left" or "Right" edge
 	structures.SetSide = function(side: string?)
 		if side == "Left" then
 			structures.Body.AnchorPoint = Vector2.new(0, 0)
 			structures.Body.Position = UDim2.new(0, 14, 0, 74)
-		else
+		elseif side == "Right" then
 			structures.Body.AnchorPoint = Vector2.new(1, 0)
 			structures.Body.Position = UDim2.new(1, -14, 0, 74)
+		else
+			structures.Body.AnchorPoint = Vector2.new(0.5, 0)
+			structures.Body.Position = UDim2.new(0.5, 0, 0, 22)
 		end
 	end
 
@@ -146,12 +149,6 @@ return function(self, onTap: () -> ())
 		end
 
 		moved = true
-
-		-- Placed by the player (a real drag, not a shaky tap): overlays such as the farm HUD
-		-- stop moving it out of their way
-		if math.abs(delta.X) + math.abs(delta.Y) > 24 then
-			structures.Body:SetAttribute("UserMoved", true)
-		end
 		structures.Body.Position = UDim2.new(
 			positionStart.X.Scale,
 			positionStart.X.Offset + delta.X,
