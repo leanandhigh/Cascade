@@ -27,7 +27,6 @@ local types = require("@types")
 --// Constants
 local WIDTH = 260
 local ROW_HEIGHT = 20
-local GREEN = Color3.fromRGB(110, 225, 145)
 
 return function(self, properties: types.FarmHudProperties): types.FarmHud
 	--// Imports
@@ -55,6 +54,7 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 	local statusKind = "Info"
 	local timerStart = os.clock()
 	local buttonConfig = nil
+	local customIcon = false
 	local object
 
 	--// UI
@@ -84,12 +84,14 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 		ZIndex = 50,
 		Parent = utility.OverlayRoot(self),
 
+		-- Same surface as the keybind list / watermark
 		__dynamicKeys = {
-			BackgroundColor3 = theme.Controls.Background[1],
+			BackgroundColor3 = theme.Controls.Card.Overlay[1],
+			BackgroundTransparency = theme.Controls.Card.Overlay[2],
 		},
 
 		create("UICorner")({
-			CornerRadius = UDim.new(0, 10),
+			CornerRadius = UDim.new(0, 8),
 		}),
 
 		create("UIStroke")({
@@ -102,14 +104,14 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 		}),
 
 		create("UIPadding")({
-			PaddingBottom = UDim.new(0, 12),
-			PaddingLeft = UDim.new(0, 14),
-			PaddingRight = UDim.new(0, 12),
-			PaddingTop = UDim.new(0, 10),
+			PaddingBottom = UDim.new(0, 10),
+			PaddingLeft = UDim.new(0, 10),
+			PaddingRight = UDim.new(0, 10),
+			PaddingTop = UDim.new(0, 8),
 		}),
 
 		create("UIListLayout")({
-			Padding = UDim.new(0, 8),
+			Padding = UDim.new(0, 6),
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 
@@ -126,9 +128,16 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 				BackgroundTransparency = 1,
 				Position = UDim2.fromScale(0, 0.5),
 				ScaleType = Enum.ScaleType.Fit,
-				Size = UDim2.fromOffset(18, 18),
+				Size = UDim2.fromOffset(16, 16),
 				Visible = false,
 				ZIndex = 50,
+
+				-- Glyphs follow the accent, your own logo keeps its colours
+				__contextKeys = {
+					ImageColor3 = function()
+						return customIcon and Color3.new(1, 1, 1) or theme.Controls.Selection[1].Value
+					end,
+				},
 
 				create("UICorner")({
 					CornerRadius = UDim.new(0, 4),
@@ -142,13 +151,13 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 				Position = UDim2.fromScale(0, 0.5),
 				Size = UDim2.new(1, -64, 0, 16),
 				Text = "",
-				TextSize = 12,
+				TextSize = 13,
 				TextTruncate = Enum.TextTruncate.AtEnd,
 				TextXAlignment = Enum.TextXAlignment.Left,
 
 				__dynamicKeys = {
-					TextColor3 = theme.Text.Secondary[1],
-					TextTransparency = theme.Text.Secondary[2],
+					TextColor3 = theme.Text.Primary[1],
+					TextTransparency = theme.Text.Primary[2],
 				},
 			}),
 
@@ -364,7 +373,7 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 				ZIndex = 50,
 
 				__dynamicKeys = {
-					ImageColor3 = theme.Controls.SwitchAccent[1],
+					ImageColor3 = theme.Controls.Selection[1],
 				},
 			}),
 
@@ -544,9 +553,13 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 					Position = UDim2.fromScale(1, 0.5),
 					Size = UDim2.fromOffset(60, 16),
 					Text = (amount > 0 and "+" or "") .. Store.FormatNumber(amount, "short"),
-					TextColor3 = amount > 0 and GREEN or theme.Text.Primary[1].Value,
 					TextSize = 13,
 					TextXAlignment = Enum.TextXAlignment.Right,
+
+					__dynamicKeys = {
+						TextColor3 = amount > 0 and theme.Controls.Status.Added[1] or theme.Text.Primary[1],
+						TextTransparency = amount > 0 and theme.Controls.Status.Added[2] or theme.Text.Primary[2],
+					},
 				}),
 			}).__instance :: Frame
 
@@ -652,18 +665,21 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 	--// Component
 	object = binder.Wrap(properties, {
 		Title = function(value: string)
-			structures.Title.Text = string.upper(tostring(value or ""))
+			structures.Title.Text = tostring(value or "")
 		end,
 		Icon = function(value)
-			local hasIcon = value ~= nil and icons.Apply(structures.Icon, value, nil, 16)
+			-- No icon given: a chart glyph in the accent, like the keybind list's keyboard icon
+			value = value or "chart-column"
+
+			local hasIcon = icons.Apply(structures.Icon, value, nil, 16)
 
 			structures.Icon.Visible = hasIcon == true
 
 			-- Your logo keeps its colours, glyphs take the accent
-			structures.Icon.ImageColor3 = (value ~= nil and not icons.IsGlyph(value)) and Color3.new(1, 1, 1)
-				or theme.Controls.SwitchAccent[1].Value
+			customIcon = not icons.IsGlyph(value)
+			structures.Icon.ImageColor3 = customIcon and Color3.new(1, 1, 1) or theme.Controls.Selection[1].Value
 
-			structures.Title.Position = UDim2.new(0, hasIcon and 26 or 0, 0.5, 0)
+			structures.Title.Position = UDim2.new(0, hasIcon and 23 or 0, 0.5, 0)
 		end,
 		Button = function(value)
 			-- `Button` is also the Button constructor the component wrapper copies onto objects
@@ -738,6 +754,11 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 		end
 	end
 	binder.Apply(properties, object)
+
+	if properties.Icon == nil then
+		object.Icon = nil
+	end
+
 	rebuild()
 
 	-- "Farming" / "Idle" from a toggle

@@ -25,7 +25,7 @@
 - `PriorityList`: grid of numbered cards you drag (mouse or touch) to reorder; the card stays under the pointer and the others make room while dragging. Saved in configs.
 - `Loader.lua`: one-line loader that tries HttpGet, HttpGetAsync and the executor request functions.
 - `FarmStats`: external full-screen stats screen (big session timer, stat tiles, materials with owned / gain, status pill); 3D rendering off while shown.
-- `FarmHud`: floating draggable panel (timer, status, stat rows, gained items, optional button) that can share stats with `FarmStats`.
+- `FarmHud`: floating draggable panel (timer, status, stat rows, gained items, optional button) that can share stats with `FarmStats`. Uses the keybind list / watermark surface and the theme accent; `FarmStats` backdrop and gain colours follow Dark / Light and the status colours.
 - Pills (update log tags, counts, keybind keys, status) are sized from the real font metrics, so they no longer look cramped or off-centre; small labels use the Medium weight.
 - `UpdateLog` redesign: title + subtitle header with count and collapse chevron, one card per entry with an icon badge and type tag.
 - Window: visible resize grip in the bottom-right corner that works with touch (mobile resizing).

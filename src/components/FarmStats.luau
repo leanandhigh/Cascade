@@ -37,9 +37,6 @@ local types = require("@types")
 
 --// Constants
 local CARD_WIDTH = 760
-local GREEN = Color3.fromRGB(80, 200, 120)
-local GREEN_TEXT = Color3.fromRGB(110, 225, 145)
-local RED_TEXT = Color3.fromRGB(230, 95, 95)
 
 return function(self, properties: types.FarmStatsProperties): types.FarmStats
 	--// Imports
@@ -71,6 +68,7 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 	local sessionStart = os.clock()
 	local startedAt = os.date("%H:%M")
 	local statusKind = "Added"
+	local customLogo = false
 	local object
 
 	--// UI
@@ -128,6 +126,14 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 		return create("Frame")(props)
 	end
 
+	-- A darker shade of the window background: near-black in Dark, soft grey in Light
+	local function backdropColor(): Color3
+		local base = theme.Controls.Background[1].Value
+		local _, _, brightness = base:ToHSV()
+
+		return base:Lerp(Color3.new(0, 0, 0), brightness > 0.5 and 0.1 or 0.55)
+	end
+
 	structures.Gui = create("ScreenGui")({
 		Name = "CascadeFarmStats",
 		DisplayOrder = 1000,
@@ -141,9 +147,13 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 		create("Frame")({
 			Name = "Backdrop",
 			Active = true, -- swallows clicks so the game behind isn't touched
-			BackgroundColor3 = Color3.new(0, 0, 0),
 			BorderSizePixel = 0,
 			Size = UDim2.fromScale(1, 1),
+
+			BackgroundColor3 = backdropColor(),
+			__contextKeys = {
+				BackgroundColor3 = backdropColor,
+			},
 
 			-- faint accent glow from the top
 			create("Frame")({
@@ -152,7 +162,7 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 				Size = UDim2.fromScale(1, 0.45),
 
 				__dynamicKeys = {
-					BackgroundColor3 = theme.Controls.SwitchAccent[1],
+					BackgroundColor3 = theme.Controls.Selection[1],
 				},
 
 				create("UIGradient")({
@@ -243,7 +253,7 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 							Transparency = 0.45,
 
 							__dynamicKeys = {
-								Color = theme.Controls.SwitchAccent[1],
+								Color = theme.Controls.Selection[1],
 							},
 						}),
 
@@ -254,6 +264,12 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 							Position = UDim2.fromScale(0.5, 0.5),
 							ScaleType = Enum.ScaleType.Fit,
 							Size = UDim2.fromOffset(38, 38),
+
+							__contextKeys = {
+								ImageColor3 = function()
+									return customLogo and Color3.new(1, 1, 1) or theme.Controls.Selection[1].Value
+								end,
+							},
 
 							create("UICorner")({
 								CornerRadius = UDim.new(0, 8),
@@ -321,7 +337,6 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 
 						create("Frame")({
 							Name = "Dot",
-							BackgroundColor3 = GREEN,
 							BorderSizePixel = 0,
 							Size = UDim2.fromOffset(8, 8),
 
@@ -360,7 +375,7 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 						Size = UDim2.fromScale(0.3, 1),
 
 						__dynamicKeys = {
-							BackgroundColor3 = theme.Controls.SwitchAccent[1],
+							BackgroundColor3 = theme.Controls.Selection[1],
 						},
 
 						create("UIGradient")({
@@ -646,7 +661,7 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 				Visible = definition.Icon ~= nil,
 
 				__dynamicKeys = {
-					ImageColor3 = theme.Controls.SwitchAccent[1],
+					ImageColor3 = theme.Controls.Selection[1],
 				},
 			}),
 
@@ -680,9 +695,12 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 					LayoutOrder = 1,
 					Size = UDim2.fromOffset(0, 18),
 					Text = "",
-					TextColor3 = GREEN_TEXT,
 					TextSize = 12,
 					Visible = false,
+
+					__dynamicKeys = {
+						TextColor3 = theme.Controls.Status.Added[1],
+					},
 				}),
 			}),
 		}).__instance :: Frame
@@ -735,16 +753,24 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 	local function paintGain(pill: Frame, labelObj: TextLabel, gain: number)
 		labelObj.Text = (gain > 0 and "+" or "") .. Store.FormatNumber(gain, "short")
 
+		local added = theme.Controls.Status.Added[1].Value
+		local removed = theme.Controls.Status.Removed[1].Value
+
 		if gain > 0 then
-			pill.BackgroundColor3 = GREEN
-			pill.BackgroundTransparency = 0.82
-			labelObj.TextColor3 = GREEN_TEXT
+			pill.BackgroundColor3 = added
+			pill.BackgroundTransparency = 0.84
+			labelObj.TextColor3 = added
+			labelObj.TextTransparency = 0
+		elseif gain < 0 then
+			pill.BackgroundColor3 = removed
+			pill.BackgroundTransparency = 0.84
+			labelObj.TextColor3 = removed
 			labelObj.TextTransparency = 0
 		else
 			pill.BackgroundColor3 = theme.Controls.Card.Hover[1].Value
 			pill.BackgroundTransparency = theme.Controls.Card.Hover[2].Value
-			labelObj.TextColor3 = gain < 0 and RED_TEXT or theme.Text.Secondary[1].Value
-			labelObj.TextTransparency = gain < 0 and 0 or theme.Text.Secondary[2].Value
+			labelObj.TextColor3 = theme.Text.Secondary[1].Value
+			labelObj.TextTransparency = theme.Text.Secondary[2].Value
 		end
 	end
 
@@ -899,7 +925,7 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 
 		structures.StatusDot.BackgroundColor3 = typeof(properties.StatusColor) == "Color3" and properties.StatusColor
 			or (color and color[1].Value)
-			or GREEN
+			or theme.Controls.Status.Added[1].Value
 	end
 
 	--// Fit the card on small screens (phones)
@@ -1016,10 +1042,22 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 		setVisible(false)
 	end)
 
-	theme.Controls.Status.Added[1]:Connect(function()
+	local function repaint()
 		paintStatus()
-		refreshMaterials()
-	end)
+
+		for index, material in ipairs(materials) do
+			local refs = materialRefs[index]
+
+			if refs then
+				paintGain(refs.Pill, refs.Gain, tonumber(material.Gain) or 0)
+			end
+		end
+	end
+
+	-- Hand-painted parts follow theme / accent changes
+	theme.Controls.Status.Added[1]:Connect(repaint)
+	theme.Controls.Background[1]:Connect(repaint)
+	theme.Text.Secondary[1]:Connect(repaint)
 
 	local function destroy()
 		if not alive then
@@ -1058,7 +1096,9 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 			local applied = icons.Apply(structures.Logo, value or "chart-column", nil, 30)
 			local isGlyph = value == nil or icons.IsGlyph(value)
 
-			structures.Logo.ImageColor3 = isGlyph and theme.Controls.SwitchAccent[1].Value or Color3.new(1, 1, 1)
+			customLogo = not isGlyph
+
+			structures.Logo.ImageColor3 = isGlyph and theme.Controls.Selection[1].Value or Color3.new(1, 1, 1)
 			structures.Logo.Size = isGlyph and UDim2.fromOffset(28, 28) or UDim2.fromOffset(38, 38)
 
 			return applied
