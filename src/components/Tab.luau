@@ -114,8 +114,6 @@ return function(self, properties: types.TabProperties): types.Tab
 					FillDirection = Enum.FillDirection.Horizontal,
 					Padding = UDim.new(0, 8),
 					SortOrder = Enum.SortOrder.LayoutOrder,
-					-- Center the icon on the title (it was top-aligned, so it sat 2px high)
-					VerticalAlignment = Enum.VerticalAlignment.Center,
 				}),
 
 				create("ImageLabel")({
@@ -168,16 +166,35 @@ return function(self, properties: types.TabProperties): types.Tab
 	structures.Symbol = structures.Leading:FindFirstChild("Symbol") :: ImageLabel
 	structures.Padding = structures.Body:FindFirstChild("UIPadding") :: UIPadding
 
+	-- The icon sits in a holder as tall as the title, slightly below center: icon glyphs are drawn
+	-- high in their box, so a centered icon still looks higher than the text next to it.
+	local symbolHolder = Instance.new("Frame")
+	symbolHolder.Name = "SymbolHolder"
+	symbolHolder.BackgroundTransparency = 1
+	symbolHolder.BorderSizePixel = 0
+	symbolHolder.LayoutOrder = 1
+	symbolHolder.Size = UDim2.fromOffset(20, 20)
+	symbolHolder.Visible = false
+	symbolHolder.Parent = structures.Leading
+
+	structures.Symbol.Parent = symbolHolder
+	structures.Symbol.AnchorPoint = Vector2.new(0.5, 0.5)
+	structures.Symbol.Position = UDim2.new(0.5, 0, 0.5, 2)
+	structures.SymbolHolder = symbolHolder
+
 	-- Leave room for the icon + 8px gap so the title never touches it
 	local function fitTitle()
-		local iconWidth = structures.Symbol.Visible and structures.Symbol.Size.X.Offset + 8 or 0
+		local iconWidth = structures.Symbol.Size.X.Offset
 
-		structures.Title.Size = UDim2.new(1, -iconWidth, 0, 20)
+		symbolHolder.Visible = structures.Symbol.Visible
+		symbolHolder.Size = UDim2.fromOffset(iconWidth, 20)
+		structures.Title.Size = UDim2.new(1, structures.Symbol.Visible and -(iconWidth + 8) or 0, 0, 20)
 	end
 
 	-- Lucide icons can arrive (and shrink) after the tab is created
 	structures.Symbol:GetPropertyChangedSignal("Size"):Connect(fitTitle)
 	structures.Symbol:GetPropertyChangedSignal("Visible"):Connect(fitTitle)
+	fitTitle()
 
 	local pageComponent = nil
 

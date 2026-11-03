@@ -708,6 +708,18 @@ export type SettingsProperties = {
 	MenuKeyFlag: string?,
 }
 
+-- ButtonRow
+export type ButtonRowProperties = {
+	Buttons: { ButtonProperties }?,
+	Spacing: number?,
+	Height: number?,
+}
+
+export type ButtonRow = BaseComponent & {
+	Buttons: { Button },
+	Add: (self: ButtonRow, properties: ButtonProperties) -> Button,
+}
+
 -- Watermark
 export type WatermarkProperties = Frame & {
 	Title: string?,
@@ -780,6 +792,7 @@ export type Components = {
 	InfoCard: (self: any, properties: InfoCardProperties?) -> InfoCard,
 	ConfigManager: (self: any, properties: ConfigManagerProperties?) -> ConfigManagerComponent,
 	Settings: (self: any, properties: SettingsProperties?) -> Tab,
+	ButtonRow: (self: any, properties: ButtonRowProperties?) -> ButtonRow,
 }
 
 return 1

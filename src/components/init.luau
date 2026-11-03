@@ -38,6 +38,7 @@ local components = {
 	InfoCard = require("@components/InfoCard"),
 	ConfigManager = require("@components/ConfigManager"),
 	Settings = require("@components/Settings"),
+	ButtonRow = require("@components/ButtonRow"),
 }
 
 --// Initialize

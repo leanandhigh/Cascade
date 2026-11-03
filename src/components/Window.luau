@@ -355,6 +355,24 @@ return function(self, properties: types.WindowProperties): types.Window
 			PaddingRight = UDim.new(0, 12),
 		}),
 
+		-- Divider under the brand so it doesn't run straight into the tab list
+		create("Folder")({
+			Name = "LayoutIgnore",
+
+			create("Frame")({
+				Name = "Divider",
+				AnchorPoint = Vector2.new(0, 1),
+				BorderSizePixel = 0,
+				Position = UDim2.fromScale(0, 1),
+				Size = UDim2.new(1, 0, 0, 1),
+
+				__dynamicKeys = {
+					BackgroundColor3 = self.Theme.Controls.ViewBorder[1],
+					BackgroundTransparency = self.Theme.Controls.ViewBorder[2],
+				},
+			}),
+		}),
+
 		create("UIListLayout")({
 			FillDirection = Enum.FillDirection.Horizontal,
 			Padding = UDim.new(0, 10),
@@ -465,7 +483,7 @@ return function(self, properties: types.WindowProperties): types.Window
 		structures.SidebarList.Size = UDim2.new(1, 0, 1, -(top + bottom))
 
 		if padding then
-			padding.PaddingTop = UDim.new(0, (properties.WindowControls or hasBrand()) and 4 or 12)
+			padding.PaddingTop = UDim.new(0, hasBrand() and 10 or properties.WindowControls and 4 or 12)
 		end
 	end
 

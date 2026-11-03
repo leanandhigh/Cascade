@@ -130,70 +130,76 @@ return function(self, properties: types.ConfigManagerProperties): types.ConfigMa
 		return selected
 	end
 
-	-- Actions
-	local actions = row({})
-	actions:Right():Button({
-		Label = "Create",
-		State = "Primary",
-		Pushed = function()
-			local name = manager:Sanitize(typedName) or manager:NextName("Unnamed")
+	-- Actions: full-width button rows (no empty label on the left)
+	box:ButtonRow({
+		Buttons = {
+			{
+				Label = "Create",
+				State = "Primary",
+				Pushed = function()
+					local name = manager:Sanitize(typedName) or manager:NextName("Unnamed")
 
-			if manager:Exists(name) then
-				report(false, name .. " already exists", "")
-				return
-			end
+					if manager:Exists(name) then
+						report(false, name .. " already exists", "")
+						return
+					end
 
-			local ok, message = manager:Save(name)
-			refresh(name)
-			report(ok, message, "Created " .. name)
-		end,
+					local ok, message = manager:Save(name)
+					refresh(name)
+					report(ok, message, "Created " .. name)
+				end,
+			},
+			{
+				Label = "Save",
+				State = "Secondary",
+				Pushed = function()
+					local name = needSelected()
+
+					if name then
+						local ok, message = manager:Save(name)
+						report(ok, message, "Saved " .. name)
+					end
+				end,
+			},
+			{
+				Label = "Load",
+				State = "Secondary",
+				Pushed = function()
+					local name = needSelected()
+
+					if name then
+						local ok, message = manager:Load(name)
+						report(ok, message, "Loaded " .. name)
+					end
+				end,
+			},
+		},
 	})
-	actions:Right():Button({
-		Label = "Save",
-		State = "Secondary",
-		Pushed = function()
-			local name = needSelected()
 
-			if name then
-				local ok, message = manager:Save(name)
-				report(ok, message, "Saved " .. name)
-			end
-		end,
-	})
-	actions:Right():Button({
-		Label = "Load",
-		State = "Secondary",
-		Pushed = function()
-			local name = needSelected()
+	box:ButtonRow({
+		Buttons = {
+			{
+				Label = "Refresh",
+				State = "Secondary",
+				Pushed = function()
+					refresh()
+				end,
+			},
+			{
+				Label = "Delete",
+				State = "Destructive",
+				Pushed = function()
+					local name = needSelected()
 
-			if name then
-				local ok, message = manager:Load(name)
-				report(ok, message, "Loaded " .. name)
-			end
-		end,
-	})
-
-	local manage = row({})
-	manage:Right():Button({
-		Label = "Refresh",
-		State = "Secondary",
-		Pushed = function()
-			refresh()
-		end,
-	})
-	manage:Right():Button({
-		Label = "Delete",
-		State = "Destructive",
-		Pushed = function()
-			local name = needSelected()
-
-			if name then
-				local ok = manager:Delete(name)
-				selected = nil
-				refresh()
-				report(ok, "Could not delete " .. name, "Deleted " .. name)
-			end
-		end,
+					if name then
+						local ok = manager:Delete(name)
+						selected = nil
+						refresh()
+						report(ok, "Could not delete " .. name, "Deleted " .. name)
+					end
+				end,
+			},
+		},
 	})
 
 	-- Defaults: per account or every account

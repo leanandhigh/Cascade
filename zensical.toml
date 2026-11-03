@@ -53,6 +53,7 @@ nav = [
         "Components/Configs.md",
         "Components/Settings.md",
         "Components/InfoCard.md",
+        "Components/ButtonRow.md",
     ] },
     { "Creating Components" = [
         "Custom Components/introduction.md",

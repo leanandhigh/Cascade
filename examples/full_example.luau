@@ -351,21 +351,24 @@ do -- Farming tab
 		Placeholder = "https://...",
 	})
 
-	local actions = target:Row()
-	actions:Right():Button({
-		Label = "Teleport",
-		State = "Primary",
-		Pushed = function()
-			print("Teleport!")
-		end,
-	})
-	actions:Right():Button({
-		Label = "Reset",
-		State = "Destructive",
-		Pushed = function()
-			cascade.Flags:Set("AutoFarm", false)
-			cascade.Flags:Set("FarmDistance", 15)
-		end,
+	target:ButtonRow({
+		Buttons = {
+			{
+				Label = "Teleport",
+				State = "Primary",
+				Pushed = function()
+					print("Teleport!")
+				end,
+			},
+			{
+				Label = "Reset",
+				State = "Destructive",
+				Pushed = function()
+					cascade.Flags:Set("AutoFarm", false)
+					cascade.Flags:Set("FarmDistance", 15)
+				end,
+			},
+		},
 	})
 
 	-- Collapsed by default
