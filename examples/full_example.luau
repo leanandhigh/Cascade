@@ -55,9 +55,11 @@ local function applyLanguage(language: string)
 end
 
 --// Branding
--- Your logo's Image asset id (not the Decal id). Left at 0, the game's own icon is used.
-local LOGO_ID = 0
-local LOGO = LOGO_ID ~= 0 and LOGO_ID or ("rbxthumb://type=GameIcon&id=" .. game.GameId .. "&w=150&h=150")
+-- Your logo's asset id. Loaded as a thumbnail, so both Image ids and Decal ids work.
+-- Set to 0 to use the game's own icon.
+local LOGO_ID = 77668182651543
+local LOGO = LOGO_ID ~= 0 and ("rbxthumb://type=Asset&id=" .. LOGO_ID .. "&w=150&h=150")
+	or ("rbxthumb://type=GameIcon&id=" .. game.GameId .. "&w=150&h=150")
 
 --// 2. App, overlays and window
 local app = cascade.New({
@@ -68,7 +70,7 @@ local app = cascade.New({
 
 -- Watermark: draggable pill with your logo, FPS, ping and time
 local watermark = app:Watermark({
-	Title = "My Hub",
+	Title = "MTwin HUB",
 	Icon = LOGO,
 	Text = "Premium", -- any extra text, change it later with watermark.Text = "..."
 })
@@ -79,7 +81,7 @@ local keybinds = app:KeybindList({
 })
 
 local window = app:Window({
-	Title = "My Hub",
+	Title = "MTwin HUB",
 	Subtitle = "Anime Adventures", -- shown under the page title in the titlebar
 	Size = userInputService.TouchEnabled and UDim2.fromOffset(550, 325) or UDim2.fromOffset(850, 530),
 	UIBlur = false, -- the acrylic blur costs FPS on weaker devices
@@ -91,7 +93,7 @@ local window = app:Window({
 
 	-- Branding (top-left of the sidebar). With a brand set, the titlebar shows the current tab.
 	Logo = LOGO,
-	Brand = "My Hub",
+	Brand = "MTwin HUB",
 	BrandSubtitle = "Premium",
 
 	-- Profile card (bottom-left). Its gear button has Censor Name / Hide Avatar.
@@ -103,7 +105,7 @@ local window = app:Window({
 	--   KeyExpires = "Lifetime"
 	KeyExpires = os.time() + 3 * 86400 + 4 * 3600,
 	KeyExpired = function()
-		app:Notification({ Title = "Key expired", Subtitle = "Get a new key to keep using the script.", App = "My Hub", Duration = 10 })
+		app:Notification({ Title = "Key expired", Subtitle = "Get a new key to keep using the script.", App = "MTwin HUB", Duration = 10 })
 	end,
 
 	-- Language picker next to the search field
@@ -115,7 +117,7 @@ local window = app:Window({
 
 	-- Configs. The UI is in the Settings tab; everything created with `Flag = "..."` is saved.
 	Config = {
-		Folder = "MyHub",
+		Folder = "MTwinHub",
 		SubFolder = tostring(game.PlaceId), -- one set of configs per game
 		AutoLoad = true, -- loads this account's auto-load config, else the all-accounts one
 	},
@@ -126,7 +128,7 @@ local window = app:Window({
 			connection:Disconnect()
 		end
 
-		getgenv().MyHubLoaded = nil
+		getgenv().MTwinHubLoaded = nil
 	end,
 })
 
@@ -144,11 +146,11 @@ local dashboard = window:Dashboard({
 		"~ Dungeon ignores unwanted maps in current and next-floor paths",
 		{ Type = "Removed", Text = "Old macro recorder" }, -- table form works too
 	},
-	LinksTitle = "My Hub \\ Anime Adventures",
+	LinksTitle = "MTwin HUB \\ Anime Adventures",
 	Discord = "https://discord.gg/pGmepY6TC", -- click to copy
 })
 
-dashboard:Log("+ Thanks for using My Hub!") -- add log entries at any time
+dashboard:Log("+ Thanks for using MTwin HUB!") -- add log entries at any time
 
 -- Sections group tabs in the sidebar
 local mainSection = window:Section({ Title = "Main", Disclosure = false })
@@ -346,10 +348,10 @@ Flags:OnChanged("Enemy", function(index: number)
 end)
 
 -- Example loop that reads flags (stopped on unload by checking the global)
-getgenv().MyHubLoaded = true
+getgenv().MTwinHubLoaded = true
 
 task.spawn(function()
-	while getgenv().MyHubLoaded do
+	while getgenv().MTwinHubLoaded do
 		if Flags:Get("AutoFarm") then
 			-- farm here, using Flags:Get("FarmDistance"), Flags:Get("Enemy")...
 		end
@@ -366,7 +368,7 @@ namesColor.Visible = Flags:Get("EspNames") == true
 app:Notification({
 	Title = "Loaded",
 	Subtitle = "RightControl (or the round button on mobile) hides the UI.",
-	App = "My Hub",
+	App = "MTwin HUB",
 	AppIcon = cascade.Symbols.checkmarkCircleFill,
 	Duration = 6,
 })

@@ -8485,7 +8485,7 @@ function(aa,ab)local ac,ad,ae,af,ag=a.d(),a.c(),a.a(),a.i(),a.ab()local ah,ai,aj
 Draggable=ab.Draggable~=false ab.HideInactive=ab.HideInactive==true ab.
 AnchorPoint=ab.AnchorPoint or Vector2.new(0,0.5)ab.Position=ab.Position or UDim2
 .new(0,16,0.5,0)aj.Body=(ah'Frame'{Name='KeybindList',Active=true,AutomaticSize=
-Enum.AutomaticSize.Y,BorderSizePixel=0,Size=UDim2.fromOffset(200,0),ZIndex=50,
+Enum.AutomaticSize.Y,BorderSizePixel=0,Size=UDim2.fromOffset(220,0),ZIndex=50,
 Parent=ae.OverlayRoot(aa),__dynamicKeys={BackgroundColor3=ai.Controls.Card.
 Overlay[1],BackgroundTransparency=ai.Controls.Card.Overlay[2]},ah'UICorner'{
 CornerRadius=UDim.new(0,8)},ah'UIStroke'{ApplyStrokeMode=Enum.ApplyStrokeMode.
@@ -8528,7 +8528,7 @@ Tertiary[1].Value am.Dot.BackgroundTransparency=am.Active and 0 or ai.Text.
 Tertiary[2].Value end local ap=function(ap)ap=ap or{}ap.Name=ap.Name or'Keybind'
 ap.Mode=ap.Mode or'Toggle'ap.Active=ap.Active==true or ap.Mode=='Always'local aq
 =ah'Frame'{Name='Entry',BackgroundTransparency=1,LayoutOrder=#ak+1,Size=UDim2.
-new(1,0,0,22),Parent=aj.List,ah'Frame'{Name='Dot',AnchorPoint=Vector2.new(0,0.5)
+new(1,0,0,24),Parent=aj.List,ah'Frame'{Name='Dot',AnchorPoint=Vector2.new(0,0.5)
 ,BorderSizePixel=0,Position=UDim2.fromScale(0,0.5),Size=UDim2.fromOffset(6,6),
 ZIndex=50,ah'UICorner'{CornerRadius=UDim.new(1,0)}},ah'TextLabel'{Name='Name',
 AnchorPoint=Vector2.new(0,0.5),BackgroundTransparency=1,FontFace=Font.new
@@ -8536,48 +8536,53 @@ AnchorPoint=Vector2.new(0,0.5),BackgroundTransparency=1,FontFace=Font.new
 ,16),TextSize=13,TextTruncate=Enum.TextTruncate.AtEnd,TextXAlignment=Enum.
 TextXAlignment.Left,ZIndex=50},ah'Frame'{Name='Trailing',AnchorPoint=Vector2.
 new(1,0.5),AutomaticSize=Enum.AutomaticSize.X,BackgroundTransparency=1,Position=
-UDim2.fromScale(1,0.5),Size=UDim2.fromOffset(0,18),ah'UIListLayout'{
+UDim2.fromScale(1,0.5),Size=UDim2.fromOffset(0,20),ah'UIListLayout'{
 FillDirection=Enum.FillDirection.Horizontal,HorizontalAlignment=Enum.
-HorizontalAlignment.Right,Padding=UDim.new(0,5),SortOrder=Enum.SortOrder.
+HorizontalAlignment.Right,Padding=UDim.new(0,6),SortOrder=Enum.SortOrder.
 LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},ah'TextLabel'{Name=
 'Mode',AutomaticSize=Enum.AutomaticSize.X,BackgroundTransparency=1,FontFace=Font
-.new'rbxassetid://12187365364',Size=UDim2.fromOffset(0,14),TextSize=11,ZIndex=50
-,__dynamicKeys={TextColor3=ai.Text.Tertiary[1],TextTransparency=ai.Text.Tertiary
-[2]}},ah'TextLabel'{Name='Key',AutomaticSize=Enum.AutomaticSize.X,
-BorderSizePixel=0,FontFace=Font.new('rbxassetid://12187365364',Enum.FontWeight.
-Medium,Enum.FontStyle.Normal),LayoutOrder=1,Size=UDim2.fromOffset(0,18),TextSize
-=11,ZIndex=50,__dynamicKeys={BackgroundColor3=ai.Controls.Card.Hover[1],
-BackgroundTransparency=ai.Controls.Card.Hover[2],TextColor3=ai.Text.Secondary[1]
-,TextTransparency=ai.Text.Secondary[2]},ah'UICorner'{CornerRadius=UDim.new(0,4)}
-,ah'UIPadding'{PaddingLeft=UDim.new(0,6),PaddingRight=UDim.new(0,6)}}}}local ar,
-as=aq:FindFirstChild'Trailing',Instance.new'TextButton'as.Name='TapArea'as.
-BackgroundTransparency=1 as.Size=UDim2.fromScale(1,1)as.Text=''as.ZIndex=51 as.
-Parent=aq.__instance or aq local at,au={Frame=aq,Dot=(aq:FindFirstChild'Dot'),
-NameLabel=(aq:FindFirstChild'Name'),ModeLabel=(ar:FindFirstChild'Mode'),KeyLabel
-=(ar:FindFirstChild'Key'),Active=ap.Active}au=ad.Wrap(ap,{Name=function(av)at.
-NameLabel.Text=av end,Key=function(av)at.KeyLabel.Text=am(av)end,Mode=function(
-av)at.ModeLabel.Text=string.lower(av)end,Active=function(av)at.Active=av==true
-ap.Active=at.Active ao(at)an()end},aq)au.Type='KeybindListEntry'as.
-MouseButton1Click:Connect(function()local av=au.Pressed if typeof(av)==
-'function'then av(au)elseif ap.Mode=='Toggle'then au.Active=not at.Active end
-end)au.Remove=function()local av=table.find(ak,at)if av then table.remove(ak,av)
-end aq:Destroy()an()end au.Toggle=function()au.Active=not at.Active end at.
-KeyLabel.Text=am(ap.Key)table.insert(ak,at)ad.Apply(ap,au)ao(at)an()return au
-end for aq,ar in{ai.Text.Primary[1],ai.Text.Tertiary[1],ai.Controls.Selection[1]
-}do ar:Connect(function()task.defer(function()for as,at in ipairs(ak)do ao(at)
-end end)end)end ag(aj.Body.__instance,aj.Body.__instance,function()return ab.
-Draggable end)al=ad.Wrap(ab,{Title=function(aq)aj.Title.Text=aq end,HideInactive
-=function(aq)ab.HideInactive=aq an()end,Draggable=function(aq)ab.Draggable=aq
-end},aj.Body)al.Type='KeybindList'al.Theme=aa.Theme al.Structures=aj al.Add=
-function(aq,ar)return ap(ar)end al.Clear=function()for aq=#ak,1,-1 do ak[aq].
-Frame:Destroy()ak[aq]=nil end an()end ad.Apply(ab,al)an()return al end end
-function a.ad()local ab=a.cache.ad if not ab then ab={c=aa()}a.cache.ad=ab end
-return ab.c end end do local aa=function()a.b()return function(aa,ab)local ac,ad
-,ae=a.d(),a.c(),a.n()local af,ag,ah,ai,aj,ak=ac.Create,aa.__container or aa.
-__instance or aa,aa.Theme,'rbxassetid://12187365364',{},{}ab=ab or{}ab.Title=ab.
-Title or'Information'ab.Items=ab.Items or{}aj.Body=(af'Frame'{Name='InfoCard',
-AutomaticSize=Enum.AutomaticSize.Y,BorderSizePixel=0,Size=UDim2.fromScale(1,0),
-Parent=ag,__dynamicKeys={BackgroundColor3=ah.Controls.View[1],
+.new('rbxassetid://12187365364',Enum.FontWeight.Medium,Enum.FontStyle.Normal),
+Size=UDim2.fromOffset(0,20),TextSize=12,TextYAlignment=Enum.TextYAlignment.
+Center,ZIndex=50,__dynamicKeys={TextColor3=ai.Text.Secondary[1],TextTransparency
+=ai.Text.Secondary[2]}},ah'TextLabel'{Name='Key',AutomaticSize=Enum.
+AutomaticSize.X,BorderSizePixel=0,FontFace=Font.new('rbxassetid://12187365364',
+Enum.FontWeight.SemiBold,Enum.FontStyle.Normal),LayoutOrder=1,Size=UDim2.
+fromOffset(0,20),TextSize=12,TextXAlignment=Enum.TextXAlignment.Center,
+TextYAlignment=Enum.TextYAlignment.Center,ZIndex=50,__dynamicKeys={
+BackgroundColor3=ai.Controls.Card.Hover[1],BackgroundTransparency=ai.Controls.
+Card.Hover[2],TextColor3=ai.Text.Primary[1],TextTransparency=ai.Text.Primary[2]}
+,ah'UICorner'{CornerRadius=UDim.new(0,5)},ah'UISizeConstraint'{MinSize=Vector2.
+new(22,20)},ah'UIPadding'{PaddingLeft=UDim.new(0,7),PaddingRight=UDim.new(0,7)}}
+}}local ar,as=aq:FindFirstChild'Trailing',aq:FindFirstChild'Name'local at=
+function()as.Size=UDim2.new(1,-(13+ar.AbsoluteSize.X+8),0,16)end ar:
+GetPropertyChangedSignal'AbsoluteSize':Connect(at)at()local au=Instance.new
+'TextButton'au.Name='TapArea'au.BackgroundTransparency=1 au.Size=UDim2.
+fromScale(1,1)au.Text=''au.ZIndex=51 au.Parent=aq.__instance or aq local av,b={
+Frame=aq,Dot=(aq:FindFirstChild'Dot'),NameLabel=(aq:FindFirstChild'Name'),
+ModeLabel=(ar:FindFirstChild'Mode'),KeyLabel=(ar:FindFirstChild'Key'),Active=ap.
+Active}b=ad.Wrap(ap,{Name=function(c)av.NameLabel.Text=c end,Key=function(c)av.
+KeyLabel.Text=am(c)end,Mode=function(c)av.ModeLabel.Text=string.upper(string.
+sub(c,1,1))..string.sub(c,2)end,Active=function(c)av.Active=c==true ap.Active=av
+.Active ao(av)an()end},aq)b.Type='KeybindListEntry'au.MouseButton1Click:Connect(
+function()local c=b.Pressed if typeof(c)=='function'then c(b)elseif ap.Mode==
+'Toggle'then b.Active=not av.Active end end)b.Remove=function()local c=table.
+find(ak,av)if c then table.remove(ak,c)end aq:Destroy()an()end b.Toggle=function
+()b.Active=not av.Active end av.KeyLabel.Text=am(ap.Key)table.insert(ak,av)ad.
+Apply(ap,b)ao(av)an()return b end for aq,ar in{ai.Text.Primary[1],ai.Text.
+Tertiary[1],ai.Controls.Selection[1]}do ar:Connect(function()task.defer(function
+()for as,at in ipairs(ak)do ao(at)end end)end)end ag(aj.Body.__instance,aj.Body.
+__instance,function()return ab.Draggable end)al=ad.Wrap(ab,{Title=function(aq)aj
+.Title.Text=aq end,HideInactive=function(aq)ab.HideInactive=aq an()end,Draggable
+=function(aq)ab.Draggable=aq end},aj.Body)al.Type='KeybindList'al.Theme=aa.Theme
+al.Structures=aj al.Add=function(aq,ar)return ap(ar)end al.Clear=function()for
+aq=#ak,1,-1 do ak[aq].Frame:Destroy()ak[aq]=nil end an()end ad.Apply(ab,al)an()
+return al end end function a.ad()local ab=a.cache.ad if not ab then ab={c=aa()}a
+.cache.ad=ab end return ab.c end end do local aa=function()a.b()return function(
+aa,ab)local ac,ad,ae=a.d(),a.c(),a.n()local af,ag,ah,ai,aj,ak=ac.Create,aa.
+__container or aa.__instance or aa,aa.Theme,'rbxassetid://12187365364',{},{}ab=
+ab or{}ab.Title=ab.Title or'Information'ab.Items=ab.Items or{}aj.Body=(af'Frame'
+{Name='InfoCard',AutomaticSize=Enum.AutomaticSize.Y,BorderSizePixel=0,Size=UDim2
+.fromScale(1,0),Parent=ag,__dynamicKeys={BackgroundColor3=ah.Controls.View[1],
 BackgroundTransparency=ah.Controls.View[2]},af'UICorner'{CornerRadius=UDim.new(0
 ,8)},af'UIStroke'{ApplyStrokeMode=Enum.ApplyStrokeMode.Border,__dynamicKeys={
 Color=ah.Controls.ViewBorder[1],Transparency=ah.Controls.ViewBorder[2]}},af
