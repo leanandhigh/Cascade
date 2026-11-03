@@ -114,6 +114,8 @@ return function(self, properties: types.TabProperties): types.Tab
 					FillDirection = Enum.FillDirection.Horizontal,
 					Padding = UDim.new(0, 8),
 					SortOrder = Enum.SortOrder.LayoutOrder,
+					-- Center the icon on the title (it was top-aligned, so it sat 2px high)
+					VerticalAlignment = Enum.VerticalAlignment.Center,
 				}),
 
 				create("ImageLabel")({
