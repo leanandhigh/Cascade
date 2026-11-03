@@ -5,7 +5,7 @@ Every component created with a `Flag` is saved and loaded by the config system.
 The config UI lives in the **Settings tab**, as a normal groupbox where everything is visible at once (no hidden menus):
 
 - **Auto-load** row: which config loads on start (this account or all accounts)
-- **Config** dropdown: pick a config
+- **Config** dropdown: pick a config (the one that loads on start is marked `(auto-load)`)
 - **Name** field + **Create**, then **Save**, **Load**, **Refresh**, **Delete**
 - **Auto-load for this account** / **Auto-load for all accounts** / **Remove auto-load**
 
@@ -43,6 +43,12 @@ row:Right():Toggle({ Flag = "AutoFarm" })
 
 cascade.Flags:Get("AutoFarm")
 cascade.Flags:Set("AutoFarm", true)
+
+-- Recommended: build the UI first, then hook your logic up to flags
+local connection = cascade.Flags:OnChanged("AutoFarm", function(enabled)
+    print("Auto farm:", enabled) -- runs on clicks, :Set and config loads
+end)
+connection.Disconnect()
 
 -- Custom values
 cascade.Flags:Register("Waypoints", {

@@ -166,29 +166,33 @@ return function(self, properties: types.TabProperties): types.Tab
 	structures.Symbol = structures.Leading:FindFirstChild("Symbol") :: ImageLabel
 	structures.Padding = structures.Body:FindFirstChild("UIPadding") :: UIPadding
 
-	-- The icon sits in a holder as tall as the title, slightly below center: icon glyphs are drawn
-	-- high in their box, so a centered icon still looks higher than the text next to it.
-	local symbolHolder = Instance.new("Frame")
-	symbolHolder.Name = "SymbolHolder"
-	symbolHolder.BackgroundTransparency = 1
-	symbolHolder.BorderSizePixel = 0
-	symbolHolder.LayoutOrder = 1
-	symbolHolder.Size = UDim2.fromOffset(20, 20)
-	symbolHolder.Visible = false
-	symbolHolder.Parent = structures.Leading
+	-- Icon + title share one 20px-tall box (same approach as Obsidian): the icon is a square
+	-- anchored to the box's vertical middle on the left, the title starts after it and fills the
+	-- box height with its text centered. Both centers are the box center, so they always line up.
+	local leadingLayout = structures.Leading:FindFirstChildOfClass("UIListLayout")
 
-	structures.Symbol.Parent = symbolHolder
-	structures.Symbol.AnchorPoint = Vector2.new(0.5, 0.5)
-	structures.Symbol.Position = UDim2.new(0.5, 0, 0.5, 2)
-	structures.SymbolHolder = symbolHolder
+	if leadingLayout then
+		leadingLayout:Destroy()
+	end
 
-	-- Leave room for the icon + 8px gap so the title never touches it
+	local ICON_SIZE = 18
+	local GAP = 8
+
+	structures.Leading.Size = UDim2.new(1, -34, 0, 20)
+	structures.Leading.AutomaticSize = Enum.AutomaticSize.None
+
+	structures.Symbol.AnchorPoint = Vector2.new(0, 0.5)
+	structures.Symbol.Position = UDim2.fromScale(0, 0.5)
+	structures.Symbol.Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE)
+
+	structures.Title.AnchorPoint = Vector2.new(0, 0.5)
+	structures.Title.TextYAlignment = Enum.TextYAlignment.Center
+
 	local function fitTitle()
-		local iconWidth = structures.Symbol.Size.X.Offset
+		local offset = structures.Symbol.Visible and structures.Symbol.Size.X.Offset + GAP or 0
 
-		symbolHolder.Visible = structures.Symbol.Visible
-		symbolHolder.Size = UDim2.fromOffset(iconWidth, 20)
-		structures.Title.Size = UDim2.new(1, structures.Symbol.Visible and -(iconWidth + 8) or 0, 0, 20)
+		structures.Title.Position = UDim2.new(0, offset, 0.5, 0)
+		structures.Title.Size = UDim2.new(1, -offset, 1, 0)
 	end
 
 	-- Lucide icons can arrive (and shrink) after the tab is created
@@ -221,7 +225,7 @@ return function(self, properties: types.TabProperties): types.Tab
 		end,
 		Icon = function(icon: string?)
 			-- Lucide names ("house"), Cascade symbols or asset ids
-			structures.Symbol.Visible = icon ~= nil and require("@modules/icons").Apply(structures.Symbol, icon, nil, 16)
+			structures.Symbol.Visible = icon ~= nil and require("@modules/icons").Apply(structures.Symbol, icon, nil, ICON_SIZE)
 
 			fitTitle()
 		end,

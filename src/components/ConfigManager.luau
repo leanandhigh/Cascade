@@ -94,7 +94,16 @@ return function(self, properties: types.ConfigManagerProperties): types.ConfigMa
 
 	local function refresh(keep: string?)
 		names = manager:List()
-		list.Options = names
+
+		-- Mark the config that loads on start, like "Farm (auto-load)"
+		local autoload = manager:GetDefault()
+		local display = {}
+
+		for index, name in ipairs(names) do
+			display[index] = name == autoload and (name .. " (auto-load)") or name
+		end
+
+		list.Options = display
 
 		local target = keep or selected or manager.Current
 		local index = target and table.find(names, target)
@@ -214,6 +223,7 @@ return function(self, properties: types.ConfigManagerProperties): types.ConfigMa
 
 			if name then
 				manager:SetDefault(name, "Account")
+				refresh(name)
 				report(true, nil, name .. " loads on this account")
 			end
 		end,
@@ -229,6 +239,7 @@ return function(self, properties: types.ConfigManagerProperties): types.ConfigMa
 
 			if name then
 				manager:SetDefault(name, "All")
+				refresh(name)
 				report(true, nil, name .. " loads on every account")
 			end
 		end,
@@ -242,6 +253,7 @@ return function(self, properties: types.ConfigManagerProperties): types.ConfigMa
 		Pushed = function()
 			manager:ClearDefault("Account")
 			manager:ClearDefault("All")
+			refresh()
 			report(true, nil, "Auto-load removed")
 		end,
 	})

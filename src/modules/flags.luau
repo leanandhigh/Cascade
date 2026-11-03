@@ -10,6 +10,10 @@
 		cascade.Flags:Get("AutoFarm")
 		cascade.Flags:Set("AutoFarm", true)
 
+	React to changes (recommended: build the UI first, then hook logic up like this):
+
+		cascade.Flags:OnChanged("AutoFarm", function(enabled) ... end)
+
 	Custom values (not backed by a component) can be registered too:
 
 		cascade.Flags:Register("Waypoints", {
@@ -26,7 +30,18 @@
 local Flags = {
 	Registry = {},
 	Pending = {},
+	Listeners = {},
 }
+
+local function fire(name: string, value: any)
+	local listeners = Flags.Listeners[name]
+
+	if listeners then
+		for _, callback in ipairs(table.clone(listeners)) do
+			task.spawn(callback, value)
+		end
+	end
+end
 
 --// Private Methods
 local function toAccessor(target)
@@ -43,6 +58,7 @@ local function toAccessor(target)
 
 	-- Component object: everything with a `Value` property
 	return {
+		Component = target,
 		Get = function()
 			return target.Value
 		end,
@@ -62,6 +78,20 @@ function Flags:Register(name: string, target)
 
 	name = tostring(name)
 	self.Registry[name] = accessor
+
+	-- Components report their own changes (clicks, drags, config loads) to OnChanged listeners
+	if accessor.Component then
+		local component = accessor.Component
+		local previous = component.ValueChanged
+
+		component.ValueChanged = function(object, value, ...)
+			if previous then
+				previous(object, value, ...)
+			end
+
+			fire(name, value)
+		end
+	end
 
 	local pending = self.Pending[name]
 
@@ -100,7 +130,35 @@ function Flags:Set(name: string, value: any): boolean
 		return false
 	end
 
-	return (pcall(accessor.Set, value))
+	local ok = pcall(accessor.Set, value)
+
+	-- Custom Get/Set flags have no component to report the change, so report it here
+	if ok and not accessor.Component then
+		fire(tostring(name), value)
+	end
+
+	return ok
+end
+
+-- Runs `callback(value)` whenever the flag's value changes (user input, :Set, config load).
+-- Keeps your logic separate from UI code, like Obsidian's Toggles.X:OnChanged.
+-- Returns a connection with :Disconnect().
+function Flags:OnChanged(name: string, callback: (value: any) -> ())
+	name = tostring(name)
+
+	local listeners = self.Listeners[name] or {}
+	self.Listeners[name] = listeners
+	table.insert(listeners, callback)
+
+	return {
+		Disconnect = function()
+			local index = table.find(listeners, callback)
+
+			if index then
+				table.remove(listeners, index)
+			end
+		end,
+	}
 end
 
 function Flags:Snapshot(): { [string]: any }

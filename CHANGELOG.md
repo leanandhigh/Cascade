@@ -12,10 +12,12 @@
 - `Dashboard` Information card (player, key time, game, executor, version); every update log entry is shown by default.
 - `InfoCard` component.
 - `Window`: unload button in the titlebar (`CanUnload`, `Unloaded`, `window:Unload()`).
-- `cascade.Flags` and `cascade.Config`: any component created with `Flag = "..."` is saved by configs.
+- `cascade.Flags` and `cascade.Config`: any component created with `Flag = "..."` is saved by configs. `Flags:OnChanged(name, fn)` reacts to changes (clicks, `:Set`, config loads).
 - More padding inside Button, TextField and PopUpButton; TextField is left-aligned with a fill and no longer clips its text.
 - `Window` branding: `Logo`, `Brand`, `BrandSubtitle` (logo header at the top of the sidebar); with a brand the titlebar shows the selected tab (`TabTitles`).
-- `Tab`: 8px gap between icon and title; icon sits slightly below center so it lines up with the text.
+- `Tab`: icon and title share one 20px box and are both centered on it (Obsidian's approach), 8px gap.
+- Language picker: equal-width segments, visible pill, concentric corners.
+- Config list marks the auto-load config.
 - `ButtonRow`: full-width rows of equal buttons (used by the Configs groupbox).
 - Divider under the brand header.
 

@@ -27,9 +27,10 @@ return function(self)
 		Size = UDim2.fromOffset(0, 28),
 		Visible = false,
 
+		-- Same fill as the search field next to it, so the pill is visible as one control
 		__dynamicKeys = {
-			BackgroundColor3 = self.Theme.Controls.Card.Fill[1],
-			BackgroundTransparency = self.Theme.Controls.Card.Fill[2],
+			BackgroundColor3 = self.Theme.Controls.Card.Hover[1],
+			BackgroundTransparency = self.Theme.Controls.Card.Hover[2],
 		},
 
 		create("UICorner")({
@@ -95,26 +96,28 @@ return function(self)
 
 		table.clear(structures.Segments)
 
+		local segmentWidth = 32
+
+		for _, language in ipairs(languages) do
+			segmentWidth = math.max(segmentWidth, utf8.len(language) * 9 + 14)
+		end
+
 		for index, language in ipairs(languages) do
 			local segment = create("TextButton")({
 				Name = language,
 				AutoButtonColor = false,
-				AutomaticSize = Enum.AutomaticSize.X,
 				BorderSizePixel = 0,
 				FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
 				LayoutOrder = index,
-				Size = UDim2.fromOffset(0, 22),
+				-- Equal widths so the pill looks balanced whatever the codes are ("EN" vs "TH")
+				Size = UDim2.fromOffset(segmentWidth, 22),
 				Text = language,
 				TextSize = 12,
 				Parent = structures.Body.__instance,
 
+				-- 7 (outer) - 3 (padding) = 4: corners stay concentric with the pill
 				create("UICorner")({
-					CornerRadius = UDim.new(0, 5),
-				}),
-
-				create("UIPadding")({
-					PaddingLeft = UDim.new(0, 9),
-					PaddingRight = UDim.new(0, 9),
+					CornerRadius = UDim.new(0, 4),
 				}),
 			})
 
