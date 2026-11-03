@@ -1,11 +1,13 @@
 --[[
 	UpdateLog
-	A changelog card: header with a count badge, a "View all" toggle, and
-	coloured entries.
+	A changelog card (MTwin style): title + subtitle header with a count pill and collapse
+	chevron, then one card per entry with a tinted icon badge and a type tag.
 
 	tab:UpdateLog({
-		Title = "Update Logs",
-		Preview = 5,
+		Title = "What's new",
+		Subtitle = "Version 1.0.16",
+		Preview = 5,          -- optional: show 5, the rest behind "View all"
+		Collapsed = false,    -- start closed (click the header)
 		Entries = {
 			{ Type = "Added", Text = "More maps in Dungeon and Macro settings" },
 			{ Type = "Changed", Text = "Card priority could stop the script from loading" },
@@ -26,6 +28,7 @@ local KINDS = {
 	Fixed = { Glyph = "~", Icon = "wrench", Status = "Changed" },
 	Removed = { Glyph = "-", Icon = "minus", Status = "Removed" },
 	Info = { Glyph = "!", Icon = "info", Status = "Info" },
+	Note = { Glyph = "!", Icon = "info", Status = "Info" },
 }
 
 local PREFIXES = {
@@ -56,215 +59,100 @@ return function(self, properties: types.UpdateLogProperties): types.UpdateLog
 	--// Imports
 	local creator = require("@modules/creator")
 	local binder = require("@modules/binder")
-	local services = require("@modules/services")
 	local icons = require("@modules/icons")
-	local symbols = require("@modules/symbols")
 
 	--// References
 	local create = creator.Create
 
-	local tweenService = services.TweenService
-
 	--// Variables
 	local parent = self.__container or self.__instance or self
 	local theme = self.Theme
-	local structures = {}
 	local items = {}
 
 	--// UI
 	properties = properties or {}
-	properties.Title = properties.Title or "Update Logs"
-	properties.Preview = properties.Preview or 5
+	properties.Title = properties.Title or "Update log"
+	properties.Preview = properties.Preview or math.huge
 	properties.Expanded = properties.Expanded == true
 	properties.Entries = properties.Entries or {}
 
-	structures.Body = create("Frame")({
+	local card = require("@structures/CardSection")(self, {
 		Name = "UpdateLog",
-		AutomaticSize = Enum.AutomaticSize.Y,
-		BorderSizePixel = 0,
-		Size = UDim2.fromScale(1, 0),
+		Title = properties.Title,
+		Subtitle = properties.Subtitle,
+		Collapsible = properties.Collapsible ~= false,
+		Collapsed = properties.Collapsed,
 		Parent = parent,
+	})
+
+	local structures = {
+		Body = card.Body,
+		Card = card,
+		Title = card.Title,
+		Subtitle = card.Subtitle,
+	}
+
+	-- Count pill in the header
+	structures.Count = create("TextLabel")({
+		Name = "Count",
+		AutomaticSize = Enum.AutomaticSize.X,
+		BorderSizePixel = 0,
+		FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+		Size = UDim2.fromOffset(0, 20),
+		Text = "0",
+		TextSize = 11,
+		Parent = card.Trailing,
 
 		__dynamicKeys = {
-			BackgroundColor3 = theme.Controls.View[1],
-			BackgroundTransparency = theme.Controls.View[2],
+			BackgroundColor3 = theme.Controls.Card.Hover[1],
+			BackgroundTransparency = theme.Controls.Card.Hover[2],
+			TextColor3 = theme.Text.Secondary[1],
+			TextTransparency = theme.Text.Secondary[2],
 		},
 
 		create("UICorner")({
-			CornerRadius = UDim.new(0, 8),
-		}),
-
-		create("UIStroke")({
-			ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-
-			__dynamicKeys = {
-				Color = theme.Controls.ViewBorder[1],
-				Transparency = theme.Controls.ViewBorder[2],
-			},
+			CornerRadius = UDim.new(0, 5),
 		}),
 
 		create("UIPadding")({
-			PaddingBottom = UDim.new(0, 8),
-			PaddingLeft = UDim.new(0, 12),
-			PaddingRight = UDim.new(0, 12),
-			PaddingTop = UDim.new(0, 4),
+			PaddingLeft = UDim.new(0, 7),
+			PaddingRight = UDim.new(0, 7),
 		}),
+	}).__instance :: TextLabel
 
-		create("UIListLayout")({
-			Padding = UDim.new(0, 6),
-			SortOrder = Enum.SortOrder.LayoutOrder,
+	create("UIListLayout")({
+		Padding = UDim.new(0, 6),
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		Parent = card.Content,
+	})
+
+	structures.List = card.Content
+
+	-- "View all" footer (only when Preview hides entries)
+	structures.ViewAll = create("TextButton")({
+		Name = "ViewAll",
+		AutoButtonColor = false,
+		BorderSizePixel = 0,
+		FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+		LayoutOrder = 1000000,
+		Size = UDim2.new(1, 0, 0, 30),
+		Text = "View all",
+		TextSize = 12,
+		Parent = card.Content,
+
+		__dynamicKeys = {
+			BackgroundColor3 = theme.Controls.Card.Fill[1],
+			BackgroundTransparency = theme.Controls.Card.Fill[2],
+			TextColor3 = theme.Text.Secondary[1],
+			TextTransparency = theme.Text.Secondary[2],
+		},
+
+		create("UICorner")({
+			CornerRadius = UDim.new(0, 7),
 		}),
+	}).__instance :: TextButton
 
-		create("Frame")({
-			Name = "Header",
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			Size = UDim2.new(1, 0, 0, 36),
-
-			create("Frame")({
-				Name = "Leading",
-				AnchorPoint = Vector2.new(0, 0.5),
-				AutomaticSize = Enum.AutomaticSize.X,
-				BackgroundTransparency = 1,
-				Position = UDim2.fromScale(0, 0.5),
-				Size = UDim2.fromOffset(0, 20),
-
-				create("UIListLayout")({
-					FillDirection = Enum.FillDirection.Horizontal,
-					Padding = UDim.new(0, 8),
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-				}),
-
-				create("TextLabel")({
-					Name = "Title",
-					AutomaticSize = Enum.AutomaticSize.X,
-					BackgroundTransparency = 1,
-					FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
-					Size = UDim2.fromOffset(0, 18),
-					TextSize = 14,
-
-					__dynamicKeys = {
-						TextColor3 = theme.Text.Primary[1],
-						TextTransparency = theme.Text.Primary[2],
-					},
-				}),
-
-				create("TextLabel")({
-					Name = "Count",
-					AutomaticSize = Enum.AutomaticSize.X,
-					BorderSizePixel = 0,
-					FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
-					LayoutOrder = 1,
-					Size = UDim2.fromOffset(0, 18),
-					Text = "0",
-					TextSize = 12,
-
-					__dynamicKeys = {
-						BackgroundColor3 = theme.Controls.Card.Hover[1],
-						BackgroundTransparency = theme.Controls.Card.Hover[2],
-						TextColor3 = theme.Text.Secondary[1],
-						TextTransparency = theme.Text.Secondary[2],
-					},
-
-					create("UICorner")({
-						CornerRadius = UDim.new(0, 5),
-					}),
-
-					create("UIPadding")({
-						PaddingLeft = UDim.new(0, 6),
-						PaddingRight = UDim.new(0, 6),
-					}),
-				}),
-			}),
-
-			create("TextButton")({
-				Name = "ViewAll",
-				AnchorPoint = Vector2.new(1, 0.5),
-				AutoButtonColor = false,
-				AutomaticSize = Enum.AutomaticSize.X,
-				BackgroundTransparency = 1,
-				Position = UDim2.fromScale(1, 0.5),
-				Size = UDim2.fromOffset(0, 22),
-				Text = "",
-
-				create("UIListLayout")({
-					FillDirection = Enum.FillDirection.Horizontal,
-					Padding = UDim.new(0, 6),
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-				}),
-
-				create("TextLabel")({
-					Name = "Label",
-					AutomaticSize = Enum.AutomaticSize.X,
-					BackgroundTransparency = 1,
-					FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
-					Size = UDim2.fromOffset(0, 16),
-					Text = "View all",
-					TextSize = 12,
-
-					__dynamicKeys = {
-						TextColor3 = theme.Text.Secondary[1],
-						TextTransparency = theme.Text.Secondary[2],
-					},
-				}),
-
-				create("ImageLabel")({
-					ScaleType = Enum.ScaleType.Fit,
-					Name = "Chevron",
-					BackgroundTransparency = 1,
-					Image = symbols.chevronRight,
-					LayoutOrder = 1,
-					Size = UDim2.fromOffset(10, 10),
-
-					__dynamicKeys = {
-						ImageColor3 = theme.Text.Secondary[1],
-						ImageTransparency = theme.Text.Secondary[2],
-					},
-				}),
-			}),
-
-			create("Frame")({
-				Name = "Divider",
-				AnchorPoint = Vector2.new(0, 1),
-				BorderSizePixel = 0,
-				Position = UDim2.fromScale(0, 1),
-				Size = UDim2.new(1, 0, 0, 1),
-
-				__dynamicKeys = {
-					BackgroundColor3 = theme.Controls.ViewBorder[1],
-					BackgroundTransparency = theme.Controls.ViewBorder[2],
-				},
-			}),
-		}),
-
-		create("Frame")({
-			Name = "List",
-			AutomaticSize = Enum.AutomaticSize.Y,
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			LayoutOrder = 1,
-			Size = UDim2.fromScale(1, 0),
-
-			create("UIListLayout")({
-				Padding = UDim.new(0, 2),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-			}),
-		}),
-	}) :: Frame
-
-	--// Initialize
-	structures.Header = structures.Body:FindFirstChild("Header") :: Frame
-	structures.Leading = structures.Header:FindFirstChild("Leading") :: Frame
-	structures.Title = structures.Leading:FindFirstChild("Title") :: TextLabel
-	structures.Count = structures.Leading:FindFirstChild("Count") :: TextLabel
-	structures.ViewAll = structures.Header:FindFirstChild("ViewAll") :: TextButton
-	structures.ViewAllLabel = structures.ViewAll:FindFirstChild("Label") :: TextLabel
-	structures.Chevron = structures.ViewAll:FindFirstChild("Chevron") :: ImageLabel
-	structures.List = structures.Body:FindFirstChild("List") :: Frame
-
-	require("@modules/icons").Apply(structures.Chevron, "chevron-right", symbols.chevronRight, 12)
+	structures.ViewAllLabel = structures.ViewAll
 
 	local function refresh()
 		local total = #items
@@ -275,49 +163,46 @@ return function(self, properties: types.UpdateLogProperties): types.UpdateLog
 
 		structures.Count.Text = tostring(total)
 		structures.ViewAll.Visible = total > properties.Preview
-		structures.ViewAllLabel.Text = properties.Expanded and "Show less" or "View all"
-
-		tweenService
-			:Create(
-				structures.Chevron,
-				TweenInfo.new(0.25, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out),
-				{ Rotation = properties.Expanded and 90 or 0 }
-			)
-			:Play()
+		structures.ViewAll.Text = properties.Expanded and "Show less" or ("View all (" .. total .. ")")
 	end
 
 	local function makeItem(entry)
 		local kind, text = normalize(entry)
 		local info = KINDS[kind]
 		local status = theme.Controls.Status[info.Status]
+		local tagText = typeof(entry) == "table" and entry.Tag or kind
 
-		local frame = create("TextButton")({
+		local frame = create("Frame")({
 			Name = "Entry",
-			AutoButtonColor = false,
+			AutomaticSize = Enum.AutomaticSize.Y,
 			BorderSizePixel = 0,
 			LayoutOrder = #items + 1,
-			Size = UDim2.new(1, 0, 0, 32),
-			Text = "",
-			Parent = structures.List,
+			Size = UDim2.new(1, 0, 0, 38),
+			Parent = card.Content,
 
 			__dynamicKeys = {
 				BackgroundColor3 = theme.Controls.Card.Fill[1],
+				BackgroundTransparency = theme.Controls.Card.Fill[2],
 			},
 
 			create("UICorner")({
-				CornerRadius = UDim.new(0, 6),
+				CornerRadius = UDim.new(0, 7),
+			}),
+
+			create("UIStroke")({
+				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+
+				__dynamicKeys = {
+					Color = theme.Controls.ViewBorder[1],
+					Transparency = theme.Controls.ViewBorder[2],
+				},
 			}),
 
 			create("UIPadding")({
-				PaddingLeft = UDim.new(0, 4),
-				PaddingRight = UDim.new(0, 8),
-			}),
-
-			create("UIListLayout")({
-				FillDirection = Enum.FillDirection.Horizontal,
-				Padding = UDim.new(0, 10),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				VerticalAlignment = Enum.VerticalAlignment.Center,
+				PaddingBottom = UDim.new(0, 10),
+				PaddingLeft = UDim.new(0, 10),
+				PaddingRight = UDim.new(0, 10),
+				PaddingTop = UDim.new(0, 8),
 			}),
 
 			create("Frame")({
@@ -331,11 +216,9 @@ return function(self, properties: types.UpdateLogProperties): types.UpdateLog
 				},
 
 				create("UICorner")({
-					CornerRadius = UDim.new(0, 5),
+					CornerRadius = UDim.new(0, 6),
 				}),
 
-				-- Icon and glyph are both centred on the badge (AnchorPoint 0.5), so they stay
-				-- centred at any UI scale
 				create("ImageLabel")({
 					Name = "Icon",
 					AnchorPoint = Vector2.new(0.5, 0.5),
@@ -358,8 +241,6 @@ return function(self, properties: types.UpdateLogProperties): types.UpdateLog
 					Size = UDim2.fromScale(1, 1),
 					Text = info.Glyph,
 					TextSize = 14,
-					TextXAlignment = Enum.TextXAlignment.Center,
-					TextYAlignment = Enum.TextYAlignment.Center,
 
 					__dynamicKeys = {
 						TextColor3 = status[1],
@@ -369,50 +250,69 @@ return function(self, properties: types.UpdateLogProperties): types.UpdateLog
 
 			create("TextLabel")({
 				Name = "Text",
+				AutomaticSize = Enum.AutomaticSize.Y,
 				BackgroundTransparency = 1,
 				FontFace = Font.new("rbxassetid://12187365364"),
-				LayoutOrder = 1,
+				Position = UDim2.fromOffset(32, 3),
 				RichText = true,
-				Size = UDim2.new(1, -32, 0, 18),
+				Size = UDim2.new(1, -(32 + 66), 0, 16),
 				Text = text,
 				TextSize = 14,
-				TextTruncate = Enum.TextTruncate.AtEnd,
+				TextWrapped = true,
 				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Top,
 
 				__dynamicKeys = {
 					TextColor3 = theme.Text.Primary[1],
 					TextTransparency = theme.Text.Primary[2],
 				},
 			}),
-		})
 
-		frame.BackgroundTransparency = 1
+			create("TextLabel")({
+				Name = "Tag",
+				AnchorPoint = Vector2.new(1, 0),
+				AutomaticSize = Enum.AutomaticSize.X,
+				BackgroundTransparency = 0.88,
+				BorderSizePixel = 0,
+				FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+				Position = UDim2.new(1, 0, 0, 2),
+				Size = UDim2.fromOffset(0, 18),
+				Text = tostring(tagText),
+				TextSize = 11,
+
+				__dynamicKeys = {
+					BackgroundColor3 = status[1],
+					TextColor3 = status[1],
+				},
+
+				create("UICorner")({
+					CornerRadius = UDim.new(0, 5),
+				}),
+
+				create("UIPadding")({
+					PaddingLeft = UDim.new(0, 6),
+					PaddingRight = UDim.new(0, 6),
+				}),
+			}),
+		}).__instance :: Frame
+
 		frame:SetAttribute("SearchIndex", text)
 
 		-- Lucide icon when available (also once it finishes loading), text glyph otherwise
 		local badge = frame:FindFirstChild("Badge")
-		local badgeIcon = badge and badge:FindFirstChild("Icon")
-		local badgeGlyph = badge and badge:FindFirstChild("Glyph")
+		local badgeIcon = badge:FindFirstChild("Icon") :: ImageLabel
+		local badgeGlyph = badge:FindFirstChild("Glyph") :: TextLabel
 
-		if badgeIcon and badgeGlyph then
-			local function syncBadge()
-				local hasIcon = badgeIcon.Image ~= ""
+		local function syncBadge()
+			local hasIcon = badgeIcon.Image ~= ""
 
-				badgeIcon.Visible = hasIcon
-				badgeGlyph.Visible = not hasIcon
-			end
-
-			icons.Apply(badgeIcon, info.Icon, nil, 12)
-			syncBadge()
-			badgeIcon:GetPropertyChangedSignal("Image"):Connect(syncBadge)
+			badgeIcon.Visible = hasIcon
+			badgeGlyph.Visible = not hasIcon
 		end
 
-		frame.MouseEnter:Connect(function()
-			frame.BackgroundTransparency = theme.Controls.Card.Fill[2].Value
-		end)
-		frame.MouseLeave:Connect(function()
-			frame.BackgroundTransparency = 1
-		end)
+		icons.Apply(badgeIcon, info.Icon, nil, 12)
+		syncBadge()
+		badgeIcon:GetPropertyChangedSignal("Image"):Connect(syncBadge)
 
 		local item = { Frame = frame, Type = kind, Text = text }
 
@@ -424,7 +324,13 @@ return function(self, properties: types.UpdateLogProperties): types.UpdateLog
 	local object
 	object = binder.Wrap(properties, {
 		Title = function(value: string)
-			structures.Title.Text = value
+			card.SetTitle(value)
+		end,
+		Subtitle = function(value: string?)
+			card.SetSubtitle(value)
+		end,
+		Collapsed = function(value: boolean)
+			card.SetCollapsed(value == true)
 		end,
 		Preview = function(value: number)
 			properties.Preview = value
@@ -447,10 +353,14 @@ return function(self, properties: types.UpdateLogProperties): types.UpdateLog
 
 			refresh()
 		end,
-	}, structures.Body)
+	}, card.Body)
 
 	structures.ViewAll.MouseButton1Click:Connect(function()
 		object.Expanded = not properties.Expanded
+	end)
+
+	card.OnCollapsed(function(isCollapsed)
+		properties.Collapsed = isCollapsed
 	end)
 
 	object.Type = "UpdateLog"

@@ -9,6 +9,7 @@
 	window:Settings({
 		Watermark = watermark,        -- optional, adds a "Show watermark" toggle
 		KeybindList = keybinds,       -- optional, adds a "Show keybind list" toggle
+		FarmHud = hud,                -- optional, adds a "Show farm HUD" toggle
 		MenuKey = Enum.KeyCode.RightControl,
 	})
 
@@ -157,6 +158,16 @@ return function(self, properties: types.SettingsProperties): types.Tab
 			Value = properties.KeybindList.Visible ~= false,
 			ValueChanged = function(_, value: boolean)
 				properties.KeybindList.Visible = value
+			end,
+		})
+	end
+
+	if properties.FarmHud then
+		interface:Row({ Title = "Show farm HUD" }):Right():Toggle({
+			Flag = "UI_FarmHud",
+			Value = properties.FarmHud.Visible ~= false,
+			ValueChanged = function(_, value: boolean)
+				properties.FarmHud.Visible = value
 			end,
 		})
 	end

@@ -1049,6 +1049,8 @@ return function(self, properties: types.WindowProperties): types.Window
 		resizeClient = resizeHandler(structures.Body.__instance, Vector2.new(350, 250))
 
 		resizeClient.CreateClient()
+		-- Visible corner grip: the way to resize on phones / tablets (bigger there)
+		resizeClient.CreateGrip(self.Theme, isMobile and 22 or 16)
 	end
 
 	do -- Sidebar button

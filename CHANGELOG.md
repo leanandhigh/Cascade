@@ -22,7 +22,10 @@
 - `ButtonRow`: full-width rows of equal buttons (used by the Configs groupbox).
 - Divider under the brand header.
 
-- `PriorityList`: ordered list with up / down arrows (farm / target priority), saved in configs.
+- `PriorityList`: grid of numbered cards; click one to pick its position from a "Move to position" menu (farm / join priority), saved in configs.
+- `FarmStats` (live stat tiles: timers, counters, per-hour rates) and `FarmHud` (floating draggable status card that can share the same stats).
+- `UpdateLog` redesign: title + subtitle header with count and collapse chevron, one card per entry with an icon badge and type tag.
+- Window: visible resize grip in the bottom-right corner that works with touch (mobile resizing).
 - `Settings`: the accent is a colour picker (any colour, `cascade.CustomAccent(color)`), saved as `UI_AccentColor`.
 - `Columns` / `Groupbox` sides stack into one column on narrow windows (`StackBelow`, default 480).
 - `Row`: when the controls leave no room for the label, they move onto their own line under it.

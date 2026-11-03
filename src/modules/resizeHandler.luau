@@ -304,11 +304,124 @@ return function(object, minScale)
 		addHandle(structures.N, "N")
 	end
 
+	-- Visible corner grip (bottom-right). The edge handles are thin invisible strips that are
+	-- hard to hit with a finger; this works with touch and mouse alike (same idea as Obsidian's
+	-- resize button). Uses plain input events, no UIDragDetector.
+	local grip = nil
+	local gripEnabled = true
+
+	function resizeHandler.CreateGrip(theme, size: number?)
+		local services = require("@modules/services")
+		local icons = require("@modules/icons")
+		local symbols = require("@modules/symbols")
+		local userInputService = services.UserInputService
+
+		size = size or 18
+
+		grip = create("ImageButton")({
+			Name = "ResizeGrip",
+			Active = true,
+			AnchorPoint = Vector2.new(1, 1),
+			AutoButtonColor = false,
+			BackgroundTransparency = 1,
+			Position = UDim2.new(1, -3, 1, -3),
+			Size = UDim2.fromOffset(size + 8, size + 8),
+			ZIndex = 20,
+			Parent = object,
+
+			create("ImageLabel")({
+				Name = "Icon",
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				BackgroundTransparency = 1,
+				Position = UDim2.fromScale(0.5, 0.5),
+				Rotation = 90,
+				ScaleType = Enum.ScaleType.Fit,
+				Size = UDim2.fromOffset(size - 4, size - 4),
+				ZIndex = 20,
+
+				__dynamicKeys = theme and {
+					ImageColor3 = theme.Text.Secondary[1],
+					ImageTransparency = theme.Text.Secondary[2],
+				} or nil,
+			}),
+		}).__instance
+
+		icons.Apply(grip:FindFirstChild("Icon"), "move-diagonal-2", symbols.arrowUpLeftAndArrowDownRight, size - 4)
+
+		local activeInput = nil
+		local inputStart = nil
+
+		grip.InputBegan:Connect(function(input)
+			if not gripEnabled then
+				return
+			end
+
+			if
+				input.UserInputType ~= Enum.UserInputType.MouseButton1
+				and input.UserInputType ~= Enum.UserInputType.Touch
+			then
+				return
+			end
+
+			activeInput = input
+			inputStart = Vector2.new(input.Position.X, input.Position.Y)
+			dragStartSize = Vector2.new(object.Size.X.Offset, object.Size.Y.Offset)
+			dragStartPosition = Vector2.new(object.Position.X.Offset, object.Position.Y.Offset)
+
+			local connection
+			connection = input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					connection:Disconnect()
+
+					if activeInput == input then
+						activeInput = nil
+						dragStartSize = nil
+					end
+				end
+			end)
+		end)
+
+		userInputService.InputChanged:Connect(function(input)
+			if not activeInput or not inputStart or not dragStartSize then
+				return
+			end
+
+			if
+				input.UserInputType ~= Enum.UserInputType.MouseMovement
+				and input.UserInputType ~= Enum.UserInputType.Touch
+			then
+				return
+			end
+
+			-- Only the finger that grabbed the grip (multi-touch: the other finger may be moving the camera)
+			if input.UserInputType == Enum.UserInputType.Touch and activeInput.UserInputType == Enum.UserInputType.Touch and input ~= activeInput then
+				return
+			end
+
+			resizeObject(Vector2.new(input.Position.X - inputStart.X, input.Position.Y - inputStart.Y), "SE")
+		end)
+
+		userInputService.InputEnded:Connect(function(input)
+			if activeInput and (input == activeInput or input.UserInputType == Enum.UserInputType.MouseButton1) then
+				activeInput = nil
+				dragStartSize = nil
+			end
+		end)
+
+		return grip
+	end
+
 	function resizeHandler.SetEnabled(state: boolean)
 		for i, v in pairs(structures) do
-			if v:IsA("UIDragDetector") then
+			if typeof(v) == "Instance" and v:IsA("UIDragDetector") then
 				v.Enabled = state
 			end
+		end
+
+		gripEnabled = state
+
+		if grip then
+			grip.Visible = state
 		end
 	end
 

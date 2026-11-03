@@ -628,6 +628,9 @@ export type UpdateLogEntry = string | { Type: string?, Text: string }
 
 export type UpdateLogProperties = Frame & {
 	Title: string?,
+	Subtitle: string?,
+	Collapsible: boolean?,
+	Collapsed: boolean?,
 	Preview: number?,
 	Expanded: boolean?,
 	Entries: { UpdateLogEntry }?,
@@ -723,18 +726,84 @@ export type SettingsProperties = {
 -- PriorityList
 export type PriorityListProperties = {
 	Flag: string?,
+	Title: string?,
 	Subtitle: string?,
 	Values: { string }?,
 	Value: { string }?,
+	Columns: number?,
+	Collapsible: boolean?,
+	Collapsed: boolean?,
+	PickerTitle: string?,
 	ValueChanged: ((self: PriorityList, order: { string }) -> ())?,
 }
 
 export type PriorityList = BaseComponent & PriorityListProperties & {
 	GetOrder: (self: PriorityList) -> { string },
 	SetOrder: (self: PriorityList, order: { string }) -> (),
+	MoveTo: (self: PriorityList, name: string, position: number) -> (),
 	MoveUp: (self: PriorityList, name: string) -> (),
 	MoveDown: (self: PriorityList, name: string) -> (),
 	IndexOf: (self: PriorityList, name: string) -> number?,
+	OpenPicker: (self: PriorityList, name: string) -> (),
+	ClosePicker: (self: PriorityList) -> (),
+}
+
+-- FarmStats / FarmHud
+export type StatDefinition = {
+	Name: string,
+	Label: string?,
+	Icon: string?,
+	Value: any?,
+	Type: ("Timer" | "Number" | "Text")?,
+	Format: ("comma" | "short" | "raw")?,
+	Prefix: string?,
+	Suffix: string?,
+	PerHour: boolean?,
+}
+
+export type FarmStatsProperties = {
+	Title: string?,
+	Subtitle: string?,
+	Stats: { StatDefinition }?,
+	Source: any?,
+	Columns: number?,
+	Collapsible: boolean?,
+	Collapsed: boolean?,
+}
+
+export type FarmStats = BaseComponent & FarmStatsProperties & {
+	Store: any,
+	Set: (self: FarmStats, name: string, value: any) -> (),
+	Get: (self: FarmStats, name: string) -> any,
+	Increment: (self: FarmStats, name: string, amount: number?) -> (),
+	Reset: (self: FarmStats, name: string?) -> (),
+	Define: (self: FarmStats, definition: StatDefinition) -> StatDefinition,
+	Format: (self: FarmStats, name: string) -> (string, string?),
+}
+
+export type FarmHudProperties = {
+	Title: string?,
+	Icon: string?,
+	Stats: { StatDefinition }?,
+	Source: any?,
+	Only: { string }?,
+	Status: string?,
+	StatusKind: string?,
+	StatusFlag: string?,
+	StatusOn: string?,
+	StatusOff: string?,
+	Draggable: boolean?,
+	Visible: boolean?,
+	Position: UDim2?,
+}
+
+export type FarmHud = BaseComponent & FarmHudProperties & {
+	Store: any,
+	SetStatus: (self: FarmHud, text: string?, kind: string?) -> (),
+	Set: (self: FarmHud, name: string, value: any) -> (),
+	Get: (self: FarmHud, name: string) -> any,
+	Increment: (self: FarmHud, name: string, amount: number?) -> (),
+	Reset: (self: FarmHud, name: string?) -> (),
 }
 
 -- ColorPicker
@@ -838,6 +907,8 @@ export type Components = {
 	ButtonRow: (self: any, properties: ButtonRowProperties?) -> ButtonRow,
 	ColorPicker: (self: any, properties: ColorPickerProperties?) -> ColorPicker,
 	PriorityList: (self: any, properties: PriorityListProperties?) -> PriorityList,
+	FarmStats: (self: any, properties: FarmStatsProperties?) -> FarmStats,
+	FarmHud: (self: any, properties: FarmHudProperties?) -> FarmHud,
 }
 
 return 1

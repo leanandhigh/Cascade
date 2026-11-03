@@ -41,6 +41,8 @@ local components = {
 	ButtonRow = require("@components/ButtonRow"),
 	ColorPicker = require("@components/ColorPicker"),
 	PriorityList = require("@components/PriorityList"),
+	FarmStats = require("@components/FarmStats"),
+	FarmHud = require("@components/FarmHud"),
 }
 
 --// Initialize

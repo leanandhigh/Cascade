@@ -56,6 +56,8 @@ nav = [
         "Components/ButtonRow.md",
         "Components/ColorPicker.md",
         "Components/PriorityList.md",
+        "Components/FarmStats.md",
+        "Components/FarmHud.md",
     ] },
     { "Creating Components" = [
         "Custom Components/introduction.md",

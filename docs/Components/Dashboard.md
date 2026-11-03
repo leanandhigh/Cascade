@@ -37,10 +37,12 @@ local dashboard = window:Dashboard({
 
 | Property   | Type                       | Description                                   |
 | ---------- | -------------------------- | --------------------------------------------- |
-| `Title`    | `#!luau string?`           | Defaults to `"Update Logs"`.                  |
-| `Entries`  | `#!luau {UpdateLogEntry}?` | `"+ text"`, `"~ text"`, `"- text"`, `"! text"` or `{ Type, Text }` where `Type` is `Added`, `Changed`, `Fixed`, `Removed` or `Info`. |
-| `Preview`  | `#!luau number?`           | Visible entries while collapsed.              |
+| `Title`    | `#!luau string?`           | Defaults to `"Update log"` (`"What's new"` on the Dashboard). |
+| `Subtitle` | `#!luau string?`           | Muted text under the title (the Dashboard puts the version here). |
+| `Entries`  | `#!luau {UpdateLogEntry}?` | `"+ text"`, `"~ text"`, `"- text"`, `"! text"` or `{ Type, Text, Tag? }` where `Type` is `Added`, `New`, `Improved`, `Changed`, `Fixed`, `Removed`, `Info` or `Note`. Each entry is a card with an icon badge and a type tag (`Tag` overrides the tag text). |
+| `Preview`  | `#!luau number?`           | Entries shown before "View all" (default: all). |
 | `Expanded` | `#!luau boolean?`          | Show every entry.                             |
+| `Collapsed`| `#!luau boolean?`          | Start closed (click the header to toggle).    |
 
 Methods: `:Add(entry)`, `:Clear()`.
 

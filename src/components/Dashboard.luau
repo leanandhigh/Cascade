@@ -112,11 +112,12 @@ return function(self, properties: types.DashboardProperties): types.Dashboard
 	--// Updates
 	local updates = tab:PageSection({
 		Title = properties.UpdatesTitle or "Updates",
-		Subtitle = properties.Version and ("Version " .. tostring(properties.Version)) or nil,
 	})
 
 	object.Updates = updates:UpdateLog({
-		Title = properties.LogsTitle or "Update Logs",
+		Title = properties.LogsTitle or "What's new",
+		Subtitle = properties.LogsSubtitle
+			or (properties.Version and ("Version " .. tostring(properties.Version)) or nil),
 		-- Every entry is visible by default; pass Preview = 5 to collapse behind "View all"
 		Preview = properties.Preview or math.huge,
 		Entries = properties.Logs or {},
