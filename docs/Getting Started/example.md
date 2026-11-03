@@ -2,6 +2,9 @@
 
 View a example application that can be made with Cascade.
 
+!!! tip
+    A full example using every feature (dashboard, groupboxes, configs, profile card, key duration, language picker, watermark, keybind list, unload) is in [examples/full_example.luau](https://github.com/leanandhigh/Cascade/blob/main/examples/full_example.luau).
+
 !!! note
     You can view a larger test application here which has full keybind minimization and mobile resize already added: [tests/test.luau](https://github.com/cascadeui/Cascade/blob/main/tests/test.luau)
 
