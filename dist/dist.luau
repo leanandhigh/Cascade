@@ -7379,55 +7379,75 @@ if ae.Value~=ad.Field.Text then ae.Value=ad.Field.Text end end)ae.Type=
 GetPropertyChangedSignal'Text':Connect(function()if ab.TextChanged then task.
 spawn(ab.TextChanged,ae,ad.Field.Text or'')end end)return ae end end function a.
 I()local ab=a.cache.I if not ab then ab={c=aa()}a.cache.I=ab end return ab.c end
-end do local aa=function()a.b()return function(aa,ab)local ac,ad=a.c(),a.e()
-local ae,af=ad.UserInputService,a.l()(aa)ab=ab or{}ab.Placeholder=ab.Placeholder
-or'Press a key'af.Field.TextXAlignment=Enum.TextXAlignment.Right af.Field.
-TextEditable=false af.Body.Parent=aa.__container or aa.__instance or aa af.Body.
-AutomaticSize=Enum.AutomaticSize.XY af.Body.Size=UDim2.fromOffset(0,28)af.Field.
-Size=UDim2.fromOffset(0,0)af.Corner.CornerRadius=UDim.new(0,6)local ag if ab.
-KeybindList and ab.KeybindList.Add then ag=ab.KeybindList:Add{Name=ab.
-KeybindName or'Keybind',Key=ab.Value,Mode=ab.KeybindMode or'Toggle'}end local ah
-ah=ac.Wrap(ab,{Placeholder=function(ai)af.Field.PlaceholderText=ai end,Value=
-function(ai)af.Field.Text=ai.Name if ag then ag.Key=ai end if ab.ValueChanged
-then ab.Value=ai task.spawn(ab.ValueChanged,ah,ai)end end},af.Body)ae.InputBegan
-:Connect(function(ai,aj)if ai.UserInputType~=Enum.UserInputType.Keyboard then
-return end if ai.KeyCode~=ab.Value then return end local ak=ae:
-GetFocusedTextBox()~=nil if ag and not ak and not af.Field:IsFocused()then local
-al=ab.KeybindMode or'Toggle'if al=='Toggle'then ag.Active=not ag.Active elseif
-al=='Hold'then ag.Active=true end end if ab.BindPressed then ab.BindPressed(ah,
-ai.KeyCode,false,aj)end end)if ag then ag.Pressed=function()if(ab.KeybindMode or
-'Toggle')=='Toggle'then ag.Active=not ag.Active end if ab.BindPressed then task.
-spawn(ab.BindPressed,ah,ab.Value,false,false)task.spawn(ab.BindPressed,ah,ab.
-Value,true,false)end end end ae.InputEnded:Connect(function(ai,aj)if ai.
-UserInputType~=Enum.UserInputType.Keyboard then return end if af.Field:
-IsFocused()then ah.Value=ai.KeyCode af.Field:ReleaseFocus()return end if ag and
-ai.KeyCode==ab.Value and(ab.KeybindMode or'Toggle')=='Hold'then ag.Active=false
-end if ai.KeyCode==ab.Value and ab.BindPressed then ab.BindPressed(ah,ai.KeyCode
-,true,aj)end end)ah.Type='KeybindField'ah.KeybindEntry=ag ah.IsActive=function()
-return ag~=nil and ag.Active==true end ah.Theme=aa.Theme ah.Structures=af ac.
-Apply(ab,ah)return ah end end function a.J()local ab=a.cache.J if not ab then ab
-={c=aa()}a.cache.J=ab end return ab.c end end do local aa=function()a.b()return
-function(aa,ab)local ac,ad=a.d(),a.c()local ae,af,ag,ah,ai=ac.Create,aa.
-__container or aa.__instance or aa,aa.Theme.Controls.Slider,0,{}ab=ab or{}ab.
-Value=ab.Value or 0 ab.Maximum=ab.Maximum or 1 ab.Minimum=ab.Minimum or 0 ai.
-Body=(ad.Apply(ab,ae'ImageLabel'{Name='Slider',Active=true,AnchorPoint=Vector2.
-new(0,0.5),BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1
-,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Image=
-'rbxassetid://92966982499851',Position=UDim2.fromScale(0,0.5),Selectable=true,
-Size=UDim2.fromOffset(150,4),Parent=af,__dynamicKeys={ImageColor3=ag.Track[1],
-ImageTransparency=ag.Track[2]},ae'ImageLabel'{Name='TrackClip',BackgroundColor3=
-Color3.fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.
-fromRGB(0,0,0),BorderSizePixel=0,Image='rbxassetid://113661976068590',
-ImageColor3=Color3.fromRGB(252,252,252),ResampleMode=Enum.ResamplerMode.
-Pixelated,Size=UDim2.new(0,2,1,0),ZIndex=3,__dynamicKeys={ImageColor3=aa.Theme.
-Controls.View[1],ImageTransparency=aa.Theme.Controls.View[2]}},ae'Frame'{Name=
-'Fill',BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Size=UDim2.
-fromScale(0,1),__dynamicKeys={BackgroundColor3=aa.Theme.Controls.Selection[1],
-BackgroundTransparency=aa.Theme.Controls.Selection[2]},ae'ImageLabel'{Name=
-'Effects',BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
+end do local aa=function()local aa,ab,ac,ad=a.b(),Enum.KeyCode.Unknown,{'Toggle'
+,'Hold','Always'},0.5 return function(ae,af)local ag,ah,ai,aj=a.c(),a.e(),a.q(),
+a.g()local ak,al,am=ah.UserInputService,(a.l()(ae))af=af or{}af.Placeholder=af.
+Placeholder or'Press a key'af.KeybindMode=table.find(ac,af.KeybindMode)and af.
+KeybindMode or'Toggle'al.Field.TextXAlignment=Enum.TextXAlignment.Right al.Field
+.TextEditable=false al.Body.Parent=ae.__container or ae.__instance or ae al.Body
+.AutomaticSize=Enum.AutomaticSize.XY al.Body.Size=UDim2.fromOffset(0,28)al.Field
+.Size=UDim2.fromOffset(0,0)al.Corner.CornerRadius=UDim.new(0,6)local an,ao,ap=
+function()return af.Value~=nil and af.Value~=ab end,function()return af.
+KeybindMode or'Toggle'end if af.KeybindList and af.KeybindList.Add then ap=af.
+KeybindList:Add{Name=af.KeybindName or'Keybind',Key=an()and af.Value or'None',
+Mode=ao()}end local aq aq=ag.Wrap(af,{Placeholder=function(ar)al.Field.
+PlaceholderText=ar end,Value=function(ar)if ar==nil then ar=ab end al.Field.Text
+=ar==ab and'None'or ar.Name if ap then ap.Key=ar==ab and'None'or ar end if af.
+ValueChanged then af.Value=ar task.spawn(af.ValueChanged,aq,ar)end end,
+KeybindMode=function(ar)if not table.find(ac,ar)then return end local as=af.
+KeybindMode af.KeybindMode=ar if ap then ap.Mode=ar if ar=='Always'then ap.
+Active=true elseif as=='Always'or ar=='Hold'then ap.Active=false end end if af.
+ModeChanged then task.spawn(af.ModeChanged,aq,ar)end end},al.Body)ak.InputBegan:
+Connect(function(ar,as)if ar.UserInputType~=Enum.UserInputType.Keyboard then
+return end if not an()or ar.KeyCode~=af.Value then return end local at=ak:
+GetFocusedTextBox()~=nil if ap and not at and not al.Field:IsFocused()then if
+ao()=='Toggle'then ap.Active=not ap.Active elseif ao()=='Hold'then ap.Active=
+true end end if af.BindPressed then af.BindPressed(aq,ar.KeyCode,false,as)end
+end)ak.InputEnded:Connect(function(ar,as)if ar.UserInputType~=Enum.UserInputType
+.Keyboard then return end if al.Field:IsFocused()then aq.Value=ar.KeyCode==Enum.
+KeyCode.Escape and ab or ar.KeyCode al.Field:ReleaseFocus()return end if not an(
+)or ar.KeyCode~=af.Value then return end if ap and ao()=='Hold'then ap.Active=
+false end if af.BindPressed then af.BindPressed(aq,ar.KeyCode,true,as)end end)if
+ap then ap.Pressed=function()if ao()=='Toggle'then ap.Active=not ap.Active end
+if af.BindPressed then task.spawn(af.BindPressed,aq,af.Value,false,false)task.
+spawn(af.BindPressed,aq,af.Value,true,false)end end if ao()=='Always'then ap.
+Active=true end end local ar=function()if not am then am=ai.new(ae,{Name=
+'KeybindMenu',Width=150})al.Body.Destroying:Connect(function()am:Destroy()end)
+end am:Clear()for ar,as in ipairs(ac)do am:AddItem{Title=as,Checked=ao()==as,
+Changed=function()aq.KeybindMode=as end}end am:AddSeparator()am:AddItem{Title=
+'Remove',Icon='x',Destructive=true,Pushed=function()aq.Value=ab end}al.Field:
+ReleaseFocus()am:Show(al.Body)end al.Field.InputBegan:Connect(function(as)if as.
+UserInputType==Enum.UserInputType.MouseButton2 then ar()elseif as.UserInputType
+==Enum.UserInputType.Touch then local at,au=false au=as.Changed:Connect(function
+()if as.UserInputState==Enum.UserInputState.End then at=true au:Disconnect()end
+end)task.delay(ad,function()if not at then ar()end end)end end)aq.Type=
+'KeybindField'aq.KeybindEntry=ap aq.IsActive=function()if ao()=='Always'then
+return true end return ap~=nil and ap.Active==true end aq.OpenMenu=function()ar(
+)end aq.Theme=ae.Theme aq.Structures=al ag.Apply(af,aq)if af.Flag~=nil then aj:
+Register(tostring(af.Flag)..'Mode',{Get=function()return af.KeybindMode end,Set=
+function(as)aq.KeybindMode=as end})end return aq end end function a.J()local ab=
+a.cache.J if not ab then ab={c=aa()}a.cache.J=ab end return ab.c end end do
+local aa=function()a.b()return function(aa,ab)local ac,ad=a.d(),a.c()local ae,af
+,ag,ah,ai=ac.Create,aa.__container or aa.__instance or aa,aa.Theme.Controls.
+Slider,0,{}ab=ab or{}ab.Value=ab.Value or 0 ab.Maximum=ab.Maximum or 1 ab.
+Minimum=ab.Minimum or 0 ai.Body=(ad.Apply(ab,ae'ImageLabel'{Name='Slider',Active
+=true,AnchorPoint=Vector2.new(0,0.5),BackgroundColor3=Color3.fromRGB(255,255,255
+),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
+Image='rbxassetid://92966982499851',Position=UDim2.fromScale(0,0.5),Selectable=
+true,Size=UDim2.fromOffset(150,4),Parent=af,__dynamicKeys={ImageColor3=ag.Track[
+1],ImageTransparency=ag.Track[2]},ae'ImageLabel'{Name='TrackClip',
+BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
 BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Image=
-'rbxassetid://82410105327406',ImageColor3=Color3.fromRGB(0,0,0),Size=UDim2.new(0
-,150,1,0),ZIndex=0,__dynamicKeys={ImageColor3=ag.TrackEffects[1],
+'rbxassetid://113661976068590',ImageColor3=Color3.fromRGB(252,252,252),
+ResampleMode=Enum.ResamplerMode.Pixelated,Size=UDim2.new(0,2,1,0),ZIndex=3,
+__dynamicKeys={ImageColor3=aa.Theme.Controls.View[1],ImageTransparency=aa.Theme.
+Controls.View[2]}},ae'Frame'{Name='Fill',BorderColor3=Color3.fromRGB(0,0,0),
+BorderSizePixel=0,Size=UDim2.fromScale(0,1),__dynamicKeys={BackgroundColor3=aa.
+Theme.Controls.Selection[1],BackgroundTransparency=aa.Theme.Controls.Selection[2
+]},ae'ImageLabel'{Name='Effects',BackgroundColor3=Color3.fromRGB(255,255,255),
+BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
+Image='rbxassetid://82410105327406',ImageColor3=Color3.fromRGB(0,0,0),Size=UDim2
+.new(0,150,1,0),ZIndex=0,__dynamicKeys={ImageColor3=ag.TrackEffects[1],
 ImageTransparency=ag.TrackEffects[2]}},ae'Frame'{Name='Thumb',Active=true,
 AnchorPoint=Vector2.new(0.5,0.5),BackgroundColor3=Color3.fromRGB(255,255,255),
 BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
@@ -8842,12 +8862,12 @@ return ColorSequence.new(aa)end)())return function(ah,ai)local aj,ak,al,am=a.d()
 .Value or Color3.new(1,1,1)local av,b,c,d=typeof(ai.Transparency)=='number',ai.
 Value:ToHSV()local e,f,g,h=av and ai.Transparency or 0,false,0 au.Body=an
 'TextButton'{Name='ColorPicker',AutoButtonColor=false,BorderSizePixel=0,Size=
-UDim2.fromOffset(38,22),Text='',Parent=ar,an'UICorner'{CornerRadius=UDim.new(0,6
+UDim2.fromOffset(30,18),Text='',Parent=ar,an'UICorner'{CornerRadius=UDim.new(0,5
 )},an'UIStroke'{ApplyStrokeMode=Enum.ApplyStrokeMode.Border,__dynamicKeys={Color
 =as.Controls.ViewBorder[1],Transparency=as.Controls.ViewBorder[2]}},an
 'ImageLabel'{Name='Checker',BackgroundTransparency=1,Image=ad,ImageTransparency=
 1,ScaleType=Enum.ScaleType.Tile,Size=UDim2.fromScale(1,1),TileSize=UDim2.
-fromOffset(8,8),ZIndex=0,an'UICorner'{CornerRadius=UDim.new(0,6)}}}au.Container=
+fromOffset(6,6),ZIndex=0,an'UICorner'{CornerRadius=UDim.new(0,5)}}}au.Container=
 an'ScreenGui'{Name='ColorPickerPanel',DisplayOrder=203,Enabled=false,
 IgnoreGuiInset=true,OnTopOfCoreBlur=true,ResetOnSpawn=false,ScreenInsets=Enum.
 ScreenInsets.None,ZIndexBehavior=Enum.ZIndexBehavior.Sibling}local i=ae+8+af+(av

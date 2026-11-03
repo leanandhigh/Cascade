@@ -37,10 +37,10 @@
 
 - Theme values only notify on real changes (thousands fewer updates on load).
 - The window's layout fix no longer resizes every element twice in one frame; it nudges once and spreads a single pass over auto-sized elements across frames.
-- New `ColorPicker` (saturation / brightness, hue, optional transparency, hex / RGB, copy / paste; mouse and touch).
+- New `ColorPicker` (30×18 swatch) (saturation / brightness, hue, optional transparency, hex / RGB, copy / paste; mouse and touch).
 - New components: `Groupbox` (with `Side = "Left" | "Right"`), `Columns`, `Dashboard`, `UpdateLog`, `InviteCard`, `Watermark`, `KeybindList`.
 - `Row`: `Title` / `Subtitle` properties create its TitleStack for you.
-- `KeybindField`: `KeybindList`, `KeybindName`, `KeybindMode` to show the bind in a `KeybindList`.
+- `KeybindField`: `KeybindList`, `KeybindName`, `KeybindMode` to show the bind in a `KeybindList`; right-click (long-press) menu to pick Toggle / Hold / Always or Remove the bind; the mode is saved in configs (`Flag .. "Mode"`).
 - Themes: `Controls.Status` and `Controls.Card` keys.
 
 ### Changed

@@ -191,7 +191,10 @@ local distanceLabel = distanceRow:Right():Label({ Text = "15" })
 farmBox:Row({ Title = "Wave Count" }):Right():Stepper({ Flag = "WaveCount", Minimum = 1, Maximum = 50, Step = 1, Value = 10, Fielded = true })
 
 -- KeybindField
---   KeybindList / KeybindName / KeybindMode ("Toggle" | "Hold" | "Always") show it in the keybind list.
+--   Click it and press a key to bind (Escape = no key).
+--   Right-click it (long-press on mobile) to pick the mode — Toggle / Hold / Always — or Remove the bind.
+--   KeybindList / KeybindName / KeybindMode show it in the keybind list.
+--   With a Flag, configs save the key (Flag) and the mode (Flag .. "Mode").
 --   Works even when the game also uses the key; ignored only while typing in a text box.
 local farmKey = farmBox:Row({ Title = "Toggle Farm Key" }):Right():KeybindField({
 	Flag = "ToggleFarmKey",

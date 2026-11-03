@@ -70,12 +70,12 @@ return function(self, properties: types.ColorPickerProperties): types.ColorPicke
 		Name = "ColorPicker",
 		AutoButtonColor = false,
 		BorderSizePixel = 0,
-		Size = UDim2.fromOffset(38, 22),
+		Size = UDim2.fromOffset(30, 18),
 		Text = "",
 		Parent = parent,
 
 		create("UICorner")({
-			CornerRadius = UDim.new(0, 6),
+			CornerRadius = UDim.new(0, 5),
 		}),
 
 		create("UIStroke")({
@@ -95,11 +95,11 @@ return function(self, properties: types.ColorPickerProperties): types.ColorPicke
 			ImageTransparency = 1,
 			ScaleType = Enum.ScaleType.Tile,
 			Size = UDim2.fromScale(1, 1),
-			TileSize = UDim2.fromOffset(8, 8),
+			TileSize = UDim2.fromOffset(6, 6),
 			ZIndex = 0,
 
 			create("UICorner")({
-				CornerRadius = UDim.new(0, 6),
+				CornerRadius = UDim.new(0, 5),
 			}),
 		}),
 	})

@@ -81,3 +81,14 @@ print(keybindField.Type) --> "KeybindField"
 
 keybindField.Value = Enum.KeyCode.Z --> Value changed: Enum.KeyCode.Z
 ```
+
+## Modes and removing a bind
+
+Right-click a KeybindField (long-press on mobile) for a menu, like Obsidian's key picker:
+
+- **Toggle**: each press switches it on / off
+- **Hold**: on while the key is held
+- **Always**: always on, the key is ignored
+- **Remove**: unbinds it (shows "None"). Pressing Escape while binding does the same.
+
+`KeybindMode` sets the starting mode, `ModeChanged(self, mode)` fires when it changes, and `:OpenMenu()` opens the menu from code. With a `Flag`, configs save the key as `Flag` and the mode as `Flag .. "Mode"`. A removed bind has the value `Enum.KeyCode.Unknown`.
