@@ -82,7 +82,7 @@ local keybinds = app:KeybindList({
 
 local window = app:Window({
 	Title = "MTwin HUB",
-	Subtitle = "Anime Adventures", -- shown under the page title in the titlebar
+	Subtitle = "https://discord.gg/y35kyZM8sV", -- shown under the page title in the titlebar
 	Size = userInputService.TouchEnabled and UDim2.fromOffset(550, 325) or UDim2.fromOffset(850, 530),
 	UIBlur = false, -- the acrylic blur costs FPS on weaker devices
 
@@ -146,8 +146,8 @@ local dashboard = window:Dashboard({
 		"~ Dungeon ignores unwanted maps in current and next-floor paths",
 		{ Type = "Removed", Text = "Old macro recorder" }, -- table form works too
 	},
-	LinksTitle = "MTwin HUB \\ Anime Adventures",
-	Discord = "https://discord.gg/pGmepY6TC", -- click to copy
+	LinksTitle = "MTwin HUB",
+	Discord = "https://discord.gg/y35kyZM8sV", -- click to copy
 })
 
 dashboard:Log("+ Thanks for using MTwin HUB!") -- add log entries at any time
@@ -319,7 +319,7 @@ teleportTab:PageSection({ Title = "Priority teleport" }):PriorityList({
 -- stat tiles and materials. 3D rendering is off while it's up (Disable3D = false keeps it on).
 local farmStats = app:FarmStats({
 	Title = "MTwin HUB",
-	Subtitle = "Anime Adventures",
+	Subtitle = "https://discord.gg/y35kyZM8sV",
 	Icon = LOGO,
 	Status = "Online",
 	Stats = {
