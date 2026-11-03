@@ -1,6 +1,6 @@
 # Dashboard
 
-`Dashboard` creates a home tab with an update log and copyable community links. It is built from two components you can also use on their own: `UpdateLog` and `InviteCard`.
+`Dashboard` creates a home tab that shows everything up front: an **Information** card (player, key time left, game, executor, version), the full update log and copyable community links. It is built from two components you can also use on their own: `UpdateLog` and `InviteCard`.
 
 ## Dashboard
 
@@ -11,7 +11,8 @@
 | `Selected`   | `#!luau boolean?`            | Select the tab. Defaults to `true`.                             |
 | `Version`    | `#!luau string?`             | Shown under the "Updates" header.                               |
 | `Logs`       | `#!luau {UpdateLogEntry}?`   | Update log entries.                                             |
-| `Preview`    | `#!luau number?`             | How many entries are visible before "View all". Default `5`.    |
+| `Preview`    | `#!luau number?`             | Collapse the log behind "View all" after this many entries. By default every entry is shown. |
+| `Info`       | `#!luau (boolean \| {InfoItem})?` | Extra rows for the Information card, or `false` to hide it. |
 | `LinksTitle` | `#!luau string?`             | Header above the links.                                         |
 | `Discord`    | `#!luau string?`             | Shortcut for a Discord `InviteCard`.                            |
 | `Links`      | `#!luau {InviteCardProperties}?` | Extra link cards.                                           |

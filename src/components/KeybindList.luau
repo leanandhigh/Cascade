@@ -175,6 +175,8 @@ return function(self, properties: types.KeybindListProperties): types.KeybindLis
 	structures.List = structures.Body:FindFirstChild("List") :: Frame
 	structures.Empty = structures.Body:FindFirstChild("Empty") :: TextLabel
 
+	require("@modules/icons").Apply(structures.Header:FindFirstChild("Icon"), "keyboard", symbols.keyboardFill or symbols.keyboard)
+
 	local function formatKey(key): string
 		if key == nil then
 			return "None"

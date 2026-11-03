@@ -262,6 +262,8 @@ return function(self, properties: types.UpdateLogProperties): types.UpdateLog
 	structures.Chevron = structures.ViewAll:FindFirstChild("Chevron") :: ImageLabel
 	structures.List = structures.Body:FindFirstChild("List") :: Frame
 
+	require("@modules/icons").Apply(structures.Chevron, "chevron-right", symbols.chevronRight)
+
 	local function refresh()
 		local total = #items
 

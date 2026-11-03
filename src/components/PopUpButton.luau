@@ -77,16 +77,16 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 
 			create("UIPadding")({
 				Name = "UIPadding",
-				PaddingBottom = UDim.new(0, 3),
-				PaddingLeft = UDim.new(0, 3),
-				PaddingRight = UDim.new(0, 3),
-				PaddingTop = UDim.new(0, 3),
+				PaddingBottom = UDim.new(0, 4),
+				PaddingLeft = UDim.new(0, 9),
+				PaddingRight = UDim.new(0, 5),
+				PaddingTop = UDim.new(0, 4),
 			}),
 
 			create("UIListLayout")({
 				Name = "UIListLayout",
 				FillDirection = Enum.FillDirection.Horizontal,
-				Padding = UDim.new(0, 7),
+				Padding = UDim.new(0, 8),
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 			}),

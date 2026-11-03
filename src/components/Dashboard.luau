@@ -20,14 +20,13 @@ local types = require("@types")
 
 return function(self, properties: types.DashboardProperties): types.Dashboard
 	--// Imports
-	local symbols = require("@modules/symbols")
 
 	--// Variables
 	properties = properties or {}
 
 	local tab = self:Tab({
 		Title = properties.Title or "Dashboard",
-		Icon = properties.Icon or symbols.houseFill,
+		Icon = properties.Icon or "house",
 		Selected = properties.Selected ~= false,
 	})
 
@@ -39,6 +38,77 @@ return function(self, properties: types.DashboardProperties): types.Dashboard
 		__window = self.__window or self,
 	}
 
+	--// Information (shown first, nothing hidden: player, key time, game, executor, version)
+	local window = self.__window or self
+
+	if properties.Info ~= false then
+		local gameName = "Loading..."
+
+		task.spawn(function()
+			local ok, info = pcall(function()
+				return game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
+			end)
+
+			gameName = ok and info and info.Name or tostring(game.PlaceId)
+		end)
+
+		local executor = "Unknown"
+
+		pcall(function()
+			if identifyexecutor then
+				local name, version = identifyexecutor()
+				executor = version and (tostring(name) .. " " .. tostring(version)) or tostring(name)
+			elseif getexecutorname then
+				executor = tostring(getexecutorname())
+			end
+		end)
+
+		local items = {}
+
+		if window.DisplayName then
+			table.insert(items, {
+				Label = "Player",
+				Value = function()
+					return window:DisplayName()
+				end,
+			})
+		end
+
+		if window.KeyStatus then
+			table.insert(items, {
+				Label = "Key",
+				Value = function()
+					local text, color = window:KeyStatus()
+
+					-- "Key: 3d 4h" -> "3d 4h" (the row label already says Key)
+					return (string.gsub(text, "^Key: ", "")), color
+				end,
+			})
+		end
+
+		table.insert(items, {
+			Label = "Game",
+			Value = function()
+				return gameName
+			end,
+		})
+		table.insert(items, { Label = "Executor", Value = executor })
+
+		if properties.Version then
+			table.insert(items, { Label = "Version", Value = tostring(properties.Version) })
+		end
+
+		for _, item in ipairs(typeof(properties.Info) == "table" and properties.Info or {}) do
+			table.insert(items, item)
+		end
+
+		object.Info = tab:InfoCard({
+			Title = properties.InfoTitle or "Information",
+			Icon = "info",
+			Items = items,
+		})
+	end
+
 	--// Updates
 	local updates = tab:PageSection({
 		Title = properties.UpdatesTitle or "Updates",
@@ -47,7 +117,8 @@ return function(self, properties: types.DashboardProperties): types.Dashboard
 
 	object.Updates = updates:UpdateLog({
 		Title = properties.LogsTitle or "Update Logs",
-		Preview = properties.Preview or 5,
+		-- Every entry is visible by default; pass Preview = 5 to collapse behind "View all"
+		Preview = properties.Preview or math.huge,
 		Entries = properties.Logs or {},
 	})
 

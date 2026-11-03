@@ -451,6 +451,8 @@ return function(self)
 	do
 		local unloadIcon = structures.Unload:FindFirstChild("Icon") :: ImageLabel
 
+		require("@modules/icons").Apply(unloadIcon, "power", require("@modules/symbols").power)
+
 		structures.Unload.MouseEnter:Connect(function()
 			structures.Unload.BackgroundTransparency = 0.85
 			unloadIcon.ImageColor3 = self.Theme.Accents.Red[1].Value

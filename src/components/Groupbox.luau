@@ -34,6 +34,7 @@ return function(self, properties: types.GroupboxProperties): types.Groupbox
 	local binder = require("@modules/binder")
 	local services = require("@modules/services")
 	local symbols = require("@modules/symbols")
+	local icons = require("@modules/icons")
 
 	--// References
 	local create = creator.Create
@@ -264,6 +265,8 @@ return function(self, properties: types.GroupboxProperties): types.Groupbox
 	structures.Clip = structures.Body:FindFirstChild("Clip") :: Frame
 	structures.Content = structures.Clip:FindFirstChild("Content") :: Frame
 
+	icons.Apply(structures.Chevron, "chevron-down", symbols.chevronDown)
+
 	local function contentHeight(): number
 		return structures.Content.AbsoluteSize.Y
 	end
@@ -337,8 +340,7 @@ return function(self, properties: types.GroupboxProperties): types.Groupbox
 			structures.Subtitle.Text = value or ""
 		end,
 		Icon = function(value: string?)
-			structures.IconHolder.Visible = value ~= nil
-			structures.Icon.Image = value or ""
+			structures.IconHolder.Visible = value ~= nil and icons.Apply(structures.Icon, value)
 			layoutHeader()
 		end,
 		Collapsible = function(value: boolean)

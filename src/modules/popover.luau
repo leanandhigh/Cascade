@@ -14,6 +14,7 @@ local creator = require("@modules/creator")
 local services = require("@modules/services")
 local utility = require("@modules/utility")
 local symbols = require("@modules/symbols")
+local icons = require("@modules/icons")
 
 --// References
 local create = creator.Create
@@ -31,6 +32,7 @@ local TWEEN_INFO = TweenInfo.new(0.18, Enum.EasingStyle.Exponential, Enum.Easing
 export type PopoverItemProperties = {
 	Title: string,
 	Icon: string?,
+	IconFallback: string?,
 	Checked: boolean?,
 	Checkable: boolean?,
 	Destructive: boolean?,
@@ -249,6 +251,12 @@ function Popover:AddItem(properties: PopoverItemProperties)
 	local check = button:FindFirstChild("Check") :: ImageLabel
 	local title = button:FindFirstChild("Title") :: TextLabel
 	local icon = button:FindFirstChild("Icon") :: ImageLabel
+
+	icons.Apply(check, "check", symbols.checkmark)
+
+	if properties.Icon then
+		icon.Visible = icons.Apply(icon, properties.Icon, properties.IconFallback)
+	end
 
 	item.Button = button
 	item.Set = function(_, value: boolean, silent: boolean?)

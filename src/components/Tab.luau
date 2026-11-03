@@ -186,10 +186,8 @@ return function(self, properties: types.TabProperties): types.Tab
 			structures.Title.Text = name
 		end,
 		Icon = function(icon: string?)
-			structures.Symbol.Visible = icon and true or false
-			if icon then
-				structures.Symbol.Image = icon
-			end
+			-- Lucide names ("house"), Cascade symbols or asset ids
+			structures.Symbol.Visible = icon ~= nil and require("@modules/icons").Apply(structures.Symbol, icon)
 		end,
 		Indentation = function(indentation: number)
 			structures.Padding.PaddingLeft += UDim.new(0, (11 * indentation))
@@ -245,7 +243,7 @@ return function(self, properties: types.TabProperties): types.Tab
 	object.Theme = self.Theme
 	object.Structures = structures
 	object.__container = structures.Page.__instance or structures.Page
-	object.__window = self.__window
+	object.__window = window
 
 	binder.Apply(properties, object)
 

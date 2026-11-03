@@ -51,6 +51,8 @@ nav = [
         "Components/Watermark.md",
         "Components/KeybindList.md",
         "Components/Configs.md",
+        "Components/Settings.md",
+        "Components/InfoCard.md",
     ] },
     { "Creating Components" = [
         "Custom Components/introduction.md",

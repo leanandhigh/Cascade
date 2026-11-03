@@ -37,6 +37,7 @@ return function(self, properties: types.InviteCardProperties): types.InviteCard
 	local creator = require("@modules/creator")
 	local binder = require("@modules/binder")
 	local symbols = require("@modules/symbols")
+	local icons = require("@modules/icons")
 
 	--// References
 	local create = creator.Create
@@ -52,7 +53,7 @@ return function(self, properties: types.InviteCardProperties): types.InviteCard
 	properties.Title = properties.Title or "Discord"
 	properties.Subtitle = properties.Subtitle or "Click the invite to copy."
 	properties.Invite = properties.Invite or ""
-	properties.Icon = properties.Icon or symbols.bubbleLeftAndBubbleRightFill or symbols.bubbleLeftAndBubbleRight
+	properties.Icon = properties.Icon or "message-circle"
 
 	structures.Body = create("Frame")({
 		Name = "InviteCard",
@@ -231,8 +232,7 @@ return function(self, properties: types.InviteCardProperties): types.InviteCard
 			structures.Subtitle.Text = value
 		end,
 		Icon = function(value: string?)
-			structures.IconHolder.Visible = value ~= nil
-			structures.Icon.Image = value or ""
+			structures.IconHolder.Visible = value ~= nil and icons.Apply(structures.Icon, value)
 			structures.TitleStack.Size = UDim2.new(1, value and -38 or 0, 0, 0)
 		end,
 		Invite = function(value: string)

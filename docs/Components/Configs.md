@@ -1,14 +1,21 @@
 # Configs
 
-Every component created with a `Flag` is saved and loaded by the config system. The window shows a config bar in the titlebar: click it to open **Presets**.
+Every component created with a `Flag` is saved and loaded by the config system.
 
-- **+** creates a new config (`Unnamed0`, `Unnamed1`, ...) from the current values
-- click a config's name to rename it
-- **autoload** (circular arrows) sets it as the default **for this account** or **for all accounts**
-- **save** overwrites it with the current values, **load** applies it
-- **trash** deletes the selected config, search and sort filter the list
+The config UI lives in the **Settings tab**, as a normal groupbox where everything is visible at once (no hidden menus):
+
+- **Auto-load** row: which config loads on start (this account or all accounts)
+- **Config** dropdown: pick a config
+- **Name** field + **Create**, then **Save**, **Load**, **Refresh**, **Delete**
+- **Auto-load for this account** / **Auto-load for all accounts** / **Remove auto-load**
 
 When loading the default, this account's default wins over the all-accounts default.
+
+```luau
+window:Settings()                          -- full Settings tab, Configs included
+-- or put just the Configs groupbox anywhere:
+someTab:ConfigManager({ Side = "Right" })
+```
 
 ## Window options
 
@@ -27,7 +34,7 @@ local window = app:Window({
 })
 ```
 
-Pass `Config = false` to hide the config bar.
+Pass `Config = false` to turn the config manager off.
 
 ## Flags
 

@@ -2,13 +2,13 @@
 	Cascade — full example
 
 	Shows every feature in one script:
-		- Dashboard (update logs + Discord invite)
+		- Dashboard: information (player, key time, game, executor, version), update logs, Discord
 		- Profile card (censor name / hide avatar / custom options) + key duration
 		- Language picker (EN / TH) handled by your own code
-		- Config bar (presets, default config for this account or all accounts)
+		- Settings tab with configs (default config for this account or all accounts)
 		- Groupboxes side by side, with every control saved through `Flag`
 		- Watermark + keybind list overlays
-		- Theme / accent settings, minimize keybind, unload button + cleanup
+		- Lucide icon names everywhere ("house", "swords"...), unload button + cleanup
 
 	Loads the build committed on the `claude/friendly-ride-yf5y59` branch (dist/dist.luau).
 	Once these features are in a GitHub release you can switch back to the release loader.
@@ -106,7 +106,7 @@ local window = app:Window({
 	ProfileOptions = {
 		{
 			Title = "Show Watermark",
-			Icon = cascade.Symbols.eye,
+			Icon = "eye",
 			Checked = true,
 			Changed = function(value: boolean)
 				watermark.Visible = value
@@ -114,7 +114,7 @@ local window = app:Window({
 		},
 		{
 			Title = "Show Keybinds",
-			Icon = cascade.Symbols.keyboard,
+			Icon = "keyboard",
 			Checked = true,
 			Changed = function(value: boolean)
 				keybinds.Visible = value
@@ -122,7 +122,7 @@ local window = app:Window({
 		},
 		{
 			Title = "Copy User Id",
-			Icon = cascade.Symbols.docOnDoc,
+			Icon = "copy",
 			Pushed = function()
 				if setclipboard then
 					setclipboard(tostring(localPlayer.UserId))
@@ -156,7 +156,7 @@ local window = app:Window({
 		applyLanguage(language)
 	end,
 
-	-- Config bar in the titlebar. Everything created with `Flag = "..."` is saved.
+	-- Configs: the UI is in the Settings tab (window:Settings). Everything with `Flag = "..."` is saved.
 	Config = {
 		Folder = "MyHub",
 		SubFolder = tostring(game.PlaceId), -- one set of configs per game
@@ -185,21 +185,9 @@ local window = app:Window({
 	end,
 })
 
--- Minimize with a key (Cascade doesn't bind this for you)
-table.insert(
-	connections,
-	userInputService.InputEnded:Connect(function(input, gameProcessedEvent)
-		-- Only skip while typing in a TextBox (chat etc.), not when the game also uses the key
-		if input.KeyCode == minimizeKeybind and not userInputService:GetFocusedTextBox() then
-			window.Minimized = not window.Minimized
-		end
-	end)
-)
-
 --// Dashboard
 local dashboard = window:Dashboard({
 	Version = "1.0.16",
-	Preview = 5,
 	Logs = {
 		"+ More maps in Dungeon and Macro settings",
 		"~ Card priority could stop the script from loading",
@@ -216,7 +204,7 @@ local dashboard = window:Dashboard({
 			Title = "Website",
 			Subtitle = "Click to copy the link.",
 			Invite = "https://example.com",
-			Icon = cascade.Symbols.globe,
+			Icon = "globe",
 		},
 	},
 })
@@ -234,7 +222,7 @@ track(mainSection, "Title", "Main")
 do -- Farming tab
 	local tab = mainSection:Tab({
 		Title = "Farming",
-		Icon = cascade.Symbols.bolt or cascade.Symbols.sparkles,
+		Icon = "swords", -- Lucide icon names (lucide.dev/icons), Cascade symbols or asset ids
 	})
 	track(tab, "Title", "Farming")
 
@@ -243,7 +231,7 @@ do -- Farming tab
 		Side = "Left",
 		Title = "Auto Farm",
 		Description = "Farming options",
-		Icon = cascade.Symbols.sparkles,
+		Icon = "sparkles",
 	})
 
 	local autoFarmRow = farm:Row({ Title = "Auto Farm", Subtitle = "Automatically farms the selected enemy." })
@@ -319,7 +307,7 @@ do -- Farming tab
 		Side = "Right",
 		Title = "Target",
 		Description = "Who to farm",
-		Icon = cascade.Symbols.person,
+		Icon = "crosshair",
 	})
 
 	target:Row({ Title = "Enemy" }):Right():PopUpButton({
@@ -370,7 +358,7 @@ do -- Farming tab
 		Side = "Left",
 		Title = "Advanced",
 		Description = "Click to expand",
-		Icon = cascade.Symbols.gearshape,
+		Icon = "sliders-horizontal",
 		Collapsed = true,
 	}):Row({ Title = "Debug Prints" }):Right():Toggle({ Flag = "DebugPrints" })
 
@@ -378,143 +366,14 @@ do -- Farming tab
 	toggleFarmKey.KeybindEntry.Active = cascade.Flags:Get("AutoFarm") == true
 end
 
---// Settings section
-local settingsSection = window:Section({
-	Title = "Settings",
-	Disclosure = false,
+--// Settings tab (one call: theme, accent, menu keybind, censor name, hide avatar,
+--// watermark / keybind list toggles, unload, and the full Configs groupbox)
+local settingsTab = window:Settings({
+	Watermark = watermark,
+	KeybindList = keybinds,
+	MenuKey = minimizeKeybind, -- saved in configs, change it in the Settings tab
 })
-track(settingsSection, "Title", "Settings")
-
-do -- Settings tab
-	local tab = settingsSection:Tab({
-		Title = "Settings",
-		Icon = cascade.Symbols.gearshapeFill,
-	})
-	track(tab, "Title", "Settings")
-
-	-- Appearance (saved too)
-	local appearance = tab:Groupbox({
-		Side = "Left",
-		Title = "Appearance",
-		Icon = cascade.Symbols.paintbrush or cascade.Symbols.sparkles,
-	})
-
-	appearance:Row({ Title = "Theme" }):Right():RadioButtonGroup({
-		Flag = "UITheme",
-		Options = { "Dark", "Light" },
-		Value = 1,
-		ValueChanged = function(self, value: number)
-			app.Theme = cascade.Themes[self.Options[value]]
-		end,
-	})
-
-	local accents = {}
-	for name in pairs(cascade.Accents) do
-		table.insert(accents, name)
-	end
-	table.sort(accents)
-
-	appearance:Row({ Title = "Accent" }):Right():PopUpButton({
-		Flag = "UIAccent",
-		Options = accents,
-		Value = table.find(accents, "Blue"),
-		ValueChanged = function(self, value: number)
-			app.Accent = cascade.Accents[self.Options[value]]
-		end,
-	})
-
-	appearance:Row({ Title = "Watermark Text" }):Right():TextField({
-		Flag = "WatermarkText",
-		Value = "Premium",
-		ValueChanged = function(self, value: string)
-			watermark.Text = value
-		end,
-	})
-
-	appearance:Row({ Title = "Hide inactive keybinds" }):Right():Toggle({
-		Flag = "HideInactiveKeybinds",
-		Value = false,
-		ValueChanged = function(self, value: boolean)
-			keybinds.HideInactive = value
-		end,
-	})
-
-	appearance:Row({ Title = "Minimize Key" }):Right():KeybindField({
-		Flag = "MinimizeKey",
-		Value = minimizeKeybind,
-		ValueChanged = function(self, value: Enum.KeyCode)
-			minimizeKeybind = value
-		end,
-	})
-
-	-- Configs from code (the titlebar bar does all of this with clicks too)
-	local configs = tab:Groupbox({
-		Side = "Right",
-		Title = "Configs",
-		Description = "Also available from the titlebar",
-		Icon = cascade.Symbols.externaldriveFill,
-	})
-
-	local configName = "Main"
-
-	configs:Row({ Title = "Config name" }):Right():TextField({
-		Value = configName, -- no Flag: this one is not saved
-		ValueChanged = function(self, value: string)
-			configName = value
-		end,
-	})
-
-	local saveLoad = configs:Row()
-	saveLoad:Right():Button({
-		Label = "Save",
-		State = "Primary",
-		Pushed = function()
-			local ok, err = window.Configs:Save(configName)
-			print(ok and ("Saved " .. configName) or err)
-		end,
-	})
-	saveLoad:Right():Button({
-		Label = "Load",
-		State = "Secondary",
-		Pushed = function()
-			local ok, err = window.Configs:Load(configName)
-			print(ok and ("Loaded " .. configName) or err)
-		end,
-	})
-
-	configs:Row({ Title = "Default (this account)" }):Right():Button({
-		Label = "Set",
-		State = "Secondary",
-		Pushed = function()
-			window.Configs:SetDefault(configName, "Account")
-		end,
-	})
-
-	configs:Row({ Title = "Default (all accounts)" }):Right():Button({
-		Label = "Set",
-		State = "Secondary",
-		Pushed = function()
-			window.Configs:SetDefault(configName, "All")
-		end,
-	})
-
-	configs:Row({ Title = "Clear defaults" }):Right():Button({
-		Label = "Clear",
-		State = "Destructive",
-		Pushed = function()
-			window.Configs:ClearDefault("Account")
-			window.Configs:ClearDefault("All")
-		end,
-	})
-
-	configs:Row({ Title = "Unload UI" }):Right():Button({
-		Label = "Unload",
-		State = "Destructive",
-		Pushed = function()
-			window:Unload()
-		end,
-	})
-end
+track(settingsTab, "Title", "Settings")
 
 --// Done
 getgenv().MyHubLoaded = true

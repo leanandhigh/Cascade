@@ -318,7 +318,7 @@ export type WindowProperties = Frame & {
 	Language: string?,
 	LanguageChanged: ((self: Window, language: string) -> ())?,
 
-	-- Configs (false to hide the config bar)
+	-- Config manager (false turns it off). UI: window:Settings() or tab:ConfigManager()
 	Config: (ConfigOptions | boolean)?,
 
 	Searching: boolean?,
@@ -339,6 +339,8 @@ export type WindowProperties = Frame & {
 export type Window = BaseComponent & Components & WindowProperties & {
 	Configs: ConfigManager?,
 	Unload: (self: Window) -> (),
+	KeyStatus: (self: Window) -> (string, any),
+	DisplayName: (self: Window) -> string,
 }
 
 -- Section
@@ -580,7 +582,7 @@ export type GroupboxProperties = Frame & {
 	Title: string?,
 	Subtitle: string?,
 	Description: string?,
-	Icon: string?,
+	Icon: (string | number)?,
 	Side: (string | number)?,
 	Expanded: boolean?,
 	Collapsed: boolean?,
@@ -642,13 +644,61 @@ export type DashboardProperties = {
 	LinksTitle: string?,
 	Discord: string?,
 	Links: { InviteCardProperties }?,
+	Info: (boolean | { InfoItem })?,
+	InfoTitle: string?,
 }
 
 export type Dashboard = BaseComponent & Components & {
 	HomeTab: Tab,
+	Info: InfoCard?,
 	Updates: UpdateLog,
 	Links: { InviteCard },
 	Log: (self: Dashboard, entry: UpdateLogEntry) -> any,
+}
+
+-- InfoCard
+export type InfoItem = {
+	Label: string,
+	Value: any, -- text, or a function returning (text, colorPair?) refreshed every second
+}
+
+export type InfoCardProperties = Frame & {
+	Title: string?,
+	Icon: (string | number)?,
+	Items: { InfoItem }?,
+}
+
+export type InfoCard = BaseComponent & InfoCardProperties & {
+	Add: (self: InfoCard, item: InfoItem) -> (),
+	Refresh: (self: InfoCard) -> (),
+}
+
+-- ConfigManager
+export type ConfigManagerProperties = {
+	Title: string?,
+	Subtitle: string?,
+	Icon: (string | number)?,
+	Side: (string | number)?,
+	Manager: ConfigManager?,
+	Config: ConfigOptions?,
+}
+
+export type ConfigManagerComponent = Groupbox & {
+	Manager: ConfigManager,
+	Refresh: (self: ConfigManagerComponent) -> (),
+}
+
+-- Settings
+export type SettingsProperties = {
+	Title: string?,
+	Icon: (string | number)?,
+	Selected: boolean?,
+	MenuKey: Enum.KeyCode?,
+	Watermark: Watermark?,
+	KeybindList: KeybindList?,
+	ThemeFlag: string?,
+	AccentFlag: string?,
+	MenuKeyFlag: string?,
 }
 
 -- Watermark
@@ -720,6 +770,9 @@ export type Components = {
 	Dashboard: (self: any, properties: DashboardProperties?) -> Dashboard,
 	Watermark: (self: any, properties: WatermarkProperties?) -> Watermark,
 	KeybindList: (self: any, properties: KeybindListProperties?) -> KeybindList,
+	InfoCard: (self: any, properties: InfoCardProperties?) -> InfoCard,
+	ConfigManager: (self: any, properties: ConfigManagerProperties?) -> ConfigManagerComponent,
+	Settings: (self: any, properties: SettingsProperties?) -> Tab,
 }
 
 return 1

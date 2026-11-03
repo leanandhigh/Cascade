@@ -86,15 +86,15 @@ return function(self)
 
 			create("UIPadding")({
 				Name = "UIPadding",
-				PaddingTop = UDim.new(0, 4),
-				PaddingBottom = UDim.new(0, 4),
+				PaddingTop = UDim.new(0, 5),
+				PaddingBottom = UDim.new(0, 5),
 			}),
 		}),
 
 		create("UIPadding")({
 			Name = "UIPadding",
-			PaddingLeft = UDim.new(0, 6),
-			PaddingRight = UDim.new(0, 6),
+			PaddingLeft = UDim.new(0, 9),
+			PaddingRight = UDim.new(0, 9),
 		}),
 
 		create("UIListLayout")({

@@ -168,10 +168,10 @@ return function(self, properties: types.ButtonProperties): types.Button
 
 		create("UIPadding")({
 			Name = "UIPadding",
-			PaddingBottom = UDim.new(0, 3),
-			PaddingLeft = UDim.new(0, 7),
-			PaddingRight = UDim.new(0, 7),
-			PaddingTop = UDim.new(0, 3),
+			PaddingBottom = UDim.new(0, 5),
+			PaddingLeft = UDim.new(0, 12),
+			PaddingRight = UDim.new(0, 12),
+			PaddingTop = UDim.new(0, 5),
 		}),
 	}) :: TextLabel
 	structures.Fill = create("UIGradient")({

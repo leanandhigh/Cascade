@@ -7,9 +7,13 @@
 - `Window`: user profile card at the bottom-left of the sidebar, with a settings menu (Censor Name, Hide Avatar, custom `ProfileOptions`).
 - `Window`: key duration for paid scripts (`KeyExpires`, `KeyDuration`, `KeyExpired`) with a live countdown on the profile card.
 - `Window`: language picker next to the search field (`Languages`, `Language`, `LanguageChanged`).
-- `Window`: config bar in the titlebar with a Presets panel (create, rename, search, sort, save, load, delete, default config for this account or all accounts).
+- `Settings` tab (`window:Settings()`) with Interface and Configs groupboxes; `ConfigManager` groupbox (create, save, load, delete, auto-load for this account or all accounts), everything visible without menus.
+- Lucide icons: every `Icon` accepts Lucide names (`"house"`), Cascade symbols or asset ids.
+- `Dashboard` Information card (player, key time, game, executor, version); every update log entry is shown by default.
+- `InfoCard` component.
 - `Window`: unload button in the titlebar (`CanUnload`, `Unloaded`, `window:Unload()`).
 - `cascade.Flags` and `cascade.Config`: any component created with `Flag = "..."` is saved by configs.
+- More padding inside Button, TextField and PopUpButton.
 - New components: `Groupbox` (with `Side = "Left" | "Right"`), `Columns`, `Dashboard`, `UpdateLog`, `InviteCard`, `Watermark`, `KeybindList`.
 - `Row`: `Title` / `Subtitle` properties create its TitleStack for you.
 - `KeybindField`: `KeybindList`, `KeybindName`, `KeybindMode` to show the bind in a `KeybindList`.

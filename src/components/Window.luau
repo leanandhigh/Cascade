@@ -16,7 +16,6 @@ return function(self, properties: types.WindowProperties): types.Window
 	local symbols = require("@modules/symbols")
 	local profileStructure = require("@structures/Profile")(self)
 	local configModule = require("@modules/config")
-	local configBar = require("@structures/ConfigBar")
 
 	--// References
 	local create = creator.Create
@@ -406,10 +405,14 @@ return function(self, properties: types.WindowProperties): types.Window
 			or (typeof(value) == "string" and string.lower(value) == "lifetime")
 	end
 
-	local function refreshName()
+	local function displayName(): string
 		local name = properties.ProfileName or (localPlayer and localPlayer.DisplayName) or "Player"
 
-		structures.Profile.DisplayName.Text = properties.CensorName and censor(name) or name
+		return properties.CensorName and censor(name) or name
+	end
+
+	local function refreshName()
+		structures.Profile.DisplayName.Text = displayName()
 	end
 
 	local function refreshAvatar()
@@ -424,8 +427,8 @@ return function(self, properties: types.WindowProperties): types.Window
 		structures.Profile.Placeholder.Visible = not structures.Profile.Avatar.Visible
 	end
 
-	local function refreshSubtitle()
-		local label = structures.Profile.Subtitle
+	-- Returns the key / account text and its colour pair (shared by the profile card and Dashboard)
+	local function keyStatus()
 		local theme = self.Theme
 		local expires = properties.KeyExpires
 		local text, color = properties.ProfileSubtitle, theme.Text.Secondary
@@ -455,6 +458,13 @@ return function(self, properties: types.WindowProperties): types.Window
 			end
 		end
 
+		return text, color
+	end
+
+	local function refreshSubtitle()
+		local label = structures.Profile.Subtitle
+		local text, color = keyStatus()
+
 		label.Text = text
 		label.TextColor3 = color[1].Value
 		label.TextTransparency = color[2].Value
@@ -463,7 +473,8 @@ return function(self, properties: types.WindowProperties): types.Window
 	--// Profile menu
 	local censorItem = structures.ProfileMenu:AddItem({
 		Title = "Censor Name",
-		Icon = symbols.eyeSlash,
+		Icon = "eye-off",
+		IconFallback = symbols.eyeSlash,
 		Checked = properties.CensorName,
 		Changed = function(value: boolean)
 			object.CensorName = value
@@ -472,7 +483,8 @@ return function(self, properties: types.WindowProperties): types.Window
 
 	local avatarItem = structures.ProfileMenu:AddItem({
 		Title = "Hide Avatar",
-		Icon = symbols.personCropCircle,
+		Icon = "user-x",
+		IconFallback = symbols.personCropCircle,
 		Checked = properties.HideAvatar,
 		Changed = function(value: boolean)
 			object.HideAvatar = value
@@ -485,10 +497,6 @@ return function(self, properties: types.WindowProperties): types.Window
 
 	structures.Body.Destroying:Connect(function()
 		structures.ProfileMenu:Destroy()
-
-		if structures.ConfigBar then
-			structures.ConfigBar.Destroy()
-		end
 	end)
 
 	structures.Titlebar.LanguagePicker.OnSelected(function(language: string)
@@ -735,6 +743,17 @@ return function(self, properties: types.WindowProperties): types.Window
 	object.Tabs = {}
 	object.addToHistory = addToHistory(object)
 	object.__container = structures.Content
+	object.__window = object
+	object.__app = self
+
+	-- Text + colour of the key status ("Key: 3d 4h 0m", "Key: Lifetime", "Account"...)
+	object.KeyStatus = function()
+		return keyStatus()
+	end
+	-- Player name as shown on the profile card (censored when CensorName is on)
+	object.DisplayName = function()
+		return displayName()
+	end
 
 	-- Unload: runs the dev's cleanup callback, then removes the whole UI (window, pill, overlays, menus)
 	object.Unload = function()
@@ -757,10 +776,6 @@ return function(self, properties: types.WindowProperties): types.Window
 		bindings.Minimized(true)
 
 		task.delay(0.25, function()
-			if structures.ConfigBar then
-				structures.ConfigBar.Destroy()
-			end
-
 			structures.ProfileMenu:Destroy()
 			structures.Body:Destroy()
 
@@ -770,32 +785,17 @@ return function(self, properties: types.WindowProperties): types.Window
 		end)
 	end
 
-	-- Config manager + titlebar config bar
+	-- Config manager (its UI is the ConfigManager groupbox in the Settings tab)
 	if properties.Config ~= false then
 		local options = typeof(properties.Config) == "table" and properties.Config or {}
 
+		-- The UI for configs lives in the Settings tab (window:Settings() / tab:ConfigManager()),
+		-- the manager itself is always available as window.Configs.
 		object.Configs = configModule.new(options)
-		structures.ConfigBar = configBar(self, object.Configs)
-		structures.ConfigBar.Body.Parent = structures.Titlebar.Trailing
-
-		local previousChanged = options.Changed
-
-		options.Changed = function()
-			structures.ConfigBar.Refresh()
-
-			if previousChanged then
-				previousChanged()
-			end
-		end
 
 		if options.AutoLoad ~= false then
 			task.defer(function()
-				local name = object.Configs:GetDefault()
-
-				if name then
-					object.Configs:Load(name)
-					structures.ConfigBar.Select(name)
-				end
+				object.Configs:LoadDefault()
 			end)
 		end
 	end

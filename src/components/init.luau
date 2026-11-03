@@ -35,6 +35,9 @@ local components = {
 	Dashboard = require("@components/Dashboard"),
 	Watermark = require("@components/Watermark"),
 	KeybindList = require("@components/KeybindList"),
+	InfoCard = require("@components/InfoCard"),
+	ConfigManager = require("@components/ConfigManager"),
+	Settings = require("@components/Settings"),
 }
 
 --// Initialize

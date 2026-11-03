@@ -49,9 +49,9 @@
 | `Languages`       | `#!luau {string}?`                              | Language codes shown next to the search field, eg. `{ "EN", "TH" }`.                        |
 | `Language`        | `#!luau string?`                                | Selected language. Defaults to the first one.                                                |
 | `LanguageChanged` | `#!luau ((self: Window, language: string) -> ())?` | Called when the language changes. Cascade does not translate anything, update your texts here. |
-| `Config`          | `#!luau (ConfigOptions \| boolean)?`            | Config bar options, `false` hides it. See [Configs](./Configs.md).                           |
+| `Config`          | `#!luau (ConfigOptions \| boolean)?`            | Config manager options (`false` turns it off). The UI is in the Settings tab, see [Configs](./Configs.md).                           |
 
-`window.Configs` is the window's config manager and `window:Unload()` unloads the whole UI.
+`window.Configs` is the window's config manager, `window:Settings()` builds the Settings tab, `window:KeyStatus()` / `window:DisplayName()` return what the profile card shows, and `window:Unload()` unloads the whole UI.
 
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
