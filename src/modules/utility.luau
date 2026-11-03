@@ -62,6 +62,58 @@ utility.GetScale = function(instance: Instance?): number
 	return scale
 end
 
+-- Sizes a pill-shaped TextLabel to its text using the real font metrics (GetTextBoundsAsync waits
+-- for the font to load). AutomaticSize measures before custom fonts finish loading, which left
+-- pills like "Added" / "Changed" too tight or off-centre. Re-measures when the text changes.
+utility.FitText = function(label: TextLabel, paddingX: number, height: number?)
+	local ok, service = pcall(function()
+		return game:GetService("TextService")
+	end)
+
+	if not ok or not service then
+		return -- keeps AutomaticSize
+	end
+
+	local textService = utility.Clone(service)
+	local token = 0
+
+	local function measure()
+		token += 1
+
+		local current = token
+
+		task.spawn(function()
+			local ok, bounds = pcall(function()
+				local params = Instance.new("GetTextBoundsParams")
+				params.Text = label.ContentText ~= "" and label.ContentText or label.Text
+				params.Font = label.FontFace
+				params.Size = label.TextSize
+				params.Width = 100000
+
+				return textService:GetTextBoundsAsync(params)
+			end)
+
+			if current ~= token or not ok or typeof(bounds) ~= "Vector2" then
+				return
+			end
+
+			local padding = label:FindFirstChildOfClass("UIPadding")
+
+			if padding then
+				padding:Destroy()
+			end
+
+			label.AutomaticSize = Enum.AutomaticSize.None
+			label.TextXAlignment = Enum.TextXAlignment.Center
+			label.TextYAlignment = Enum.TextYAlignment.Center
+			label.Size = UDim2.fromOffset(math.ceil(bounds.X) + paddingX * 2, height or label.Size.Y.Offset)
+		end)
+	end
+
+	label:GetPropertyChangedSignal("Text"):Connect(measure)
+	measure()
+end
+
 -- Phone / tablet check (same idea as Obsidian): Android / iOS platform, or touch without a mouse.
 utility.IsMobile = function(): boolean
 	local userInputService = utility.Clone(game:GetService("UserInputService"))

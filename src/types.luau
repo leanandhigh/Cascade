@@ -733,7 +733,6 @@ export type PriorityListProperties = {
 	Columns: number?,
 	Collapsible: boolean?,
 	Collapsed: boolean?,
-	PickerTitle: string?,
 	ValueChanged: ((self: PriorityList, order: { string }) -> ())?,
 }
 
@@ -744,8 +743,6 @@ export type PriorityList = BaseComponent & PriorityListProperties & {
 	MoveUp: (self: PriorityList, name: string) -> (),
 	MoveDown: (self: PriorityList, name: string) -> (),
 	IndexOf: (self: PriorityList, name: string) -> number?,
-	OpenPicker: (self: PriorityList, name: string) -> (),
-	ClosePicker: (self: PriorityList) -> (),
 }
 
 -- FarmStats / FarmHud
@@ -761,29 +758,51 @@ export type StatDefinition = {
 	PerHour: boolean?,
 }
 
+export type FarmMaterial = {
+	Name: string,
+	Count: number?,
+	Gain: number?,
+	Icon: any?,
+}
+
 export type FarmStatsProperties = {
 	Title: string?,
 	Subtitle: string?,
+	Icon: any?,
+	Status: string?,
+	StatusKind: string?,
+	StatusColor: Color3?,
 	Stats: { StatDefinition }?,
-	Source: any?,
-	Columns: number?,
-	Collapsible: boolean?,
-	Collapsed: boolean?,
+	Materials: { FarmMaterial }?,
+	Footer: string?,
+	Disable3D: boolean?,
+	Keep3DOff: (() -> boolean)?,
+	Visible: boolean?,
+	VisibleChanged: ((self: FarmStats, visible: boolean) -> ())?,
 }
 
 export type FarmStats = BaseComponent & FarmStatsProperties & {
 	Store: any,
+	Show: (self: FarmStats) -> (),
+	Hide: (self: FarmStats) -> (),
+	Toggle: (self: FarmStats) -> (),
+	SetVisible: (self: FarmStats, visible: boolean) -> (),
+	IsVisible: (self: FarmStats) -> boolean,
 	Set: (self: FarmStats, name: string, value: any) -> (),
+	SetStats: (self: FarmStats, values: { [string]: any }) -> (),
 	Get: (self: FarmStats, name: string) -> any,
 	Increment: (self: FarmStats, name: string, amount: number?) -> (),
-	Reset: (self: FarmStats, name: string?) -> (),
 	Define: (self: FarmStats, definition: StatDefinition) -> StatDefinition,
-	Format: (self: FarmStats, name: string) -> (string, string?),
+	SetMaterials: (self: FarmStats, materials: { FarmMaterial }) -> (),
+	UpdateMaterial: (self: FarmStats, name: string, count: number?, gain: number?, icon: any?) -> (),
+	SetStatus: (self: FarmStats, text: string?, kind: (string | Color3)?) -> (),
+	Reset: (self: FarmStats, name: string?) -> (),
+	Destroy: (self: FarmStats) -> (),
 }
 
 export type FarmHudProperties = {
 	Title: string?,
-	Icon: string?,
+	Icon: any?,
 	Stats: { StatDefinition }?,
 	Source: any?,
 	Only: { string }?,
@@ -792,6 +811,10 @@ export type FarmHudProperties = {
 	StatusFlag: string?,
 	StatusOn: string?,
 	StatusOff: string?,
+	Button: { Text: string, Callback: (() -> ())? }?,
+	Timer: boolean?,
+	Items: { { Name: string, Amount: number?, Icon: any? } }?,
+	MaxItems: number?,
 	Draggable: boolean?,
 	Visible: boolean?,
 	Position: UDim2?,
@@ -800,7 +823,12 @@ export type FarmHudProperties = {
 export type FarmHud = BaseComponent & FarmHudProperties & {
 	Store: any,
 	SetStatus: (self: FarmHud, text: string?, kind: string?) -> (),
+	SetItems: (self: FarmHud, items: { { Name: string, Amount: number?, Icon: any? } }) -> (),
+	SetButton: (self: FarmHud, text: string?, callback: (() -> ())?) -> (),
+	ResetTimer: (self: FarmHud) -> (),
+	SetElapsed: (self: FarmHud, seconds: number) -> (),
 	Set: (self: FarmHud, name: string, value: any) -> (),
+	SetRow: (self: FarmHud, name: string, value: any) -> (),
 	Get: (self: FarmHud, name: string) -> any,
 	Increment: (self: FarmHud, name: string, amount: number?) -> (),
 	Reset: (self: FarmHud, name: string?) -> (),

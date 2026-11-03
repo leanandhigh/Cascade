@@ -283,14 +283,14 @@ return function(self, properties: types.KeybindListProperties): types.KeybindLis
 					Name = "Mode",
 					AutomaticSize = Enum.AutomaticSize.X,
 					BackgroundTransparency = 1,
-					FontFace = Font.new("rbxassetid://12187365364"),
-					Size = UDim2.fromOffset(0, 14),
-					TextSize = 11,
+					FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+					Size = UDim2.fromOffset(0, 16),
+					TextSize = 12,
 					ZIndex = 50,
 
 					__dynamicKeys = {
-						TextColor3 = theme.Text.Tertiary[1],
-						TextTransparency = theme.Text.Tertiary[2],
+						TextColor3 = theme.Text.Secondary[1],
+						TextTransparency = theme.Text.Secondary[2],
 					},
 				}),
 
@@ -300,8 +300,8 @@ return function(self, properties: types.KeybindListProperties): types.KeybindLis
 					BorderSizePixel = 0,
 					FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
 					LayoutOrder = 1,
-					Size = UDim2.fromOffset(0, 18),
-					TextSize = 11,
+					Size = UDim2.fromOffset(0, 20),
+					TextSize = 12,
 					ZIndex = 50,
 
 					__dynamicKeys = {
@@ -325,6 +325,9 @@ return function(self, properties: types.KeybindListProperties): types.KeybindLis
 
 		local trailing = frame:FindFirstChild("Trailing")
 		local nameLabel = frame:FindFirstChild("Name")
+
+		-- Key box sized from the real font metrics (AutomaticSize measured before the font loaded)
+		require("@modules/utility").FitText(trailing:FindFirstChild("Key"), 7, 20)
 
 		-- The name only gets the space the mode + key leave, so a long key ("LeftShift") or mode
 		-- never draws over it
@@ -362,7 +365,7 @@ return function(self, properties: types.KeybindListProperties): types.KeybindLis
 				entry.KeyLabel.Text = formatKey(value)
 			end,
 			Mode = function(value: string)
-				entry.ModeLabel.Text = string.lower(value)
+				entry.ModeLabel.Text = tostring(value)
 			end,
 			Active = function(value: boolean)
 				entry.Active = value == true

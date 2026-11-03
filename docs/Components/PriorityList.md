@@ -1,6 +1,6 @@
 # PriorityList
 
-An ordered list shown as a grid of numbered cards (`01  Auto Join Challenge  ⌄`). Click (tap) a card to open **Move to position** and pick its new number. The first item has the highest priority.
+An ordered list shown as a grid of numbered cards (`01  Auto Join Challenge  ⠿`). Drag a card with the mouse or a finger and drop it where it should go; the other cards make room while you drag (page scrolling pauses during a touch drag). The first item has the highest priority.
 
 ```luau
 local priority = section:PriorityList({
@@ -24,8 +24,7 @@ end)
 | `Subtitle`     | `#!luau string?`                        | Muted text under the title.                                                 |
 | `Columns`      | `#!luau number?`                        | Max columns (default `2`). Narrow windows / phones use fewer.                 |
 | `Collapsed`    | `#!luau boolean?`                       | Start closed; click the header to toggle.                                   |
-| `PickerTitle`  | `#!luau string?`                        | Picker heading. Default `"Move to position"`.                               |
 | `Flag`         | `#!luau string?`                        | Saves the order in configs.                                                 |
 | `ValueChanged` | `#!luau (self, order: {string}) -> ()?` | Called when the order changes.                                              |
 
-Methods: `:GetOrder()`, `:SetOrder(order)`, `:MoveTo(name, position)`, `:MoveUp(name)`, `:MoveDown(name)`, `:IndexOf(name)`, `:OpenPicker(name)`, `:ClosePicker()`.
+Methods: `:GetOrder()`, `:SetOrder(order)`, `:MoveTo(name, position)`, `:MoveUp(name)`, `:MoveDown(name)`, `:IndexOf(name)`.

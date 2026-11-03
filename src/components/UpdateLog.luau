@@ -100,7 +100,7 @@ return function(self, properties: types.UpdateLogProperties): types.UpdateLog
 		FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
 		Size = UDim2.fromOffset(0, 20),
 		Text = "0",
-		TextSize = 11,
+		TextSize = 12,
 		Parent = card.Trailing,
 
 		__dynamicKeys = {
@@ -119,6 +119,8 @@ return function(self, properties: types.UpdateLogProperties): types.UpdateLog
 			PaddingRight = UDim.new(0, 7),
 		}),
 	}).__instance :: TextLabel
+
+	require("@modules/utility").FitText(structures.Count, 7, 20)
 
 	create("UIListLayout")({
 		Padding = UDim.new(0, 6),
@@ -275,10 +277,10 @@ return function(self, properties: types.UpdateLogProperties): types.UpdateLog
 				BackgroundTransparency = 0.88,
 				BorderSizePixel = 0,
 				FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
-				Position = UDim2.new(1, 0, 0, 2),
-				Size = UDim2.fromOffset(0, 18),
+				Position = UDim2.new(1, 0, 0, 1),
+				Size = UDim2.fromOffset(0, 20),
 				Text = tostring(tagText),
-				TextSize = 11,
+				TextSize = 12,
 
 				__dynamicKeys = {
 					BackgroundColor3 = status[1],
@@ -297,6 +299,7 @@ return function(self, properties: types.UpdateLogProperties): types.UpdateLog
 		}).__instance :: Frame
 
 		frame:SetAttribute("SearchIndex", text)
+		require("@modules/utility").FitText(frame:FindFirstChild("Tag"), 7, 20)
 
 		-- Lucide icon when available (also once it finishes loading), text glyph otherwise
 		local badge = frame:FindFirstChild("Badge")

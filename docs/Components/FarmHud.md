@@ -1,28 +1,32 @@
 # FarmHud
 
-A small floating card with farm status and stats, visible while the menu is hidden. Drag it with the mouse or a finger.
+A small floating panel over the game: caption with an optional button, a big session timer with a status pill, stat rows and a list of gained items. Drag it with the mouse or a finger.
 
 ```luau
 local hud = app:FarmHud({
     Title = "MTwin HUB",
     Icon = LOGO,
-    Source = stats,                       -- a FarmStats: same numbers
-    Only = { "Session", "Wins", "Gems" }, -- optional subset
-    StatusFlag = "AutoFarm",              -- "Farming" / "Idle" from that toggle
+    Source = farmStats,                 -- same stats as the FarmStats screen
+    Only = { "Wins", "Gems" },
+    StatusFlag = "AutoFarm",            -- "Farming" / "Idle"
+    Button = { Text = "Black", Callback = function() farmStats:Toggle() end },
 })
 
-hud:SetStatus("Joining raid", "Changed")
+hud:SetItems({ { Name = "Gold Ore", Amount = 4 }, { Name = "Star Fruit", Amount = 1 } })
 ```
 
-| Property     | Type                 | Description                                                         |
-| ------------ | -------------------- | ------------------------------------------------------------------- |
-| `Title`      | `#!luau string?`     | Header text.                                                        |
-| `Icon`       | `#!luau string?`     | Logo (keeps its colours) or Lucide icon (accent).                   |
-| `Source`     | `#!luau FarmStats?`  | Share stats with a FarmStats card.                                  |
-| `Stats`      | `#!luau {Stat}?`     | Its own stats (same format as FarmStats) when there's no `Source`.  |
-| `Only`       | `#!luau {string}?`   | Which stats to show.                                                |
-| `StatusFlag` | `#!luau string?`     | Shows `StatusOn` (default `"Farming"`) / `StatusOff` (`"Idle"`).    |
-| `Position`   | `#!luau UDim2?`      | Default top-right.                                                  |
-| `Visible`    | `#!luau boolean?`    | Show / hide. `window:Settings({ FarmHud = hud })` adds a toggle.    |
+| Property     | Type                 | Description                                                      |
+| ------------ | -------------------- | ---------------------------------------------------------------- |
+| `Title`      | `#!luau string?`     | Caption (shown in capitals).                                     |
+| `Icon`       | `#!luau any?`        | Logo (keeps its colours) or Lucide icon (accent).                |
+| `Source`     | `#!luau FarmStats?`  | Share stats with the FarmStats screen.                           |
+| `Stats`      | `#!luau {Stat}?`     | Its own stats when there's no `Source`.                          |
+| `Only`       | `#!luau {string}?`   | Which stats to show as rows.                                     |
+| `StatusFlag` | `#!luau string?`     | Shows `StatusOn` (default `"Farming"`) / `StatusOff` (`"Idle"`). |
+| `Button`     | `#!luau {Text, Callback}?` | Small button in the header.                                 |
+| `Timer`      | `#!luau boolean?`    | `false` hides the big timer.                                     |
+| `MaxItems`   | `#!luau number?`     | Items shown before "+N more" (default 6).                        |
+| `Position`   | `#!luau UDim2?`      | Default top-right.                                               |
+| `Visible`    | `#!luau boolean?`    | `window:Settings({ FarmHud = hud })` adds a toggle.              |
 
-Methods: `:SetStatus(text, kind?)` (`kind`: `"Added"` green, `"Changed"` orange, `"Removed"` red, `"Info"` blue), `:Set`, `:Get`, `:Increment`, `:Reset`.
+Methods: `:SetStatus(text, kind?)`, `:SetItems(list)`, `:SetButton(text, callback)`, `:ResetTimer()`, `:SetElapsed(seconds)`, `:Set` / `:SetRow`, `:Get`, `:Increment`, `:Reset`.

@@ -1,39 +1,45 @@
 # FarmStats
 
-A card of live stat tiles (icon, label, big value). Pair it with a [FarmHud](FarmHud.md) to show the same numbers in a floating overlay.
+A full-screen farm stats screen in its own ScreenGui (outside the window): a black backdrop with one card showing the logo, title, a status pill, a big session timer, stat tiles and a materials grid (owned count + gain). The game behind an opaque screen doesn't need drawing, so 3D rendering is turned off while it's shown and back on when it closes (or the UI unloads).
 
 ```luau
-local stats = section:FarmStats({
-    Title = "This session",
-    Subtitle = "Resets when you rejoin",
-    Columns = 3,
+local farmStats = app:FarmStats({
+    Title = "MTwin HUB",
+    Subtitle = "Anime Adventures",
+    Icon = LOGO,
+    Status = "Online",
     Stats = {
-        { Name = "Session", Icon = "timer", Type = "Timer" },
-        { Name = "Wins", Icon = "trophy", Value = 0 },
-        { Name = "Gems", Icon = "gem", Value = 0, Format = "short", PerHour = true },
-        { Name = "Level", Icon = "chart-line", Value = function() return getLevel() end },
+        { Name = "Level", Value = 225 },
+        { Name = "Money", Value = 8433620 },
+        { Name = "Wins", Value = 0, Icon = "trophy" },
+        { Name = "Gems", Value = 33125, Format = "short", PerHour = true },
+    },
+    Materials = {
+        { Name = "Gold Ore", Count = 1840, Gain = 120, Icon = 1234567 },
     },
 })
 
-stats:Increment("Wins")
-stats:Increment("Gems", 250)
-stats:Set("Level", 42)
-stats:Reset()
+farmStats:Show()
+farmStats:Increment("Wins")
+farmStats:UpdateMaterial("Gold Ore", 1900, 60)
+farmStats:SetStatus("Farming", "Added")
 ```
 
-Each stat:
+| Property         | Type                        | Description                                                                 |
+| ---------------- | --------------------------- | --------------------------------------------------------------------------- |
+| `Title` / `Subtitle` | `#!luau string?`        | Header text.                                                                |
+| `Icon`           | `#!luau any?`               | Logo in the tile (asset id / `rbxthumb` / Lucide).                          |
+| `Status`         | `#!luau string?`            | Status pill text (default `"Online"`). `StatusKind` / `StatusColor` colour the dot. |
+| `Stats`          | `#!luau {Stat}?`            | Stat tiles (up to 4 per row). Same stat format as below.                    |
+| `Materials`      | `#!luau {Material}?`        | `{ Name, Count, Gain, Icon }`; gain shows as a green `+N` pill.             |
+| `Footer`         | `#!luau string?`            | Hint under the card.                                                        |
+| `Disable3D`      | `#!luau boolean?`           | `false` keeps the 3D world drawing while shown.                             |
+| `Keep3DOff`      | `#!luau (() -> boolean)?`   | Return `true` to leave 3D off on close (your own "Disable 3D" setting).     |
+| `Visible`        | `#!luau boolean?`           | Start shown.                                                                |
+| `VisibleChanged` | `#!luau (self, visible) -> ()?` | Called on show / hide (eg. the Close button), to sync a toggle.         |
 
-| Field     | Description                                                                   |
-| --------- | ----------------------------------------------------------------------------- |
-| `Name`    | Key for `:Set` / `:Increment` / `:Get`.                                       |
-| `Label`   | Shown text (defaults to `Name`).                                              |
-| `Icon`    | Lucide name or asset id.                                                      |
-| `Value`   | Number, string, or a function re-read every second.                           |
-| `Type`    | `"Timer"` counts up from creation / `:Reset()` (`01:23:45`).                  |
-| `Format`  | Numbers: `"comma"` (`1,234,567`, default), `"short"` (`1.2M`) or `"raw"`.     |
-| `Prefix` / `Suffix` | Text around the value.                                              |
-| `PerHour` | Also show the rate since the start (`3.1K/h`).                                |
+Stat fields: `Name`, `Label`, `Icon`, `Value` (number, string or function re-read every second), `Format` (`"comma"` default, `"short"`, `"raw"`), `Prefix`, `Suffix`, `PerHour` (adds a rate).
 
-Properties: `Title`, `Subtitle`, `Columns` (max, default `3`), `Collapsed`, `Collapsible`, `Stats`, `Source` (another FarmStats / FarmHud to share numbers with).
+Methods: `:Show()`, `:Hide()`, `:Toggle()`, `:SetVisible(bool)`, `:IsVisible()`, `:Set(name, value)`, `:SetStats({ name = value })`, `:Get(name)`, `:Increment(name, amount?)`, `:SetMaterials(list)`, `:UpdateMaterial(name, count?, gain?, icon?)`, `:SetStatus(text, kind or Color3)`, `:Reset()` (new session), `:Destroy()`.
 
-Methods: `:Set(name, value)`, `:Get(name)`, `:Increment(name, amount?)`, `:Reset(name?)`, `:Define(stat)`, `:Format(name)`.
+Pass the screen to a [FarmHud](FarmHud.md) as `Source` to show the same stats in the small overlay.

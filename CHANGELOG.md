@@ -22,8 +22,10 @@
 - `ButtonRow`: full-width rows of equal buttons (used by the Configs groupbox).
 - Divider under the brand header.
 
-- `PriorityList`: grid of numbered cards; click one to pick its position from a "Move to position" menu (farm / join priority), saved in configs.
-- `FarmStats` (live stat tiles: timers, counters, per-hour rates) and `FarmHud` (floating draggable status card that can share the same stats).
+- `PriorityList`: grid of numbered cards you drag (mouse or touch) to reorder; the others make room while dragging. Saved in configs.
+- `FarmStats`: external full-screen stats screen (big session timer, stat tiles, materials with owned / gain, status pill); 3D rendering off while shown.
+- `FarmHud`: floating draggable panel (timer, status, stat rows, gained items, optional button) that can share stats with `FarmStats`.
+- Pills (update log tags, counts, keybind keys, status) are sized from the real font metrics, so they no longer look cramped or off-centre; small labels use the Medium weight.
 - `UpdateLog` redesign: title + subtitle header with count and collapse chevron, one card per entry with an icon badge and type tag.
 - Window: visible resize grip in the bottom-right corner that works with touch (mobile resizing).
 - `Settings`: the accent is a colour picker (any colour, `cascade.CustomAccent(color)`), saved as `UI_AccentColor`.

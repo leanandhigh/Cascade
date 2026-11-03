@@ -1,9 +1,10 @@
 --[[
 	PriorityList
-	Ordered list shown as a grid of numbered cards ("01  Auto Join Challenge  v"). Click a card
-	to open "Move to position" and pick its new number. First = highest priority.
+	Ordered list shown as a grid of numbered cards ("01  Auto Join Challenge  ⠿"). Drag a card
+	(mouse or finger) onto another spot to reorder; the others make room while you drag.
+	First = highest priority.
 
-	local priority = box:PriorityList({
+	local priority = section:PriorityList({
 		Flag = "JoinPriority",              -- saved in configs (the order, as a list of names)
 		Title = "Join priority",            -- optional card header
 		Subtitle = "Top enabled route wins; routing repeats after every visit to the lobby.",
@@ -13,8 +14,8 @@
 		ValueChanged = function(self, order: { string }) end,
 	})
 
-	priority.Value                -- current order { "Auto Join Challenge", ... }
-	priority:MoveTo("Raid", 1)     -- same as picking 01 in the menu
+	priority.Value                 -- current order { "Auto Join Challenge", ... }
+	priority:MoveTo("Raid", 1)
 	priority:MoveUp("Raid") / priority:MoveDown("Raid")
 	priority:SetOrder({ ... })
 	cascade.Flags:OnChanged("JoinPriority", function(order) end)
@@ -24,9 +25,7 @@ local types = require("@types")
 
 --// Constants
 local CELL_HEIGHT = 38
-local PICKER_COLUMNS = 4
-local PICKER_CELL = Vector2.new(42, 32)
-local PICKER_GAP = 8
+local DRAG_THRESHOLD = 6
 
 return function(self, properties: types.PriorityListProperties): types.PriorityList
 	--// Imports
@@ -39,15 +38,13 @@ return function(self, properties: types.PriorityListProperties): types.PriorityL
 
 	--// References
 	local create = creator.Create
-	local tweenService = services.TweenService
 	local userInputService = services.UserInputService
 
 	--// Variables
 	local parent = self.__container or self.__instance or self
 	local theme = self.Theme
-	local items = {} -- name -> { Button, Badge, Chevron }
+	local items = {} -- name -> { Button, Badge, Title, Grip }
 	local object
-	local openName = nil
 
 	--// UI
 	properties = properties or {}
@@ -132,32 +129,9 @@ return function(self, properties: types.PriorityListProperties): types.PriorityL
 		return string.format("%02d", index)
 	end
 
-	local function paintItem(name: string)
-		local item = items[name]
-
-		if not item then
-			return
-		end
-
-		local isOpen = openName == name
-		local accent = theme.Controls.SwitchAccent[1].Value
-
-		item.Badge.TextColor3 = isOpen and accent or theme.Text.Secondary[1].Value
-		item.Badge.TextTransparency = isOpen and 0 or theme.Text.Secondary[2].Value
-		item.Button.BackgroundTransparency = isOpen and theme.Controls.Card.Hover[2].Value
-			or theme.Controls.Card.Fill[2].Value
-
-		tweenService
-			:Create(
-				item.Chevron,
-				TweenInfo.new(0.2, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out),
-				{ Rotation = isOpen and 180 or 0 }
-			)
-			:Play()
-	end
-
-	local function render()
-		for index, name in ipairs(properties.Value or {}) do
+	-- Lays the cards out in `order` (the saved order, or the preview while dragging)
+	local function layout(order)
+		for index, name in ipairs(order) do
 			local item = items[name]
 
 			if item then
@@ -165,6 +139,10 @@ return function(self, properties: types.PriorityListProperties): types.PriorityL
 				item.Badge.Text = label(index)
 			end
 		end
+	end
+
+	local function render()
+		layout(properties.Value or {})
 	end
 
 	local function moveTo(name: string, target: number)
@@ -186,10 +164,12 @@ return function(self, properties: types.PriorityListProperties): types.PriorityL
 		object.Value = order
 	end
 
-	--// Position picker (own ScreenGui so the window never clips it)
-	local pickerGui = create("ScreenGui")({
-		Name = "PriorityPicker",
-		DisplayOrder = 203,
+	--// Dragging
+	-- The dragged card leaves a highlighted gap in the grid; a floating copy follows the
+	-- pointer in its own ScreenGui (never clipped by the window, unaffected by the mobile scale).
+	local dragGui = create("ScreenGui")({
+		Name = "PriorityDrag",
+		DisplayOrder = 204,
 		Enabled = false,
 		IgnoreGuiInset = true,
 		OnTopOfCoreBlur = true,
@@ -198,299 +178,222 @@ return function(self, properties: types.PriorityListProperties): types.PriorityL
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 	})
 
-	local pickerWidth = PICKER_COLUMNS * PICKER_CELL.X + (PICKER_COLUMNS - 1) * PICKER_GAP + 24
+	utility.ProtectUI(dragGui.__instance)
+	structures.DragLayer = dragGui.__instance
 
-	local panel = create("CanvasGroup")({
-		Name = "Panel",
-		AutomaticSize = Enum.AutomaticSize.Y,
-		BorderSizePixel = 0,
-		GroupTransparency = 1,
-		Size = UDim2.fromOffset(pickerWidth, 0),
-		Parent = pickerGui.__instance,
+	local drag = nil -- { Name, Input, Start, Started, Ghost, Offset, Preview, Scrollers }
 
-		__dynamicKeys = {
-			BackgroundColor3 = theme.Controls.MenuButton.MenuBackground[1],
-			BackgroundTransparency = theme.Controls.MenuButton.MenuBackground[2],
-		},
+	local function setGap(item, isGap: boolean)
+		local accent = theme.Controls.SwitchAccent[1].Value
+		local stroke = item.Button:FindFirstChildOfClass("UIStroke")
 
-		create("UICorner")({
-			CornerRadius = UDim.new(0, 10),
-		}),
+		item.Badge.Visible = not isGap
+		item.Title.Visible = not isGap
+		item.Grip.Visible = not isGap
 
-		create("UIStroke")({
-			ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-
-			__dynamicKeys = {
-				Color = theme.Controls.ViewBorder[1],
-				Transparency = theme.Controls.ViewBorder[2],
-			},
-		}),
-
-		create("UIPadding")({
-			PaddingBottom = UDim.new(0, 12),
-			PaddingLeft = UDim.new(0, 12),
-			PaddingRight = UDim.new(0, 12),
-			PaddingTop = UDim.new(0, 10),
-		}),
-
-		create("UIListLayout")({
-			Padding = UDim.new(0, 10),
-			SortOrder = Enum.SortOrder.LayoutOrder,
-		}),
-
-		create("Frame")({
-			Name = "Header",
-			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, 22),
-
-			create("TextLabel")({
-				Name = "Title",
-				AnchorPoint = Vector2.new(0, 0.5),
-				BackgroundTransparency = 1,
-				FontFace = Font.new("rbxassetid://12187365364"),
-				Position = UDim2.fromScale(0, 0.5),
-				Size = UDim2.new(1, -26, 0, 16),
-				Text = properties.PickerTitle or "Move to position",
-				TextSize = 12,
-				TextXAlignment = Enum.TextXAlignment.Left,
-
-				__dynamicKeys = {
-					TextColor3 = theme.Text.Secondary[1],
-					TextTransparency = theme.Text.Secondary[2],
-				},
-			}),
-
-			create("ImageButton")({
-				Name = "Close",
-				AnchorPoint = Vector2.new(1, 0.5),
-				AutoButtonColor = false,
-				BackgroundTransparency = 1,
-				Position = UDim2.fromScale(1, 0.5),
-				Size = UDim2.fromOffset(22, 22),
-
-				create("ImageLabel")({
-					Name = "Icon",
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					BackgroundTransparency = 1,
-					Position = UDim2.fromScale(0.5, 0.5),
-					ScaleType = Enum.ScaleType.Fit,
-					Size = UDim2.fromOffset(12, 12),
-
-					__dynamicKeys = {
-						ImageColor3 = theme.Text.Secondary[1],
-						ImageTransparency = theme.Text.Secondary[2],
-					},
-				}),
-			}),
-		}),
-
-		create("Frame")({
-			Name = "Positions",
-			AutomaticSize = Enum.AutomaticSize.Y,
-			BackgroundTransparency = 1,
-			LayoutOrder = 1,
-			Size = UDim2.fromScale(1, 0),
-
-			create("UIGridLayout")({
-				CellPadding = UDim2.fromOffset(PICKER_GAP, PICKER_GAP),
-				CellSize = UDim2.fromOffset(PICKER_CELL.X, PICKER_CELL.Y),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-			}),
-		}),
-	})
-
-	local panelInstance = panel.__instance :: CanvasGroup
-	local closeButton = panelInstance:FindFirstChild("Header"):FindFirstChild("Close") :: ImageButton
-	local positions = panelInstance:FindFirstChild("Positions") :: Frame
-	local positionButtons = {}
-	local pickerToken = 0
-
-	icons.Apply(closeButton:FindFirstChild("Icon"), "x", symbols.xmark, 12)
-	utility.ProtectUI(pickerGui.__instance)
-
-	structures.Picker = pickerGui.__instance
-	structures.PickerPanel = panelInstance
-
-	local function placePicker(anchor: GuiObject)
-		local camera = workspace.CurrentCamera
-		local viewport = camera and camera.ViewportSize or Vector2.new(1920, 1080)
-		local size = panelInstance.AbsoluteSize
-
-		local x = anchor.AbsolutePosition.X
-		local y = anchor.AbsolutePosition.Y + anchor.AbsoluteSize.Y + 6
-
-		if y + size.Y > viewport.Y - 6 then
-			y = anchor.AbsolutePosition.Y - size.Y - 6
+		if stroke then
+			stroke.Color = isGap and accent or theme.Controls.ViewBorder[1].Value
+			stroke.Transparency = isGap and 0.35 or theme.Controls.ViewBorder[2].Value
 		end
 
-		panelInstance.Position = UDim2.fromOffset(
-			math.clamp(x, 6, math.max(6, viewport.X - size.X - 6)),
-			math.clamp(y, 6, math.max(6, viewport.Y - size.Y - 6))
-		)
+		item.Button.BackgroundTransparency = isGap and 0.94 or theme.Controls.Card.Fill[2].Value
+		item.Button.BackgroundColor3 = isGap and accent or theme.Controls.Card.Fill[1].Value
 	end
 
-	local function paintPositions()
-		local current = openName and table.find(properties.Value or {}, openName)
-		local accent = theme.Controls.SwitchAccent[1].Value
+	-- Stops pages from scrolling while a finger drags a card
+	local function lockScrolling(button: GuiObject)
+		local locked = {}
+		local current = button.Parent
 
-		for index, button in ipairs(positionButtons) do
-			local selected = index == current
+		while current do
+			if current:IsA("ScrollingFrame") and current.ScrollingEnabled then
+				current.ScrollingEnabled = false
+				table.insert(locked, current)
+			end
 
-			button.TextColor3 = selected and accent or theme.Text.Primary[1].Value
-			button.TextTransparency = selected and 0 or theme.Text.Primary[2].Value
-			button.BackgroundTransparency = selected and theme.Controls.Card.Hover[2].Value
-				or theme.Controls.Card.Fill[2].Value
+			current = current.Parent
+		end
 
-			local stroke = button:FindFirstChildOfClass("UIStroke")
+		return locked
+	end
 
-			if stroke then
-				stroke.Enabled = selected
-				stroke.Color = accent
+	-- Index the pointer is over: the card whose centre is closest
+	local function targetIndex(position: Vector2): number
+		local best, bestDistance = 1, math.huge
+
+		for index, name in ipairs(drag.Preview) do
+			local button = items[name].Button
+			local center = button.AbsolutePosition + button.AbsoluteSize / 2
+			local distance = (center - position).Magnitude
+
+			if distance < bestDistance then
+				best, bestDistance = index, distance
 			end
 		end
+
+		return best
 	end
 
-	local closePicker
+	local function beginDrag()
+		local item = items[drag.Name]
+		local button = item.Button
 
-	local function buildPositions()
-		for _, button in ipairs(positionButtons) do
-			button:Destroy()
+		drag.Started = true
+		drag.Preview = table.clone(properties.Value or {})
+		drag.Scrollers = lockScrolling(button)
+
+		-- Floating copy at the card's on-screen size
+		local ghost = button:Clone()
+
+		for _, descendant in ipairs(ghost:GetDescendants()) do
+			if descendant:IsA("UIStroke") then
+				descendant.Color = theme.Controls.SwitchAccent[1].Value
+				descendant.Transparency = 0.2
+			end
 		end
 
-		table.clear(positionButtons)
+		ghost.Name = "Ghost"
+		ghost.Active = false
+		ghost.AnchorPoint = Vector2.zero
+		ghost.BackgroundColor3 = theme.Controls.Background[1].Value
+		ghost.BackgroundTransparency = 0
+		ghost.LayoutOrder = 0
+		ghost.Size = UDim2.fromOffset(button.AbsoluteSize.X, button.AbsoluteSize.Y)
 
-		for index = 1, #baseValues do
-			local button = create("TextButton")({
-				Name = "Position" .. index,
-				AutoButtonColor = false,
-				BorderSizePixel = 0,
-				FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
-				LayoutOrder = index,
-				Text = label(index),
-				TextSize = 13,
-				Parent = positions,
+		local scale = utility.GetScale(button)
 
-				__dynamicKeys = {
-					BackgroundColor3 = theme.Controls.Card.Fill[1],
-				},
+		if scale > 0.05 and scale ~= 1 then
+			local uiScale = Instance.new("UIScale")
+			uiScale.Scale = scale
+			uiScale.Parent = ghost
+			ghost.Size = UDim2.fromOffset(button.AbsoluteSize.X / scale, button.AbsoluteSize.Y / scale)
+		end
 
-				create("UICorner")({
-					CornerRadius = UDim.new(0, 6),
-				}),
+		local ghostBadge = ghost:FindFirstChild("Badge")
 
-				create("UIStroke")({
-					ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-					Enabled = false,
-					Transparency = 0.5,
-				}),
-			}).__instance :: TextButton
+		if ghostBadge then
+			ghostBadge.TextColor3 = theme.Controls.SwitchAccent[1].Value
+			ghostBadge.TextTransparency = 0
+		end
 
-			button.MouseButton1Click:Connect(function()
-				local name = openName
+		drag.Offset = Vector2.new(drag.Start.X, drag.Start.Y) - button.AbsolutePosition
+		ghost.Position = UDim2.fromOffset(button.AbsolutePosition.X, button.AbsolutePosition.Y)
+		ghost.Parent = dragGui.__instance
+		dragGui.Enabled = true
 
-				closePicker()
+		drag.Ghost = ghost
+		setGap(item, true)
+	end
 
-				if name then
-					moveTo(name, index)
+	local function updateDrag(position: Vector2)
+		if not drag then
+			return
+		end
+
+		if not drag.Started then
+			if (position - Vector2.new(drag.Start.X, drag.Start.Y)).Magnitude < DRAG_THRESHOLD then
+				return
+			end
+
+			beginDrag()
+		end
+
+		local topLeft = position - drag.Offset
+
+		drag.Ghost.Position = UDim2.fromOffset(topLeft.X, topLeft.Y)
+
+		-- Move the gap to wherever the pointer is
+		local target = targetIndex(position)
+		local current = table.find(drag.Preview, drag.Name)
+
+		if target ~= current then
+			table.remove(drag.Preview, current)
+			table.insert(drag.Preview, target, drag.Name)
+			layout(drag.Preview)
+		end
+
+		local ghostBadge = drag.Ghost:FindFirstChild("Badge")
+
+		if ghostBadge then
+			ghostBadge.Text = label(table.find(drag.Preview, drag.Name) or 1)
+		end
+	end
+
+	local function endDrag()
+		local current = drag
+		drag = nil
+
+		if not current or not current.Started then
+			return
+		end
+
+		for _, scroller in ipairs(current.Scrollers or {}) do
+			scroller.ScrollingEnabled = true
+		end
+
+		if current.Ghost then
+			current.Ghost:Destroy()
+		end
+
+		dragGui.Enabled = false
+
+		local item = items[current.Name]
+
+		if item then
+			setGap(item, false)
+		end
+
+		object.Value = current.Preview
+	end
+
+	local function startDrag(name: string, input: InputObject)
+		if drag then
+			return
+		end
+
+		drag = {
+			Name = name,
+			Input = input,
+			Start = input.Position,
+			Started = false,
+		}
+
+		local connection
+		connection = input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				connection:Disconnect()
+
+				if drag and drag.Input == input then
+					endDrag()
 				end
-			end)
-
-			table.insert(positionButtons, button)
-		end
-	end
-
-	local function openPicker(name: string)
-		local item = items[name]
-
-		if not item then
-			return
-		end
-
-		local previous = openName
-
-		openName = name
-		pickerToken += 1
-
-		if previous and previous ~= name then
-			paintItem(previous)
-		end
-
-		paintItem(name)
-		paintPositions()
-
-		pickerGui.Enabled = true
-		placePicker(item.Button)
-		task.defer(placePicker, item.Button)
-
-		tweenService
-			:Create(panelInstance, TweenInfo.new(0.18, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out), {
-				GroupTransparency = 0,
-			})
-			:Play()
-	end
-
-	closePicker = function()
-		if not openName then
-			return
-		end
-
-		local previous = openName
-
-		openName = nil
-		pickerToken += 1
-
-		local token = pickerToken
-
-		paintItem(previous)
-
-		local tween = tweenService:Create(
-			panelInstance,
-			TweenInfo.new(0.15, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out),
-			{ GroupTransparency = 1 }
-		)
-
-		tween.Completed:Connect(function()
-			if token == pickerToken and not openName then
-				pickerGui.Enabled = false
 			end
 		end)
-		tween:Play()
 	end
 
-	closeButton.MouseButton1Click:Connect(function()
-		closePicker()
+	userInputService.InputChanged:Connect(function(input)
+		if not drag then
+			return
+		end
+
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			if drag.Input.UserInputType ~= Enum.UserInputType.MouseButton1 then
+				return
+			end
+		elseif input.UserInputType == Enum.UserInputType.Touch then
+			-- only the finger that grabbed the card
+			if drag.Input.UserInputType == Enum.UserInputType.Touch and input ~= drag.Input then
+				return
+			end
+		else
+			return
+		end
+
+		updateDrag(Vector2.new(input.Position.X, input.Position.Y))
 	end)
 
-	-- Click / tap outside closes it
-	userInputService.InputBegan:Connect(function(input)
-		if not openName then
-			return
-		end
-
-		if
-			input.UserInputType ~= Enum.UserInputType.MouseButton1
-			and input.UserInputType ~= Enum.UserInputType.Touch
-		then
-			return
-		end
-
-		local function inside(gui: GuiObject?)
-			if not gui then
-				return false
-			end
-
-			local pos, size = gui.AbsolutePosition, gui.AbsoluteSize
-
-			return input.Position.X >= pos.X
-				and input.Position.X <= pos.X + size.X
-				and input.Position.Y >= pos.Y
-				and input.Position.Y <= pos.Y + size.Y
-		end
-
-		local item = items[openName]
-
-		if not inside(panelInstance) and not inside(item and item.Button) then
-			closePicker()
+	userInputService.InputEnded:Connect(function(input)
+		if drag and (input == drag.Input or input.UserInputType == Enum.UserInputType.MouseButton1) then
+			endDrag()
 		end
 	end)
 
@@ -529,12 +432,13 @@ return function(self, properties: types.PriorityListProperties): types.PriorityL
 				Position = UDim2.new(0, 10, 0.5, 0),
 				Size = UDim2.fromOffset(26, 20),
 				Text = "01",
-				TextSize = 11,
+				TextSize = 12,
 
 				__dynamicKeys = {
 					BackgroundColor3 = theme.Controls.Card.Hover[1],
 					BackgroundTransparency = theme.Controls.Card.Hover[2],
 					TextColor3 = theme.Text.Secondary[1],
+					TextTransparency = theme.Text.Secondary[2],
 				},
 
 				create("UICorner")({
@@ -548,7 +452,7 @@ return function(self, properties: types.PriorityListProperties): types.PriorityL
 				BackgroundTransparency = 1,
 				FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
 				Position = UDim2.new(0, 46, 0.5, 0),
-				Size = UDim2.new(1, -(46 + 30), 0, 16),
+				Size = UDim2.new(1, -(46 + 32), 0, 16),
 				Text = name,
 				TextSize = 14,
 				TextTruncate = Enum.TextTruncate.AtEnd,
@@ -560,13 +464,14 @@ return function(self, properties: types.PriorityListProperties): types.PriorityL
 				},
 			}),
 
+			-- Drag handle hint
 			create("ImageLabel")({
-				Name = "Chevron",
+				Name = "Grip",
 				AnchorPoint = Vector2.new(1, 0.5),
 				BackgroundTransparency = 1,
-				Position = UDim2.new(1, -12, 0.5, 0),
+				Position = UDim2.new(1, -11, 0.5, 0),
 				ScaleType = Enum.ScaleType.Fit,
-				Size = UDim2.fromOffset(12, 12),
+				Size = UDim2.fromOffset(14, 14),
 
 				__dynamicKeys = {
 					ImageColor3 = theme.Text.Secondary[1],
@@ -577,32 +482,34 @@ return function(self, properties: types.PriorityListProperties): types.PriorityL
 
 		button:SetAttribute("SearchIndex", name)
 
-		local chevron = button:FindFirstChild("Chevron") :: ImageLabel
+		local grip = button:FindFirstChild("Grip") :: ImageLabel
 
-		icons.Apply(chevron, "chevron-down", symbols.chevronDown, 12)
+		icons.Apply(grip, "grip-vertical", symbols.line3Horizontal, 14)
 
 		button.MouseEnter:Connect(function()
-			if openName ~= name then
+			if not drag then
 				button.BackgroundTransparency = theme.Controls.Card.Hover[2].Value
 			end
 		end)
 		button.MouseLeave:Connect(function()
-			if openName ~= name then
+			if not (drag and drag.Name == name and drag.Started) then
 				button.BackgroundTransparency = theme.Controls.Card.Fill[2].Value
 			end
 		end)
-		button.MouseButton1Click:Connect(function()
-			if openName == name then
-				closePicker()
-			else
-				openPicker(name)
+		button.InputBegan:Connect(function(input)
+			if
+				input.UserInputType == Enum.UserInputType.MouseButton1
+				or input.UserInputType == Enum.UserInputType.Touch
+			then
+				startDrag(name, input)
 			end
 		end)
 
 		items[name] = {
 			Button = button,
 			Badge = button:FindFirstChild("Badge") :: TextLabel,
-			Chevron = chevron,
+			Title = button:FindFirstChild("Title") :: TextLabel,
+			Grip = grip,
 		}
 	end
 
@@ -622,10 +529,6 @@ return function(self, properties: types.PriorityListProperties): types.PriorityL
 			properties.Value = value
 			render()
 
-			if openName then
-				paintPositions()
-			end
-
 			if properties.ValueChanged then
 				task.spawn(properties.ValueChanged, object, table.clone(value))
 			end
@@ -636,18 +539,12 @@ return function(self, properties: types.PriorityListProperties): types.PriorityL
 		makeItem(name)
 	end
 
-	buildPositions()
-
 	card.OnCollapsed(function(isCollapsed)
 		properties.Collapsed = isCollapsed
-
-		if isCollapsed then
-			closePicker()
-		end
 	end)
 
 	card.Body.__instance.Destroying:Connect(function()
-		pickerGui:Destroy()
+		dragGui:Destroy()
 	end)
 
 	object.Type = "PriorityList"
@@ -681,24 +578,10 @@ return function(self, properties: types.PriorityListProperties): types.PriorityL
 	object.IndexOf = function(_, name: string)
 		return table.find(properties.Value or {}, tostring(name))
 	end
-	object.OpenPicker = function(_, name: string)
-		openPicker(tostring(name))
-	end
-	object.ClosePicker = function()
-		closePicker()
-	end
 
 	properties.Value = normalize(properties.Value)
 	binder.Apply(properties, object)
 	render()
-
-	-- Theme / accent changes repaint the hand-coloured parts
-	theme.Controls.SwitchAccent[1]:Connect(function()
-		if openName then
-			paintItem(openName)
-			paintPositions()
-		end
-	end)
 
 	return object
 end

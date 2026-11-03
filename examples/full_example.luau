@@ -294,7 +294,7 @@ farmingTab:Groupbox({
 	Collapsed = true,
 }):Row({ Title = "Debug Prints" }):Right():Toggle({ Flag = "DebugPrints" })
 
--- Teleport tab: a PriorityList. Each card shows its number; click it to pick a new position.
+-- Teleport tab: a PriorityList. Drag a card (mouse or finger) to reorder; the others make room.
 -- Value = list of names, first = highest priority. Saved in configs like everything with a Flag.
 local teleportTab = mainSection:Tab({ Title = "Teleport", Icon = "map-pin" })
 
@@ -315,38 +315,46 @@ teleportTab:PageSection({ Title = "Priority teleport" }):PriorityList({
 	},
 })
 
--- Stats tab: FarmStats tiles (live values). Type = "Timer" counts up, PerHour adds a rate,
--- Format = "short" writes 1.2M, Value can be a function that's re-read every second.
-local statsTab = mainSection:Tab({ Title = "Stats", Icon = "chart-column" })
-
-local farmStats = statsTab:PageSection({ Title = "Farm stats" }):FarmStats({
-	Title = "This session",
-	Subtitle = "Resets when you rejoin",
-	Columns = 3,
+-- FarmStats: external full-screen "black screen" (outside the window): big session timer,
+-- stat tiles and materials. 3D rendering is off while it's up (Disable3D = false keeps it on).
+local farmStats = app:FarmStats({
+	Title = "MTwin HUB",
+	Subtitle = "Anime Adventures",
+	Icon = LOGO,
+	Status = "Online",
 	Stats = {
-		{ Name = "Session", Icon = "timer", Type = "Timer" },
-		{ Name = "Wins", Icon = "trophy", Value = 0 },
-		{ Name = "Losses", Icon = "skull", Value = 0 },
-		{ Name = "Gems", Icon = "gem", Value = 0, Format = "short", PerHour = true },
-		{ Name = "Gold", Icon = "coins", Value = 0, Format = "short", PerHour = true },
-		{ Name = "Status", Icon = "activity", Value = "Idle" },
+		{ Name = "Level", Value = 225 },
+		{ Name = "Money", Value = 8433620 },
+		{ Name = "Wins", Value = 0, Icon = "trophy" },
+		{ Name = "Gems", Value = 33125, Format = "short", PerHour = true },
 	},
+	Materials = {
+		{ Name = "Star Fruit", Count = 70, Gain = 2 },
+		{ Name = "Trait Crystal", Count = 12, Gain = 0 },
+		{ Name = "Gold Ore", Count = 1840, Gain = 120 },
+	},
+	VisibleChanged = function(_, visible)
+		Flags:Set("FarmScreen", visible) -- keep the toggle below in sync with the Close button
+	end,
 })
 
-statsTab:PageSection({ Title = "Controls" }):Form():ButtonRow({
-	Buttons = {
-		{ Label = "Reset stats", State = "Secondary", Pushed = function() farmStats:Reset() end },
-	},
-})
-
--- FarmHud: floating, draggable card with the same numbers (mouse + touch).
--- StatusFlag shows "Farming" / "Idle" from the AutoFarm toggle; Only picks which stats to show.
+-- FarmHud: small draggable panel over the game. Source = farmStats shows the same numbers,
+-- the button opens the black screen, StatusFlag shows "Farming" / "Idle".
 local hud = app:FarmHud({
 	Title = "MTwin HUB",
 	Icon = LOGO,
 	Source = farmStats,
-	Only = { "Session", "Wins", "Gems", "Gold" },
+	Only = { "Wins", "Gems" },
 	StatusFlag = "AutoFarm",
+	Button = { Text = "Black", Callback = function() farmStats:Toggle() end },
+})
+
+local screenBox = farmingTab:Groupbox({ Side = "Left", Title = "Farm screen", Icon = "monitor" })
+screenBox:Row({ Title = "Black screen", Subtitle = "Farm stats, 3D off (saves FPS)" }):Right():Toggle({ Flag = "FarmScreen", Value = false })
+screenBox:ButtonRow({
+	Buttons = {
+		{ Label = "Reset session", State = "Secondary", Pushed = function() farmStats:Reset() hud:ResetTimer() end },
+	},
 })
 
 -- Settings tab in one call: theme, accent, menu key, watermark / keybind list toggles, unload, Configs
@@ -364,6 +372,10 @@ track(settingsTab, "Title", "Settings")
 
 Flags:OnChanged("JoinPriority", function(order)
 	print("Join priority:", table.concat(order, " > ")) -- order[1] = try this route first
+end)
+
+Flags:OnChanged("FarmScreen", function(enabled: boolean)
+	farmStats:SetVisible(enabled)
 end)
 
 Flags:OnChanged("AutoFarm", function(enabled: boolean)
@@ -403,11 +415,10 @@ task.spawn(function()
 	while getgenv().MTwinHubLoaded do
 		if Flags:Get("AutoFarm") then
 			-- farm here, using Flags:Get("FarmDistance"), Flags:Get("Enemy")...
-			-- and update the stats (the HUD shows them too):
-			farmStats:Set("Status", "Farming")
-			farmStats:Increment("Gold", math.random(5, 20))
-		else
-			farmStats:Set("Status", "Idle")
+			-- then update the stats (the black screen and the HUD both show them):
+			farmStats:Increment("Gems", math.random(5, 20))
+			farmStats:UpdateMaterial("Gold Ore", (farmStats:Get("Gems") or 0) // 10, 4)
+			hud:SetItems({ { Name = "Gold Ore", Amount = 4 }, { Name = "Star Fruit", Amount = 1 } })
 		end
 
 		task.wait(0.5)
