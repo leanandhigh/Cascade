@@ -198,7 +198,14 @@ return function(self, properties: types.SectionProperties): types.Section
 			table.clear(connections)
 
 			local updateSize = function(useTween: boolean)
-				local targetHeight = state and structures.Layout.AbsoluteContentSize.Y or 23
+				local scale = require("@modules/utility").GetScale(sidebarGroup)
+
+				if scale < 0.05 then
+					return
+				end
+
+				-- AbsoluteContentSize is in screen pixels; divide out the mobile UIScale
+				local targetHeight = state and structures.Layout.AbsoluteContentSize.Y / scale or 23
 				local tween = tweenService:Create(
 					sidebarGroup,
 					TweenInfo.new(useTween and 0.35 or 0, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out),

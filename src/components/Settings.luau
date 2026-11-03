@@ -21,7 +21,6 @@ return function(self, properties: types.SettingsProperties): types.Tab
 	--// Imports
 	local services = require("@modules/services")
 	local themes = require("@themes/init")
-	local accents = require("@themes/accents")
 
 	--// References
 	local userInputService = services.UserInputService
@@ -78,25 +77,40 @@ return function(self, properties: types.SettingsProperties): types.Tab
 			end,
 		})
 
-		local accentNames = {}
-		local currentAccent = app.Accent and app.Accent._id or "Blue"
+		-- Accent: any colour from a colour picker (applied at most ~10x a second while dragging)
+		local customAccent = require("@themes/customAccent")
+		local startAccent = app.Accent and app.Accent.Dark and app.Accent.Dark.SwitchAccent
+		local pending, applying = nil, false
 
-		for name in pairs(accents) do
-			table.insert(accentNames, name)
+		local function applyAccent()
+			while pending do
+				local color = pending
+				pending = nil
+
+				if not (app.Accent and app.Accent._id == "Custom#" .. color:ToHex()) then
+					app.Accent = customAccent(color)
+				end
+
+				task.wait(0.1)
+			end
+
+			applying = false
 		end
 
-		table.sort(accentNames)
+		interface:Row({ Title = "Accent" }):Right():ColorPicker({
+			Flag = properties.AccentFlag or "UI_AccentColor",
+			Title = "Accent",
+			Value = typeof(startAccent) == "Color3" and startAccent or Color3.fromHex("#0A84FF"),
+			ValueChanged = function(_, color: Color3)
+				if typeof(color) ~= "Color3" then
+					return
+				end
 
-		interface:Row({ Title = "Accent" }):Right():PopUpButton({
-			Flag = properties.AccentFlag or "UI_Accent",
-			Options = accentNames,
-			Value = table.find(accentNames, app.Accent and app.Accent._id or "Blue") or 1,
-			ValueChanged = function(popup, index: number)
-				local accent = accents[popup.Options[index]]
+				pending = color
 
-				if accent and accent._id ~= currentAccent then
-					currentAccent = accent._id
-					app.Accent = accent
+				if not applying then
+					applying = true
+					task.spawn(applyAccent)
 				end
 			end,
 		})

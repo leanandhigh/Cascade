@@ -23,6 +23,7 @@ local tweenService = services.TweenService
 local cascade = {
 	Themes = themes,
 	Accents = accents,
+	CustomAccent = require("@themes/customAccent"),
 	Symbols = symbols,
 
 	Creator = creator,

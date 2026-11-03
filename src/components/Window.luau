@@ -535,13 +535,12 @@ return function(self, properties: types.WindowProperties): types.Window
 		local minutes = (seconds % 3600) // 60
 		local secs = seconds % 60
 
+		-- Compact clock that visibly counts down every second: "3d 03:44:12", "03:44:12"
 		if days > 0 then
-			return string.format("%dd %dh %dm", days, hours, minutes)
-		elseif hours > 0 then
-			return string.format("%dh %dm %ds", hours, minutes, secs)
+			return string.format("%dd %02d:%02d:%02d", days, hours, minutes, secs)
 		end
 
-		return string.format("%dm %ds", minutes, secs)
+		return string.format("%02d:%02d:%02d", hours, minutes, secs)
 	end
 
 	local function isLifetime(value): boolean
@@ -649,8 +648,15 @@ return function(self, properties: types.WindowProperties): types.Window
 	end)
 
 	-- Live key countdown + keeps state colors in sync with theme changes
+	-- (runs until the window is destroyed / unloaded, not just while it happens to be parented)
+	local countdownAlive = true
+
+	structures.Body.__instance.Destroying:Connect(function()
+		countdownAlive = false
+	end)
+
 	task.defer(function()
-		while structures.Body.Parent do
+		while countdownAlive and not unloaded do
 			refreshSubtitle()
 			task.wait(1)
 		end
@@ -985,7 +991,7 @@ return function(self, properties: types.WindowProperties): types.Window
 		end
 	end
 
-	-- Text + colour of the key status ("Key: 3d 4h 0m", "Key: Lifetime", "Account"...)
+	-- Text + colour of the key status ("Key: 3d 04:00:00", "Key: Lifetime", "Account"...)
 	object.KeyStatus = function()
 		return keyStatus()
 	end
@@ -1307,7 +1313,17 @@ return function(self, properties: types.WindowProperties): types.Window
 				or input.UserInputType == Enum.UserInputType.Touch
 			then
 				if dragging then
-					local delta = input.Position - inputPos
+					-- Screen pixels -> offsets (the window sits under a UIScale, 0.8 on mobile)
+					local scale = require("@modules/utility").GetScale(structures.Body.__instance)
+
+					if scale < 0.05 then
+						return
+					end
+
+					local delta = Vector2.new(
+						(input.Position.X - inputPos.X) / scale,
+						(input.Position.Y - inputPos.Y) / scale
+					)
 					local newPosition = UDim2.new(
 						startPos.X.Scale,
 						startPos.X.Offset + delta.X,

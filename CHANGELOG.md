@@ -22,8 +22,17 @@
 - `ButtonRow`: full-width rows of equal buttons (used by the Configs groupbox).
 - Divider under the brand header.
 
+- `PriorityList`: ordered list with up / down arrows (farm / target priority), saved in configs.
+- `Settings`: the accent is a colour picker (any colour, `cascade.CustomAccent(color)`), saved as `UI_AccentColor`.
+- `Columns` / `Groupbox` sides stack into one column on narrow windows (`StackBelow`, default 480).
+- `Row`: when the controls leave no room for the label, they move onto their own line under it.
+- Update log badges use centred Lucide icons (text glyphs only as a fallback).
+- Key countdown shows a ticking clock (`3d 04:00:00`).
+
 ### Fixed
 
+- Mobile (0.8 UI scale): sidebar sections, groupboxes and rows measured screen pixels as offsets, so tabs and groupboxes were clipped and labels overlapped controls; the resize handles shrank the window when grabbed and dragging moved slower than the finger; slider fills were short.
+- Key countdown and Dashboard info stopped updating if their page wasn't on screen when created.
 - Switching the theme back to Dark after Light did nothing (`app.Theme._id` kept the first theme's name).
 - Real images (logo asset ids) on the watermark are no longer tinted with the accent colour.
 - Changing the accent / theme now reaches state-dependent colours (toggles that are on, selected tabs, radio buttons…); they kept the old accent.

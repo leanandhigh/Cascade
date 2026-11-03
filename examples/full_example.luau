@@ -251,6 +251,20 @@ targetBox:ButtonRow({
 	},
 })
 
+-- PriorityList: order with up / down arrows. Value = list of names, first = highest priority.
+-- Saved in configs like everything else with a Flag.
+local priorityBox = farmingTab:Groupbox({
+	Side = "Left",
+	Title = "Farm Priority",
+	Icon = "list-ordered",
+})
+
+priorityBox:PriorityList({
+	Flag = "FarmPriority",
+	Subtitle = "Top ON job farms first",
+	Values = { "Evolution", "Farm", "Raid", "Infinite", "Material", "Craft", "Trials" },
+})
+
 -- Chaining: a row's right side holds several controls, in creation order.
 -- This row is  ESP .......... [color] [key] [toggle]  (like Obsidian's Toggle:AddColorPicker / AddKeyPicker)
 local visualsBox = farmingTab:Groupbox({
@@ -305,6 +319,10 @@ track(settingsTab, "Title", "Settings")
 --// 4. Logic
 -- Flags:OnChanged runs on clicks, drags, Flags:Set and config loads.
 -- Flags:Get("Name") reads a value anywhere.
+
+Flags:OnChanged("FarmPriority", function(order)
+	print("Farm priority:", table.concat(order, " > ")) -- order[1] = do this job first
+end)
 
 Flags:OnChanged("AutoFarm", function(enabled: boolean)
 	print("Auto farm:", enabled) -- fires for clicks, the F key (any mode) and config loads

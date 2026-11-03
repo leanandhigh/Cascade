@@ -55,6 +55,7 @@ nav = [
         "Components/InfoCard.md",
         "Components/ButtonRow.md",
         "Components/ColorPicker.md",
+        "Components/PriorityList.md",
     ] },
     { "Creating Components" = [
         "Custom Components/introduction.md",

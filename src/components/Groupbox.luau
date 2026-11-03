@@ -268,7 +268,10 @@ return function(self, properties: types.GroupboxProperties): types.Groupbox
 	icons.Apply(structures.Chevron, "chevron-down", symbols.chevronDown, 14)
 
 	local function contentHeight(): number
-		return structures.Content.AbsoluteSize.Y
+		-- AbsoluteSize is in screen pixels; Clip.Size is an offset (mobile UIScale)
+		local scale = require("@modules/utility").GetScale(structures.Content)
+
+		return scale < 0.05 and structures.Clip.Size.Y.Offset or structures.Content.AbsoluteSize.Y / scale
 	end
 
 	local function resize(useTween: boolean)

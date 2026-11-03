@@ -109,23 +109,55 @@ return function(self, properties: types.RowProperties): types.Row
 	structures.LeftAccessories = structures.Body:FindFirstChild("LeftAccessory") :: Frame
 	structures.RightAccessories = structures.Body:FindFirstChild("RightAccessory") :: Frame
 
+	local utility = require("@modules/utility")
+	local stacked = false
+
+	-- AbsoluteSize is in screen pixels; offsets aren't (mobile UIScale), so measure in offset units.
+	-- When the controls don't leave room for the label (narrow phone columns), they move onto
+	-- their own line under it instead of overlapping.
 	local function updateAccessories()
-		local parentWidth = structures.LeftAccessories.Parent.AbsoluteSize.X
-		local rightWidth = structures.RightAccessories.AbsoluteSize.X
+		local scale = utility.GetScale(structures.Body)
 
-		local minLeftWidth = 75
-		local calculatedLeftWidth = math.max(parentWidth - rightWidth, minLeftWidth)
+		if scale < 0.05 then
+			return
+		end
 
-		if parentWidth - rightWidth < minLeftWidth then
-			structures.LeftAccessories.Size = UDim2.new(0, minLeftWidth, 1, 0)
+		local parentWidth = structures.LeftAccessories.Parent.AbsoluteSize.X / scale
+		local rightWidth = structures.RightAccessories.AbsoluteSize.X / scale
+		local leftHasContent = false
+
+		for _, child in ipairs(structures.LeftAccessories:GetChildren()) do
+			if child:IsA("GuiObject") and child.Visible then
+				leftHasContent = true
+				break
+			end
+		end
+
+		local minLeftWidth = 90
+		stacked = leftHasContent and parentWidth > 0 and parentWidth - rightWidth < minLeftWidth
+
+		if stacked then
+			local leftHeight = structures.LeftAccessories.AbsoluteSize.Y / scale
+
+			structures.LeftAccessories.Size = UDim2.new(1, 0, 0, 0)
+			structures.RightAccessories.Position = UDim2.new(1, 0, 0, math.max(leftHeight - 10, 0))
+			-- content-sized while stacked: a row-height (scale) size here would feed back into the row's AutomaticSize
+			structures.RightAccessories.Size = UDim2.fromScale(0, 0)
 		else
-			structures.LeftAccessories.Size = UDim2.new(0, calculatedLeftWidth, 1, 0)
+			structures.LeftAccessories.Size = UDim2.new(0, math.max(parentWidth - rightWidth, minLeftWidth), 1, 0)
+			structures.RightAccessories.Position = UDim2.fromScale(1, 0)
+			structures.RightAccessories.Size = UDim2.fromScale(0, 1)
 		end
 	end
 
 	updateAccessories()
 	structures.RightAccessories:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateAccessories)
 	structures.LeftAccessories.Parent:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateAccessories)
+	structures.LeftAccessories:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
+		if stacked then
+			updateAccessories()
+		end
+	end)
 
 	-- Optional built-in TitleStack, created on first use: Row({ Title = "...", Subtitle = "..." })
 	local titleStack = nil

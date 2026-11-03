@@ -241,9 +241,20 @@ return function(self, properties: types.InfoCardProperties): types.InfoCard
 	binder.Apply(properties, object)
 
 	-- Live values (key countdown etc.)
+	-- Keeps ticking while the card's tab is hidden (pages can be unparented), stops when destroyed
+	local alive = true
+	local body = structures.Body.__instance or structures.Body
+
+	body.Destroying:Connect(function()
+		alive = false
+	end)
+
 	task.defer(function()
-		while structures.Body.Parent do
-			object.Refresh()
+		while alive do
+			if body.Parent then
+				object.Refresh()
+			end
+
 			task.wait(1)
 		end
 	end)

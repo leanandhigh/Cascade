@@ -6,6 +6,7 @@
 | --------- | ---------------- | ------------------------------------ |
 | `Count`   | `#!luau number?` | Number of columns. Defaults to `2`.  |
 | `Spacing` | `#!luau number?` | Gap in pixels. Defaults to `9`.      |
+| `StackBelow` | `#!luau number?` | Below this width (eg. phones) the columns stack on top of each other. Default `480`, `0` = never. |
 
 | Method                  | Description                     |
 | ----------------------- | ------------------------------- |

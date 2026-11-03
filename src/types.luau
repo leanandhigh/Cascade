@@ -613,12 +613,14 @@ export type Groupbox = BaseComponent & Components & GroupboxProperties
 export type ColumnsProperties = {
 	Count: number?,
 	Spacing: number?,
+	StackBelow: number?,
 }
 
 export type Columns = BaseComponent & ColumnsProperties & {
 	Column: (self: Columns, index: number) -> Components,
 	Left: (self: Columns) -> Components,
 	Right: (self: Columns) -> Components,
+	IsStacked: (self: Columns) -> boolean,
 }
 
 -- UpdateLog
@@ -716,6 +718,23 @@ export type SettingsProperties = {
 	ThemeFlag: string?,
 	AccentFlag: string?,
 	MenuKeyFlag: string?,
+}
+
+-- PriorityList
+export type PriorityListProperties = {
+	Flag: string?,
+	Subtitle: string?,
+	Values: { string }?,
+	Value: { string }?,
+	ValueChanged: ((self: PriorityList, order: { string }) -> ())?,
+}
+
+export type PriorityList = BaseComponent & PriorityListProperties & {
+	GetOrder: (self: PriorityList) -> { string },
+	SetOrder: (self: PriorityList, order: { string }) -> (),
+	MoveUp: (self: PriorityList, name: string) -> (),
+	MoveDown: (self: PriorityList, name: string) -> (),
+	IndexOf: (self: PriorityList, name: string) -> number?,
 }
 
 -- ColorPicker
@@ -818,6 +837,7 @@ export type Components = {
 	Settings: (self: any, properties: SettingsProperties?) -> Tab,
 	ButtonRow: (self: any, properties: ButtonRowProperties?) -> ButtonRow,
 	ColorPicker: (self: any, properties: ColorPickerProperties?) -> ColorPicker,
+	PriorityList: (self: any, properties: PriorityListProperties?) -> PriorityList,
 }
 
 return 1

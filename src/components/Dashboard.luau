@@ -80,7 +80,7 @@ return function(self, properties: types.DashboardProperties): types.Dashboard
 				Value = function()
 					local text, color = window:KeyStatus()
 
-					-- "Key: 3d 4h" -> "3d 4h" (the row label already says Key)
+					-- "Key: 3d 04:00:00" -> "3d 04:00:00" (the row label already says Key)
 					return (string.gsub(text, "^Key: ", "")), color
 				end,
 			})

@@ -7,6 +7,9 @@
 
 	left:Groupbox({ Title = "Groupbox" })
 	right:Groupbox({ Title = "Dropdowns" })
+
+	When the space gets narrower than `StackBelow` (default 480, eg. a phone), the columns stack
+	on top of each other instead of squeezing. StackBelow = 0 keeps them side by side always.
 ]]
 
 local types = require("@types")
@@ -30,6 +33,7 @@ return function(self, properties: types.ColumnsProperties): types.Columns
 	properties = properties or {}
 	properties.Count = math.max(1, math.floor(properties.Count or 2))
 	properties.Spacing = properties.Spacing or 9
+	properties.StackBelow = properties.StackBelow or 480
 
 	structures.Body = create("Frame")({
 		Name = "Columns",
@@ -85,7 +89,48 @@ return function(self, properties: types.ColumnsProperties): types.Columns
 		})
 	end
 
+	--// Responsive: stack when narrow
+	local layout = structures.Body:FindFirstChild("UIListLayout") :: UIListLayout
+	local stacked = nil
+
+	local function columnSize(isStacked: boolean): UDim2
+		if isStacked then
+			return UDim2.fromScale(1, 0)
+		end
+
+		return UDim2.new(1 / count, -math.ceil(spacing * (count - 1) / count), 0, 0)
+	end
+
+	local function updateLayout()
+		local scale = require("@modules/utility").GetScale(structures.Body.__instance)
+		local width = structures.Body.__instance.AbsoluteSize.X
+
+		if scale < 0.05 or width <= 0 then
+			return
+		end
+
+		local shouldStack = count > 1 and width / scale < (properties.StackBelow or 0)
+
+		if shouldStack == stacked then
+			return
+		end
+
+		stacked = shouldStack
+		layout.FillDirection = shouldStack and Enum.FillDirection.Vertical or Enum.FillDirection.Horizontal
+
+		for _, column in ipairs(structures.Columns) do
+			column.Size = columnSize(shouldStack)
+		end
+	end
+
+	structures.Body.__instance:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateLayout)
+	task.defer(updateLayout)
+
 	local object = binder.Wrap(properties, {}, structures.Body)
+
+	object.IsStacked = function()
+		return stacked == true
+	end
 
 	object.Type = "Columns"
 	object.Theme = self.Theme

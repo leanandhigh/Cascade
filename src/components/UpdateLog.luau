@@ -18,13 +18,14 @@ local types = require("@types")
 
 --// Constants
 local KINDS = {
-	Added = { Glyph = "+", Status = "Added" },
-	New = { Glyph = "+", Status = "Added" },
-	Improved = { Glyph = "+", Status = "Added" },
-	Changed = { Glyph = "~", Status = "Changed" },
-	Fixed = { Glyph = "~", Status = "Changed" },
-	Removed = { Glyph = "-", Status = "Removed" },
-	Info = { Glyph = "!", Status = "Info" },
+	-- Icon = Lucide name (centred image); Glyph = text shown only when the icon isn't available
+	Added = { Glyph = "+", Icon = "plus", Status = "Added" },
+	New = { Glyph = "+", Icon = "plus", Status = "Added" },
+	Improved = { Glyph = "+", Icon = "plus", Status = "Added" },
+	Changed = { Glyph = "~", Icon = "refresh-cw", Status = "Changed" },
+	Fixed = { Glyph = "~", Icon = "wrench", Status = "Changed" },
+	Removed = { Glyph = "-", Icon = "minus", Status = "Removed" },
+	Info = { Glyph = "!", Icon = "info", Status = "Info" },
 }
 
 local PREFIXES = {
@@ -56,6 +57,7 @@ return function(self, properties: types.UpdateLogProperties): types.UpdateLog
 	local creator = require("@modules/creator")
 	local binder = require("@modules/binder")
 	local services = require("@modules/services")
+	local icons = require("@modules/icons")
 	local symbols = require("@modules/symbols")
 
 	--// References
@@ -318,22 +320,50 @@ return function(self, properties: types.UpdateLogProperties): types.UpdateLog
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 			}),
 
-			create("TextLabel")({
+			create("Frame")({
 				Name = "Badge",
 				BackgroundTransparency = 0.85,
 				BorderSizePixel = 0,
-				FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Bold, Enum.FontStyle.Normal),
 				Size = UDim2.fromOffset(22, 22),
-				Text = info.Glyph,
-				TextSize = 14,
 
 				__dynamicKeys = {
 					BackgroundColor3 = status[1],
-					TextColor3 = status[1],
 				},
 
 				create("UICorner")({
 					CornerRadius = UDim.new(0, 5),
+				}),
+
+				-- Icon and glyph are both centred on the badge (AnchorPoint 0.5), so they stay
+				-- centred at any UI scale
+				create("ImageLabel")({
+					Name = "Icon",
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					BackgroundTransparency = 1,
+					Position = UDim2.fromScale(0.5, 0.5),
+					ScaleType = Enum.ScaleType.Fit,
+					Size = UDim2.fromOffset(12, 12),
+
+					__dynamicKeys = {
+						ImageColor3 = status[1],
+					},
+				}),
+
+				create("TextLabel")({
+					Name = "Glyph",
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					BackgroundTransparency = 1,
+					FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Bold, Enum.FontStyle.Normal),
+					Position = UDim2.fromScale(0.5, 0.5),
+					Size = UDim2.fromScale(1, 1),
+					Text = info.Glyph,
+					TextSize = 14,
+					TextXAlignment = Enum.TextXAlignment.Center,
+					TextYAlignment = Enum.TextYAlignment.Center,
+
+					__dynamicKeys = {
+						TextColor3 = status[1],
+					},
 				}),
 			}),
 
@@ -358,6 +388,24 @@ return function(self, properties: types.UpdateLogProperties): types.UpdateLog
 
 		frame.BackgroundTransparency = 1
 		frame:SetAttribute("SearchIndex", text)
+
+		-- Lucide icon when available (also once it finishes loading), text glyph otherwise
+		local badge = frame:FindFirstChild("Badge")
+		local badgeIcon = badge and badge:FindFirstChild("Icon")
+		local badgeGlyph = badge and badge:FindFirstChild("Glyph")
+
+		if badgeIcon and badgeGlyph then
+			local function syncBadge()
+				local hasIcon = badgeIcon.Image ~= ""
+
+				badgeIcon.Visible = hasIcon
+				badgeGlyph.Visible = not hasIcon
+			end
+
+			icons.Apply(badgeIcon, info.Icon, nil, 12)
+			syncBadge()
+			badgeIcon:GetPropertyChangedSignal("Image"):Connect(syncBadge)
+		end
 
 		frame.MouseEnter:Connect(function()
 			frame.BackgroundTransparency = theme.Controls.Card.Fill[2].Value

@@ -4,6 +4,7 @@ return function(self, properties: types.SliderProperties): types.Slider
 	--// Imports
 	local creator = require("@modules/creator")
 	local binder = require("@modules/binder")
+	local utility = require("@modules/utility")
 
 	--// References
 	local create = creator.Create
@@ -174,8 +175,12 @@ return function(self, properties: types.SliderProperties): types.Slider
 	local object
 	local bindings = {
 		Value = function(value: number)
-			local sliderWidth = structures.Body.AbsoluteSize.X
-			local thumbWidth = structures.Thumb.AbsoluteSize.X
+			-- Measured in offset units (AbsoluteSize includes the mobile UIScale, Fill.Size doesn't)
+			local scale = utility.GetScale(structures.Body)
+			scale = scale > 0.05 and scale or 1
+
+			local sliderWidth = structures.Body.AbsoluteSize.X / scale
+			local thumbWidth = structures.Thumb.AbsoluteSize.X / scale
 			local thumbHalfWidth = thumbWidth / 2
 
 			local min = properties.Minimum
@@ -200,24 +205,31 @@ return function(self, properties: types.SliderProperties): types.Slider
 	object.Theme = self.Theme
 	object.Structures = structures
 
-	structures.Dragger.DragStart:Connect(function()
-		dragStart = structures.Fill.AbsoluteSize.X
+	-- Screen-space drag (works the same with or without a UIScale): remember where on the thumb
+	-- it was grabbed, then follow the pointer.
+	structures.Dragger.DragStart:Connect(function(inputPosition: Vector2)
+		local fillEnd = structures.Body.AbsolutePosition.X + structures.Fill.AbsoluteSize.X
+		dragStart = inputPosition and (inputPosition.X - fillEnd) or 0
 	end)
 
-	structures.Dragger.DragContinue:Connect(function()
+	structures.Dragger.DragContinue:Connect(function(inputPosition: Vector2)
+		if not inputPosition then
+			return
+		end
+
 		local sliderWidth = structures.Body.AbsoluteSize.X
-		local thumbWidth = structures.Thumb.AbsoluteSize.X
-		local thumbHalfWidth = thumbWidth / 2
+		local thumbHalfWidth = structures.Thumb.AbsoluteSize.X / 2
 
 		local minX = thumbHalfWidth
 		local maxX = sliderWidth - thumbHalfWidth
 
-		local deltaPixels = structures.Dragger.DragUDim2.X.Offset
-		local newCenterX = dragStart + deltaPixels
-		local clampedCenterX = math.clamp(newCenterX, minX, maxX)
+		if maxX <= minX then
+			return
+		end
 
-		local alpha = (clampedCenterX - minX) / (maxX - minX)
-		
+		local centerX = inputPosition.X - structures.Body.AbsolutePosition.X - dragStart
+		local alpha = (math.clamp(centerX, minX, maxX) - minX) / (maxX - minX)
+
 		object.Value = object.Minimum + (object.Maximum - object.Minimum) * alpha
 	end)
 

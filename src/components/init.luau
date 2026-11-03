@@ -40,6 +40,7 @@ local components = {
 	Settings = require("@components/Settings"),
 	ButtonRow = require("@components/ButtonRow"),
 	ColorPicker = require("@components/ColorPicker"),
+	PriorityList = require("@components/PriorityList"),
 }
 
 --// Initialize

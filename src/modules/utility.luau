@@ -41,6 +41,27 @@ utility.ProtectUI = function(gui: Instance): ScreenGui | string
 	return success and gui or returned
 end
 
+-- Combined UIScale applied to `instance` (product of every UIScale on it and its ancestors).
+-- AbsoluteSize / AbsolutePosition are in screen pixels, Size / Position offsets are not: divide
+-- measured sizes by this before writing them back as offsets (mobile draws the window at 0.8).
+-- Returns 0 while a scale is tweening to 0 (window minimizing) — callers should skip then.
+utility.GetScale = function(instance: Instance?): number
+	local scale = 1
+	local current = instance
+
+	while current do
+		local uiScale = current:FindFirstChildOfClass("UIScale")
+
+		if uiScale then
+			scale *= uiScale.Scale
+		end
+
+		current = current.Parent
+	end
+
+	return scale
+end
+
 -- Phone / tablet check (same idea as Obsidian): Android / iOS platform, or touch without a mouse.
 utility.IsMobile = function(): boolean
 	local userInputService = utility.Clone(game:GetService("UserInputService"))
