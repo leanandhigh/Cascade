@@ -414,9 +414,9 @@ return function(self)
 	structures.LanguagePicker = require("@structures/LanguagePicker")(self)
 	structures.LanguagePicker.Body.Parent = structures.Trailing
 
-	-- Unload button, right-most item of the titlebar
-	structures.Unload = create("ImageButton")({
-		Name = "Unload",
+	-- Minimize button, right-most item of the titlebar (unload lives in the Settings tab)
+	structures.Minimize = create("ImageButton")({
+		Name = "MinimizeButton",
 		AutoButtonColor = false,
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
@@ -425,7 +425,7 @@ return function(self)
 		Parent = structures.Trailing,
 
 		__dynamicKeys = {
-			BackgroundColor3 = self.Theme.Accents.Red[1],
+			BackgroundColor3 = self.Theme.Controls.Card.Hover[1],
 		},
 
 		create("UICorner")({
@@ -437,7 +437,7 @@ return function(self)
 			Name = "Icon",
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			BackgroundTransparency = 1,
-			Image = require("@modules/symbols").power,
+			Image = require("@modules/symbols").minus,
 			Position = UDim2.fromScale(0.5, 0.5),
 			Size = UDim2.fromOffset(15, 15),
 
@@ -449,20 +449,20 @@ return function(self)
 	})
 
 	do
-		local unloadIcon = structures.Unload:FindFirstChild("Icon") :: ImageLabel
+		local minimizeIcon = structures.Minimize:FindFirstChild("Icon") :: ImageLabel
 
-		require("@modules/icons").Apply(unloadIcon, "power", require("@modules/symbols").power, 14)
+		require("@modules/icons").Apply(minimizeIcon, "minus", require("@modules/symbols").minus, 15)
 
-		structures.Unload.MouseEnter:Connect(function()
-			structures.Unload.BackgroundTransparency = 0.85
-			unloadIcon.ImageColor3 = self.Theme.Accents.Red[1].Value
-			unloadIcon.ImageTransparency = 0
+		structures.Minimize.MouseEnter:Connect(function()
+			structures.Minimize.BackgroundTransparency = self.Theme.Controls.Card.Hover[2].Value
+			minimizeIcon.ImageColor3 = self.Theme.Text.Primary[1].Value
+			minimizeIcon.ImageTransparency = self.Theme.Text.Primary[2].Value
 		end)
 
-		structures.Unload.MouseLeave:Connect(function()
-			structures.Unload.BackgroundTransparency = 1
-			unloadIcon.ImageColor3 = self.Theme.Text.Secondary[1].Value
-			unloadIcon.ImageTransparency = self.Theme.Text.Secondary[2].Value
+		structures.Minimize.MouseLeave:Connect(function()
+			structures.Minimize.BackgroundTransparency = 1
+			minimizeIcon.ImageColor3 = self.Theme.Text.Secondary[1].Value
+			minimizeIcon.ImageTransparency = self.Theme.Text.Secondary[2].Value
 		end)
 	end
 

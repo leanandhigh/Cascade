@@ -313,6 +313,12 @@ export type WindowProperties = Frame & {
 	KeyDuration: number?,
 	KeyExpired: ((self: Window) -> ())?,
 
+	-- Mobile: auto-detected (phones / tablets); true / false forces it
+	Mobile: boolean?,
+	MobileScale: number?, -- default 0.8 on mobile
+	MobileToggle: boolean?, -- round logo button that shows / hides the window (default: on for mobile)
+	MobileToggleSide: ("Left" | "Right")?,
+
 	-- Branding (logo header at the top of the sidebar)
 	Logo: (string | number)?,
 	Brand: string?,

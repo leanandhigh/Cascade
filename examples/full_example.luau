@@ -84,6 +84,11 @@ local window = app:Window({
 	Size = userInputService.TouchEnabled and UDim2.fromOffset(550, 325) or UDim2.fromOffset(850, 530),
 	UIBlur = false, -- the acrylic blur costs FPS on weaker devices
 
+	-- Phones / tablets are detected automatically: 0.8 scale, window fitted to the screen, and a
+	-- round draggable button with the logo that shows / hides the window (tap = toggle, drag = move).
+	-- MobileToggleSide = "Left",   -- default "Right"
+	-- MobileToggle = true,         -- also show the round button on PC
+
 	-- Branding (top-left of the sidebar). With a brand set, the titlebar shows the current tab.
 	Logo = LOGO,
 	Brand = "My Hub",
@@ -115,7 +120,7 @@ local window = app:Window({
 		AutoLoad = true, -- loads this account's auto-load config, else the all-accounts one
 	},
 
-	-- Power button in the titlebar removes the whole UI; clean up your own stuff here
+	-- The titlebar's right button minimizes; Unload (Settings tab) removes the UI — clean up here
 	Unloaded = function()
 		for _, connection in ipairs(connections) do
 			connection:Disconnect()
@@ -299,7 +304,7 @@ farmKey.KeybindEntry.Active = Flags:Get("AutoFarm") == true
 
 app:Notification({
 	Title = "Loaded",
-	Subtitle = "Press RightControl to hide the UI.",
+	Subtitle = "RightControl (or the round button on mobile) hides the UI.",
 	App = "My Hub",
 	AppIcon = cascade.Symbols.checkmarkCircleFill,
 	Duration = 6,

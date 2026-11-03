@@ -147,7 +147,7 @@ return function(self, properties: types.SettingsProperties): types.Tab
 		})
 	end
 
-	if window.Unload then
+	if window.Unload and window.CanUnload ~= false then
 		interface:Row({ Title = "Unload", Subtitle = "Removes the whole UI" }):Right():Button({
 			Label = "Unload",
 			State = "Destructive",

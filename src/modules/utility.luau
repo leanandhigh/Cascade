@@ -41,6 +41,21 @@ utility.ProtectUI = function(gui: Instance): ScreenGui | string
 	return success and gui or returned
 end
 
+-- Phone / tablet check (same idea as Obsidian): Android / iOS platform, or touch without a mouse.
+utility.IsMobile = function(): boolean
+	local userInputService = utility.Clone(game:GetService("UserInputService"))
+
+	local ok, platform = pcall(function()
+		return userInputService:GetPlatform()
+	end)
+
+	if ok and (platform == Enum.Platform.Android or platform == Enum.Platform.IOS) then
+		return true
+	end
+
+	return userInputService.TouchEnabled == true and userInputService.MouseEnabled ~= true
+end
+
 -- Finds the ScreenGui an overlay (watermark, keybind list...) should live in, from any component context.
 utility.OverlayRoot = function(context: any): Instance?
 	local candidate = context and (context.__container or context.__instance) or nil

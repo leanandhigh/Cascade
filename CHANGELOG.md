@@ -11,7 +11,8 @@
 - Lucide icons: every `Icon` accepts Lucide names (`"house"`), Cascade symbols or asset ids.
 - `Dashboard` Information card (player, key time, game, executor, version); every update log entry is shown by default.
 - `InfoCard` component.
-- `Window`: unload button in the titlebar (`CanUnload`, `Unloaded`, `window:Unload()`).
+- `Window`: minimize button in the titlebar; unload from the Settings tab (`CanUnload`, `Unloaded`, `window:Unload()`).
+- Mobile support: auto-detected phones / tablets get a 0.8 scale, a window fitted to the screen and a round draggable logo toggle (`Mobile`, `MobileScale`, `MobileToggle`, `MobileToggleSide`); keybind list entries can be tapped.
 - `cascade.Flags` and `cascade.Config`: any component created with `Flag = "..."` is saved by configs. `Flags:OnChanged(name, fn)` reacts to changes (clicks, `:Set`, config loads).
 - More padding inside Button, TextField and PopUpButton; TextField is left-aligned with a fill and no longer clips its text.
 - `Window` branding: `Logo`, `Brand`, `BrandSubtitle` (logo header at the top of the sidebar); with a brand the titlebar shows the selected tab (`TabTitles`).

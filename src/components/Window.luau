@@ -46,7 +46,28 @@ return function(self, properties: types.WindowProperties): types.Window
 	--// UI
 	properties = properties or {}
 
-	properties.Size = properties.Size or UDim2.fromOffset(850, 530)
+	-- Mobile (phones / tablets): smaller scale like Obsidian, window fitted to the screen,
+	-- and a round toggle button with the logo. Mobile = true / false forces it on or off.
+	local isMobile = properties.Mobile
+	if isMobile == nil then
+		isMobile = require("@modules/utility").IsMobile()
+	end
+
+	local baseScale = isMobile and (properties.MobileScale or 0.8) or 1
+
+	properties.Size = properties.Size or (isMobile and UDim2.fromOffset(620, 380) or UDim2.fromOffset(850, 530))
+
+	if isMobile then
+		local camera = workspace.CurrentCamera
+		local viewport = camera and camera.ViewportSize or Vector2.new(1280, 720)
+		local maxWidth = math.floor((viewport.X - 24) / baseScale)
+		local maxHeight = math.floor((viewport.Y - 24) / baseScale)
+
+		properties.Size = UDim2.fromOffset(
+			math.min(properties.Size.X.Offset, maxWidth),
+			math.min(properties.Size.Y.Offset, maxHeight)
+		)
+	end
 	properties.Maximized = properties.Maximized == true
 	properties.Minimized = properties.Minimized == true
 	properties.Searching = properties.Searching ~= false
@@ -318,6 +339,7 @@ return function(self, properties: types.WindowProperties): types.Window
 
 	--// Initialize
 	structures.Scale = create("UIScale")({
+		Scale = baseScale,
 		Parent = window,
 	})
 	structures.Cornering = structures.Body:FindFirstChild("UICorner") :: UICorner
@@ -679,7 +701,7 @@ return function(self, properties: types.WindowProperties): types.Window
 			local bodyTarget = {
 				Position = value and UDim2.new(0.5, 0, 0.5, structures.Body.AbsoluteSize.Y * 2) or originalPosition2,
 			}
-			local scaleTarget = { Scale = value and 0 or 1 }
+			local scaleTarget = { Scale = value and 0 or baseScale }
 
 			if useTween then
 				minimizing = true
@@ -760,6 +782,7 @@ return function(self, properties: types.WindowProperties): types.Window
 		end,
 		CanMinimize = function(value: boolean)
 			properties.CanMinimize = value
+			structures.Titlebar.Minimize.Visible = value
 
 			structures.WindowControls.Minimize.ImageColor3 = windowControlsCKeys.Minimize.ImageColor3()
 			structures.WindowControls.Minimize.ImageTransparency = windowControlsCKeys.Minimize.ImageTransparency()
@@ -802,6 +825,10 @@ return function(self, properties: types.WindowProperties): types.Window
 			brandLogoHolder.BackgroundTransparency = isGlyph and 0.85 or 1
 		end
 
+		if structures.MobileToggle then
+			structures.MobileToggle.SetLogo(logo)
+		end
+
 		brandName.Text = properties.Brand or properties.Title or ""
 		brandSubtitle.Text = properties.BrandSubtitle or ""
 		brandSubtitle.Visible = properties.BrandSubtitle ~= nil
@@ -813,6 +840,28 @@ return function(self, properties: types.WindowProperties): types.Window
 	self.Theme.Controls.Selection[1]:Connect(function()
 		task.defer(refreshBrand)
 	end)
+
+	-- Mobile toggle: round button with the logo that shows / hides the window
+	local mobileToggleEnabled = properties.MobileToggle
+	if mobileToggleEnabled == nil then
+		mobileToggleEnabled = isMobile
+	end
+
+	if mobileToggleEnabled then
+		structures.MobileToggle = require("@structures/MobileToggle")(self, function()
+			if properties.CanMinimize == false and not properties.Minimized then
+				return
+			end
+
+			properties.Minimized = not properties.Minimized
+			bindings.Minimized(properties.Minimized, true)
+		end)
+
+		structures.MobileToggle.SetSide(properties.MobileToggleSide)
+		structures.MobileToggle.SetLogo(properties.Logo)
+		structures.MobileToggle.Body.Parent = require("@modules/utility").OverlayRoot(self)
+			or structures.Body.__instance:FindFirstAncestorWhichIsA("ScreenGui")
+	end
 
 	-- Lucide may still be loading in the background; restyle the logo when it's ready
 	require("@modules/icons").WhenReady(function()
@@ -835,7 +884,8 @@ return function(self, properties: types.WindowProperties): types.Window
 	end
 
 	bindings.CanUnload = function(value: boolean)
-		structures.Titlebar.Unload.Visible = value
+		-- Unload is offered in the Settings tab; this just records whether it's allowed
+		properties.CanUnload = value
 	end
 	bindings.ProfileName = function(value: string?)
 		properties.ProfileName = value
@@ -1206,10 +1256,14 @@ return function(self, properties: types.WindowProperties): types.Window
 			task.delay(0.25, structures.Body.Destroy)
 		end)
 
-		structures.Titlebar.Unload.MouseButton1Click:Connect(function()
-			if properties.CanUnload then
-				object:Unload()
+		-- Titlebar minimize button (restore with the menu key, the window pill or the mobile toggle)
+		structures.Titlebar.Minimize.MouseButton1Click:Connect(function()
+			if not properties.CanMinimize then
+				return
 			end
+
+			properties.Minimized = not properties.Minimized
+			bindings.Minimized(properties.Minimized, true)
 		end)
 
 		wcBody.MouseEnter:Connect(rollOver)

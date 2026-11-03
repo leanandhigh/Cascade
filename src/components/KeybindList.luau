@@ -324,6 +324,16 @@ return function(self, properties: types.KeybindListProperties): types.KeybindLis
 		})
 
 		local trailing = frame:FindFirstChild("Trailing")
+
+		-- Tap / click an entry to switch it (phones have no keyboard). Entries linked to a
+		-- KeybindField run the same code as pressing the key (entry.Pressed).
+		local tapArea = Instance.new("TextButton")
+		tapArea.Name = "TapArea"
+		tapArea.BackgroundTransparency = 1
+		tapArea.Size = UDim2.fromScale(1, 1)
+		tapArea.Text = ""
+		tapArea.ZIndex = 51
+		tapArea.Parent = frame.__instance or frame
 		local entry = {
 			Frame = frame,
 			Dot = frame:FindFirstChild("Dot") :: Frame,
@@ -353,6 +363,16 @@ return function(self, properties: types.KeybindListProperties): types.KeybindLis
 		}, frame)
 
 		entryObject.Type = "KeybindListEntry"
+
+		tapArea.MouseButton1Click:Connect(function()
+			local pressed = entryObject.Pressed
+
+			if typeof(pressed) == "function" then
+				pressed(entryObject)
+			elseif entryProperties.Mode == "Toggle" then
+				entryObject.Active = not entry.Active
+			end
+		end)
 		entryObject.Remove = function()
 			local index = table.find(entries, entry)
 

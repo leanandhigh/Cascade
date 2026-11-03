@@ -82,6 +82,20 @@ return function(self, properties: types.KeybindFieldProperties): types.KeybindFi
 		end
 	end)
 
+	-- Tapping the entry in the keybind list (mobile) acts like pressing the key once
+	if listEntry then
+		listEntry.Pressed = function()
+			if (properties.KeybindMode or "Toggle") == "Toggle" then
+				listEntry.Active = not listEntry.Active
+			end
+
+			if properties.BindPressed then
+				task.spawn(properties.BindPressed, object, properties.Value, false, false)
+				task.spawn(properties.BindPressed, object, properties.Value, true, false)
+			end
+		end
+	end
+
 	userInputService.InputEnded:Connect(function(input, gameProcessedEvent)
 		if input.UserInputType ~= Enum.UserInputType.Keyboard then
 			return
