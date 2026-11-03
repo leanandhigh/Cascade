@@ -15,16 +15,20 @@ return function(self)
 	structures.Body = create("Frame")({
 		Name = "TextField",
 		AutomaticSize = Enum.AutomaticSize.XY,
-		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-		BackgroundTransparency = 1,
 		BorderColor3 = Color3.fromRGB(0, 0, 0),
 		BorderSizePixel = 0,
-		Size = UDim2.fromOffset(150, 23),
+		-- 150 wide = 9 + 132 (field) + 9 padding, so text never touches the edges
+		Size = UDim2.fromOffset(150, 28),
 		SizeConstraint = Enum.SizeConstraint.RelativeXX,
+
+		__dynamicKeys = {
+			BackgroundColor3 = self.Theme.Controls.Card.Fill[1],
+			BackgroundTransparency = self.Theme.Controls.Card.Fill[2],
+		},
 
 		create("UICorner")({
 			Name = "UICorner",
-			CornerRadius = UDim.new(0, 5),
+			CornerRadius = UDim.new(0, 6),
 		}),
 
 		create("UIStroke")({
@@ -41,7 +45,7 @@ return function(self)
 		create("TextBox")({
 			Name = "Field",
 			AutomaticSize = Enum.AutomaticSize.XY,
-			Size = UDim2.fromOffset(138, 0),
+			Size = UDim2.fromOffset(132, 0),
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 			BackgroundTransparency = 1,
 			BorderColor3 = Color3.fromRGB(0, 0, 0),
@@ -51,7 +55,7 @@ return function(self)
 			FontFace = Font.new("rbxassetid://12187365364"),
 			PlaceholderText = "",
 			Text = "",
-			TextSize = 15,
+			TextSize = 14,
 
 			__dynamicKeys = {
 				PlaceholderColor3 = self.Theme.Text.Tertiary[1],
@@ -86,8 +90,8 @@ return function(self)
 
 			create("UIPadding")({
 				Name = "UIPadding",
-				PaddingTop = UDim.new(0, 5),
-				PaddingBottom = UDim.new(0, 5),
+				PaddingTop = UDim.new(0, 6),
+				PaddingBottom = UDim.new(0, 6),
 			}),
 		}),
 

@@ -252,10 +252,10 @@ function Popover:AddItem(properties: PopoverItemProperties)
 	local title = button:FindFirstChild("Title") :: TextLabel
 	local icon = button:FindFirstChild("Icon") :: ImageLabel
 
-	icons.Apply(check, "check", symbols.checkmark)
+	icons.Apply(check, "check", symbols.checkmark, 12)
 
 	if properties.Icon then
-		icon.Visible = icons.Apply(icon, properties.Icon, properties.IconFallback)
+		icon.Visible = icons.Apply(icon, properties.Icon, properties.IconFallback, 13)
 	end
 
 	item.Button = button

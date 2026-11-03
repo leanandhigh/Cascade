@@ -20,8 +20,8 @@ return function(self, properties: types.KeybindFieldProperties): types.KeybindFi
 	structures.Field.TextEditable = false
 	structures.Body.Parent = self.__container or self.__instance or self
 	structures.Body.AutomaticSize = Enum.AutomaticSize.XY
-	structures.Body.Size = UDim2.fromOffset(0, 23)
-	structures.Field.Size = UDim2.fromOffset(0, 23)
+	structures.Body.Size = UDim2.fromOffset(0, 28)
+	structures.Field.Size = UDim2.fromOffset(0, 0)
 	structures.Corner.CornerRadius = UDim.new(0, 6)
 
 	-- Optional KeybindList link: keeps the list's key + active state in sync

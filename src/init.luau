@@ -101,6 +101,9 @@ local function updateThemes(target, theme, accent)
 	end
 end
 
+-- Lucide icons load in the background so creating the UI never waits on HttpGet
+task.spawn(require("@modules/icons").LoadLucide)
+
 --// Initialize
 cascade.New = function(properties: types.AppProperties): types.App
 	if not game:IsLoaded() then

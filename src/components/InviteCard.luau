@@ -232,7 +232,7 @@ return function(self, properties: types.InviteCardProperties): types.InviteCard
 			structures.Subtitle.Text = value
 		end,
 		Icon = function(value: string?)
-			structures.IconHolder.Visible = value ~= nil and icons.Apply(structures.Icon, value)
+			structures.IconHolder.Visible = value ~= nil and icons.Apply(structures.Icon, value, nil, 15)
 			structures.TitleStack.Size = UDim2.new(1, value and -38 or 0, 0, 0)
 		end,
 		Invite = function(value: string)

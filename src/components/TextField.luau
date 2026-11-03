@@ -14,7 +14,8 @@ return function(self, properties: types.TextFieldProperties): types.TextField
 
 	--// Initialize
 	structures.Field.TextTruncate = Enum.TextTruncate.AtEnd
-	structures.Field.TextXAlignment = Enum.TextXAlignment.Right
+	structures.Field.TextXAlignment = Enum.TextXAlignment.Left
+	structures.Field.ClipsDescendants = true
 	structures.Body.Parent = self.__container or self.__instance or self
 
 	local object

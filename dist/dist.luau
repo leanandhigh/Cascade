@@ -6142,26 +6142,26 @@ c end end do local b=function()return{UIBlur=a.j()}end function a.k()local c=a.
 cache.k if not c then c={c=b()}a.cache.k=c end return c.c end end do local b=
 function()return function(b)local c,d=a.d(),a.e()local e,f,g=c.Create,d.
 TweenService,{}g.Body=(e'Frame'{Name='TextField',AutomaticSize=Enum.
-AutomaticSize.XY,BackgroundColor3=Color3.fromRGB(255,255,255),
-BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
-Size=UDim2.fromOffset(150,23),SizeConstraint=Enum.SizeConstraint.RelativeXX,e
-'UICorner'{Name='UICorner',CornerRadius=UDim.new(0,5)},e'UIStroke'{Name=
-'UIStroke',ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Thickness=1,__dynamicKeys
-={Color=b.Theme.Controls.ViewBorder[1],Transparency=b.Theme.Controls.ViewBorder[
-2]}},e'TextBox'{Name='Field',AutomaticSize=Enum.AutomaticSize.XY,Size=UDim2.
-fromOffset(138,0),BackgroundColor3=Color3.fromRGB(255,255,255),
-BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
-CursorPosition=-1,TextXAlignment=Enum.TextXAlignment.Left,FontFace=Font.new
-'rbxassetid://12187365364',PlaceholderText='',Text='',TextSize=15,__dynamicKeys=
-{PlaceholderColor3=b.Theme.Text.Tertiary[1],TextTransparency=b.Theme.Text.
-Tertiary[2]},__contextKeys={_general=function()local h=g.Field if not h then
-return end if h.Text==''then h.PlaceholderColor3=b.Theme.Text.Tertiary[1].Value
-h.TextTransparency=b.Theme.Text.Tertiary[2].Value else h.TextColor3=b.Theme.Text
-.Primary[1].Value h.TextTransparency=b.Theme.Text.Primary[2].Value end end,
-TextTransparency=function()if not g.Field then return 1 end return g.Field.Text
-==''and b.Theme.Text.Tertiary[2].Value or b.Theme.Text.Primary[2].Value end},e
-'UIPadding'{Name='UIPadding',PaddingTop=UDim.new(0,5),PaddingBottom=UDim.new(0,5
-)}},e'UIPadding'{Name='UIPadding',PaddingLeft=UDim.new(0,9),PaddingRight=UDim.
+AutomaticSize.XY,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Size=UDim2
+.fromOffset(150,28),SizeConstraint=Enum.SizeConstraint.RelativeXX,__dynamicKeys=
+{BackgroundColor3=b.Theme.Controls.Card.Fill[1],BackgroundTransparency=b.Theme.
+Controls.Card.Fill[2]},e'UICorner'{Name='UICorner',CornerRadius=UDim.new(0,6)},e
+'UIStroke'{Name='UIStroke',ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Thickness
+=1,__dynamicKeys={Color=b.Theme.Controls.ViewBorder[1],Transparency=b.Theme.
+Controls.ViewBorder[2]}},e'TextBox'{Name='Field',AutomaticSize=Enum.
+AutomaticSize.XY,Size=UDim2.fromOffset(132,0),BackgroundColor3=Color3.fromRGB(
+255,255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),
+BorderSizePixel=0,CursorPosition=-1,TextXAlignment=Enum.TextXAlignment.Left,
+FontFace=Font.new'rbxassetid://12187365364',PlaceholderText='',Text='',TextSize=
+14,__dynamicKeys={PlaceholderColor3=b.Theme.Text.Tertiary[1],TextTransparency=b.
+Theme.Text.Tertiary[2]},__contextKeys={_general=function()local h=g.Field if not
+h then return end if h.Text==''then h.PlaceholderColor3=b.Theme.Text.Tertiary[1]
+.Value h.TextTransparency=b.Theme.Text.Tertiary[2].Value else h.TextColor3=b.
+Theme.Text.Primary[1].Value h.TextTransparency=b.Theme.Text.Primary[2].Value end
+end,TextTransparency=function()if not g.Field then return 1 end return g.Field.
+Text==''and b.Theme.Text.Tertiary[2].Value or b.Theme.Text.Primary[2].Value end}
+,e'UIPadding'{Name='UIPadding',PaddingTop=UDim.new(0,6),PaddingBottom=UDim.new(0
+,6)}},e'UIPadding'{Name='UIPadding',PaddingLeft=UDim.new(0,9),PaddingRight=UDim.
 new(0,9)},e'UIListLayout'{Name='UIListLayout',SortOrder=Enum.SortOrder.
 LayoutOrder,HorizontalAlignment=Enum.HorizontalAlignment.Right,VerticalAlignment
 =Enum.VerticalAlignment.Center,FillDirection=Enum.FillDirection.Horizontal,
@@ -6211,28 +6211,37 @@ Body.Visible=#i>0 h()end e.Select=function(i)f=i h()end e.OnSelected=function(i)
 g=i end return e end end function a.m()local c=a.cache.m if not c then c={c=b()}
 a.cache.m=c end return c.c end end do local b=function()local b,c,d,e=a.i(),
 [[https://raw.githubusercontent.com/mstudio45/lucide-roblox-direct/refs/heads/main/source.lua]]
-,{Provider=nil,Loaded=false,Cache={}},Vector2.new(0,0)local f,g=function(f)
-return{Url=f,ImageRectOffset=e,ImageRectSize=e}end,function(f)return string.
-match(f,'^rbxassetid://')~=nil or string.match(f,'^rbxasset://')~=nil or string.
-match(f,'^rbxthumb://')~=nil or string.match(f,'^content://')~=nil or string.
-match(f,'^https?://')~=nil end function d.SetProvider(h)d.Provider=h d.Loaded=
-true table.clear(d.Cache)end function d.LoadLucide()if d.Loaded then return d.
-Provider~=nil end d.Loaded=true local h,i=pcall(function()local h=game:HttpGet(c
-)local i=loadstring(h)return i and i()end)if h and typeof(i)=='table'and typeof(
-i.GetAsset)=='function'then d.Provider=i return true end return false end
-function d.Get(h)if h==nil or h==''then return nil end if typeof(h)=='number'
-then return f('rbxassetid://'..tostring(h))end if typeof(h)~='string'then return
-nil end if d.Cache[h]~=nil then return d.Cache[h]or nil end local i if tonumber(
-h)then i=f('rbxassetid://'..h)elseif g(h)then i=f(h)else if d.LoadLucide()then
-local j,k=pcall(d.Provider.GetAsset,h)if j and k then i={Url=k.Url,
-ImageRectOffset=k.ImageRectOffset or e,ImageRectSize=k.ImageRectSize or e}end
-end if not i and b[h]then i=f(b[h])end end d.Cache[h]=i or false return i end
-function d.Apply(h,i,j)local k=d.Get(i)if not k and j~=nil then k=d.Get(j)end
-pcall(function()h.Image=k and k.Url or''h.ImageRectOffset=k and k.
-ImageRectOffset or e h.ImageRectSize=k and k.ImageRectSize or e h.ScaleType=Enum
-.ScaleType.Fit end)return k~=nil end return d end function a.n()local c=a.cache.
-n if not c then c={c=b()}a.cache.n=c end return c.c end end do local b=function(
-)return function(b)local c,d=a.d(),a.l()(b)local e,f,g,h,i,j=c.Create,{},0,{},
+,{Provider=nil,Loaded=false,Loading=false,Cache={},Pending={},Waiters={}},
+Vector2.new(0,0)local f,g=function(f)return{Url=f,ImageRectOffset=e,
+ImageRectSize=e}end,function(f)return string.match(f,'^rbxassetid://')~=nil or
+string.match(f,'^rbxasset://')~=nil or string.match(f,'^rbxthumb://')~=nil or
+string.match(f,'^content://')~=nil or string.match(f,'^https?://')~=nil end
+function d.SetProvider(h)d.Provider=h d.Loaded=true table.clear(d.Cache)end
+local h function d.LoadLucide()if d.Loaded then return d.Provider~=nil end if d.
+Loading then return false end d.Loading=true local i,j=pcall(function()local i=
+game:HttpGet(c)local j=loadstring(i)return j and j()end)if i and typeof(j)==
+'table'and typeof(j.GetAsset)=='function'then d.Provider=j end d.Loading=false d
+.Loaded=true table.clear(d.Cache)local k=d.Pending d.Pending={}for l,m in
+ipairs(k)do pcall(h,m[1],m[2],m[3],m[4])end local l=d.Waiters d.Waiters={}for m,
+n in ipairs(l)do task.spawn(n)end return d.Provider~=nil end function d.
+WhenReady(i)if d.Loaded then task.spawn(i)else table.insert(d.Waiters,i)end end
+function d.Get(i)if i==nil or i==''then return nil end if typeof(i)=='number'
+then return f('rbxassetid://'..tostring(i))end if typeof(i)~='string'then return
+nil end if d.Cache[i]~=nil then return d.Cache[i]or nil end local j if tonumber(
+i)then j=f('rbxassetid://'..i)elseif g(i)then j=f(i)else if d.Provider then
+local k,l=pcall(d.Provider.GetAsset,i)if k and l then j={Url=l.Url,
+ImageRectOffset=l.ImageRectOffset or e,ImageRectSize=l.ImageRectSize or e}end
+end if not j and b[i]then j=f(b[i])end end if j or d.Loaded then d.Cache[i]=j or
+false end return j end function h(i,j,k,l)local m=d.Get(j)if not m and k~=nil
+then m=d.Get(k)end pcall(function()i.Image=m and m.Url or''i.ImageRectOffset=m
+and m.ImageRectOffset or e i.ImageRectSize=m and m.ImageRectSize or e i.
+ScaleType=Enum.ScaleType.Fit if l and m and m.ImageRectSize.X>0 then i.Size=
+UDim2.fromOffset(l,l)end end)return m~=nil end function d.Apply(i,j,k,l)if j==
+nil and k==nil then return false end local m=h(i,j,k,l)if d.Loading and typeof(j
+)=='string'and string.find(j,'^[%l%d%-]+$')then table.insert(d.Pending,{i,j,k,l}
+)return true end return m end return d end function a.n()local c=a.cache.n if
+not c then c={c=b()}a.cache.n=c end return c.c end end do local b=function()
+return function(b)local c,d=a.d(),a.l()(b)local e,f,g,h,i,j=c.Create,{},0,{},
 function(e)local f,g=e.AbsolutePosition,e.AbsoluteSize return{Left=f.X,Right=f.X
 +g.X,Top=f.Y,Bottom=f.Y+g.Y}end h.Body=(e'Frame'{Name='Toolbar',BorderColor3=
 Color3.fromRGB(0,0,0),BorderSizePixel=0,Size=UDim2.new(1,0,0,52),__dynamicKeys={
@@ -6355,7 +6364,7 @@ CornerRadius=UDim.new(0,7)},e'ImageLabel'{ScaleType=Enum.ScaleType.Fit,Name=
 power,Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromOffset(15,15),
 __dynamicKeys={ImageColor3=b.Theme.Text.Secondary[1],ImageTransparency=b.Theme.
 Text.Secondary[2]}}}do local k=(h.Unload:FindFirstChild'Icon')a.n().Apply(k,
-'power',a.i().power)h.Unload.MouseEnter:Connect(function()h.Unload.
+'power',a.i().power,14)h.Unload.MouseEnter:Connect(function()h.Unload.
 BackgroundTransparency=0.85 k.ImageColor3=b.Theme.Accents.Red[1].Value k.
 ImageTransparency=0 end)h.Unload.MouseLeave:Connect(function()h.Unload.
 BackgroundTransparency=1 k.ImageColor3=b.Theme.Text.Secondary[1].Value k.
@@ -6503,10 +6512,10 @@ BackgroundTransparency=1,FontFace=Font.new'rbxassetid://12187365364',LayoutOrder
 =2,Size=UDim2.fromOffset(0,16),Text=q.Title,TextSize=14,TextXAlignment=Enum.
 TextXAlignment.Left,__dynamicKeys={TextColor3=t()[1],TextTransparency=t()[2]}}}
 local v,w,x=(u:FindFirstChild'Check'),(u:FindFirstChild'Title'),(u:
-FindFirstChild'Icon')f.Apply(v,'check',e.checkmark)if q.Icon then x.Visible=f.
-Apply(x,q.Icon,q.IconFallback)end s.Button=u s.Set=function(y,z,A)s.Checked=z==
-true v.ImageTransparency=s.Checked and 0 or 1 if not A and q.Changed then task.
-spawn(q.Changed,s.Checked)end end local y=function(y)local z=t()u.
+FindFirstChild'Icon')f.Apply(v,'check',e.checkmark,12)if q.Icon then x.Visible=f
+.Apply(x,q.Icon,q.IconFallback,13)end s.Button=u s.Set=function(y,z,A)s.Checked=
+z==true v.ImageTransparency=s.Checked and 0 or 1 if not A and q.Changed then
+task.spawn(q.Changed,s.Checked)end end local y=function(y)local z=t()u.
 BackgroundTransparency=y and r.Controls.SelectionFocused[2].Value or 1 w.
 TextColor3=y and r.Text.SelectionPrimary[1].Value or z[1].Value w.
 TextTransparency=y and r.Text.SelectionPrimary[2].Value or z[2].Value x.
@@ -6585,19 +6594,19 @@ AvatarHolder:FindFirstChild'Placeholder')f.Info=(f.Card:FindFirstChild'Info')f.
 DisplayName=(f.Info:FindFirstChild'DisplayName')f.Subtitle=(f.Info:
 FindFirstChild'Subtitle')f.Settings=(f.Card:FindFirstChild'Settings')f.Settings.
 BackgroundTransparency=1 local g=a.n()g.Apply(f.Placeholder,'user',d.personFill
-or d.person)g.Apply(f.Settings:FindFirstChild'Icon','settings',d.gearshapeFill)f
-.Settings.MouseEnter:Connect(function()f.Settings.BackgroundTransparency=b.Theme
-.Controls.Card.Hover[2].Value end)f.Settings.MouseLeave:Connect(function()f.
-Settings.BackgroundTransparency=1 end)return f end end function a.r()local c=a.
-cache.r if not c then c={c=b()}a.cache.r=c end return c.c end end do local b=
-function()return function(b,c)local d=a.d()local e,f,g=d.Create,{},{Exit={
-ImageColor3=function()return c.CanExit and b.Theme.Controls.Exit[1].Value or b.
-Theme.Controls.WindowControlDisabled[1].Value end,ImageTransparency=function()
-return c.CanExit and b.Theme.Controls.Exit[2].Value or b.Theme.Controls.
-WindowControlDisabled[2].Value end},Minimize={ImageColor3=function()return c.
-CanMinimize and b.Theme.Controls.Minimize[1].Value or b.Theme.Controls.
-WindowControlDisabled[1].Value end,ImageTransparency=function()return c.
-CanMinimize and b.Theme.Controls.Minimize[2].Value or b.Theme.Controls.
+or d.person,15)g.Apply(f.Settings:FindFirstChild'Icon','settings',d.
+gearshapeFill,14)f.Settings.MouseEnter:Connect(function()f.Settings.
+BackgroundTransparency=b.Theme.Controls.Card.Hover[2].Value end)f.Settings.
+MouseLeave:Connect(function()f.Settings.BackgroundTransparency=1 end)return f
+end end function a.r()local c=a.cache.r if not c then c={c=b()}a.cache.r=c end
+return c.c end end do local b=function()return function(b,c)local d=a.d()local e
+,f,g=d.Create,{},{Exit={ImageColor3=function()return c.CanExit and b.Theme.
+Controls.Exit[1].Value or b.Theme.Controls.WindowControlDisabled[1].Value end,
+ImageTransparency=function()return c.CanExit and b.Theme.Controls.Exit[2].Value
+or b.Theme.Controls.WindowControlDisabled[2].Value end},Minimize={ImageColor3=
+function()return c.CanMinimize and b.Theme.Controls.Minimize[1].Value or b.Theme
+.Controls.WindowControlDisabled[1].Value end,ImageTransparency=function()return
+c.CanMinimize and b.Theme.Controls.Minimize[2].Value or b.Theme.Controls.
 WindowControlDisabled[2].Value end},Zoom={ImageColor3=function()return c.CanZoom
 and b.Theme.Controls.Zoom[1].Value or b.Theme.Controls.WindowControlDisabled[1].
 Value end,ImageTransparency=function()return c.CanZoom and b.Theme.Controls.Zoom
@@ -6740,178 +6749,220 @@ FindFirstChild'Toolbar')u.ContentBody=(u.Body:FindFirstChild'ContentBody')u.
 Content=(u.ContentBody:FindFirstChild'Content')u.CornerClip=(u.ContentBody:
 FindFirstChild'CornerClip')u.Titlebar=h u.Titlebar.Body.Parent=u.ContentBody u.
 WindowControls=B u.WindowControls.Body.Parent=u.Toolbar u.Profile=m u.Profile.
-Body.Parent=u.Sidebar u.ProfileMenu=k.new(b,{Name='ProfileMenu',Width=180})local
-D,E,F=62,false,function()return c.WindowControls and 52 or 0 end local G,H,I,J,K
-,L,M=function()local G,H,I=F(),c.UserProfile and D or 0,u.SidebarList:
-FindFirstChild'UIPadding'u.Toolbar.Visible=c.WindowControls u.SidebarList.
-Position=UDim2.fromOffset(0,G)u.SidebarList.Size=UDim2.new(1,0,1,-(G+H))if I
-then I.PaddingTop=UDim.new(0,c.WindowControls and 0 or 12)end end,r.LocalPlayer,
-false,function(G)local H=utf8.len(G)or#G if H<=2 then return string.rep('*',H)
-end local I,J=utf8.offset(G,2)and string.sub(G,1,utf8.offset(G,2)-1)or string.
-sub(G,1,1),utf8.offset(G,-1)or#G return I..string.rep('*',math.min(H-2,6))..
-string.sub(G,J)end,function(G)G=math.max(0,math.floor(G))local H,I,J,K=G//86400,
-(G%86400)//3600,(G%3600)//60,G%60 if H>0 then return string.format('%dd %dh %dm'
-,H,I,J)elseif I>0 then return string.format('%dh %dm %ds',I,J,K)end return
-string.format('%dm %ds',J,K)end,function(G)return G==true or G==math.huge or(
-typeof(G)=='string'and string.lower(G)=='lifetime')end local N=function()local N
-=c.ProfileName or(H and H.DisplayName)or'Player'return c.CensorName and J(N)or N
-end local O,P,Q=function()u.Profile.DisplayName.Text=N()end,function()local O=c.
-ProfileImage if not O and H then O='rbxthumb://type=AvatarHeadShot&id='..H.
-UserId..'&w=150&h=150'end u.Profile.Avatar.Image=O or''u.Profile.Avatar.Visible=
-not c.HideAvatar and O~=nil u.Profile.Placeholder.Visible=not u.Profile.Avatar.
-Visible end,function()local O,P=b.Theme,c.KeyExpires local Q,R=c.ProfileSubtitle
-,O.Text.Secondary if P~=nil and P~=false then if L(P)then Q,R='Key: Lifetime',O.
-Controls.Status.Added elseif typeof(P)=='number'then local S=P-os.time()if S<=0
-then Q,R='Key expired',O.Controls.Status.Removed if not I then I=true if c.
-KeyExpired then task.spawn(c.KeyExpired,M)end end else Q='Key: '..K(S)R=S<86400
-and O.Controls.Status.Changed or O.Text.Secondary end elseif typeof(P)=='string'
-then Q='Key: '..P end end return Q,R end local R,S,T=function()local R,S,T=u.
-Profile.Subtitle,Q()R.Text=S R.TextColor3=T[1].Value R.TextTransparency=T[2].
-Value end,u.ProfileMenu:AddItem{Title='Censor Name',Icon='eye-off',IconFallback=
-l.eyeSlash,Checked=c.CensorName,Changed=function(R)M.CensorName=R end},u.
-ProfileMenu:AddItem{Title='Hide Avatar',Icon='user-x',IconFallback=l.
-personCropCircle,Checked=c.HideAvatar,Changed=function(R)M.HideAvatar=R end}u.
-Profile.Settings.MouseButton1Click:Connect(function()u.ProfileMenu:Toggle(u.
-Profile.Settings)end)u.Body.Destroying:Connect(function()u.ProfileMenu:Destroy()
-end)u.Titlebar.LanguagePicker.OnSelected(function(U)M.Language=U end)task.defer(
-function()while u.Body.Parent do R()task.wait(1)end end)v=u.Body.Size w=u.Body.
-Position local U={Title=function(U)u.Titlebar.Title.Visible=U and true or false
-if U then u.Titlebar.Title.Text=U end end,Subtitle=function(U)u.Titlebar.
-Subtitle.Visible=U and true or false if U then u.Titlebar.Subtitle.Text=U end
-end,Searching=function(U)u.Titlebar.SearchField.Body.Parent=U and u.Titlebar.
-Trailing or nil u.Titlebar.SearchField.Body.Visible=U end,Draggable=function(U)z
-=not U and false end,Resizable=function(U)if A and not c.Maximized then A.
-SetEnabled(U)end end,Minimized=function(U,V)local W=V~=false if U and not y then
-x=u.Body.Position if u.BlurModel then u.BlurModel.SetVisibility(false)end end
-local X,Y,Z=TweenInfo.new(0.25,Enum.EasingStyle.Exponential,Enum.EasingDirection
-.Out),{Position=U and UDim2.new(0.5,0,0.5,u.Body.AbsoluteSize.Y*2)or x},{Scale=U
-and 0 or 1}if W then y=true q:Create(u.Body.__instance,X,Y):Play()local _=q:
-Create(u.Scale.__instance,X,Z)_:Play()_.Completed:Once(function()y=false if u.
-BlurModel and not c.Minimized then u.BlurModel.SetVisibility(true)end end)else u
-.Body.Position=Y.Position u.Scale.Scale=Z.Scale if U and u.BlurModel then u.
-BlurModel.SetVisibility(false)end end end,Maximized=function(U,V)V=V~=false if U
-then v=u.Body.Size w=u.Body.Position A.SetEnabled(false)else z=false end local W
-,X,Y=TweenInfo.new(0.5,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{
-Size=U and UDim2.fromScale(1,1)or v,Position=U and UDim2.fromScale(0.5,0.5)or w}
-,{CornerRadius=U and UDim.new(0,0)or UDim.new(0,10)}if V then q:Create(u.Body.
-__instance,W,X):Play()q:Create(u.Cornering,W,Y):Play()else u.Body.Size=X.Size u.
-Body.Position=X.Position u.Cornering.CornerRadius=Y.CornerRadius end if not U
-then A.SetEnabled(c.Resizable)end end,Dropshadow=function(U)u.Dropshadow.Visible
-=U end,UIBlur=function(U)if u.BlurModel then u.BlurModel.Model:Destroy()u.
-BlurModel=nil end u.Body.BackgroundTransparency=U and b.Theme.Controls.Sidebar[2
-].Value or 0 if U and not c.Minimized then u.BlurModel=d.UIBlur(u.Body)end end,
-CanExit=function(U)c.CanExit=U u.WindowControls.Exit.ImageColor3=C.Exit.
-ImageColor3()u.WindowControls.Exit.ImageTransparency=C.Exit.ImageTransparency()u
-.WindowControls.Exit.Active=U end,CanMinimize=function(U)c.CanMinimize=U u.
-WindowControls.Minimize.ImageColor3=C.Minimize.ImageColor3()u.WindowControls.
-Minimize.ImageTransparency=C.Minimize.ImageTransparency()u.WindowControls.
-Minimize.Active=U end,CanZoom=function(U)c.CanZoom=U u.WindowControls.Zoom.
-ImageColor3=C.Zoom.ImageColor3()u.WindowControls.Zoom.ImageTransparency=C.Zoom.
-ImageTransparency()u.WindowControls.Zoom.Active=U end}U.UserProfile=function(V)c
-.UserProfile=V u.Profile.Body.Visible=V G()end U.WindowControls=function(V)c.
-WindowControls=V G()end U.CanUnload=function(V)u.Titlebar.Unload.Visible=V end U
-.ProfileName=function(V)c.ProfileName=V O()end U.ProfileSubtitle=function(V)c.
-ProfileSubtitle=V or'Account'R()end U.ProfileImage=function(V)c.ProfileImage=V
-P()end U.CensorName=function(V)local W=c.CensorName~=V c.CensorName=V==true S:
-Set(c.CensorName,true)O()if W and c.ProfileSettingChanged then task.spawn(c.
-ProfileSettingChanged,M,'CensorName',c.CensorName)end end U.HideAvatar=function(
-V)local W=c.HideAvatar~=V c.HideAvatar=V==true T:Set(c.HideAvatar,true)P()if W
-and c.ProfileSettingChanged then task.spawn(c.ProfileSettingChanged,M,
-'HideAvatar',c.HideAvatar)end end U.ProfileOptions=function(V)if typeof(V)~=
-'table'or#V==0 then return end u.ProfileMenu:AddSeparator()for W,X in ipairs(V)
-do u.ProfileMenu:AddItem(X)end end U.KeyExpires=function(V)c.KeyExpires=V I=
-false R()end U.KeyDuration=function(V)U.KeyExpires(V and(os.time()+V)or nil)end
-U.Languages=function(V)c.Languages=V u.Titlebar.LanguagePicker.SetLanguages(V or
-{})end U.Language=function(V)c.Language=V u.Titlebar.LanguagePicker.Select(V)if
-c.LanguageChanged then task.spawn(c.LanguageChanged,M,V)end end M=g.Wrap(c,U,u.
-Body)M.Type='Window'M.Theme=b.Theme M.Structures=u M.Tabs={}M.addToHistory=i(M)M
-.__container=u.Content M.__window=M M.__app=b M.KeyStatus=function()return Q()
-end M.DisplayName=function()return N()end M.Unload=function()if E then return
-end E=true if c.Unloaded then local V,W=pcall(c.Unloaded,M)if not V then warn(
-'[Cascade] Unloaded callback errored:',W)end end local V=u.Body.__instance:
-FindFirstAncestorWhichIsA'ScreenGui'U.Minimized(true)task.delay(0.25,function()u
-.ProfileMenu:Destroy()u.Body:Destroy()if V and V.Name=='Cascade'then V:Destroy()
-end end)end if c.Config~=false then local V=typeof(c.Config)=='table'and c.
-Config or{}M.Configs=n.new(V)if V.AutoLoad~=false then task.defer(function()M.
-Configs:LoadDefault()end)end end do A=j(u.Body.__instance,Vector2.new(350,250))A
-.CreateClient()end do local V=true local aa=function()V=not V local W,X,Y,Z,_=V
-and UDim.new(0,0)or UDim.new(0,-200),V and UDim2.new(0,200,1,0)or UDim2.new(0,0,
-1,0),V and UDim2.new(1,-201,1,0)or UDim2.new(1,0,1,0),V and UDim2.new(0,10,1,0)
-or UDim2.new(0,10,0.5,0),TweenInfo.new(0.6,Enum.EasingStyle.Exponential,Enum.
-EasingDirection.Out)u.Separator.Visible=V and true or false u.CornerClip.Visible
-=V and true q:Create(u.ContentBody,_,{Size=Y}):Play()q:Create(u.SidebarMargins:
-FindFirstChild'UIPadding',_,{PaddingLeft=W}):Play()local aa=q:Create(u.
-SidebarMargins,_,{Size=X})q:Create(u.Titlebar.CornerClipLeft,_,{Size=Z}):Play()
-aa:Play()if not V then aa.Completed:Connect(function()u.CornerClip.Visible=false
-end)end end u.Titlebar.SidebarButton.MouseButton1Click:Connect(aa)end do local
-aa,V=u.Titlebar.SearchField.Field,{}local W,X=function(W,X)local Y={}for Z,_ in
-ipairs(X)do if _:IsA'GuiObject'then Y[_]=_.Visible end end V[W]=Y end,function(W
-,X)local Y=V[W]if not Y then return end for Z,_ in ipairs(X)do if _:IsA
-'GuiObject'then _.Visible=Y[_]~=false end end end aa:GetPropertyChangedSignal
-'Text':Connect(function()local Y,Z,_={},{},u.Content:FindFirstChildOfClass
-'ScrollingFrame'if not _ then return end local ab=_:GetDescendants()if not V[_]
-then W(_,ab)end local ac=aa.Text:lower()if ac==''then X(_,ab)return end for ad,
-ae in ipairs(ab)do if ae:IsA'GuiObject'then local af=ae:GetAttribute
-'SearchIndex'if typeof(af)=='string'and af:lower():find(ac)then table.insert(Y,
-ae)end end end for ad,ae in ipairs(Y)do Z[ae]=true local af=ae.Parent while af
-and af~=_ do if af:IsA'GuiObject'then Z[af]=true end af=af.Parent end end for ad
-,ae in ipairs(ab)do if ae:IsA'GuiObject'then ae.Visible=false end end for ad,ae
-in ipairs(Y)do ae.Visible=true local af=ae.Parent while af and af~=_ do if af:
-IsA'GuiObject'then af.Visible=true end af=af.Parent end local ag=V[_]for ah,ai
-in ipairs(ae:GetDescendants())do if ai:IsA'GuiObject'then local aj=ag and ag[ai]
-if aj then ai.Visible=true end end end end end)end do local aa=u.WindowControls.
-Body local ab,ac,ad=(aa:FindFirstChild'Exit'),(aa:FindFirstChild'Minimize'),(aa:
-FindFirstChild'Zoom')local ae=function()ab:FindFirstChild'Icon'.Visible=c.
-CanExit and aa.GuiState~=Enum.GuiState.Hover or false ac:FindFirstChild'Icon'.
-Visible=c.CanMinimize and aa.GuiState~=Enum.GuiState.Hover or false ad:
-FindFirstChild'Icon'.Visible=c.CanZoom and aa.GuiState~=Enum.GuiState.Hover or
-false end ad.MouseButton1Click:Connect(function()if not c.CanZoom then return
-end c.Maximized=not c.Maximized U.Maximized(c.Maximized,true)end)ac.
-MouseButton1Click:Connect(function()if not c.CanMinimize then return end c.
-Minimized=not c.Minimized U.Minimized(c.Minimized,true)end)if b.Structures and b
-.Structures.WindowPill then local af=b.Structures.WindowPill af.
-MouseButton1Click:Connect(function()c.Minimized=not c.Minimized U.Minimized(c.
-Minimized,true)end)end ab.MouseButton1Click:Connect(function()if not c.CanExit
-then return end U.Minimized(true)task.delay(0.25,u.Body.Destroy)end)u.Titlebar.
-Unload.MouseButton1Click:Connect(function()if c.CanUnload then M:Unload()end end
-)aa.MouseEnter:Connect(ae)aa.MouseLeave:Connect(ae)end do local aa,ab,ac,ad=(u.
-LayoutIgnore:FindFirstChild'TopArea')aa.InputBegan:Connect(function(ae)if(ae.
-UserInputType==Enum.UserInputType.MouseButton1 or ae.UserInputType==Enum.
-UserInputType.Touch)and c.Draggable and not c.Maximized then z=true ab=ae.
-Position ac=u.Body.Position if ad then ad:Disconnect()end ad=ae.Changed:Connect(
-function()if ae.UserInputState==Enum.UserInputState.End then z=false end end)end
-end)p.InputChanged:Connect(function(ae)if ae.UserInputType==Enum.UserInputType.
-MouseMovement or ae.UserInputType==Enum.UserInputType.Touch then if z then local
-af=ae.Position-ab local ag=UDim2.new(ac.X.Scale,ac.X.Offset+af.X,ac.Y.Scale,ac.Y
-.Offset+af.Y)u.Body.Position=ag end end end)end g.Apply(c,M)local aa=function()
-for aa,ab in pairs(u.Body:GetDescendants())do if not pcall(function()return ab.
-Size end)then continue end local ac=ab.Size ab.Size=UDim2.fromOffset(0,0)ab.Size
-=ac end end task.defer(aa)task.delay(1,aa)return M end end function a.t()local
-ab=a.cache.t if not ab then ab={c=aa()}a.cache.t=ab end return ab.c end end do
-local aa=function()a.b()return function(aa,ab)local ac,ad,ae=a.d(),a.c(),a.e()
-local af,ag,ah,ai,aj=ac.Create,ae.TweenService,aa.Type=='Window'and aa.
-Structures.SidebarList or aa.__instance or aa,{},function(af,ag,ah,...)local ai=
-table.pack(...)for aj,b in ipairs(af:GetChildren())do if b:IsA'GuiObject'then
-table.insert(ag,b:GetPropertyChangedSignal'AbsoluteSize':Connect(function(...)
-ah(table.unpack(ai,1,ai.n))end))table.insert(ag,b:GetPropertyChangedSignal
-'Visible':Connect(function(...)ah(table.unpack(ai,1,ai.n))end))end end table.
-insert(ag,af.ChildAdded:Connect(function(aj)if aj:IsA'GuiObject'then table.
-insert(ag,aj:GetPropertyChangedSignal'AbsoluteSize':Connect(function(...)ah(
-table.unpack(ai,1,ai.n))end))table.insert(ag,aj:GetPropertyChangedSignal
-'Visible':Connect(function(...)ah(table.unpack(ai,1,ai.n))end))ah(table.unpack(
-ai,1,ai.n))end end))table.insert(ag,af.ChildRemoved:Connect(function(...)ah(
-table.unpack(ai,1,ai.n))end))end ab=ab or{}ab.Title=ab.Title or'Section Title'ab
-.Disclosure=ab.Disclosure~=false ab.Expanded=ab.Expanded~=false ai.SidebarGroup=
-(ad.Apply(ab,af'TextButton'{AutomaticSize=Enum.AutomaticSize.Y,BackgroundColor3=
-Color3.fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.
-fromRGB(0,0,0),BorderSizePixel=0,ClipsDescendants=true,Size=UDim2.new(1,0,0,23),
-Text='',AutoButtonColor=false,Parent=ah,af'UIListLayout'{SortOrder=Enum.
-SortOrder.LayoutOrder,HorizontalAlignment=Enum.HorizontalAlignment.Right},af
-'Frame'{Name='SectionHeader',AutomaticSize=Enum.AutomaticSize.Y,BackgroundColor3
-=Color3.fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.
-fromRGB(0,0,0),BorderSizePixel=0,Size=UDim2.fromScale(1,0),af'Frame'{Name=
-'Disclosure',BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency
-=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,FontFace=Font.new
+Body.Parent=u.Sidebar u.Brand=o'Frame'{Name='Brand',BackgroundTransparency=1,
+BorderSizePixel=0,Size=UDim2.new(1,0,0,52),Visible=false,Parent=u.Sidebar,o
+'UIPadding'{PaddingLeft=UDim.new(0,14),PaddingRight=UDim.new(0,12)},o
+'UIListLayout'{FillDirection=Enum.FillDirection.Horizontal,Padding=UDim.new(0,10
+),SortOrder=Enum.SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.
+Center},o'Frame'{Name='LogoHolder',BorderSizePixel=0,Size=UDim2.fromOffset(30,30
+),o'UICorner'{CornerRadius=UDim.new(0,8)},o'ImageLabel'{Name='Logo',AnchorPoint=
+Vector2.new(0.5,0.5),BackgroundTransparency=1,Position=UDim2.fromScale(0.5,0.5),
+ScaleType=Enum.ScaleType.Fit,Size=UDim2.fromScale(1,1),o'UICorner'{CornerRadius=
+UDim.new(0,8)}}},o'Frame'{Name='Texts',BackgroundTransparency=1,LayoutOrder=1,
+Size=UDim2.new(1,-40,1,0),o'UIListLayout'{Padding=UDim.new(0,1),SortOrder=Enum.
+SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},o
+'TextLabel'{Name='Name',BackgroundTransparency=1,FontFace=Font.new(
+'rbxassetid://12187365364',Enum.FontWeight.Bold,Enum.FontStyle.Normal),Size=
+UDim2.new(1,0,0,18),TextSize=16,TextTruncate=Enum.TextTruncate.AtEnd,
+TextXAlignment=Enum.TextXAlignment.Left,__dynamicKeys={TextColor3=b.Theme.Text.
+Primary[1],TextTransparency=b.Theme.Text.Primary[2]}},o'TextLabel'{Name=
+'Subtitle',BackgroundTransparency=1,FontFace=Font.new'rbxassetid://12187365364',
+LayoutOrder=1,Size=UDim2.new(1,0,0,14),TextSize=12,TextTruncate=Enum.
+TextTruncate.AtEnd,TextXAlignment=Enum.TextXAlignment.Left,Visible=false,
+__dynamicKeys={TextColor3=b.Theme.Text.Secondary[1],TextTransparency=b.Theme.
+Text.Secondary[2]}}}}local D=u.Brand.__instance local E=D:FindFirstChild
+'LogoHolder'local F,G=E:FindFirstChild'Logo',D:FindFirstChild'Texts'local H,I=G:
+FindFirstChild'Name',G:FindFirstChild'Subtitle'u.ProfileMenu=k.new(b,{Name=
+'ProfileMenu',Width=180})local J,K,L,M=62,false,function()return c.
+WindowControls and 52 or 0 end,function()return c.Logo~=nil or c.Brand~=nil end
+local N,O,P,Q,R,S,T=function()local N=L()local O=N+(M()and 52 or 0)u.Brand.
+Visible=M()u.Brand.Position=UDim2.fromOffset(0,N)local P,Q=c.UserProfile and J
+or 0,u.SidebarList:FindFirstChild'UIPadding'u.Toolbar.Visible=c.WindowControls u
+.SidebarList.Position=UDim2.fromOffset(0,O)u.SidebarList.Size=UDim2.new(1,0,1,-(
+O+P))if Q then Q.PaddingTop=UDim.new(0,(c.WindowControls or M())and 4 or 12)end
+end,r.LocalPlayer,false,function(N)local O=utf8.len(N)or#N if O<=2 then return
+string.rep('*',O)end local P,Q=utf8.offset(N,2)and string.sub(N,1,utf8.offset(N,
+2)-1)or string.sub(N,1,1),utf8.offset(N,-1)or#N return P..string.rep('*',math.
+min(O-2,6))..string.sub(N,Q)end,function(N)N=math.max(0,math.floor(N))local O,P,
+Q,R=N//86400,(N%86400)//3600,(N%3600)//60,N%60 if O>0 then return string.format(
+'%dd %dh %dm',O,P,Q)elseif P>0 then return string.format('%dh %dm %ds',P,Q,R)end
+return string.format('%dm %ds',Q,R)end,function(N)return N==true or N==math.huge
+or(typeof(N)=='string'and string.lower(N)=='lifetime')end local U=function()
+local U=c.ProfileName or(O and O.DisplayName)or'Player'return c.CensorName and
+Q(U)or U end local V,W,X=function()u.Profile.DisplayName.Text=U()end,function()
+local V=c.ProfileImage if not V and O then V=
+'rbxthumb://type=AvatarHeadShot&id='..O.UserId..'&w=150&h=150'end u.Profile.
+Avatar.Image=V or''u.Profile.Avatar.Visible=not c.HideAvatar and V~=nil u.
+Profile.Placeholder.Visible=not u.Profile.Avatar.Visible end,function()local V,W
+=b.Theme,c.KeyExpires local X,Y=c.ProfileSubtitle,V.Text.Secondary if W~=nil and
+W~=false then if S(W)then X,Y='Key: Lifetime',V.Controls.Status.Added elseif
+typeof(W)=='number'then local Z=W-os.time()if Z<=0 then X,Y='Key expired',V.
+Controls.Status.Removed if not P then P=true if c.KeyExpired then task.spawn(c.
+KeyExpired,T)end end else X='Key: '..R(Z)Y=Z<86400 and V.Controls.Status.Changed
+or V.Text.Secondary end elseif typeof(W)=='string'then X='Key: '..W end end
+return X,Y end local Y,Z,_=function()local Y,Z,_=u.Profile.Subtitle,X()Y.Text=Z
+Y.TextColor3=_[1].Value Y.TextTransparency=_[2].Value end,u.ProfileMenu:AddItem{
+Title='Censor Name',Icon='eye-off',IconFallback=l.eyeSlash,Checked=c.CensorName,
+Changed=function(Y)T.CensorName=Y end},u.ProfileMenu:AddItem{Title='Hide Avatar'
+,Icon='user-x',IconFallback=l.personCropCircle,Checked=c.HideAvatar,Changed=
+function(Y)T.HideAvatar=Y end}u.Profile.Settings.MouseButton1Click:Connect(
+function()u.ProfileMenu:Toggle(u.Profile.Settings)end)u.Body.Destroying:Connect(
+function()u.ProfileMenu:Destroy()end)u.Titlebar.LanguagePicker.OnSelected(
+function(aa)T.Language=aa end)task.defer(function()while u.Body.Parent do Y()
+task.wait(1)end end)v=u.Body.Size w=u.Body.Position local aa={Title=function(aa)
+u.Titlebar.Title.Visible=aa and true or false if aa then u.Titlebar.Title.Text=
+aa end end,Subtitle=function(aa)u.Titlebar.Subtitle.Visible=aa and true or false
+if aa then u.Titlebar.Subtitle.Text=aa end end,Searching=function(aa)u.Titlebar.
+SearchField.Body.Parent=aa and u.Titlebar.Trailing or nil u.Titlebar.SearchField
+.Body.Visible=aa end,Draggable=function(aa)z=not aa and false end,Resizable=
+function(aa)if A and not c.Maximized then A.SetEnabled(aa)end end,Minimized=
+function(aa,ab)local ac=ab~=false if aa and not y then x=u.Body.Position if u.
+BlurModel then u.BlurModel.SetVisibility(false)end end local ad,ae,af=TweenInfo.
+new(0.25,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Position=aa and
+UDim2.new(0.5,0,0.5,u.Body.AbsoluteSize.Y*2)or x},{Scale=aa and 0 or 1}if ac
+then y=true q:Create(u.Body.__instance,ad,ae):Play()local ag=q:Create(u.Scale.
+__instance,ad,af)ag:Play()ag.Completed:Once(function()y=false if u.BlurModel and
+not c.Minimized then u.BlurModel.SetVisibility(true)end end)else u.Body.Position
+=ae.Position u.Scale.Scale=af.Scale if aa and u.BlurModel then u.BlurModel.
+SetVisibility(false)end end end,Maximized=function(aa,ab)ab=ab~=false if aa then
+v=u.Body.Size w=u.Body.Position A.SetEnabled(false)else z=false end local ac,ad,
+ae=TweenInfo.new(0.5,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{
+Size=aa and UDim2.fromScale(1,1)or v,Position=aa and UDim2.fromScale(0.5,0.5)or
+w},{CornerRadius=aa and UDim.new(0,0)or UDim.new(0,10)}if ab then q:Create(u.
+Body.__instance,ac,ad):Play()q:Create(u.Cornering,ac,ae):Play()else u.Body.Size=
+ad.Size u.Body.Position=ad.Position u.Cornering.CornerRadius=ae.CornerRadius end
+if not aa then A.SetEnabled(c.Resizable)end end,Dropshadow=function(aa)u.
+Dropshadow.Visible=aa end,UIBlur=function(aa)if u.BlurModel then u.BlurModel.
+Model:Destroy()u.BlurModel=nil end u.Body.BackgroundTransparency=aa and b.Theme.
+Controls.Sidebar[2].Value or 0 if aa and not c.Minimized then u.BlurModel=d.
+UIBlur(u.Body)end end,CanExit=function(aa)c.CanExit=aa u.WindowControls.Exit.
+ImageColor3=C.Exit.ImageColor3()u.WindowControls.Exit.ImageTransparency=C.Exit.
+ImageTransparency()u.WindowControls.Exit.Active=aa end,CanMinimize=function(aa)c
+.CanMinimize=aa u.WindowControls.Minimize.ImageColor3=C.Minimize.ImageColor3()u.
+WindowControls.Minimize.ImageTransparency=C.Minimize.ImageTransparency()u.
+WindowControls.Minimize.Active=aa end,CanZoom=function(aa)c.CanZoom=aa u.
+WindowControls.Zoom.ImageColor3=C.Zoom.ImageColor3()u.WindowControls.Zoom.
+ImageTransparency=C.Zoom.ImageTransparency()u.WindowControls.Zoom.Active=aa end}
+aa.UserProfile=function(ab)c.UserProfile=ab u.Profile.Body.Visible=ab N()end aa.
+WindowControls=function(ab)c.WindowControls=ab N()end local ab=function()local
+ab=c.Logo local ac=ab~=nil and a.n().Get(ab)local ad=ac and ac.ImageRectSize.X>0
+E.Visible=ab~=nil if ab~=nil then a.n().Apply(F,ab)F.Size=ad and UDim2.
+fromOffset(18,18)or UDim2.fromScale(1,1)F.ImageColor3=ad and b.Theme.Controls.
+Selection[1].Value or Color3.new(1,1,1)E.BackgroundColor3=b.Theme.Controls.
+Selection[1].Value E.BackgroundTransparency=ad and 0.85 or 1 end H.Text=c.Brand
+or c.Title or''I.Text=c.BrandSubtitle or''I.Visible=c.BrandSubtitle~=nil G.Size=
+UDim2.new(1,ab~=nil and-40 or 0,1,0)N()end b.Theme.Controls.Selection[1]:
+Connect(function()task.defer(ab)end)a.n().WhenReady(function()if c.Logo~=nil
+then ab()end end)aa.Logo=function(ac)c.Logo=ac ab()end aa.Brand=function(ac)c.
+Brand=ac ab()end aa.BrandSubtitle=function(ac)c.BrandSubtitle=ac ab()end aa.
+CanUnload=function(ac)u.Titlebar.Unload.Visible=ac end aa.ProfileName=function(
+ac)c.ProfileName=ac V()end aa.ProfileSubtitle=function(ac)c.ProfileSubtitle=ac
+or'Account'Y()end aa.ProfileImage=function(ac)c.ProfileImage=ac W()end aa.
+CensorName=function(ac)local ad=c.CensorName~=ac c.CensorName=ac==true Z:Set(c.
+CensorName,true)V()if ad and c.ProfileSettingChanged then task.spawn(c.
+ProfileSettingChanged,T,'CensorName',c.CensorName)end end aa.HideAvatar=function
+(ac)local ad=c.HideAvatar~=ac c.HideAvatar=ac==true _:Set(c.HideAvatar,true)W()
+if ad and c.ProfileSettingChanged then task.spawn(c.ProfileSettingChanged,T,
+'HideAvatar',c.HideAvatar)end end aa.ProfileOptions=function(ac)if typeof(ac)~=
+'table'or#ac==0 then return end u.ProfileMenu:AddSeparator()for ad,ae in ipairs(
+ac)do u.ProfileMenu:AddItem(ae)end end aa.KeyExpires=function(ac)c.KeyExpires=ac
+P=false Y()end aa.KeyDuration=function(ac)aa.KeyExpires(ac and(os.time()+ac)or
+nil)end aa.Languages=function(ac)c.Languages=ac u.Titlebar.LanguagePicker.
+SetLanguages(ac or{})end aa.Language=function(ac)c.Language=ac u.Titlebar.
+LanguagePicker.Select(ac)if c.LanguageChanged then task.spawn(c.LanguageChanged,
+T,ac)end end T=g.Wrap(c,aa,u.Body)T.Type='Window'T.Theme=b.Theme T.Structures=u
+T.Tabs={}T.addToHistory=i(T)T.__container=u.Content T.__window=T T.__app=b T.
+KeyStatus=function()return X()end T.DisplayName=function()return U()end T.Unload
+=function()if K then return end K=true if c.Unloaded then local ac,ad=pcall(c.
+Unloaded,T)if not ac then warn('[Cascade] Unloaded callback errored:',ad)end end
+local ac=u.Body.__instance:FindFirstAncestorWhichIsA'ScreenGui'aa.Minimized(true
+)task.delay(0.25,function()u.ProfileMenu:Destroy()u.Body:Destroy()if ac and ac.
+Name=='Cascade'then ac:Destroy()end end)end if c.Config~=false then local ac=
+typeof(c.Config)=='table'and c.Config or{}T.Configs=n.new(ac)if ac.AutoLoad~=
+false then task.defer(function()T.Configs:LoadDefault()end)end end do A=j(u.Body
+.__instance,Vector2.new(350,250))A.CreateClient()end do local ac=true local ad=
+function()ac=not ac local ad,ae,af,ag,ah=ac and UDim.new(0,0)or UDim.new(0,-200)
+,ac and UDim2.new(0,200,1,0)or UDim2.new(0,0,1,0),ac and UDim2.new(1,-201,1,0)or
+UDim2.new(1,0,1,0),ac and UDim2.new(0,10,1,0)or UDim2.new(0,10,0.5,0),TweenInfo.
+new(0.6,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out)u.Separator.
+Visible=ac and true or false u.CornerClip.Visible=ac and true q:Create(u.
+ContentBody,ah,{Size=af}):Play()q:Create(u.SidebarMargins:FindFirstChild
+'UIPadding',ah,{PaddingLeft=ad}):Play()local ai=q:Create(u.SidebarMargins,ah,{
+Size=ae})q:Create(u.Titlebar.CornerClipLeft,ah,{Size=ag}):Play()ai:Play()if not
+ac then ai.Completed:Connect(function()u.CornerClip.Visible=false end)end end u.
+Titlebar.SidebarButton.MouseButton1Click:Connect(ad)end do local ac,ad=u.
+Titlebar.SearchField.Field,{}local ae,af=function(ae,af)local ag={}for ah,ai in
+ipairs(af)do if ai:IsA'GuiObject'then ag[ai]=ai.Visible end end ad[ae]=ag end,
+function(ae,af)local ag=ad[ae]if not ag then return end for ah,ai in ipairs(af)
+do if ai:IsA'GuiObject'then ai.Visible=ag[ai]~=false end end end ac:
+GetPropertyChangedSignal'Text':Connect(function()local ag,ah,ai={},{},u.Content:
+FindFirstChildOfClass'ScrollingFrame'if not ai then return end local aj=ai:
+GetDescendants()if not ad[ai]then ae(ai,aj)end local ak=ac.Text:lower()if ak==''
+then af(ai,aj)return end for al,am in ipairs(aj)do if am:IsA'GuiObject'then
+local an=am:GetAttribute'SearchIndex'if typeof(an)=='string'and an:lower():find(
+ak)then table.insert(ag,am)end end end for al,am in ipairs(ag)do ah[am]=true
+local an=am.Parent while an and an~=ai do if an:IsA'GuiObject'then ah[an]=true
+end an=an.Parent end end for al,am in ipairs(aj)do if am:IsA'GuiObject'then am.
+Visible=false end end for al,am in ipairs(ag)do am.Visible=true local an=am.
+Parent while an and an~=ai do if an:IsA'GuiObject'then an.Visible=true end an=an
+.Parent end local ao=ad[ai]for ap,aq in ipairs(am:GetDescendants())do if aq:IsA
+'GuiObject'then local ar=ao and ao[aq]if ar then aq.Visible=true end end end end
+end)end do local ac=u.WindowControls.Body local ad,ae,af=(ac:FindFirstChild
+'Exit'),(ac:FindFirstChild'Minimize'),(ac:FindFirstChild'Zoom')local ag=function
+()ad:FindFirstChild'Icon'.Visible=c.CanExit and ac.GuiState~=Enum.GuiState.Hover
+or false ae:FindFirstChild'Icon'.Visible=c.CanMinimize and ac.GuiState~=Enum.
+GuiState.Hover or false af:FindFirstChild'Icon'.Visible=c.CanZoom and ac.
+GuiState~=Enum.GuiState.Hover or false end af.MouseButton1Click:Connect(function
+()if not c.CanZoom then return end c.Maximized=not c.Maximized aa.Maximized(c.
+Maximized,true)end)ae.MouseButton1Click:Connect(function()if not c.CanMinimize
+then return end c.Minimized=not c.Minimized aa.Minimized(c.Minimized,true)end)if
+b.Structures and b.Structures.WindowPill then local ah=b.Structures.WindowPill
+ah.MouseButton1Click:Connect(function()c.Minimized=not c.Minimized aa.Minimized(
+c.Minimized,true)end)end ad.MouseButton1Click:Connect(function()if not c.CanExit
+then return end aa.Minimized(true)task.delay(0.25,u.Body.Destroy)end)u.Titlebar.
+Unload.MouseButton1Click:Connect(function()if c.CanUnload then T:Unload()end end
+)ac.MouseEnter:Connect(ag)ac.MouseLeave:Connect(ag)end do local ac,ad,ae,af=(u.
+LayoutIgnore:FindFirstChild'TopArea')ac.InputBegan:Connect(function(ag)if(ag.
+UserInputType==Enum.UserInputType.MouseButton1 or ag.UserInputType==Enum.
+UserInputType.Touch)and c.Draggable and not c.Maximized then z=true ad=ag.
+Position ae=u.Body.Position if af then af:Disconnect()end af=ag.Changed:Connect(
+function()if ag.UserInputState==Enum.UserInputState.End then z=false end end)end
+end)p.InputChanged:Connect(function(ag)if ag.UserInputType==Enum.UserInputType.
+MouseMovement or ag.UserInputType==Enum.UserInputType.Touch then if z then local
+ah=ag.Position-ad local ai=UDim2.new(ae.X.Scale,ae.X.Offset+ah.X,ae.Y.Scale,ae.Y
+.Offset+ah.Y)u.Body.Position=ai end end end)end g.Apply(c,T)local ac,ad=function
+()local ac=u.Body.__instance local ad=ac.Size ac.Size=ad+UDim2.fromOffset(1,0)ac
+.Size=ad end,function()local ac=u.Body.__instance if not ac.Parent then return
+end local ad=0 for ae,af in ipairs(ac:GetDescendants())do if af:IsA'GuiObject'
+and af.AutomaticSize~=Enum.AutomaticSize.None then local ag=af.Size af.Size=
+UDim2.fromOffset(0,0)af.Size=ag ad+=1 if ad%150==0 then task.wait()if not ac.
+Parent then return end end end end end task.defer(ac)task.delay(1,ad)return T
+end end function a.t()local ab=a.cache.t if not ab then ab={c=aa()}a.cache.t=ab
+end return ab.c end end do local aa=function()a.b()return function(aa,ab)local
+ac,ad,ae=a.d(),a.c(),a.e()local af,ag,ah,ai,aj=ac.Create,ae.TweenService,aa.Type
+=='Window'and aa.Structures.SidebarList or aa.__instance or aa,{},function(af,ag
+,ah,...)local ai=table.pack(...)for aj,ak in ipairs(af:GetChildren())do if ak:
+IsA'GuiObject'then table.insert(ag,ak:GetPropertyChangedSignal'AbsoluteSize':
+Connect(function(...)ah(table.unpack(ai,1,ai.n))end))table.insert(ag,ak:
+GetPropertyChangedSignal'Visible':Connect(function(...)ah(table.unpack(ai,1,ai.n
+))end))end end table.insert(ag,af.ChildAdded:Connect(function(aj)if aj:IsA
+'GuiObject'then table.insert(ag,aj:GetPropertyChangedSignal'AbsoluteSize':
+Connect(function(...)ah(table.unpack(ai,1,ai.n))end))table.insert(ag,aj:
+GetPropertyChangedSignal'Visible':Connect(function(...)ah(table.unpack(ai,1,ai.n
+))end))ah(table.unpack(ai,1,ai.n))end end))table.insert(ag,af.ChildRemoved:
+Connect(function(...)ah(table.unpack(ai,1,ai.n))end))end ab=ab or{}ab.Title=ab.
+Title or'Section Title'ab.Disclosure=ab.Disclosure~=false ab.Expanded=ab.
+Expanded~=false ai.SidebarGroup=(ad.Apply(ab,af'TextButton'{AutomaticSize=Enum.
+AutomaticSize.Y,BackgroundColor3=Color3.fromRGB(255,255,255),
+BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
+ClipsDescendants=true,Size=UDim2.new(1,0,0,23),Text='',AutoButtonColor=false,
+Parent=ah,af'UIListLayout'{SortOrder=Enum.SortOrder.LayoutOrder,
+HorizontalAlignment=Enum.HorizontalAlignment.Right},af'Frame'{Name=
+'SectionHeader',AutomaticSize=Enum.AutomaticSize.Y,BackgroundColor3=Color3.
+fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0)
+,BorderSizePixel=0,Size=UDim2.fromScale(1,0),af'Frame'{Name='Disclosure',
+BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
+BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,FontFace=Font.new
 'rbxasset://fonts/families/SourceSansPro.json',LayoutOrder=1,Size=UDim2.
 fromOffset(13,14),TextColor3=Color3.fromRGB(0,0,0),TextSize=14,af'ImageLabel'{
 Name='DisclosureImage',AnchorPoint=Vector2.new(0.5,0.5),BackgroundColor3=Color3.
@@ -6933,49 +6984,49 @@ Tertiary[1],TextTransparency=aa.Theme.Text.Tertiary[2]}}}}))ai.Layout=(ai.
 SidebarGroup:FindFirstChild'UIListLayout')ai.SectionHeader=(ai.SidebarGroup:
 FindFirstChild'SectionHeader')ai.Title=(ai.SectionHeader:FindFirstChild'Title')
 ai.Disclosure=(ai.SectionHeader:FindFirstChild'Disclosure')ai.DisclosureImage=(
-ai.Disclosure:FindFirstChild'DisclosureImage')local b={}local c={Title=function(
-c)ai.Title.Text=c end,Disclosure=function(c)ai.Disclosure.Visible=c ai.
-SidebarGroup.Active=c end,Expanded=function(c,d)d=(d==nil and true)or false
-local e,f=ai.SidebarGroup.__instance,ai.DisclosureImage e.AutomaticSize=Enum.
-AutomaticSize.None for g,h in ipairs(b)do h:Disconnect()end table.clear(b)local
-g=function(g)local h=c and ai.Layout.AbsoluteContentSize.Y or 23 local i=ag:
-Create(e,TweenInfo.new(g and 0.35 or 0,Enum.EasingStyle.Exponential,Enum.
-EasingDirection.Out),{Size=UDim2.new(1,0,0,h)})i:Play()end if c then aj(e,b,g,
-false)end g(d)ag:Create(f,TweenInfo.new(d and 0.35 or 0,Enum.EasingStyle.
-Exponential,Enum.EasingDirection.Out),{Rotation=c and 0 or-90}):Play()end}local
-d=ad.Wrap(ab,c,ai.SidebarGroup)d.Type='Section'd.Theme=aa.Theme d.Structures=ai
-d.__window=aa ai.SidebarGroup.MouseButton1Click:Connect(function()if not ab.
-Disclosure then return end d.Expanded=not d.Expanded end)ad.Apply(ab,d)return d
-end end function a.u()local ab=a.cache.u if not ab then ab={c=aa()}a.cache.u=ab
-end return ab.c end end do local aa=function()a.b()return function(aa,ab)local
-ac,ad=a.d(),a.c()local ae=ac.Create ab=ab or{}local af={}af.Page=(ad.Apply(ab,ae
-'ScrollingFrame'{Name='ContentList',AutomaticCanvasSize=Enum.AutomaticSize.Y,
-BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
-BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,CanvasSize=UDim2.new(),
-ClipsDescendants=false,ScrollBarImageColor3=Color3.fromRGB(0,0,0),
-ScrollBarImageTransparency=0.6,ScrollBarThickness=7,Size=UDim2.fromScale(1,1),
-__dynamicKeys={ScrollBarImageColor3=aa.Theme.Controls.ScrollBar[1],
-ScrollBarImageTransparency=aa.Theme.Controls.ScrollBar[2]},ae'UIListLayout'{Name
-='UIListLayout',Padding=UDim.new(0,9),SortOrder=Enum.SortOrder.LayoutOrder},ae
-'UIPadding'{Name='Margins',PaddingBottom=UDim.new(0,17),PaddingLeft=UDim.new(0,
-17),PaddingRight=UDim.new(0,17),PaddingTop=UDim.new(0,17)}}))local ag=function()
-local ag={}for ah,ai in ipairs(__SH.COMPINDEXES)do if ai.Parent==af.Page.
-__instance then table.insert(ag,ai)end end for ah,ai in ipairs(ag)do if ai.Name
-=='PageSection'then local aj,b=ag[ah-1],ai:FindFirstChildOfClass'UIPadding'if b
-then if aj and aj.Name~='PageSection'then b.PaddingTop=UDim.new(0,18)else b.
-PaddingTop=UDim.new(0,0)end end end end end af.Page.ChildAdded:Connect(ag)af.
-Page.ChildRemoved:Connect(ag)ag()local ah=ad.Wrap(ab,{Parent=function(ah)af.Page
-.Parent=ah end},af.Page)ah.Type='Page'ah.Theme=aa.Theme ah.Structures=af if aa.
-__window then ah.__window=aa.__window end ah.__container=af.Page.__instance or
-af.Page return ah end end function a.v()local ab=a.cache.v if not ab then ab={c=
-aa()}a.cache.v=ab end return ab.c end end do local aa=function()a.b()return
-function(aa,ab)local ac,ad,ae=a.d(),a.c(),a.v()local af,ag,ah,ai=ac.Create,aa.
-Type=='Window'and aa or aa.__window,aa.Type=='Window'and aa.Structures.
-SidebarList or aa.Type=='Tab'and aa.__instance.Parent or aa.__instance or aa,{}
-ab=ab or{}ab.Title=ab.Title or'Label'ab.Indentation=ab.Indentation or 0 ab.
-Selected=ab.Selected==true ai.Body=(ad.Apply(ab,af'TextButton'{Name=
-'SidebarItem',AutoButtonColor=false,BorderColor3=Color3.fromRGB(0,0,0),
-BorderSizePixel=0,FontFace=Font.new
+ai.Disclosure:FindFirstChild'DisclosureImage')local ak={}local al={Title=
+function(al)ai.Title.Text=al end,Disclosure=function(al)ai.Disclosure.Visible=al
+ai.SidebarGroup.Active=al end,Expanded=function(al,am)am=(am==nil and true)or
+false local an,ao=ai.SidebarGroup.__instance,ai.DisclosureImage an.AutomaticSize
+=Enum.AutomaticSize.None for ap,aq in ipairs(ak)do aq:Disconnect()end table.
+clear(ak)local ap=function(ap)local aq=al and ai.Layout.AbsoluteContentSize.Y or
+23 local ar=ag:Create(an,TweenInfo.new(ap and 0.35 or 0,Enum.EasingStyle.
+Exponential,Enum.EasingDirection.Out),{Size=UDim2.new(1,0,0,aq)})ar:Play()end if
+al then aj(an,ak,ap,false)end ap(am)ag:Create(ao,TweenInfo.new(am and 0.35 or 0,
+Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Rotation=al and 0 or-90}
+):Play()end}local am=ad.Wrap(ab,al,ai.SidebarGroup)am.Type='Section'am.Theme=aa.
+Theme am.Structures=ai am.__window=aa ai.SidebarGroup.MouseButton1Click:Connect(
+function()if not ab.Disclosure then return end am.Expanded=not am.Expanded end)
+ad.Apply(ab,am)return am end end function a.u()local ab=a.cache.u if not ab then
+ab={c=aa()}a.cache.u=ab end return ab.c end end do local aa=function()a.b()
+return function(aa,ab)local ac,ad=a.d(),a.c()local ae=ac.Create ab=ab or{}local
+af={}af.Page=(ad.Apply(ab,ae'ScrollingFrame'{Name='ContentList',
+AutomaticCanvasSize=Enum.AutomaticSize.Y,BackgroundColor3=Color3.fromRGB(255,255
+,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),
+BorderSizePixel=0,CanvasSize=UDim2.new(),ClipsDescendants=false,
+ScrollBarImageColor3=Color3.fromRGB(0,0,0),ScrollBarImageTransparency=0.6,
+ScrollBarThickness=7,Size=UDim2.fromScale(1,1),__dynamicKeys={
+ScrollBarImageColor3=aa.Theme.Controls.ScrollBar[1],ScrollBarImageTransparency=
+aa.Theme.Controls.ScrollBar[2]},ae'UIListLayout'{Name='UIListLayout',Padding=
+UDim.new(0,9),SortOrder=Enum.SortOrder.LayoutOrder},ae'UIPadding'{Name='Margins'
+,PaddingBottom=UDim.new(0,17),PaddingLeft=UDim.new(0,17),PaddingRight=UDim.new(0
+,17),PaddingTop=UDim.new(0,17)}}))local ag=function()local ag={}for ah,ai in
+ipairs(__SH.COMPINDEXES)do if ai.Parent==af.Page.__instance then table.insert(ag
+,ai)end end for ah,ai in ipairs(ag)do if ai.Name=='PageSection'then local aj,ak=
+ag[ah-1],ai:FindFirstChildOfClass'UIPadding'if ak then if aj and aj.Name~=
+'PageSection'then ak.PaddingTop=UDim.new(0,18)else ak.PaddingTop=UDim.new(0,0)
+end end end end end af.Page.ChildAdded:Connect(ag)af.Page.ChildRemoved:Connect(
+ag)ag()local ah=ad.Wrap(ab,{Parent=function(ah)af.Page.Parent=ah end},af.Page)ah
+.Type='Page'ah.Theme=aa.Theme ah.Structures=af if aa.__window then ah.__window=
+aa.__window end ah.__container=af.Page.__instance or af.Page return ah end end
+function a.v()local ab=a.cache.v if not ab then ab={c=aa()}a.cache.v=ab end
+return ab.c end end do local aa=function()a.b()return function(aa,ab)local ac,ad
+,ae=a.d(),a.c(),a.v()local af,ag,ah,ai=ac.Create,aa.Type=='Window'and aa or aa.
+__window,aa.Type=='Window'and aa.Structures.SidebarList or aa.Type=='Tab'and aa.
+__instance.Parent or aa.__instance or aa,{}ab=ab or{}ab.Title=ab.Title or'Label'
+ab.Indentation=ab.Indentation or 0 ab.Selected=ab.Selected==true ai.Body=(ad.
+Apply(ab,af'TextButton'{Name='SidebarItem',AutoButtonColor=false,BorderColor3=
+Color3.fromRGB(0,0,0),BorderSizePixel=0,FontFace=Font.new
 'rbxasset://fonts/families/SourceSansPro.json',LayoutOrder=ag.Tabs and#ag.Tabs
 or 1,Size=UDim2.new(1,0,0,28),Text='',TextColor3=Color3.fromRGB(0,0,0),TextSize=
 14,Parent=ah,__dynamicKeys={BackgroundColor3=aa.Theme.Controls.SelectionFocused[
@@ -7018,27 +7069,28 @@ ai.Trailing=(ai.Body:FindFirstChild'Trailing')ai.Leading=(ai.Body:FindFirstChild
 FindFirstChild'Symbol')ai.Padding=(ai.Body:FindFirstChild'UIPadding')local aj if
 ab and ab.Page then if type(ab.Page)=='table'and ab.Page.Type=='Page'then aj=ab.
 Page ai.Page=aj.Structures.Page else ai.Page=ab.Page end else aj=ae(aa,ab and ab
-.PageProperties)ai.Page=aj.Structures.Page end local b b=ad.Wrap(ab,{Title=
-function(c)ai.Title.Text=c end,Icon=function(c)ai.Symbol.Visible=c~=nil and a.n(
-).Apply(ai.Symbol,c)end,Indentation=function(c)ai.Padding.PaddingLeft+=UDim.new(
-0,(11*c))end,Selected=function(c)if c then for d,e in pairs(ag.Tabs)do if e.
-__container==b.__container then continue end e.Selected=false end end ai.Body.
-Transparency=c and aa.Theme.Controls.SelectionFocused[2].Value or 1 ai.Title.
-TextColor3=c and aa.Theme.Text.SelectionPrimary[1].Value or aa.Theme.Text.
-Primary[1].Value ai.Title.TextTransparency=c and aa.Theme.Text.SelectionPrimary[
-2].Value or aa.Theme.Text.Primary[2].Value ai.Symbol.ImageColor3=c and aa.Theme.
-Text.SelectionPrimary[1].Value or aa.Theme.Controls.Selection[1].Value ai.Symbol
-.ImageTransparency=c and aa.Theme.Text.SelectionPrimary[2].Value or aa.Theme.
-Controls.Selection[2].Value ai.Page.Parent=c and ag and ag.__container or nil
-end},ai.Body)b.Navigate=function(c,d)if not d or type(d)~='table'or d.Type~=
-'Page'then warn'Tab:Navigate expects a Page component.'return end local e=d.
-Structures.Page if b.Selected and ag and ag.__container then if ai.Page then ai.
-Page.Parent=nil end e.Parent=ag.__container end ai.Page=e aj=d end b.Type='Tab'b
-.Theme=aa.Theme b.Structures=ai b.__container=ai.Page.__instance or ai.Page b.
-__window=ag ad.Apply(ab,b)if ag then table.insert(ag.Tabs,b)if b.Selected then
-ag.addToHistory(b.__container)end ai.Body.MouseButton1Click:Connect(function()if
-b.Selected then return end b.Selected=true ag.addToHistory(b.__container)end)end
-if aa.Type=='Tab'then b.Indentation=aa.Indentation+1 end return b end end
+.PageProperties)ai.Page=aj.Structures.Page end local ak ak=ad.Wrap(ab,{Title=
+function(al)ai.Title.Text=al end,Icon=function(al)ai.Symbol.Visible=al~=nil and
+a.n().Apply(ai.Symbol,al,nil,16)end,Indentation=function(al)ai.Padding.
+PaddingLeft+=UDim.new(0,(11*al))end,Selected=function(al)if al then for am,an in
+pairs(ag.Tabs)do if an.__container==ak.__container then continue end an.Selected
+=false end end ai.Body.Transparency=al and aa.Theme.Controls.SelectionFocused[2]
+.Value or 1 ai.Title.TextColor3=al and aa.Theme.Text.SelectionPrimary[1].Value
+or aa.Theme.Text.Primary[1].Value ai.Title.TextTransparency=al and aa.Theme.Text
+.SelectionPrimary[2].Value or aa.Theme.Text.Primary[2].Value ai.Symbol.
+ImageColor3=al and aa.Theme.Text.SelectionPrimary[1].Value or aa.Theme.Controls.
+Selection[1].Value ai.Symbol.ImageTransparency=al and aa.Theme.Text.
+SelectionPrimary[2].Value or aa.Theme.Controls.Selection[2].Value ai.Page.Parent
+=al and ag and ag.__container or nil end},ai.Body)ak.Navigate=function(al,am)if
+not am or type(am)~='table'or am.Type~='Page'then warn
+'Tab:Navigate expects a Page component.'return end local an=am.Structures.Page
+if ak.Selected and ag and ag.__container then if ai.Page then ai.Page.Parent=nil
+end an.Parent=ag.__container end ai.Page=an aj=am end ak.Type='Tab'ak.Theme=aa.
+Theme ak.Structures=ai ak.__container=ai.Page.__instance or ai.Page ak.__window=
+ag ad.Apply(ab,ak)if ag then table.insert(ag.Tabs,ak)if ak.Selected then ag.
+addToHistory(ak.__container)end ai.Body.MouseButton1Click:Connect(function()if
+ak.Selected then return end ak.Selected=true ag.addToHistory(ak.__container)end)
+end if aa.Type=='Tab'then ak.Indentation=aa.Indentation+1 end return ak end end
 function a.w()local ab=a.cache.w if not ab then ab={c=aa()}a.cache.w=ab end
 return ab.c end end do local aa=function()return function(aa)local ab=a.d()local
 ac,ad=ab.Create,{}ad.Body=(ac'Frame'{Name='TitleStack',AutomaticSize=Enum.
@@ -7088,64 +7140,65 @@ PaddingRight=UDim.new(0,10)},ae'UICorner'{Name='UICorner',CornerRadius=UDim.new(
 0,6)},ae'UIStroke'{Name='UIStroke',ApplyStrokeMode=Enum.ApplyStrokeMode.Border,
 __dynamicKeys={Color=aa.Theme.Controls.ViewBorder[1],Transparency=aa.Theme.
 Controls.ViewBorder[2]}}}))local aj=ad.Wrap(ab,{},ag.Body)aj.Type='Form'aj.Theme
-=aa.Theme aj.Structures=ag local b=function()for b,c in ipairs(ai)do local d,e=c
-.section.Visible,ai[b+1]local f=e and e.section.Visible c.divider.Visible=d and
-f==true end end ag.Body.ChildAdded:Connect(function(c)if c:IsA'Frame'and c:
-FindFirstChild'LayoutIgnore'then local d=c.LayoutIgnore:FindFirstChild'Divider'
-if d then table.insert(ah,d)table.insert(ai,{section=c,divider=d})c:
-GetPropertyChangedSignal'Visible':Connect(function()b()end)b()end end end)ad.
-Apply(ab,aj)return aj end end function a.z()local ab=a.cache.z if not ab then ab
-={c=aa()}a.cache.z=ab end return ab.c end end do local aa=function()a.b()return
-function(aa,ab)local ac,ad=a.c(),a.x()local ae=ad(aa)ab=ab or{}ab.Title=ab.Title
-or'Title'ae.Body.Parent=aa.__container or aa.__instance or aa local af=ac.Wrap(
-ab,{Title=function(af)ae.Title.Text=af end,Subtitle=function(af)ae.Subtitle.
-Visible=true ae.Subtitle.Text=af end},ae.Body)af.Type='TitleStack'af.Theme=aa.
-Theme af.Structures=ae ac.Apply(ab,af)return af end end function a.A()local ab=a
-.cache.A if not ab then ab={c=aa()}a.cache.A=ab end return ab.c end end do local
-aa=function()a.b()return function(aa,ab)local ac,ad=a.d(),a.c()local ae,af,ag=ac
-.Create,aa.__container or aa.__instance or aa,{}ab=ab or{}ag.Body=(ad.Apply(ab,
-ae'Frame'{Name='Row',AutomaticSize=Enum.AutomaticSize.Y,BackgroundColor3=Color3.
-fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0)
-,BorderSizePixel=0,Size=UDim2.fromScale(1,0),Parent=af,ae'Frame'{Name=
-'LeftAccessory',AutomaticSize=Enum.AutomaticSize.Y,BackgroundColor3=Color3.
-fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0)
-,BorderSizePixel=0,Size=UDim2.fromScale(0,1),ae'UIListLayout'{Name=
+=aa.Theme aj.Structures=ag local ak=function()for ak,al in ipairs(ai)do local am
+,an=al.section.Visible,ai[ak+1]local ao=an and an.section.Visible al.divider.
+Visible=am and ao==true end end ag.Body.ChildAdded:Connect(function(al)if al:IsA
+'Frame'and al:FindFirstChild'LayoutIgnore'then local am=al.LayoutIgnore:
+FindFirstChild'Divider'if am then table.insert(ah,am)table.insert(ai,{section=al
+,divider=am})al:GetPropertyChangedSignal'Visible':Connect(function()ak()end)ak()
+end end end)ad.Apply(ab,aj)return aj end end function a.z()local ab=a.cache.z if
+not ab then ab={c=aa()}a.cache.z=ab end return ab.c end end do local aa=function
+()a.b()return function(aa,ab)local ac,ad=a.c(),a.x()local ae=ad(aa)ab=ab or{}ab.
+Title=ab.Title or'Title'ae.Body.Parent=aa.__container or aa.__instance or aa
+local af=ac.Wrap(ab,{Title=function(af)ae.Title.Text=af end,Subtitle=function(af
+)ae.Subtitle.Visible=true ae.Subtitle.Text=af end},ae.Body)af.Type='TitleStack'
+af.Theme=aa.Theme af.Structures=ae ac.Apply(ab,af)return af end end function a.A
+()local ab=a.cache.A if not ab then ab={c=aa()}a.cache.A=ab end return ab.c end
+end do local aa=function()a.b()return function(aa,ab)local ac,ad=a.d(),a.c()
+local ae,af,ag=ac.Create,aa.__container or aa.__instance or aa,{}ab=ab or{}ag.
+Body=(ad.Apply(ab,ae'Frame'{Name='Row',AutomaticSize=Enum.AutomaticSize.Y,
+BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
+BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Size=UDim2.fromScale(1,0),
+Parent=af,ae'Frame'{Name='LeftAccessory',AutomaticSize=Enum.AutomaticSize.Y,
+BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
+BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Size=UDim2.fromScale(0,1),
+ae'UIListLayout'{Name='UIListLayout',FillDirection=Enum.FillDirection.Horizontal
+,HorizontalAlignment=Enum.HorizontalAlignment.Left,Padding=UDim.new(0,10),
+SortOrder=Enum.SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.
+Center,Wraps=true},ae'UIPadding'{Name='UIPadding',PaddingBottom=UDim.new(0,10),
+PaddingRight=UDim.new(0,10),PaddingTop=UDim.new(0,10)}},ae'Frame'{Name=
+'RightAccessory',AnchorPoint=Vector2.new(1,0),AutomaticSize=Enum.AutomaticSize.
+XY,BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
+BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,LayoutOrder=1,Position=
+UDim2.fromScale(1,0),Size=UDim2.fromScale(0,1),ae'UIListLayout'{Name=
 'UIListLayout',FillDirection=Enum.FillDirection.Horizontal,HorizontalAlignment=
-Enum.HorizontalAlignment.Left,Padding=UDim.new(0,10),SortOrder=Enum.SortOrder.
+Enum.HorizontalAlignment.Right,Padding=UDim.new(0,10),SortOrder=Enum.SortOrder.
 LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center,Wraps=true},ae
-'UIPadding'{Name='UIPadding',PaddingBottom=UDim.new(0,10),PaddingRight=UDim.new(
-0,10),PaddingTop=UDim.new(0,10)}},ae'Frame'{Name='RightAccessory',AnchorPoint=
-Vector2.new(1,0),AutomaticSize=Enum.AutomaticSize.XY,BackgroundColor3=Color3.
-fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0)
-,BorderSizePixel=0,LayoutOrder=1,Position=UDim2.fromScale(1,0),Size=UDim2.
-fromScale(0,1),ae'UIListLayout'{Name='UIListLayout',FillDirection=Enum.
-FillDirection.Horizontal,HorizontalAlignment=Enum.HorizontalAlignment.Right,
-Padding=UDim.new(0,10),SortOrder=Enum.SortOrder.LayoutOrder,VerticalAlignment=
-Enum.VerticalAlignment.Center,Wraps=true},ae'UIPadding'{Name='UIPadding',
-PaddingBottom=UDim.new(0,10),PaddingLeft=UDim.new(0,11),PaddingTop=UDim.new(0,10
-)}},ae'Folder'{Name='LayoutIgnore',ae'Frame'{Name='Divider',AnchorPoint=Vector2.
-new(0,1),BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Position=UDim2.
-fromScale(0,1),Size=UDim2.new(1,0,0,1),Visible=false,__dynamicKeys={
-BackgroundColor3=aa.Theme.Controls.ViewBorder[1],BackgroundTransparency=aa.Theme
-.Controls.ViewBorder[2]}}}}))ag.LeftAccessories=(ag.Body:FindFirstChild
-'LeftAccessory')ag.RightAccessories=(ag.Body:FindFirstChild'RightAccessory')
-local ah=function()local ah,ai,aj=ag.LeftAccessories.Parent.AbsoluteSize.X,ag.
-RightAccessories.AbsoluteSize.X,75 local b=math.max(ah-ai,aj)if ah-ai<aj then ag
-.LeftAccessories.Size=UDim2.new(0,aj,1,0)else ag.LeftAccessories.Size=UDim2.new(
-0,b,1,0)end end ah()ag.RightAccessories:GetPropertyChangedSignal'AbsoluteSize':
-Connect(ah)ag.LeftAccessories.Parent:GetPropertyChangedSignal'AbsoluteSize':
-Connect(ah)local ai local aj=function()if not ai then ai=a.A()({Theme=aa.Theme,
-__container=ag.LeftAccessories},{Title=''})ag.TitleStack=ai end return ai end
-local b=ad.Wrap(ab,{SearchIndex=function(b)ag.Body:SetAttribute('SearchIndex',b)
-end,Title=function(b)aj().Title=b if ab.SearchIndex==nil then ag.Body:
-SetAttribute('SearchIndex',b)end end,Subtitle=function(b)aj().Subtitle=b end},ag
-.Body)b.Type='Row'b.Theme=aa.Theme b.Structures=ag b.Left=function()local c=
-table.clone(b)c.__container=ag.LeftAccessories return c end b.Right=function()
-local c=table.clone(b)c.__container=ag.RightAccessories return c end ad.Apply(ab
-,b)return b end end function a.B()local ab=a.cache.B if not ab then ab={c=aa()}a
-.cache.B=ab end return ab.c end end do local aa=function()a.b()return function(
-aa,ab)local ac,ad=a.d(),a.c()local ae,af,ag=ac.Create,aa.__container or aa.
-__instance or aa,{}ab=ab or{}ab.Padding=ab.Padding or UDim.new(0,10)ab.
+'UIPadding'{Name='UIPadding',PaddingBottom=UDim.new(0,10),PaddingLeft=UDim.new(0
+,11),PaddingTop=UDim.new(0,10)}},ae'Folder'{Name='LayoutIgnore',ae'Frame'{Name=
+'Divider',AnchorPoint=Vector2.new(0,1),BorderColor3=Color3.fromRGB(0,0,0),
+BorderSizePixel=0,Position=UDim2.fromScale(0,1),Size=UDim2.new(1,0,0,1),Visible=
+false,__dynamicKeys={BackgroundColor3=aa.Theme.Controls.ViewBorder[1],
+BackgroundTransparency=aa.Theme.Controls.ViewBorder[2]}}}}))ag.LeftAccessories=(
+ag.Body:FindFirstChild'LeftAccessory')ag.RightAccessories=(ag.Body:
+FindFirstChild'RightAccessory')local ah=function()local ah,ai,aj=ag.
+LeftAccessories.Parent.AbsoluteSize.X,ag.RightAccessories.AbsoluteSize.X,75
+local ak=math.max(ah-ai,aj)if ah-ai<aj then ag.LeftAccessories.Size=UDim2.new(0,
+aj,1,0)else ag.LeftAccessories.Size=UDim2.new(0,ak,1,0)end end ah()ag.
+RightAccessories:GetPropertyChangedSignal'AbsoluteSize':Connect(ah)ag.
+LeftAccessories.Parent:GetPropertyChangedSignal'AbsoluteSize':Connect(ah)local
+ai local aj=function()if not ai then ai=a.A()({Theme=aa.Theme,__container=ag.
+LeftAccessories},{Title=''})ag.TitleStack=ai end return ai end local ak=ad.Wrap(
+ab,{SearchIndex=function(ak)ag.Body:SetAttribute('SearchIndex',ak)end,Title=
+function(ak)aj().Title=ak if ab.SearchIndex==nil then ag.Body:SetAttribute(
+'SearchIndex',ak)end end,Subtitle=function(ak)aj().Subtitle=ak end},ag.Body)ak.
+Type='Row'ak.Theme=aa.Theme ak.Structures=ag ak.Left=function()local al=table.
+clone(ak)al.__container=ag.LeftAccessories return al end ak.Right=function()
+local al=table.clone(ak)al.__container=ag.RightAccessories return al end ad.
+Apply(ab,ak)return ak end end function a.B()local ab=a.cache.B if not ab then ab
+={c=aa()}a.cache.B=ab end return ab.c end end do local aa=function()a.b()return
+function(aa,ab)local ac,ad=a.d(),a.c()local ae,af,ag=ac.Create,aa.__container or
+aa.__instance or aa,{}ab=ab or{}ab.Padding=ab.Padding or UDim.new(0,10)ab.
 VerticalAlignment=ab.VerticalAlignment or Enum.VerticalAlignment.Center ab.
 HorizontalAlignment=ab.HorizontalAlignment or Enum.HorizontalAlignment.Right ag.
 Body=(ad.Apply(ab,ae'Frame'{Name='HStack',BackgroundTransparency=1,AutomaticSize
@@ -7222,77 +7275,79 @@ BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Image=
 fromOffset(16,16),__dynamicKeys={ImageColor3=ai.KnobEffects[1],ImageTransparency
 =ai.KnobEffects[2]}}},af'UIGradient'{Name='UIGradient',Rotation=90,__dynamicKeys
 ={Color=ai.DepthEffect[1]}}}}))aj.Switch=(aj.Body:FindFirstChild'Switch')aj.Knob
-=(aj.Switch:FindFirstChild'Knob')local b local c={Value=function(c,d)d=(d==nil
-and true)or false local e,f,g=TweenInfo.new(0.4,Enum.EasingStyle.Exponential,
-Enum.EasingDirection.Out),{Position=c and UDim2.new(0,13,0.5,0)or UDim2.new(0,1,
-0.5,0)},{ImageColor3=c and ai.SwitchOn[1].Value or ai.SwitchOff[1].Value,
-ImageTransparency=c and ai.SwitchOn[2].Value or ai.SwitchOff[2].Value}if d then
-ag:Create(aj.Knob,e,f):Play()ag:Create(aj.Switch,e,g):Play()else aj.Knob.
-Position=f.Position aj.Switch.ImageColor3=g.ImageColor3 aj.Switch.
-ImageTransparency=g.ImageTransparency end if ab.ValueChanged and d then ab.Value
-=c task.spawn(ab.ValueChanged,b,c)end end}b=ad.Wrap(ab,c,aj.Body)b.Type='Toggle'
-b.Theme=aa.Theme b.Structures=aj do aj.Switch.MouseButton1Click:Connect(function
-()b.Value=not b.Value end)end c.Value(not not ab.Value,false)ad.Apply(ab,b)
-return b end end function a.G()local ab=a.cache.G if not ab then ab={c=aa()}a.
-cache.G=ab end return ab.c end end do local aa=function()a.b()return function(aa
-,ab)local ac,ad=a.c(),a.l()(aa)ab=ab or{}ab.Value=ab.Value~=nil and ab.Value or
-''ab.Placeholder=ab.Placeholder or'Placeholder'ad.Field.TextTruncate=Enum.
-TextTruncate.AtEnd ad.Field.TextXAlignment=Enum.TextXAlignment.Right ad.Body.
-Parent=aa.__container or aa.__instance or aa local ae ae=ac.Wrap(ab,{Placeholder
-=function(af)ad.Field.PlaceholderText=af end,Value=function(af)ad.Field.Text=af
-if ab.ValueChanged then ab.Value=af task.spawn(ab.ValueChanged,ae,af)end end},ad
-.Body)ad.Field.Focused:Connect(function()ad.Body.AutomaticSize=Enum.
-AutomaticSize.XY end)ad.Field.FocusLost:Connect(function()ad.Body.AutomaticSize=
-Enum.AutomaticSize.None if ae.Value~=ad.Field.Text then ae.Value=ad.Field.Text
-end end)ae.Type='TextField'ae.Theme=aa.Theme ae.Structures=ad ac.Apply(ab,ae)ad.
-Field:GetPropertyChangedSignal'Text':Connect(function()if ab.TextChanged then
-task.spawn(ab.TextChanged,ae,ad.Field.Text or'')end end)return ae end end
-function a.H()local ab=a.cache.H if not ab then ab={c=aa()}a.cache.H=ab end
-return ab.c end end do local aa=function()a.b()return function(aa,ab)local ac,ad
-=a.c(),a.e()local ae,af=ad.UserInputService,a.l()(aa)ab=ab or{}ab.Placeholder=ab
-.Placeholder or'Press a key'af.Field.TextXAlignment=Enum.TextXAlignment.Right af
-.Field.TextEditable=false af.Body.Parent=aa.__container or aa.__instance or aa
-af.Body.AutomaticSize=Enum.AutomaticSize.XY af.Body.Size=UDim2.fromOffset(0,23)
-af.Field.Size=UDim2.fromOffset(0,23)af.Corner.CornerRadius=UDim.new(0,6)local ag
-if ab.KeybindList and ab.KeybindList.Add then ag=ab.KeybindList:Add{Name=ab.
+=(aj.Switch:FindFirstChild'Knob')local ak local al={Value=function(al,am)am=(am
+==nil and true)or false local an,ao,ap=TweenInfo.new(0.4,Enum.EasingStyle.
+Exponential,Enum.EasingDirection.Out),{Position=al and UDim2.new(0,13,0.5,0)or
+UDim2.new(0,1,0.5,0)},{ImageColor3=al and ai.SwitchOn[1].Value or ai.SwitchOff[1
+].Value,ImageTransparency=al and ai.SwitchOn[2].Value or ai.SwitchOff[2].Value}
+if am then ag:Create(aj.Knob,an,ao):Play()ag:Create(aj.Switch,an,ap):Play()else
+aj.Knob.Position=ao.Position aj.Switch.ImageColor3=ap.ImageColor3 aj.Switch.
+ImageTransparency=ap.ImageTransparency end if ab.ValueChanged and am then ab.
+Value=al task.spawn(ab.ValueChanged,ak,al)end end}ak=ad.Wrap(ab,al,aj.Body)ak.
+Type='Toggle'ak.Theme=aa.Theme ak.Structures=aj do aj.Switch.MouseButton1Click:
+Connect(function()ak.Value=not ak.Value end)end al.Value(not not ab.Value,false)
+ad.Apply(ab,ak)return ak end end function a.G()local ab=a.cache.G if not ab then
+ab={c=aa()}a.cache.G=ab end return ab.c end end do local aa=function()a.b()
+return function(aa,ab)local ac,ad=a.c(),a.l()(aa)ab=ab or{}ab.Value=ab.Value~=
+nil and ab.Value or''ab.Placeholder=ab.Placeholder or'Placeholder'ad.Field.
+TextTruncate=Enum.TextTruncate.AtEnd ad.Field.TextXAlignment=Enum.TextXAlignment
+.Left ad.Field.ClipsDescendants=true ad.Body.Parent=aa.__container or aa.
+__instance or aa local ae ae=ac.Wrap(ab,{Placeholder=function(af)ad.Field.
+PlaceholderText=af end,Value=function(af)ad.Field.Text=af if ab.ValueChanged
+then ab.Value=af task.spawn(ab.ValueChanged,ae,af)end end},ad.Body)ad.Field.
+Focused:Connect(function()ad.Body.AutomaticSize=Enum.AutomaticSize.XY end)ad.
+Field.FocusLost:Connect(function()ad.Body.AutomaticSize=Enum.AutomaticSize.None
+if ae.Value~=ad.Field.Text then ae.Value=ad.Field.Text end end)ae.Type=
+'TextField'ae.Theme=aa.Theme ae.Structures=ad ac.Apply(ab,ae)ad.Field:
+GetPropertyChangedSignal'Text':Connect(function()if ab.TextChanged then task.
+spawn(ab.TextChanged,ae,ad.Field.Text or'')end end)return ae end end function a.
+H()local ab=a.cache.H if not ab then ab={c=aa()}a.cache.H=ab end return ab.c end
+end do local aa=function()a.b()return function(aa,ab)local ac,ad=a.c(),a.e()
+local ae,af=ad.UserInputService,a.l()(aa)ab=ab or{}ab.Placeholder=ab.Placeholder
+or'Press a key'af.Field.TextXAlignment=Enum.TextXAlignment.Right af.Field.
+TextEditable=false af.Body.Parent=aa.__container or aa.__instance or aa af.Body.
+AutomaticSize=Enum.AutomaticSize.XY af.Body.Size=UDim2.fromOffset(0,28)af.Field.
+Size=UDim2.fromOffset(0,0)af.Corner.CornerRadius=UDim.new(0,6)local ag if ab.
+KeybindList and ab.KeybindList.Add then ag=ab.KeybindList:Add{Name=ab.
 KeybindName or'Keybind',Key=ab.Value,Mode=ab.KeybindMode or'Toggle'}end local ah
 ah=ac.Wrap(ab,{Placeholder=function(ai)af.Field.PlaceholderText=ai end,Value=
 function(ai)af.Field.Text=ai.Name if ag then ag.Key=ai end if ab.ValueChanged
 then ab.Value=ai task.spawn(ab.ValueChanged,ah,ai)end end},af.Body)ae.InputBegan
 :Connect(function(ai,aj)if ai.UserInputType~=Enum.UserInputType.Keyboard then
-return end if ai.KeyCode~=ab.Value then return end local b=ae:GetFocusedTextBox(
-)~=nil if ag and not b and not af.Field:IsFocused()then local c=ab.KeybindMode
-or'Toggle'if c=='Toggle'then ag.Active=not ag.Active elseif c=='Hold'then ag.
-Active=true end end if ab.BindPressed then ab.BindPressed(ah,ai.KeyCode,false,aj
-)end end)ae.InputEnded:Connect(function(ai,aj)if ai.UserInputType~=Enum.
-UserInputType.Keyboard then return end if af.Field:IsFocused()then ah.Value=ai.
-KeyCode af.Field:ReleaseFocus()return end if ag and ai.KeyCode==ab.Value and(ab.
-KeybindMode or'Toggle')=='Hold'then ag.Active=false end if ai.KeyCode==ab.Value
-and ab.BindPressed then ab.BindPressed(ah,ai.KeyCode,true,aj)end end)ah.Type=
-'KeybindField'ah.KeybindEntry=ag ah.IsActive=function()return ag~=nil and ag.
-Active==true end ah.Theme=aa.Theme ah.Structures=af ac.Apply(ab,ah)return ah end
-end function a.I()local ab=a.cache.I if not ab then ab={c=aa()}a.cache.I=ab end
-return ab.c end end do local aa=function()a.b()return function(aa,ab)local ac,ad
-=a.d(),a.c()local ae,af,ag,ah,ai=ac.Create,aa.__container or aa.__instance or aa
-,aa.Theme.Controls.Slider,0,{}ab=ab or{}ab.Value=ab.Value or 0 ab.Maximum=ab.
-Maximum or 1 ab.Minimum=ab.Minimum or 0 ai.Body=(ad.Apply(ab,ae'ImageLabel'{Name
-='Slider',Active=true,AnchorPoint=Vector2.new(0,0.5),BackgroundColor3=Color3.
-fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0)
-,BorderSizePixel=0,Image='rbxassetid://92966982499851',Position=UDim2.fromScale(
-0,0.5),Selectable=true,Size=UDim2.fromOffset(150,4),Parent=af,__dynamicKeys={
-ImageColor3=ag.Track[1],ImageTransparency=ag.Track[2]},ae'ImageLabel'{Name=
-'TrackClip',BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=
-1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Image=
-'rbxassetid://113661976068590',ImageColor3=Color3.fromRGB(252,252,252),
-ResampleMode=Enum.ResamplerMode.Pixelated,Size=UDim2.new(0,2,1,0),ZIndex=3,
-__dynamicKeys={ImageColor3=aa.Theme.Controls.View[1],ImageTransparency=aa.Theme.
-Controls.View[2]}},ae'Frame'{Name='Fill',BorderColor3=Color3.fromRGB(0,0,0),
-BorderSizePixel=0,Size=UDim2.fromScale(0,1),__dynamicKeys={BackgroundColor3=aa.
-Theme.Controls.Selection[1],BackgroundTransparency=aa.Theme.Controls.Selection[2
-]},ae'ImageLabel'{Name='Effects',BackgroundColor3=Color3.fromRGB(255,255,255),
-BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
-Image='rbxassetid://82410105327406',ImageColor3=Color3.fromRGB(0,0,0),Size=UDim2
-.new(0,150,1,0),ZIndex=0,__dynamicKeys={ImageColor3=ag.TrackEffects[1],
+return end if ai.KeyCode~=ab.Value then return end local ak=ae:
+GetFocusedTextBox()~=nil if ag and not ak and not af.Field:IsFocused()then local
+al=ab.KeybindMode or'Toggle'if al=='Toggle'then ag.Active=not ag.Active elseif
+al=='Hold'then ag.Active=true end end if ab.BindPressed then ab.BindPressed(ah,
+ai.KeyCode,false,aj)end end)ae.InputEnded:Connect(function(ai,aj)if ai.
+UserInputType~=Enum.UserInputType.Keyboard then return end if af.Field:
+IsFocused()then ah.Value=ai.KeyCode af.Field:ReleaseFocus()return end if ag and
+ai.KeyCode==ab.Value and(ab.KeybindMode or'Toggle')=='Hold'then ag.Active=false
+end if ai.KeyCode==ab.Value and ab.BindPressed then ab.BindPressed(ah,ai.KeyCode
+,true,aj)end end)ah.Type='KeybindField'ah.KeybindEntry=ag ah.IsActive=function()
+return ag~=nil and ag.Active==true end ah.Theme=aa.Theme ah.Structures=af ac.
+Apply(ab,ah)return ah end end function a.I()local ab=a.cache.I if not ab then ab
+={c=aa()}a.cache.I=ab end return ab.c end end do local aa=function()a.b()return
+function(aa,ab)local ac,ad=a.d(),a.c()local ae,af,ag,ah,ai=ac.Create,aa.
+__container or aa.__instance or aa,aa.Theme.Controls.Slider,0,{}ab=ab or{}ab.
+Value=ab.Value or 0 ab.Maximum=ab.Maximum or 1 ab.Minimum=ab.Minimum or 0 ai.
+Body=(ad.Apply(ab,ae'ImageLabel'{Name='Slider',Active=true,AnchorPoint=Vector2.
+new(0,0.5),BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1
+,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Image=
+'rbxassetid://92966982499851',Position=UDim2.fromScale(0,0.5),Selectable=true,
+Size=UDim2.fromOffset(150,4),Parent=af,__dynamicKeys={ImageColor3=ag.Track[1],
+ImageTransparency=ag.Track[2]},ae'ImageLabel'{Name='TrackClip',BackgroundColor3=
+Color3.fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.
+fromRGB(0,0,0),BorderSizePixel=0,Image='rbxassetid://113661976068590',
+ImageColor3=Color3.fromRGB(252,252,252),ResampleMode=Enum.ResamplerMode.
+Pixelated,Size=UDim2.new(0,2,1,0),ZIndex=3,__dynamicKeys={ImageColor3=aa.Theme.
+Controls.View[1],ImageTransparency=aa.Theme.Controls.View[2]}},ae'Frame'{Name=
+'Fill',BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Size=UDim2.
+fromScale(0,1),__dynamicKeys={BackgroundColor3=aa.Theme.Controls.Selection[1],
+BackgroundTransparency=aa.Theme.Controls.Selection[2]},ae'ImageLabel'{Name=
+'Effects',BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
+BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Image=
+'rbxassetid://82410105327406',ImageColor3=Color3.fromRGB(0,0,0),Size=UDim2.new(0
+,150,1,0),ZIndex=0,__dynamicKeys={ImageColor3=ag.TrackEffects[1],
 ImageTransparency=ag.TrackEffects[2]}},ae'Frame'{Name='Thumb',Active=true,
 AnchorPoint=Vector2.new(0.5,0.5),BackgroundColor3=Color3.fromRGB(255,255,255),
 BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
@@ -7314,21 +7369,22 @@ ThumbEffects[1],ImageTransparency=ag.ThumbEffects[2]},ae'UICorner'{Name=
 Name='UIDragDetector',ResponseStyle=Enum.UIDragDetectorResponseStyle.
 CustomOffset,SelectionModeDragSpeed=UDim2.new(),SelectionModeRotateSpeed=0,
 ActivatedCursorIcon='rbxassetid://0',CursorIcon='rbxassetid://0',Parent=ai.Thumb
-})local aj local b={Value=function(b)local c,d=ai.Body.AbsoluteSize.X,ai.Thumb.
-AbsoluteSize.X local e,f,g=d/2,ab.Minimum,ab.Maximum local h,i=g~=f and(b-f)/(g-
-f)or 0,c-d local j=e+(i*h)ai.Fill.Size=UDim2.new(0,j,1,0)if ab.ValueChanged then
-ab.Value=b task.spawn(ab.ValueChanged,aj,b)end end}aj=ad.Wrap(ab,b,ai.Body)aj.
-Type='Slider'aj.Theme=aa.Theme aj.Structures=ai ai.Dragger.DragStart:Connect(
-function()ah=ai.Fill.AbsoluteSize.X end)ai.Dragger.DragContinue:Connect(function
-()local c,d=ai.Body.AbsoluteSize.X,ai.Thumb.AbsoluteSize.X local e=d/2 local f,g
-,h=e,c-e,ai.Dragger.DragUDim2.X.Offset local i=ah+h local j=math.clamp(i,f,g)
-local k=(j-f)/(g-f)aj.Value=aj.Minimum+(aj.Maximum-aj.Minimum)*k end)ad.Apply(ab
-,aj)return aj end end function a.J()local ab=a.cache.J if not ab then ab={c=aa()
-}a.cache.J=ab end return ab.c end end do local aa=function()a.b()return function
-(aa,ab)local ac,ad,ae=a.d(),a.c(),a.e()local af,ag,ah,ai,aj=ac.Create,ae.
-TweenService,aa.__container or aa.__instance or aa,aa.Theme.Controls.Button,{}ab
-=ab or{}ab.State=ab.State or'Primary'ab.Label=ab.Label or'Label'aj.Body=(ad.
-Apply(ab,af'TextButton'{Name='Button',AutoButtonColor=false,AutomaticSize=Enum.
+})local aj local ak={Value=function(ak)local al,am=ai.Body.AbsoluteSize.X,ai.
+Thumb.AbsoluteSize.X local an,ao,ap=am/2,ab.Minimum,ab.Maximum local aq,ar=ap~=
+ao and(ak-ao)/(ap-ao)or 0,al-am local b=an+(ar*aq)ai.Fill.Size=UDim2.new(0,b,1,0
+)if ab.ValueChanged then ab.Value=ak task.spawn(ab.ValueChanged,aj,ak)end end}aj
+=ad.Wrap(ab,ak,ai.Body)aj.Type='Slider'aj.Theme=aa.Theme aj.Structures=ai ai.
+Dragger.DragStart:Connect(function()ah=ai.Fill.AbsoluteSize.X end)ai.Dragger.
+DragContinue:Connect(function()local al,am=ai.Body.AbsoluteSize.X,ai.Thumb.
+AbsoluteSize.X local an=am/2 local ao,ap,aq=an,al-an,ai.Dragger.DragUDim2.X.
+Offset local ar=ah+aq local b=math.clamp(ar,ao,ap)local c=(b-ao)/(ap-ao)aj.Value
+=aj.Minimum+(aj.Maximum-aj.Minimum)*c end)ad.Apply(ab,aj)return aj end end
+function a.J()local ab=a.cache.J if not ab then ab={c=aa()}a.cache.J=ab end
+return ab.c end end do local aa=function()a.b()return function(aa,ab)local ac,ad
+,ae=a.d(),a.c(),a.e()local af,ag,ah,ai,aj=ac.Create,ae.TweenService,aa.
+__container or aa.__instance or aa,aa.Theme.Controls.Button,{}ab=ab or{}ab.State
+=ab.State or'Primary'ab.Label=ab.Label or'Label'aj.Body=(ad.Apply(ab,af
+'TextButton'{Name='Button',AutoButtonColor=false,AutomaticSize=Enum.
 AutomaticSize.XY,BackgroundColor3=Color3.fromRGB(255,255,255),BorderColor3=
 Color3.fromRGB(0,0,0),BorderSizePixel=0,Text='',Parent=ah,af'UICorner'{Name=
 'UICorner',CornerRadius=UDim.new(0,5)},af'Folder'{Name='ShadowLayers',af'Frame'{
@@ -7348,52 +7404,52 @@ BackgroundTransparency=1,BorderSizePixel=0,Size=UDim2.fromScale(1,1),ZIndex=0,af
 Body:FindFirstChild'PressOverlay':FindFirstChild'Overlay'aj.Shadows=aj.Body:
 FindFirstChild'ShadowLayers'aj.Shadow1=aj.Shadows:FindFirstChild'Layer1':
 FindFirstChild'UIStroke'aj.Shadow2=aj.Shadows:FindFirstChild'Layer2':
-FindFirstChild'UIStroke'local b,c={TextColor3=function()local b=ab.State return
-b=='Primary'and aa.Theme.Text.SelectionPrimary[1].Value or b=='Secondary'and aa.
-Theme.Text.Primary[1].Value or b=='Destructive'and aa.Theme.Accents.Red[1].Value
-end,TextTransparency=function()local b=ab.State return b=='Primary'and aa.Theme.
-Text.SelectionPrimary[2].Value or b=='Secondary'and aa.Theme.Text.Primary[2].
-Value or b=='Destructive'and aa.Theme.Accents.Red[2].Value end},{Color=function(
-)local b=ab.State return b=='Primary'and ai.FillPrimary.Value or(b=='Secondary'
-or b=='Destructive')and ai.FillSecondary.Value end}aj.Label=(af'TextLabel'{Size=
-UDim2.fromScale(1,1),Name='Label',AutomaticSize=Enum.AutomaticSize.XY,
-BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
-BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,FontFace=Font.new
-'rbxassetid://12187365364',RichText=true,TextSize=14,TextWrapped=true,
-TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.
-Center,Parent=aj.Body.__instance,__dynamicKeys={TextColor3=aa.Theme.Text.
-SelectionPrimary[1],TextTransparency=aa.Theme.Text.SelectionPrimary[2]},
-__contextKeys=b,af'UIPadding'{Name='UIPadding',PaddingBottom=UDim.new(0,5),
+FindFirstChild'UIStroke'local ak,al={TextColor3=function()local ak=ab.State
+return ak=='Primary'and aa.Theme.Text.SelectionPrimary[1].Value or ak==
+'Secondary'and aa.Theme.Text.Primary[1].Value or ak=='Destructive'and aa.Theme.
+Accents.Red[1].Value end,TextTransparency=function()local ak=ab.State return ak
+=='Primary'and aa.Theme.Text.SelectionPrimary[2].Value or ak=='Secondary'and aa.
+Theme.Text.Primary[2].Value or ak=='Destructive'and aa.Theme.Accents.Red[2].
+Value end},{Color=function()local ak=ab.State return ak=='Primary'and ai.
+FillPrimary.Value or(ak=='Secondary'or ak=='Destructive')and ai.FillSecondary.
+Value end}aj.Label=(af'TextLabel'{Size=UDim2.fromScale(1,1),Name='Label',
+AutomaticSize=Enum.AutomaticSize.XY,BackgroundColor3=Color3.fromRGB(255,255,255)
+,BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
+FontFace=Font.new'rbxassetid://12187365364',RichText=true,TextSize=14,
+TextWrapped=true,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.
+TextYAlignment.Center,Parent=aj.Body.__instance,__dynamicKeys={TextColor3=aa.
+Theme.Text.SelectionPrimary[1],TextTransparency=aa.Theme.Text.SelectionPrimary[2
+]},__contextKeys=ak,af'UIPadding'{Name='UIPadding',PaddingBottom=UDim.new(0,5),
 PaddingLeft=UDim.new(0,12),PaddingRight=UDim.new(0,12),PaddingTop=UDim.new(0,5)}
 })aj.Fill=(af'UIGradient'{Name='UIGradient',Rotation=90,Parent=aj.Body.
-__instance,__dynamicKeys={Color=ai.FillPrimary},__contextKeys=c})local d,e={
-State=function()task.defer(function()aj.Label.TextColor3=b.TextColor3()aj.Label.
-TextTransparency=b.TextTransparency()aj.Fill.Color=c.Color()end)end,Label=
-function(d)aj.Label.Text=d end}e=ad.Wrap(ab,d,aj.Body)e.Type='Button'e.Theme=aa.
-Theme e.Structures=aj aj.Body.MouseButton1Click:Connect(function()if ab.Pushed
-then task.spawn(ab.Pushed,e)end end)local f=function()local f=TweenInfo.new(0.12
-,Enum.EasingStyle.Sine,Enum.EasingDirection.Out)ag:Create(aj.PressOverlay,f,{
-BackgroundTransparency=1}):Play()end aj.Body.MouseButton1Down:Connect(function()
-local g=TweenInfo.new(0.08,Enum.EasingStyle.Cubic,Enum.EasingDirection.Out)ag:
-Create(aj.PressOverlay,g,{BackgroundTransparency=0.8}):Play()end)aj.Body.
-MouseButton1Up:Connect(f)aj.Body.MouseLeave:Connect(f)ad.Apply(ab,e)return e end
-end function a.K()local ab=a.cache.K if not ab then ab={c=aa()}a.cache.K=ab end
-return ab.c end end do local aa=function()a.b()return function(aa,ab)local ac,ad
-,ae=a.d(),a.c(),a.l()local af,ag,ah,ai,aj,b,c,d,e=ac.Create,aa.__container or aa
-.__instance or aa,aa.Theme.Controls.Stepper,{},false,{},0.35,0.083,function(af)
-local ag=tostring(af)local ah,ai=string.find(ag,'%.'),0 if ah then ai=#ag-ah end
-return ai end local f,g=function(f,g)local h,i=e(g),e(f)local j=math.max(h,i)
-local k='%.'..j..'f'return string.format(k,f)end,function(f,g)local h=10^(g or 0
-)return math.floor(f*h+0.5)/h end ab=ab or{}ab.Value=ab.Value or 0 ab.Step=ab.
-Step or 0.1 ab.Maximum=ab.Maximum or 1 ab.Minimum=ab.Minimum or 0 ab.Fielded=ab.
-Fielded or false ai.Body=(ad.Apply(ab,af'ImageLabel'{Name='Stepper',
-BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
-BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Image=
-'rbxassetid://85888499115674',Size=UDim2.fromOffset(13,20),Parent=ag,
-__dynamicKeys={ImageColor3=ah.Background[1],ImageTransparency=ah.Background[2]},
-af'ImageLabel'{Name='Shadow',BackgroundTransparency=1,AnchorPoint=Vector2.new(
-0.5,0.5),BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Image=
-'rbxassetid://105571270097608',LayoutOrder=1,Position=UDim2.fromScale(0.5,0.5),
+__instance,__dynamicKeys={Color=ai.FillPrimary},__contextKeys=al})local am,an={
+State=function()task.defer(function()aj.Label.TextColor3=ak.TextColor3()aj.Label
+.TextTransparency=ak.TextTransparency()aj.Fill.Color=al.Color()end)end,Label=
+function(am)aj.Label.Text=am end}an=ad.Wrap(ab,am,aj.Body)an.Type='Button'an.
+Theme=aa.Theme an.Structures=aj aj.Body.MouseButton1Click:Connect(function()if
+ab.Pushed then task.spawn(ab.Pushed,an)end end)local ao=function()local ao=
+TweenInfo.new(0.12,Enum.EasingStyle.Sine,Enum.EasingDirection.Out)ag:Create(aj.
+PressOverlay,ao,{BackgroundTransparency=1}):Play()end aj.Body.MouseButton1Down:
+Connect(function()local ap=TweenInfo.new(0.08,Enum.EasingStyle.Cubic,Enum.
+EasingDirection.Out)ag:Create(aj.PressOverlay,ap,{BackgroundTransparency=0.8}):
+Play()end)aj.Body.MouseButton1Up:Connect(ao)aj.Body.MouseLeave:Connect(ao)ad.
+Apply(ab,an)return an end end function a.K()local ab=a.cache.K if not ab then ab
+={c=aa()}a.cache.K=ab end return ab.c end end do local aa=function()a.b()return
+function(aa,ab)local ac,ad,ae=a.d(),a.c(),a.l()local af,ag,ah,ai,aj,ak,al,am,an=
+ac.Create,aa.__container or aa.__instance or aa,aa.Theme.Controls.Stepper,{},
+false,{},0.35,0.083,function(af)local ag=tostring(af)local ah,ai=string.find(ag,
+'%.'),0 if ah then ai=#ag-ah end return ai end local ao,ap=function(ao,ap)local
+aq,ar=an(ap),an(ao)local b=math.max(aq,ar)local c='%.'..b..'f'return string.
+format(c,ao)end,function(ao,ap)local aq=10^(ap or 0)return math.floor(ao*aq+0.5)
+/aq end ab=ab or{}ab.Value=ab.Value or 0 ab.Step=ab.Step or 0.1 ab.Maximum=ab.
+Maximum or 1 ab.Minimum=ab.Minimum or 0 ab.Fielded=ab.Fielded or false ai.Body=(
+ad.Apply(ab,af'ImageLabel'{Name='Stepper',BackgroundColor3=Color3.fromRGB(255,
+255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),
+BorderSizePixel=0,Image='rbxassetid://85888499115674',Size=UDim2.fromOffset(13,
+20),Parent=ag,__dynamicKeys={ImageColor3=ah.Background[1],ImageTransparency=ah.
+Background[2]},af'ImageLabel'{Name='Shadow',BackgroundTransparency=1,AnchorPoint
+=Vector2.new(0.5,0.5),BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Image
+='rbxassetid://105571270097608',LayoutOrder=1,Position=UDim2.fromScale(0.5,0.5),
 Size=UDim2.fromOffset(19,27),__dynamicKeys={ImageColor3=ah.Dropshadow[1],
 ImageTransparency=ah.Dropshadow[2]}},af'ImageButton'{Name='Up',AutoButtonColor=
 false,BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
@@ -7435,56 +7491,57 @@ IMinus=(ai.Body:FindFirstChild'Down')ai.Field=ae(aa)ai.Field.Padding.
 PaddingBottom=UDim.new(0,2)ai.Field.Padding.PaddingTop=UDim.new(0,2)ai.Field.
 Padding.PaddingRight=UDim.new(0,2)ai.Field.Body.Size=UDim2.fromOffset(0,23)ai.
 Field.Field.Size=UDim2.fromOffset(0,0)ai.Field.Corner.CornerRadius=UDim.new(0,6)
-ai.Field.FieldPadding:Destroy()local h local i={Fielded=function(i)if i then ai.
-Field.Body.Parent=ag ai.Body.Parent=ai.Field.Body.__instance ai.Body.LayoutOrder
-=1 else ai.Field.Body.Parent=nil ai.Body.Parent=ag ai.Body.LayoutOrder=0 end end
-,Value=function(i)if i<=ab.Minimum then ai.IMinus.ImageColor3=aa.Theme.Text.
-Tertiary[1].Value ai.IMinus.ImageTransparency=aa.Theme.Text.Tertiary[2].Value ai
-.IMinus.Interactable=false else ai.IMinus.ImageColor3=aa.Theme.Text.Primary[1].
-Value ai.IMinus.ImageTransparency=aa.Theme.Text.Primary[2].Value ai.IMinus.
-Interactable=true end if i>=ab.Maximum then ai.IPlus.ImageColor3=aa.Theme.Text.
-Tertiary[1].Value ai.IPlus.ImageTransparency=aa.Theme.Text.Tertiary[2].Value ai.
-IPlus.Interactable=false else ai.IPlus.ImageColor3=aa.Theme.Text.Primary[1].
-Value ai.IPlus.ImageTransparency=aa.Theme.Text.Primary[2].Value ai.IPlus.
-Interactable=true end if ai.Field then ai.Field.Field.Text=f(i,ab.Step)end if ab
-.ValueChanged then ab.Value=i task.spawn(ab.ValueChanged,h,i)end end}h=ad.Wrap(
-ab,i,ai.Body)h.Type='Stepper'h.Theme=aa.Theme h.Structures=ai h.Increment=
-function()assert(ab.Minimum)assert(ab.Maximum)local j,k=math.max(e(h.Value),e(ab
-.Step)),h.Value+ab.Step local l=g(k,j)h.Value=math.clamp(l,ab.Minimum,ab.Maximum
-)end h.Decrement=function()assert(ab.Minimum)assert(ab.Maximum)local j,k=math.
-max(e(h.Value),e(ab.Step)),h.Value-ab.Step local l=g(k,j)h.Value=math.clamp(l,ab
-.Minimum,ab.Maximum)end local j,k=function(j)aj=true local k=(j=='Up')and h.
-Increment or h.Decrement b[j]=task.spawn(function()if aj then task.wait(c)end if
-not aj then return end k()while aj do task.wait(d)if aj then k()end end end)end,
-function(j)aj=false if b[j]then task.cancel(b[j])b[j]=nil end end ai.IPlus.
-MouseButton1Down:Connect(function()h.Increment()j'Up'end)ai.IPlus.MouseButton1Up
-:Connect(function()k'Up'end)ai.IPlus.MouseLeave:Connect(function()k'Up'end)ai.
-IMinus.MouseButton1Down:Connect(function()h.Decrement()j'Down'end)ai.IMinus.
-MouseButton1Up:Connect(function()k'Down'end)ai.IMinus.MouseLeave:Connect(
-function()k'Down'end)ai.Body.AncestryChanged:Connect(function(l,m)if not m then
-k'Up'k'Down'for n,o in pairs(b)do if typeof(o)=='RBXScriptConnection'then o:
-Disconnect()end end b={}end end)ai.Field.Field.FocusLost:Connect(function(l)if l
-then assert(ab.Minimum)assert(ab.Maximum)local m=ai.Field.Field.Text local n=
-tonumber(m)if n and ab.Fielded then ab.Value=math.clamp(n,ab.Minimum,ab.Maximum)
-if ab.Value then i.Value(ab.Value)end end else ai.Field.Field.Text=tostring(ab.
-Value)end end)ad.Apply(ab,h)return h end end function a.L()local ab=a.cache.L if
-not ab then ab={c=aa()}a.cache.L=ab end return ab.c end end do local aa=function
-()a.b()return function(aa,ab)local ac,ad=a.d(),a.c()local ae,af,ag,ah=ac.Create,
-aa.__container or aa.__instance or aa,aa.Theme.Controls.RadioButtonGroup,{
-RadioButtons={}}local ai=function(ai,aj,b)ah.RadioButtons[b]=(ae'Frame'{Name=
-'RadioButton',AutomaticSize=Enum.AutomaticSize.XY,BackgroundColor3=Color3.
-fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0)
-,BorderSizePixel=0,LayoutOrder=b,Parent=ah.Body.__instance,ae'UIListLayout'{Name
-='UIListLayout',FillDirection=Enum.FillDirection.Horizontal,HorizontalAlignment=
-Enum.HorizontalAlignment.Right,Padding=UDim.new(0,6),SortOrder=Enum.SortOrder.
+ai.Field.FieldPadding:Destroy()local aq local ar={Fielded=function(ar)if ar then
+ai.Field.Body.Parent=ag ai.Body.Parent=ai.Field.Body.__instance ai.Body.
+LayoutOrder=1 else ai.Field.Body.Parent=nil ai.Body.Parent=ag ai.Body.
+LayoutOrder=0 end end,Value=function(ar)if ar<=ab.Minimum then ai.IMinus.
+ImageColor3=aa.Theme.Text.Tertiary[1].Value ai.IMinus.ImageTransparency=aa.Theme
+.Text.Tertiary[2].Value ai.IMinus.Interactable=false else ai.IMinus.ImageColor3=
+aa.Theme.Text.Primary[1].Value ai.IMinus.ImageTransparency=aa.Theme.Text.Primary
+[2].Value ai.IMinus.Interactable=true end if ar>=ab.Maximum then ai.IPlus.
+ImageColor3=aa.Theme.Text.Tertiary[1].Value ai.IPlus.ImageTransparency=aa.Theme.
+Text.Tertiary[2].Value ai.IPlus.Interactable=false else ai.IPlus.ImageColor3=aa.
+Theme.Text.Primary[1].Value ai.IPlus.ImageTransparency=aa.Theme.Text.Primary[2].
+Value ai.IPlus.Interactable=true end if ai.Field then ai.Field.Field.Text=ao(ar,
+ab.Step)end if ab.ValueChanged then ab.Value=ar task.spawn(ab.ValueChanged,aq,ar
+)end end}aq=ad.Wrap(ab,ar,ai.Body)aq.Type='Stepper'aq.Theme=aa.Theme aq.
+Structures=ai aq.Increment=function()assert(ab.Minimum)assert(ab.Maximum)local b
+,c=math.max(an(aq.Value),an(ab.Step)),aq.Value+ab.Step local d=ap(c,b)aq.Value=
+math.clamp(d,ab.Minimum,ab.Maximum)end aq.Decrement=function()assert(ab.Minimum)
+assert(ab.Maximum)local b,c=math.max(an(aq.Value),an(ab.Step)),aq.Value-ab.Step
+local d=ap(c,b)aq.Value=math.clamp(d,ab.Minimum,ab.Maximum)end local b,c=
+function(b)aj=true local c=(b=='Up')and aq.Increment or aq.Decrement ak[b]=task.
+spawn(function()if aj then task.wait(al)end if not aj then return end c()while
+aj do task.wait(am)if aj then c()end end end)end,function(b)aj=false if ak[b]
+then task.cancel(ak[b])ak[b]=nil end end ai.IPlus.MouseButton1Down:Connect(
+function()aq.Increment()b'Up'end)ai.IPlus.MouseButton1Up:Connect(function()c'Up'
+end)ai.IPlus.MouseLeave:Connect(function()c'Up'end)ai.IMinus.MouseButton1Down:
+Connect(function()aq.Decrement()b'Down'end)ai.IMinus.MouseButton1Up:Connect(
+function()c'Down'end)ai.IMinus.MouseLeave:Connect(function()c'Down'end)ai.Body.
+AncestryChanged:Connect(function(d,e)if not e then c'Up'c'Down'for f,g in pairs(
+ak)do if typeof(g)=='RBXScriptConnection'then g:Disconnect()end end ak={}end end
+)ai.Field.Field.FocusLost:Connect(function(d)if d then assert(ab.Minimum)assert(
+ab.Maximum)local e=ai.Field.Field.Text local f=tonumber(e)if f and ab.Fielded
+then ab.Value=math.clamp(f,ab.Minimum,ab.Maximum)if ab.Value then ar.Value(ab.
+Value)end end else ai.Field.Field.Text=tostring(ab.Value)end end)ad.Apply(ab,aq)
+return aq end end function a.L()local ab=a.cache.L if not ab then ab={c=aa()}a.
+cache.L=ab end return ab.c end end do local aa=function()a.b()return function(aa
+,ab)local ac,ad=a.d(),a.c()local ae,af,ag,ah=ac.Create,aa.__container or aa.
+__instance or aa,aa.Theme.Controls.RadioButtonGroup,{RadioButtons={}}local ai=
+function(ai,aj,ak)ah.RadioButtons[ak]=(ae'Frame'{Name='RadioButton',
+AutomaticSize=Enum.AutomaticSize.XY,BackgroundColor3=Color3.fromRGB(255,255,255)
+,BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
+LayoutOrder=ak,Parent=ah.Body.__instance,ae'UIListLayout'{Name='UIListLayout',
+FillDirection=Enum.FillDirection.Horizontal,HorizontalAlignment=Enum.
+HorizontalAlignment.Right,Padding=UDim.new(0,6),SortOrder=Enum.SortOrder.
 LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},ae'ImageButton'{
 Name='Button',BackgroundColor3=Color3.fromRGB(255,255,255),
 BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
 Image='rbxassetid://118333468121914',Size=UDim2.fromOffset(14,14),__dynamicKeys=
 {ImageColor3=ag.Background[1],ImageTransparency=ag.Background[2]},__contextKeys=
-{ImageColor3=function()return ab.Value==b and aa.Theme.Controls.Selection[1].
+{ImageColor3=function()return ab.Value==ak and aa.Theme.Controls.Selection[1].
 Value or ag.Background[1].Value end,ImageTransparency=function()return ab.Value
-==b and aa.Theme.Controls.Selection[2].Value or ag.Background[2].Value end},ae
+==ak and aa.Theme.Controls.Selection[2].Value or ag.Background[2].Value end},ae
 'ImageLabel'{Name='Overlay',BackgroundColor3=Color3.fromRGB(255,255,255),
 BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
 Image='rbxassetid://118333468121914',Size=UDim2.fromOffset(14,14),__dynamicKeys=
@@ -7496,54 +7553,55 @@ BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
 Image='rbxassetid://118333468121914',Position=UDim2.fromScale(0.5,0.5),ScaleType
 =Enum.ScaleType.Fit,Size=UDim2.fromOffset(6,6),SliceCenter=Rect.new(7,7,7,7),
 __dynamicKeys={ImageColor3=ag.Dot[1],ImageTransparency=ag.Dot[2]},__contextKeys=
-{ImageTransparency=function()return ab.Value==b and ag.Dot[2].Value or 1 end}},
+{ImageTransparency=function()return ab.Value==ak and ag.Dot[2].Value or 1 end}},
 ae'ImageLabel'{Name='Stroke',AnchorPoint=Vector2.new(0.5,0.5),BackgroundColor3=
 Color3.fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.
 fromRGB(0,0,0),BorderSizePixel=0,Image='rbxassetid://132968326823931',Position=
 UDim2.fromScale(0.5,0.5),Size=UDim2.fromScale(1,1),__dynamicKeys={ImageColor3=ag
 .Stroke[1],ImageTransparency=ag.Stroke[2]},__contextKeys={ImageTransparency=
-function()return ab.Value==b and 1 or ag.Stroke[2].Value end}},ae'ImageLabel'{
+function()return ab.Value==ak and 1 or ag.Stroke[2].Value end}},ae'ImageLabel'{
 Name='InnerShadow',AnchorPoint=Vector2.new(0.5,0.5),BackgroundColor3=Color3.
 fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0)
 ,BorderSizePixel=0,Image='rbxassetid://95115717327743',Position=UDim2.fromScale(
 0.5,0.5),Size=UDim2.fromScale(1,1),__dynamicKeys={ImageColor3=ag.InnerShadow[1],
 ImageTransparency=ag.InnerShadow[2]},__contextKeys={ImageTransparency=function()
-return ab.Value==b and 1 or ag.InnerShadow[2].Value end}},ae'ImageLabel'{Name=
+return ab.Value==ak and 1 or ag.InnerShadow[2].Value end}},ae'ImageLabel'{Name=
 'DropShadow',AnchorPoint=Vector2.new(0.5,0.5),BackgroundColor3=Color3.fromRGB(
 255,255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),
 BorderSizePixel=0,Image='rbxassetid://110994967430153',Position=UDim2.new(0.5,0,
 0.5,1),ScaleType=Enum.ScaleType.Fit,Size=UDim2.fromOffset(20,20),__dynamicKeys={
 ImageColor3=aa.Theme.Controls.Selection[1],ImageTransparency=aa.Theme.Controls.
-Selection[2]},__contextKeys={ImageTransparency=function()return ab.Value==b and
+Selection[2]},__contextKeys={ImageTransparency=function()return ab.Value==ak and
 0.76 or 1 end}}},ae'TextLabel'{Name='Label',AutomaticSize=Enum.AutomaticSize.XY,
 BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
 BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,FontFace=Font.new
 'rbxassetid://12187365364',LayoutOrder=1,RichText=true,Text=aj,TextSize=15,
 TextTruncate=Enum.TextTruncate.AtEnd,Visible=not not aj,__dynamicKeys={
 TextColor3=aa.Theme.Text.Primary[1],TextTransparency=aa.Theme.Text.Primary[2]}}}
-)local c=(ah.RadioButtons[b]:FindFirstChild'Button')if c and c:IsA'ImageButton'
-then c.MouseButton1Click:Connect(function()if ai then ai.Value=b end end)end end
-ab=ab or{}ab.Options=ab.Options or{}ah.Body=(ad.Apply(ab,ae'Frame'{Name=
-'RadioButtons',AutomaticSize=Enum.AutomaticSize.XY,BackgroundColor3=Color3.
-fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0)
-,BorderSizePixel=0,Parent=af,ae'UIListLayout'{Name='UIListLayout',FillDirection=
-Enum.FillDirection.Horizontal,HorizontalAlignment=Enum.HorizontalAlignment.Right
-,Padding=UDim.new(0,16),SortOrder=Enum.SortOrder.LayoutOrder,VerticalAlignment=
-Enum.VerticalAlignment.Center,Wraps=true}}))local aj local b={Options=function(b
-)for c,d in ipairs(b)do if ah.RadioButtons[c]then ah.RadioButtons[c]:Destroy()
-end ai(aj,d,c)end end,Value=function(b)for c,d in ipairs(ah.RadioButtons)do
-local e=c==b if d then local f=d:FindFirstChild'Button'f.ImageColor3=e and aa.
-Theme.Controls.Selection[1].Value or ag.Background[1].Value f.ImageTransparency=
-e and aa.Theme.Controls.Selection[2].Value or ag.Background[2].Value f:
-FindFirstChild'Dot'.ImageTransparency=e and ag.Dot[2].Value or 1 f:
-FindFirstChild'Stroke'.ImageTransparency=e and 1 or ag.Stroke[2].Value f:
-FindFirstChild'InnerShadow'.ImageTransparency=e and 1 or ag.InnerShadow[2].Value
-f:FindFirstChild'DropShadow'.ImageTransparency=e and 0.76 or 1 end end if ab.
-ValueChanged then ab.Value=b task.spawn(ab.ValueChanged,aj,b)end end}aj=ad.Wrap(
-ab,b,ah.Body)aj.Type='RadioButtonGroup'aj.Theme=aa.Theme aj.Structures=ah aj.
-Option=function(c,d)local e=#ah.RadioButtons+1 ai(aj,d,e)table.insert(ab.Options
-or{},d)return ah.RadioButtons[e]end ad.Apply(ab,aj)return aj end end function a.
-M()local ab=a.cache.M if not ab then ab={c=aa()}a.cache.M=ab end return ab.c end
+)local al=(ah.RadioButtons[ak]:FindFirstChild'Button')if al and al:IsA
+'ImageButton'then al.MouseButton1Click:Connect(function()if ai then ai.Value=ak
+end end)end end ab=ab or{}ab.Options=ab.Options or{}ah.Body=(ad.Apply(ab,ae
+'Frame'{Name='RadioButtons',AutomaticSize=Enum.AutomaticSize.XY,BackgroundColor3
+=Color3.fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.
+fromRGB(0,0,0),BorderSizePixel=0,Parent=af,ae'UIListLayout'{Name='UIListLayout',
+FillDirection=Enum.FillDirection.Horizontal,HorizontalAlignment=Enum.
+HorizontalAlignment.Right,Padding=UDim.new(0,16),SortOrder=Enum.SortOrder.
+LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center,Wraps=true}}))local
+aj local ak={Options=function(ak)for al,am in ipairs(ak)do if ah.RadioButtons[al
+]then ah.RadioButtons[al]:Destroy()end ai(aj,am,al)end end,Value=function(ak)for
+al,am in ipairs(ah.RadioButtons)do local an=al==ak if am then local ao=am:
+FindFirstChild'Button'ao.ImageColor3=an and aa.Theme.Controls.Selection[1].Value
+or ag.Background[1].Value ao.ImageTransparency=an and aa.Theme.Controls.
+Selection[2].Value or ag.Background[2].Value ao:FindFirstChild'Dot'.
+ImageTransparency=an and ag.Dot[2].Value or 1 ao:FindFirstChild'Stroke'.
+ImageTransparency=an and 1 or ag.Stroke[2].Value ao:FindFirstChild'InnerShadow'.
+ImageTransparency=an and 1 or ag.InnerShadow[2].Value ao:FindFirstChild
+'DropShadow'.ImageTransparency=an and 0.76 or 1 end end if ab.ValueChanged then
+ab.Value=ak task.spawn(ab.ValueChanged,aj,ak)end end}aj=ad.Wrap(ab,ak,ah.Body)aj
+.Type='RadioButtonGroup'aj.Theme=aa.Theme aj.Structures=ah aj.Option=function(al
+,am)local an=#ah.RadioButtons+1 ai(aj,am,an)table.insert(ab.Options or{},am)
+return ah.RadioButtons[an]end ad.Apply(ab,aj)return aj end end function a.M()
+local ab=a.cache.M if not ab then ab={c=aa()}a.cache.M=ab end return ab.c end
 end do local aa=function()local aa=a.d()return function(ab,ac)local ad=aa.Create
 ac=ac or{}local ae,af=ab.Theme.Controls.MenuButton,{}af.Container=(ad'ScreenGui'
 {Name='Container',IgnoreGuiInset=true,ResetOnSpawn=false,ScreenInsets=Enum.
@@ -7593,118 +7651,121 @@ fromRGB(0,0,0),BorderSizePixel=0,Size=UDim2.fromOffset(16,16),Visible=true,
 Parent=aj.__instance}end return aj.__instance end return af end end function a.N
 ()local ab=a.cache.N if not ab then ab={c=aa()}a.cache.N=ab end return ab.c end
 end do local aa=function()local aa,ab,ac,ad,ae,af,ag=a.N(),a.e(),a.a(),6,-1,6,{}
-ag.__index=ag local ah,ai,aj,b,c,d,e,f=ab.UserInputService,ab.TweenService,ab.
-Workspace,ab.GuiService,function(ah)if typeof(ah)=='table'then local ai,aj=
+ag.__index=ag local ah,ai,aj,ak,al,am,an,ao=ab.UserInputService,ab.TweenService,
+ab.Workspace,ab.GuiService,function(ah)if typeof(ah)=='table'then local ai,aj=
 pcall(function()return ah.__instance end)if ai and typeof(aj)=='Instance'then
 return aj end end return ah end,function(ah,ai,aj)if not ah then return false
-end local b,c=ah.AbsolutePosition,ah.AbsoluteSize return ai>=b.X and ai<=b.X+c.X
-and aj>=b.Y and aj<=b.Y+c.Y end,function(ah)if typeof(ah)=='table'then return ah
-[1]end if typeof(ah)=='number'then return ah end return nil end,function(ah,ai)
-if typeof(ah)~='table'then return nil end return ah[ai]end local g=function(g)
-local h=c(g)if typeof(h)~='Instance'then return false end if h.Parent then
-return true end return typeof(ac.ProtectUI(h))=='Instance'end function ag.new(h,
-i,j)j=j or{}local k=aa(h,{Name=j.Name})i.MenuContainer=k.Container.__instance i.
-MenuBody=k.Body i.Menu=k.Menu i.Options=i.Options or{}local l=setmetatable({
-Context=h,Structures=i,MenuStructures=k,Object=nil,Anchor=j.Anchor,AnchorMode=j.
-AnchorMode or'BelowButton',Gap=j.Gap or af,MaxHeight=j.MaxHeight,ShowsCheckmarks
-=j.ShowsCheckmarks==true,AutoScroll=j.AutoScroll~=false,OnSelected=j.OnSelected,
-SelectedValue=nil,Tween=nil,TweenToken=0,Bound=false},ag)return l end function
-ag:SetObject(h)self.Object=h self:Bind()end function ag:SetAnchor(h)self.Anchor=
-h self:AnchorMenu()end function ag:SetAnchorMode(h)self.AnchorMode=h self:
-AnchorMenu()end function ag:SetValue(h)self.SelectedValue=h self:AnchorMenu()end
-function ag:GetAnchorElement()local h=self.Anchor local i=c(h)if typeof(i)==
-'Instance'then return i end local j=f(h,'Object')or f(h,'Element')or f(h,'Label'
-)or self.Structures.CurrentTab or self.Structures.Body return c(j)end function
-ag:GetAnchorOption()return f(self.Anchor,'Option')or e(self.SelectedValue)or 1
-end function ag:GetAnchorOffsets()local h=self.Anchor local i,j,k=f(h,'Offset'),
-f(h,'XOffset')or 0,f(h,'YOffset')or 0 if typeof(i)=='Vector2'then j+=i.X k+=i.Y
-end return j,k end function ag:GetOptionLabel(h)local i=self.Structures.Options[
-h]if not i then return nil end return(i:FindFirstChild'Label')end function ag:
-ScrollToAnchorOption()local h=self.Structures.Menu if not h then return end
-local i,j,k=self.Structures.Options[self:GetAnchorOption()],h.AbsoluteCanvasSize
-.Y,h.AbsoluteSize.Y local l=math.max(0,j-k)if not i or l<=0 then h.
-CanvasPosition=Vector2.new(h.CanvasPosition.X,0)return end local m,n=i.
-AbsolutePosition.Y-h.AbsolutePosition.Y+h.CanvasPosition.Y,i.AbsoluteSize.Y
-local o=m-((k-n)/2)h.CanvasPosition=Vector2.new(h.CanvasPosition.X,math.clamp(o,
-0,l))end function ag:Resize()local h=self.Structures.Menu if not h then return
-end h.AutomaticSize=Enum.AutomaticSize.XY if not self.MaxHeight then return end
-task.defer(function()if not h then return end local i=h.AbsoluteSize.Y if i>=
-self.MaxHeight then h.AutomaticSize=Enum.AutomaticSize.X h.Size=UDim2.
-fromOffset(0,self.MaxHeight)else h.Size=UDim2.fromOffset(0,i)h.AutomaticSize=
-Enum.AutomaticSize.X end self:AnchorMenu()end)end function ag:AnchorMenu()local
-h,i=c(self.Structures.Body),self.Structures.Menu local j=i and i.Parent if not i
-or not h or not j then return end local k=aj.CurrentCamera if not k then return
-end if self.AutoScroll then self:ScrollToAnchorOption()end local l,m,n,o,p,q=h.
-AbsolutePosition,h.AbsoluteSize,i.AbsolutePosition,j.AbsolutePosition,i.
-AbsoluteSize,k.ViewportSize local r,s,t,u=l.X+m.X-p.X+ae,l.Y+m.Y+self.Gap,self:
-GetAnchorOffsets()if self.AnchorMode=='SelectedLabel'then local v,w=self:
-GetAnchorElement(),self:GetOptionLabel(self:GetAnchorOption())if v and w then
-local x=w.AbsolutePosition-n r=v.AbsolutePosition.X-x.X s=v.AbsolutePosition.Y-x
-.Y elseif v then r=v.AbsolutePosition.X+ae s=v.AbsolutePosition.Y end end r+=t s
-+=u local v,w=math.max(ad,q.X-ad-p.X),math.max(ad,q.Y-ad-p.Y)r=math.clamp(r,ad,v
-)s=math.clamp(s,ad,w)i.Position=UDim2.fromOffset(r-o.X,s-o.Y)end function ag:
-SetExpanded(h)local i,j,k=h==true,c(self.Structures.Body),c(self.Structures.
-MenuContainer)self.TweenToken+=1 local l=self.TweenToken if self.Tween then self
-.Tween:Cancel()self.Tween=nil end if i and j then self.Structures.MenuBody.
-GroupTransparency=1 if not g(self.Structures.MenuContainer)then return end
-elseif not i and k and not k.Parent then self.Structures.MenuBody.
-GroupTransparency=1 return end self:Resize()self:AnchorMenu()task.defer(function
-()self:AnchorMenu()end)local m,n={GroupTransparency=i and 0 or 1},TweenInfo.new(
-i and 0 or 0.4,Enum.EasingStyle.Exponential)local o=ai:Create(self.Structures.
-MenuBody,n,m)self.Tween=o o:Play()o.Completed:Connect(function(p)if l~=self.
-TweenToken then return end if self.Tween==o then self.Tween=nil end if p~=Enum.
-PlaybackState.Completed then return end if not i and self.Object and self.Object
-.Expanded==false then self.Structures.MenuContainer.Parent=nil end end)end
-function ag:SetSelectedMap(h)if not self.ShowsCheckmarks then return end for i,j
-in ipairs(self.Structures.Options)do if not j then continue end local k,l,m=j:
-FindFirstChild'Checkmark',j:FindFirstChild'CheckmarkRepl',h[i]==true if k then k
-.Visible=m end if l then l.Visible=not m end end end function ag:ResetItemColors
-(h)local i,j=h:FindFirstChild'Label',h:FindFirstChild'Checkmark'h.
-BackgroundTransparency=1 if i then i.TextColor3=self.Context.Theme.Text.Primary[
-1].Value i.TextTransparency=self.Context.Theme.Text.Primary[2].Value end if j
-then j.ImageColor3=self.Context.Theme.Text.Primary[1].Value j.ImageTransparency=
-self.Context.Theme.Text.Primary[2].Value end end function ag:HighlightItem(h)
-local i,j=h:FindFirstChild'Label',h:FindFirstChild'Checkmark'h.
+end local ak,al=ah.AbsolutePosition,ah.AbsoluteSize return ai>=ak.X and ai<=ak.X
++al.X and aj>=ak.Y and aj<=ak.Y+al.Y end,function(ah)if typeof(ah)=='table'then
+return ah[1]end if typeof(ah)=='number'then return ah end return nil end,
+function(ah,ai)if typeof(ah)~='table'then return nil end return ah[ai]end local
+ap=function(ap)local aq=al(ap)if typeof(aq)~='Instance'then return false end if
+aq.Parent then return true end return typeof(ac.ProtectUI(aq))=='Instance'end
+function ag.new(aq,ar,b)b=b or{}local c=aa(aq,{Name=b.Name})ar.MenuContainer=c.
+Container.__instance ar.MenuBody=c.Body ar.Menu=c.Menu ar.Options=ar.Options or{
+}local d=setmetatable({Context=aq,Structures=ar,MenuStructures=c,Object=nil,
+Anchor=b.Anchor,AnchorMode=b.AnchorMode or'BelowButton',Gap=b.Gap or af,
+MaxHeight=b.MaxHeight,ShowsCheckmarks=b.ShowsCheckmarks==true,AutoScroll=b.
+AutoScroll~=false,OnSelected=b.OnSelected,SelectedValue=nil,Tween=nil,TweenToken
+=0,Bound=false},ag)return d end function ag:SetObject(aq)self.Object=aq self:
+Bind()end function ag:SetAnchor(aq)self.Anchor=aq self:AnchorMenu()end function
+ag:SetAnchorMode(aq)self.AnchorMode=aq self:AnchorMenu()end function ag:SetValue
+(aq)self.SelectedValue=aq self:AnchorMenu()end function ag:GetAnchorElement()
+local aq=self.Anchor local ar=al(aq)if typeof(ar)=='Instance'then return ar end
+local b=ao(aq,'Object')or ao(aq,'Element')or ao(aq,'Label')or self.Structures.
+CurrentTab or self.Structures.Body return al(b)end function ag:GetAnchorOption()
+return ao(self.Anchor,'Option')or an(self.SelectedValue)or 1 end function ag:
+GetAnchorOffsets()local aq=self.Anchor local ar,b,c=ao(aq,'Offset'),ao(aq,
+'XOffset')or 0,ao(aq,'YOffset')or 0 if typeof(ar)=='Vector2'then b+=ar.X c+=ar.Y
+end return b,c end function ag:GetOptionLabel(aq)local ar=self.Structures.
+Options[aq]if not ar then return nil end return(ar:FindFirstChild'Label')end
+function ag:ScrollToAnchorOption()local aq=self.Structures.Menu if not aq then
+return end local ar,b,c=self.Structures.Options[self:GetAnchorOption()],aq.
+AbsoluteCanvasSize.Y,aq.AbsoluteSize.Y local d=math.max(0,b-c)if not ar or d<=0
+then aq.CanvasPosition=Vector2.new(aq.CanvasPosition.X,0)return end local e,f=ar
+.AbsolutePosition.Y-aq.AbsolutePosition.Y+aq.CanvasPosition.Y,ar.AbsoluteSize.Y
+local g=e-((c-f)/2)aq.CanvasPosition=Vector2.new(aq.CanvasPosition.X,math.clamp(
+g,0,d))end function ag:Resize()local aq=self.Structures.Menu if not aq then
+return end aq.AutomaticSize=Enum.AutomaticSize.XY if not self.MaxHeight then
+return end task.defer(function()if not aq then return end local ar=aq.
+AbsoluteSize.Y if ar>=self.MaxHeight then aq.AutomaticSize=Enum.AutomaticSize.X
+aq.Size=UDim2.fromOffset(0,self.MaxHeight)else aq.Size=UDim2.fromOffset(0,ar)aq.
+AutomaticSize=Enum.AutomaticSize.X end self:AnchorMenu()end)end function ag:
+AnchorMenu()local aq,ar=al(self.Structures.Body),self.Structures.Menu local b=ar
+and ar.Parent if not ar or not aq or not b then return end local c=aj.
+CurrentCamera if not c then return end if self.AutoScroll then self:
+ScrollToAnchorOption()end local d,e,f,g,h,i=aq.AbsolutePosition,aq.AbsoluteSize,
+ar.AbsolutePosition,b.AbsolutePosition,ar.AbsoluteSize,c.ViewportSize local j,k,
+l,m=d.X+e.X-h.X+ae,d.Y+e.Y+self.Gap,self:GetAnchorOffsets()if self.AnchorMode==
+'SelectedLabel'then local n,o=self:GetAnchorElement(),self:GetOptionLabel(self:
+GetAnchorOption())if n and o then local p=o.AbsolutePosition-f j=n.
+AbsolutePosition.X-p.X k=n.AbsolutePosition.Y-p.Y elseif n then j=n.
+AbsolutePosition.X+ae k=n.AbsolutePosition.Y end end j+=l k+=m local n,o=math.
+max(ad,i.X-ad-h.X),math.max(ad,i.Y-ad-h.Y)j=math.clamp(j,ad,n)k=math.clamp(k,ad,
+o)ar.Position=UDim2.fromOffset(j-g.X,k-g.Y)end function ag:SetExpanded(aq)local
+ar,b,c=aq==true,al(self.Structures.Body),al(self.Structures.MenuContainer)self.
+TweenToken+=1 local d=self.TweenToken if self.Tween then self.Tween:Cancel()self
+.Tween=nil end if ar and b then self.Structures.MenuBody.GroupTransparency=1 if
+not ap(self.Structures.MenuContainer)then return end elseif not ar and c and not
+c.Parent then self.Structures.MenuBody.GroupTransparency=1 return end self:
+Resize()self:AnchorMenu()task.defer(function()self:AnchorMenu()end)local e,f={
+GroupTransparency=ar and 0 or 1},TweenInfo.new(ar and 0 or 0.4,Enum.EasingStyle.
+Exponential)local g=ai:Create(self.Structures.MenuBody,f,e)self.Tween=g g:Play()
+g.Completed:Connect(function(h)if d~=self.TweenToken then return end if self.
+Tween==g then self.Tween=nil end if h~=Enum.PlaybackState.Completed then return
+end if not ar and self.Object and self.Object.Expanded==false then self.
+Structures.MenuContainer.Parent=nil end end)end function ag:SetSelectedMap(aq)if
+not self.ShowsCheckmarks then return end for ar,b in ipairs(self.Structures.
+Options)do if not b then continue end local c,d,e=b:FindFirstChild'Checkmark',b:
+FindFirstChild'CheckmarkRepl',aq[ar]==true if c then c.Visible=e end if d then d
+.Visible=not e end end end function ag:ResetItemColors(aq)local ar,b=aq:
+FindFirstChild'Label',aq:FindFirstChild'Checkmark'aq.BackgroundTransparency=1 if
+ar then ar.TextColor3=self.Context.Theme.Text.Primary[1].Value ar.
+TextTransparency=self.Context.Theme.Text.Primary[2].Value end if b then b.
+ImageColor3=self.Context.Theme.Text.Primary[1].Value b.ImageTransparency=self.
+Context.Theme.Text.Primary[2].Value end end function ag:HighlightItem(aq)local
+ar,b=aq:FindFirstChild'Label',aq:FindFirstChild'Checkmark'aq.
 BackgroundTransparency=self.Context.Theme.Controls.SelectionFocused[2].Value if
-i then i.TextColor3=self.Context.Theme.Controls.SelectionFocusedAccent[1].Value
-i.TextTransparency=self.Context.Theme.Controls.SelectionFocusedAccent[2].Value
-end if j then j.ImageColor3=self.Context.Theme.Controls.SelectionFocusedAccent[1
-].Value j.ImageTransparency=self.Context.Theme.Controls.SelectionFocusedAccent[2
-].Value end end function ag:AddOption(h,i)local j=self.MenuStructures.Item(h,i,
-self.ShowsCheckmarks)self.Structures.Options[i]=j j:GetPropertyChangedSignal
-'GuiState':Connect(function()if not self.Object or not self.Object.Expanded then
-return end if j.GuiState==Enum.GuiState.Hover then self:HighlightItem(j)else
-self:ResetItemColors(j)end end)j.MouseButton1Click:Connect(function()if self.
-OnSelected and self.Object then self.OnSelected(self.Object,i)end end)self:
-Resize()task.defer(function()self:AnchorMenu()end)return j end function ag:
-ClearOptions()for h,i in ipairs(self.Structures.Options)do i:Destroy()end table.
-clear(self.Structures.Options)self:Resize()end function ag:RemoveOption(h)if h
-and self.Structures.Options[h]then self.Structures.Options[h]:Destroy()self.
-Structures.Options[h]=nil end self:Resize()end function ag:Bind()if self.Bound
-then return end self.Bound=true self.Structures.Body:GetPropertyChangedSignal
-'AbsolutePosition':Connect(function()self:AnchorMenu()end)self.Structures.Body:
-GetPropertyChangedSignal'AbsoluteSize':Connect(function()self:AnchorMenu()end)
-self.Structures.Menu:GetPropertyChangedSignal'AbsoluteSize':Connect(function()
-self:AnchorMenu()end)ah.InputBegan:Connect(function(h)if not self.Object or not
-self.Object.Expanded or(h.UserInputType~=Enum.UserInputType.MouseButton1 and h.
-UserInputType~=Enum.UserInputType.Touch)then return end local i,j=ah:
-GetMouseLocation(),b:GetGuiInset()local k,l=i.Y-j.Y,c(self.Structures.Body)local
-m=d(l,i.X,k)or d(l,i.X,i.Y)if not d(self.Structures.Menu,i.X,k)and not m then
-self.Object.Expanded=false end end)self.Structures.Body.MouseButton1Click:
-Connect(function()if self.Object then self.Object.Expanded=not self.Object.
-Expanded end end)end return ag end function a.O()local ab=a.cache.O if not ab
-then ab={c=aa()}a.cache.O=ab end return ab.c end end do local aa=function()a.b()
-return function(aa,ab)local ac,ad,ae=a.d(),a.c(),a.O()local af,ag,ah,ai,aj=ac.
-Create,30,aa.__container or aa.__instance or aa,aa.Theme.Controls.MenuButton,{
-Options={}}local b,c=function(b)if#b>ag then return string.sub(b,1,ag)..'...'end
-return b end,function(b)local c={}if typeof(b)=='table'then for d,e in ipairs(b)
-do c[e]=true end elseif b then c[b]=true end return c end local d=function(d)
-local e,f={},c(d)for g,h in ipairs(aj.Options)do local i=h and h:FindFirstChild
-'Label'if f[g]and i then table.insert(e,i.Text)end end return e end ab=ab or{}ab
-.Maximum=ab.Maximum or 1 ab.Expanded=ab.Expanded or false ab.Options=ab.Options
-or{}aj.Body=(ad.Apply(ab,af'TextButton'{Name='PopUpButton',AutomaticSize=Enum.
-AutomaticSize.XY,BackgroundColor3=Color3.fromRGB(255,255,255),
-BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
+ar then ar.TextColor3=self.Context.Theme.Controls.SelectionFocusedAccent[1].
+Value ar.TextTransparency=self.Context.Theme.Controls.SelectionFocusedAccent[2].
+Value end if b then b.ImageColor3=self.Context.Theme.Controls.
+SelectionFocusedAccent[1].Value b.ImageTransparency=self.Context.Theme.Controls.
+SelectionFocusedAccent[2].Value end end function ag:AddOption(aq,ar)local b=self
+.MenuStructures.Item(aq,ar,self.ShowsCheckmarks)self.Structures.Options[ar]=b b:
+GetPropertyChangedSignal'GuiState':Connect(function()if not self.Object or not
+self.Object.Expanded then return end if b.GuiState==Enum.GuiState.Hover then
+self:HighlightItem(b)else self:ResetItemColors(b)end end)b.MouseButton1Click:
+Connect(function()if self.OnSelected and self.Object then self.OnSelected(self.
+Object,ar)end end)self:Resize()task.defer(function()self:AnchorMenu()end)return
+b end function ag:ClearOptions()for aq,ar in ipairs(self.Structures.Options)do
+ar:Destroy()end table.clear(self.Structures.Options)self:Resize()end function ag
+:RemoveOption(aq)if aq and self.Structures.Options[aq]then self.Structures.
+Options[aq]:Destroy()self.Structures.Options[aq]=nil end self:Resize()end
+function ag:Bind()if self.Bound then return end self.Bound=true self.Structures.
+Body:GetPropertyChangedSignal'AbsolutePosition':Connect(function()self:
+AnchorMenu()end)self.Structures.Body:GetPropertyChangedSignal'AbsoluteSize':
+Connect(function()self:AnchorMenu()end)self.Structures.Menu:
+GetPropertyChangedSignal'AbsoluteSize':Connect(function()self:AnchorMenu()end)ah
+.InputBegan:Connect(function(aq)if not self.Object or not self.Object.Expanded
+or(aq.UserInputType~=Enum.UserInputType.MouseButton1 and aq.UserInputType~=Enum.
+UserInputType.Touch)then return end local ar,b=ah:GetMouseLocation(),ak:
+GetGuiInset()local c,d=ar.Y-b.Y,al(self.Structures.Body)local e=am(d,ar.X,c)or
+am(d,ar.X,ar.Y)if not am(self.Structures.Menu,ar.X,c)and not e then self.Object.
+Expanded=false end end)self.Structures.Body.MouseButton1Click:Connect(function()
+if self.Object then self.Object.Expanded=not self.Object.Expanded end end)end
+return ag end function a.O()local ab=a.cache.O if not ab then ab={c=aa()}a.cache
+.O=ab end return ab.c end end do local aa=function()a.b()return function(aa,ab)
+local ac,ad,ae=a.d(),a.c(),a.O()local af,ag,ah,ai,aj=ac.Create,30,aa.__container
+or aa.__instance or aa,aa.Theme.Controls.MenuButton,{Options={}}local ak,al=
+function(ak)if#ak>ag then return string.sub(ak,1,ag)..'...'end return ak end,
+function(ak)local al={}if typeof(ak)=='table'then for am,an in ipairs(ak)do al[
+an]=true end elseif ak then al[ak]=true end return al end local am=function(am)
+local an,ao={},al(am)for ap,aq in ipairs(aj.Options)do local ar=aq and aq:
+FindFirstChild'Label'if ao[ap]and ar then table.insert(an,ar.Text)end end return
+an end ab=ab or{}ab.Maximum=ab.Maximum or 1 ab.Expanded=ab.Expanded or false ab.
+Options=ab.Options or{}aj.Body=(ad.Apply(ab,af'TextButton'{Name='PopUpButton',
+AutomaticSize=Enum.AutomaticSize.XY,BackgroundColor3=Color3.fromRGB(255,255,255)
+,BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
 Selectable=false,Text='',Parent=ah,af'UIPadding'{Name='UIPadding',PaddingBottom=
 UDim.new(0,4),PaddingLeft=UDim.new(0,9),PaddingRight=UDim.new(0,5),PaddingTop=
 UDim.new(0,4)},af'UIListLayout'{Name='UIListLayout',FillDirection=Enum.
@@ -7725,117 +7786,120 @@ BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,FontFace=Font.new
 TextTransparency=0.15,TextTruncate=Enum.TextTruncate.AtEnd,__dynamicKeys={
 TextColor3=aa.Theme.Text.Primary[1],TextTransparency=aa.Theme.Text.Primary[2]}}}
 ))aj.PopUpIndicator=(aj.Body:FindFirstChild'PopUpIndicator')aj.CurrentTab=(aj.
-Body:FindFirstChild'Label')local e,f=(ae.new(aa,aj,{Name='PopUpMenu',Anchor=ab.
-Anchor,AnchorMode='SelectedLabel',ShowsCheckmarks=true,MaxHeight=239,OnSelected=
-function(e,f)if e.Maximum and e.Maximum>1 then local g=e.Value or{}if typeof(g)
-~='table'then g=g and{g}or{}else g=table.clone(g)end local h for i,j in ipairs(g
-)do if j==f then h=i break end end if h then table.remove(g,h)else if#g<e.
-Maximum then table.insert(g,f)else table.remove(g,1)table.insert(g,f)end end e.
-Value=g else e.Expanded=false task.wait(0.2)e.Value=f end end}))local g=function
-(g,h)local i=f and f.Maximum and f.Maximum>1 e:SetAnchorMode(i and'BelowButton'
-or'SelectedLabel')e:SetValue(g)if i then local j=d(g)if#j==0 then aj.CurrentTab.
-Text='None'else aj.CurrentTab.Text=b(table.concat(j,', '))end e:SetSelectedMap(
-c(g))else local j=g and aj.Options[g]and aj.Options[g]:FindFirstChild'Label'if
-not j then aj.CurrentTab.Text='None'else aj.CurrentTab.Text=b(j.Text)end e:
-SetSelectedMap(c(g))end if h and ab.ValueChanged then ab.Value=g task.spawn(ab.
-ValueChanged,f,g)end end local h={Anchor=function(h)e:SetAnchor(h)end,Options=
-function(h)e:ClearOptions()for i,j in ipairs(h)do e:AddOption(j,i)end if f then
-g(f.Value,false)end end,Expanded=function(h)e:SetAnchorMode(f and f.Maximum and
-f.Maximum>1 and'BelowButton'or'SelectedLabel')e:SetExpanded(h)end,Value=function
-(h)g(h,true)end}f=ad.Wrap(ab,h,aj.Body)e:SetObject(f)f.Type='PopUpButton'f.Theme
-=aa.Theme f.Structures=aj f.Option=function(i,j)local k=#aj.Options+1 local l=e:
-AddOption(j,k)table.insert(f.Options,j)g(f.Value,false)return l end f.Remove=
-function(i,j)if j then e:RemoveOption(j)f.Options[j]=nil g(f.Value,false)end end
-ad.Apply(ab,f)g(f.Value,false)return f end end function a.P()local ab=a.cache.P
-if not ab then ab={c=aa()}a.cache.P=ab end return ab.c end end do local aa=
-function()a.b()return function(aa,ab)local ac,ad,ae=a.d(),a.c(),a.O()local af,ag
-,ah,ai=ac.Create,aa.__container or aa.__instance or aa,aa.Theme.Controls.
-MenuButton,{Options={}}ab=ab or{}ab.Expanded=ab.Expanded or false ab.Options=ab.
-Options or{}ai.Body=(ad.Apply(ab,af'TextButton'{Name='PullDownButton',
+Body:FindFirstChild'Label')local an,ao=(ae.new(aa,aj,{Name='PopUpMenu',Anchor=ab
+.Anchor,AnchorMode='SelectedLabel',ShowsCheckmarks=true,MaxHeight=239,OnSelected
+=function(an,ao)if an.Maximum and an.Maximum>1 then local ap=an.Value or{}if
+typeof(ap)~='table'then ap=ap and{ap}or{}else ap=table.clone(ap)end local aq for
+ar,b in ipairs(ap)do if b==ao then aq=ar break end end if aq then table.remove(
+ap,aq)else if#ap<an.Maximum then table.insert(ap,ao)else table.remove(ap,1)table
+.insert(ap,ao)end end an.Value=ap else an.Expanded=false task.wait(0.2)an.Value=
+ao end end}))local ap=function(ap,aq)local ar=ao and ao.Maximum and ao.Maximum>1
+an:SetAnchorMode(ar and'BelowButton'or'SelectedLabel')an:SetValue(ap)if ar then
+local b=am(ap)if#b==0 then aj.CurrentTab.Text='None'else aj.CurrentTab.Text=ak(
+table.concat(b,', '))end an:SetSelectedMap(al(ap))else local b=ap and aj.Options
+[ap]and aj.Options[ap]:FindFirstChild'Label'if not b then aj.CurrentTab.Text=
+'None'else aj.CurrentTab.Text=ak(b.Text)end an:SetSelectedMap(al(ap))end if aq
+and ab.ValueChanged then ab.Value=ap task.spawn(ab.ValueChanged,ao,ap)end end
+local aq={Anchor=function(aq)an:SetAnchor(aq)end,Options=function(aq)an:
+ClearOptions()for ar,b in ipairs(aq)do an:AddOption(b,ar)end if ao then ap(ao.
+Value,false)end end,Expanded=function(aq)an:SetAnchorMode(ao and ao.Maximum and
+ao.Maximum>1 and'BelowButton'or'SelectedLabel')an:SetExpanded(aq)end,Value=
+function(aq)ap(aq,true)end}ao=ad.Wrap(ab,aq,aj.Body)an:SetObject(ao)ao.Type=
+'PopUpButton'ao.Theme=aa.Theme ao.Structures=aj ao.Option=function(ar,b)local c=
+#aj.Options+1 local d=an:AddOption(b,c)table.insert(ao.Options,b)ap(ao.Value,
+false)return d end ao.Remove=function(ar,b)if b then an:RemoveOption(b)ao.
+Options[b]=nil ap(ao.Value,false)end end ad.Apply(ab,ao)ap(ao.Value,false)return
+ao end end function a.P()local ab=a.cache.P if not ab then ab={c=aa()}a.cache.P=
+ab end return ab.c end end do local aa=function()a.b()return function(aa,ab)
+local ac,ad,ae=a.d(),a.c(),a.O()local af,ag,ah,ai=ac.Create,aa.__container or aa
+.__instance or aa,aa.Theme.Controls.MenuButton,{Options={}}ab=ab or{}ab.Expanded
+=ab.Expanded or false ab.Options=ab.Options or{}ai.Body=(ad.Apply(ab,af
+'TextButton'{Name='PullDownButton',AutomaticSize=Enum.AutomaticSize.XY,
+BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
+BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Selectable=false,Text='',
+Parent=ag,af'UIPadding'{Name='UIPadding',PaddingBottom=UDim.new(0,3),PaddingLeft
+=UDim.new(0,7),PaddingRight=UDim.new(0,3),PaddingTop=UDim.new(0,3)},af
+'UIListLayout'{Name='UIListLayout',FillDirection=Enum.FillDirection.Horizontal,
+Padding=UDim.new(0,7),SortOrder=Enum.SortOrder.LayoutOrder,VerticalAlignment=
+Enum.VerticalAlignment.Center},af'Frame'{Name='PullDownIndicator',BorderColor3=
+Color3.fromRGB(0,0,0),BorderSizePixel=0,LayoutOrder=1,Selectable=true,Size=UDim2
+.fromOffset(16,16),__dynamicKeys={BackgroundColor3=ah.IndicatorBackground[1],
+BackgroundTransparency=ah.IndicatorBackground[2]},af'UICorner'{Name='UICorner',
+CornerRadius=UDim.new(0,4)},af'ImageLabel'{Name='Indicators',BackgroundColor3=
+Color3.fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.
+fromRGB(0,0,0),BorderSizePixel=0,Image='rbxassetid://86693411280110',Size=UDim2.
+fromScale(1,1),__dynamicKeys={ImageColor3=aa.Theme.Text.Primary[1],
+ImageTransparency=aa.Theme.Text.Primary[2]}}},af'TextLabel'{Name='Label',
 AutomaticSize=Enum.AutomaticSize.XY,BackgroundColor3=Color3.fromRGB(255,255,255)
 ,BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
-Selectable=false,Text='',Parent=ag,af'UIPadding'{Name='UIPadding',PaddingBottom=
-UDim.new(0,3),PaddingLeft=UDim.new(0,7),PaddingRight=UDim.new(0,3),PaddingTop=
-UDim.new(0,3)},af'UIListLayout'{Name='UIListLayout',FillDirection=Enum.
-FillDirection.Horizontal,Padding=UDim.new(0,7),SortOrder=Enum.SortOrder.
-LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},af'Frame'{Name=
-'PullDownIndicator',BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
-LayoutOrder=1,Selectable=true,Size=UDim2.fromOffset(16,16),__dynamicKeys={
-BackgroundColor3=ah.IndicatorBackground[1],BackgroundTransparency=ah.
-IndicatorBackground[2]},af'UICorner'{Name='UICorner',CornerRadius=UDim.new(0,4)}
-,af'ImageLabel'{Name='Indicators',BackgroundColor3=Color3.fromRGB(255,255,255),
-BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
-Image='rbxassetid://86693411280110',Size=UDim2.fromScale(1,1),__dynamicKeys={
-ImageColor3=aa.Theme.Text.Primary[1],ImageTransparency=aa.Theme.Text.Primary[2]}
-}},af'TextLabel'{Name='Label',AutomaticSize=Enum.AutomaticSize.XY,
-BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
-BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,FontFace=Font.new
-'rbxassetid://12187365364',RichText=true,TextSize=15,TextTransparency=0.15,
-TextTruncate=Enum.TextTruncate.AtEnd,Visible=false,__dynamicKeys={TextColor3=aa.
-Theme.Text.Primary[1],TextTransparency=aa.Theme.Text.Primary[2]}}}))ai.
-PullDownIndicator=(ai.Body:FindFirstChild'PullDownIndicator')ai.CurrentTab=(ai.
-Body:FindFirstChild'Label')local aj,b=(ae.new(aa,ai,{Name='PullDownMenu',Anchor=
-ab.Anchor,AnchorMode='BelowButton',Gap=6,MaxHeight=239,AutoScroll=false,
-OnSelected=function(aj,b)aj.Expanded=false aj.Value=b end}))local c={Anchor=
-function(c)aj:SetAnchor(c)end,Options=function(c)aj:ClearOptions()for d,e in
-ipairs(c)do aj:AddOption(e,d)end end,Expanded=function(c)aj:SetExpanded(c)end,
-Label=function(c)if type(c)=='string'then ai.CurrentTab.Visible=true ai.
-CurrentTab.Text=c end end,Value=function(c)aj:SetValue(c)if ab.ValueChanged then
-ab.Value=c task.spawn(ab.ValueChanged,b,c)end end}b=ad.Wrap(ab,c,ai.Body)aj:
-SetObject(b)b.Type='PullDownButton'b.Theme=aa.Theme b.Structures=ai b.Option=
-function(d,e)local f=#ai.Options+1 local g=aj:AddOption(e,f)table.insert(b.
-Options,e)return g end b.Remove=function(d,e)if e then aj:RemoveOption(e)b.
-Options[e]=nil end end ad.Apply(ab,b)aj:SetValue(b.Value)return b end end
-function a.Q()local ab=a.cache.Q if not ab then ab={c=aa()}a.cache.Q=ab end
-return ab.c end end do local aa=function()local aa,ab={},a.e()local ac,ad,ae,af,
-ag=ab.TweenService,{},4,-12,0.05 function aa.AddNotification(ah,ai)if#ad>=ae
-then local aj=table.remove(ad,1)if aj and aj.Object and aj.Object.Close then aj.
+FontFace=Font.new'rbxassetid://12187365364',RichText=true,TextSize=15,
+TextTransparency=0.15,TextTruncate=Enum.TextTruncate.AtEnd,Visible=false,
+__dynamicKeys={TextColor3=aa.Theme.Text.Primary[1],TextTransparency=aa.Theme.
+Text.Primary[2]}}}))ai.PullDownIndicator=(ai.Body:FindFirstChild
+'PullDownIndicator')ai.CurrentTab=(ai.Body:FindFirstChild'Label')local aj,ak=(ae
+.new(aa,ai,{Name='PullDownMenu',Anchor=ab.Anchor,AnchorMode='BelowButton',Gap=6,
+MaxHeight=239,AutoScroll=false,OnSelected=function(aj,ak)aj.Expanded=false aj.
+Value=ak end}))local al={Anchor=function(al)aj:SetAnchor(al)end,Options=function
+(al)aj:ClearOptions()for am,an in ipairs(al)do aj:AddOption(an,am)end end,
+Expanded=function(al)aj:SetExpanded(al)end,Label=function(al)if type(al)==
+'string'then ai.CurrentTab.Visible=true ai.CurrentTab.Text=al end end,Value=
+function(al)aj:SetValue(al)if ab.ValueChanged then ab.Value=al task.spawn(ab.
+ValueChanged,ak,al)end end}ak=ad.Wrap(ab,al,ai.Body)aj:SetObject(ak)ak.Type=
+'PullDownButton'ak.Theme=aa.Theme ak.Structures=ai ak.Option=function(am,an)
+local ao=#ai.Options+1 local ap=aj:AddOption(an,ao)table.insert(ak.Options,an)
+return ap end ak.Remove=function(am,an)if an then aj:RemoveOption(an)ak.Options[
+an]=nil end end ad.Apply(ab,ak)aj:SetValue(ak.Value)return ak end end function a
+.Q()local ab=a.cache.Q if not ab then ab={c=aa()}a.cache.Q=ab end return ab.c
+end end do local aa=function()local aa,ab={},a.e()local ac,ad,ae,af,ag=ab.
+TweenService,{},4,-12,0.05 function aa.AddNotification(ah,ai)if#ad>=ae then
+local aj=table.remove(ad,1)if aj and aj.Object and aj.Object.Close then aj.
 Object:Close()end end table.insert(ad,{Object=ah,Frame=ai})aa.UpdateStack()end
-function aa.UpdateStack()local ah=#ad for ai=1,ah do local aj=ad[ai]local b=aj.
-Frame.__instance if not b or not b.Parent then continue end local c=ah-ai local
-d,e=1-(c*ag),(c*af)b.ZIndex=100-c local f,g=-162.5,0 local h,i=g+e,b:
-FindFirstChild'UIScale'if c>0 then if i then ac:Create(i,TweenInfo.new(0.4,Enum.
-EasingStyle.Exponential,Enum.EasingDirection.Out),{Scale=d}):Play()end ac:
-Create(b,TweenInfo.new(0.4,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out
-),{Position=UDim2.new(1,f,1,h)}):Play()if aj.Object.UpdateState then aj.Object:
-UpdateState(c)end else if i then ac:Create(i,TweenInfo.new(0.4,Enum.EasingStyle.
-Exponential,Enum.EasingDirection.Out),{Scale=1}):Play()end ac:Create(b,TweenInfo
-.new(0.4,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Position=UDim2.
-new(1,f,1,g)}):Play()if aj.Object.UpdateState then aj.Object:UpdateState(c)end
-end end end function aa.RemoveNotification(ah)for ai,aj in ipairs(ad)do if aj.
-Object==ah then table.remove(ad,ai)break end end aa.UpdateStack()end return aa
-end function a.R()local ab=a.cache.R if not ab then ab={c=aa()}a.cache.R=ab end
-return ab.c end end do local aa=function()a.b()return function(aa,ab,ac,ad)local
-ae=a.d()local af,ag=ae.Create,aa.__instance:FindFirstChild'Notifications'if not
-ag then ag=af'Frame'{Name='Notifications',BackgroundColor3=Color3.fromRGB(255,
-255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),
-BorderSizePixel=0,Size=UDim2.fromScale(1,1),ZIndex=200,Parent=aa.__instance,af
-'UIPadding'{Name='UIPadding',PaddingBottom=UDim.new(0,15),PaddingRight=UDim.new(
-0,15)}}.__instance end local ah=(af'Frame'{Name='Notification',AnchorPoint=
-Vector2.new(0.5,1),AutomaticSize=Enum.AutomaticSize.Y,BackgroundTransparency=1,
-BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Position=UDim2.new(1,-162.5
-,1,0),Size=UDim2.fromOffset(325,0),Parent=ag,af'Frame'{Name='Canvas',AnchorPoint
-=Vector2.new(0,0),AutomaticSize=Enum.AutomaticSize.Y,BackgroundColor3=aa.Theme.
-Controls.Sidebar[1].Value,BackgroundTransparency=0.1,BorderColor3=Color3.
-fromRGB(0,0,0),BorderSizePixel=0,Position=UDim2.fromScale(0,0),Size=UDim2.
-fromScale(1,0),__dynamicKeys={BackgroundColor3=aa.Theme.Controls.Sidebar[1]},
-__contextKeys={BackgroundTransparency=function()return ac.Age>=(ad-1)and 1 or
-0.1 end},af'UICorner'{Name='UICorner',CornerRadius=UDim.new(0,12)},af
-'UIListLayout'{Name='UIListLayout',Padding=UDim.new(0,5),SortOrder=Enum.
-SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},af'Frame'
-{Name='Content',AutomaticSize=Enum.AutomaticSize.Y,BackgroundColor3=Color3.
-fromRGB(255,0,68),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),
-BorderSizePixel=0,LayoutOrder=1,Size=UDim2.fromScale(1,0),af'Frame'{Name=
-'TitleContainer',AutomaticSize=Enum.AutomaticSize.XY,BackgroundColor3=Color3.
-fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0)
-,BorderSizePixel=0,LayoutOrder=1,af'UIListLayout'{Name='UIListLayout',
-FillDirection=Enum.FillDirection.Horizontal,Padding=UDim.new(0,5),SortOrder=Enum
-.SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},af
-'ImageLabel'{Name='Icon',BackgroundTransparency=1,LayoutOrder=1,Size=UDim2.
-fromOffset(18,18),Visible=false,__dynamicKeys={ImageColor3=aa.Theme.Text.Primary
-[1]},__contextKeys={ImageTransparency=function()return ac.Age>=(ad-1)and 1 or aa
-.Theme.Text.Primary[2].Value end}},af'TextLabel'{Name='Title',AutomaticSize=Enum
-.AutomaticSize.Y,BackgroundColor3=Color3.fromRGB(255,255,255),
+function aa.UpdateStack()local ah=#ad for ai=1,ah do local aj=ad[ai]local ak=aj.
+Frame.__instance if not ak or not ak.Parent then continue end local al=ah-ai
+local am,an=1-(al*ag),(al*af)ak.ZIndex=100-al local ao,ap=-162.5,0 local aq,ar=
+ap+an,ak:FindFirstChild'UIScale'if al>0 then if ar then ac:Create(ar,TweenInfo.
+new(0.4,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Scale=am}):Play(
+)end ac:Create(ak,TweenInfo.new(0.4,Enum.EasingStyle.Exponential,Enum.
+EasingDirection.Out),{Position=UDim2.new(1,ao,1,aq)}):Play()if aj.Object.
+UpdateState then aj.Object:UpdateState(al)end else if ar then ac:Create(ar,
+TweenInfo.new(0.4,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Scale=
+1}):Play()end ac:Create(ak,TweenInfo.new(0.4,Enum.EasingStyle.Exponential,Enum.
+EasingDirection.Out),{Position=UDim2.new(1,ao,1,ap)}):Play()if aj.Object.
+UpdateState then aj.Object:UpdateState(al)end end end end function aa.
+RemoveNotification(ah)for ai,aj in ipairs(ad)do if aj.Object==ah then table.
+remove(ad,ai)break end end aa.UpdateStack()end return aa end function a.R()local
+ab=a.cache.R if not ab then ab={c=aa()}a.cache.R=ab end return ab.c end end do
+local aa=function()a.b()return function(aa,ab,ac,ad)local ae=a.d()local af,ag=ae
+.Create,aa.__instance:FindFirstChild'Notifications'if not ag then ag=af'Frame'{
+Name='Notifications',BackgroundColor3=Color3.fromRGB(255,255,255),
+BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
+Size=UDim2.fromScale(1,1),ZIndex=200,Parent=aa.__instance,af'UIPadding'{Name=
+'UIPadding',PaddingBottom=UDim.new(0,15),PaddingRight=UDim.new(0,15)}}.
+__instance end local ah=(af'Frame'{Name='Notification',AnchorPoint=Vector2.new(
+0.5,1),AutomaticSize=Enum.AutomaticSize.Y,BackgroundTransparency=1,BorderColor3=
+Color3.fromRGB(0,0,0),BorderSizePixel=0,Position=UDim2.new(1,-162.5,1,0),Size=
+UDim2.fromOffset(325,0),Parent=ag,af'Frame'{Name='Canvas',AnchorPoint=Vector2.
+new(0,0),AutomaticSize=Enum.AutomaticSize.Y,BackgroundColor3=aa.Theme.Controls.
+Sidebar[1].Value,BackgroundTransparency=0.1,BorderColor3=Color3.fromRGB(0,0,0),
+BorderSizePixel=0,Position=UDim2.fromScale(0,0),Size=UDim2.fromScale(1,0),
+__dynamicKeys={BackgroundColor3=aa.Theme.Controls.Sidebar[1]},__contextKeys={
+BackgroundTransparency=function()return ac.Age>=(ad-1)and 1 or 0.1 end},af
+'UICorner'{Name='UICorner',CornerRadius=UDim.new(0,12)},af'UIListLayout'{Name=
+'UIListLayout',Padding=UDim.new(0,5),SortOrder=Enum.SortOrder.LayoutOrder,
+VerticalAlignment=Enum.VerticalAlignment.Center},af'Frame'{Name='Content',
+AutomaticSize=Enum.AutomaticSize.Y,BackgroundColor3=Color3.fromRGB(255,0,68),
+BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
+LayoutOrder=1,Size=UDim2.fromScale(1,0),af'Frame'{Name='TitleContainer',
+AutomaticSize=Enum.AutomaticSize.XY,BackgroundColor3=Color3.fromRGB(255,255,255)
+,BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
+LayoutOrder=1,af'UIListLayout'{Name='UIListLayout',FillDirection=Enum.
+FillDirection.Horizontal,Padding=UDim.new(0,5),SortOrder=Enum.SortOrder.
+LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},af'ImageLabel'{Name
+='Icon',BackgroundTransparency=1,LayoutOrder=1,Size=UDim2.fromOffset(18,18),
+Visible=false,__dynamicKeys={ImageColor3=aa.Theme.Text.Primary[1]},__contextKeys
+={ImageTransparency=function()return ac.Age>=(ad-1)and 1 or aa.Theme.Text.
+Primary[2].Value end}},af'TextLabel'{Name='Title',AutomaticSize=Enum.
+AutomaticSize.Y,BackgroundColor3=Color3.fromRGB(255,255,255),
 BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
 LayoutOrder=2,FontFace=Font.new('rbxassetid://12187365364',Enum.FontWeight.Bold,
 Enum.FontStyle.Normal),LineHeight=0,Size=UDim2.new(1,0,0,20),Text=ab.Title,
@@ -7894,69 +7958,70 @@ ApplyStrokeMode.Border,Transparency=0.9},af'UICorner'{Name='UICorner',
 CornerRadius=UDim.new(1,0)}},af'UIStroke'{Name='UIStroke',ApplyStrokeMode=Enum.
 ApplyStrokeMode.Border,Color=aa.Theme.Text.Primary[1].Value,Thickness=2,
 Transparency=0.96,__dynamicKeys={Color=aa.Theme.Text.Primary[1]}}}},af'UIScale'{
-Name='UIScale',Scale=0.85}})local ai,aj=ah.LayoutIgnore.Exit,ah.Canvas local b,c
-=aj.Content,aj.Topbar return ah,ai,aj,b,c end end function a.S()local ab=a.cache
-.S if not ab then ab={c=aa()}a.cache.S=ab end return ab.c end end do local aa=
-function()a.b()return function(aa,ab)local ac,ad,ae,af=a.e(),a.c(),a.R(),a.S()
-local ag=ac.TweenService ab=ab or{}ab.Title=ab.Title or'Notification'ab.Subtitle
-=ab.Subtitle or''ab.Duration=ab.Duration or 6 if ab.App then ab.App=string.
-upper(ab.App)end local ah,ai,aj=false,4,{Age=0}local b,c,d,e,f=af(aa,ab,aj,ai)
-local g={Title=function(g)e.TitleContainer.Title.Text=g end,Subtitle=function(g)
-e.Subtitle.Text=g e.Subtitle.Visible=g~=''end,App=function(g)local h=string.
-upper(g or'')f.App.Text=h f.App.Visible=g~=nil f.Visible=(g~=nil)or(ab.AppIcon~=
-nil)if ab.App~=h then ab.App=h end end,AppIcon=function(g)f.Icon.Image=g or''f.
-Icon.Visible=g~=nil f.Visible=(ab.App~=nil)or(g~=nil)end,Icon=function(g)if g
-then e.TitleContainer.Icon.Image=g end e.TitleContainer.Icon.Visible=g~=nil end}
-local h=ad.Wrap(ab,g,b,{'App','Icon'})h.Type='Notification'h.Theme=aa.Theme ad.
-Apply(ab,h)local i=function(i)if ah then return end ah=true if not b.Parent then
-return end if ab.Closed then task.spawn(ab.Closed,h,i)end local j=ag:Create(h.
-__instance,TweenInfo.new(0.4,Enum.EasingStyle.Exponential,Enum.EasingDirection.
-Out),{Position=h.__instance.Position+UDim2.fromOffset(350,0)})h:UpdateState(ai,
-false)local k=h.__instance:FindFirstChild'UIScale'if k then ag:Create(k,
-TweenInfo.new(0.4,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Scale=
-0.85}):Play()end j:Play()j.Completed:Connect(function()if b.Parent then ae.
-RemoveNotification(h)b:Destroy()end end)end c.MouseButton1Click:Connect(function
-()i(true)end)function h:Close(j)i(j)end function h:UpdateState(j,k)aj.Age=j
-local l,m=j>=(ai-1),j==0 local n,o,p,q=m and 0.1 or 1,m and 0.96 or 1,m and 0.9
-or 1,m and 0.5 or 1 if l then n=1 o=1 p=1 q=1 end local r,s=l and 1 or 0.1,
-function(r,s)if k then for t,u in pairs(s)do r[t]=u end else ag:Create(r,
-TweenInfo.new(0.4,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),s):
-Play()end end s(d,{BackgroundTransparency=r})for t,u in ipairs(d:GetDescendants(
-))do if u:IsA'TextLabel'then local v=1 if not l then if u.Name=='Title'then v=
-self.Theme.Text.Primary[2].Value elseif u.Name=='Subtitle'then v=self.Theme.Text
-.Secondary[2].Value elseif u.Name=='App'then v=0.5 end end s(u,{TextTransparency
-=v})elseif u:IsA'ImageLabel'and u.Name~='Icon'then s(u,{ImageTransparency=l and
-1 or 0})end end if e:FindFirstChild'TitleContainer'and e.TitleContainer:
-FindFirstChild'Icon'then s(e.TitleContainer.Icon,{ImageTransparency=l and 1 or 0
-})end if f:FindFirstChild'Icon'then s(f.Icon,{ImageTransparency=l and 1 or 0})
-end s(c,{BackgroundTransparency=n})s(c.Icon,{ImageTransparency=q})s(c.UIStroke,{
-Transparency=o})local t=c:FindFirstChild'Shadow'if t and t:FindFirstChild
-'UIStroke'then s(t.UIStroke,{Transparency=p})end end b.Position=UDim2.new(1,
-187.5,1,0)h:UpdateState(0,true)ae.AddNotification(h,b)if b:FindFirstChild
-'UIScale'then b.UIScale.Scale=0.85 ag:Create(b.UIScale,TweenInfo.new(0.4,Enum.
-EasingStyle.Exponential,Enum.EasingDirection.Out),{Scale=1}):Play()end ag:
-Create(b.__instance,TweenInfo.new(0.4,Enum.EasingStyle.Exponential,Enum.
-EasingDirection.Out),{Position=UDim2.new(1,-162.5,1,0)}):Play()if ab.Duration>0
-then task.delay(ab.Duration,function()i()end)end return h end end function a.T()
-local ab=a.cache.T if not ab then ab={c=aa()}a.cache.T=ab end return ab.c end
-end do local aa=function()return function(aa)local ab=a.d()local ac,ad=ab.Create
-,aa.__container or aa.__instance or aa local ae=(ac'Frame'{Name='ImageSurface',
-BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
-BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Size=UDim2.fromOffset(26,26
-),Parent=ad,ac'Frame'{Name='Surface',AnchorPoint=Vector2.new(0.5,0.5),
-BackgroundColor3=Color3.fromRGB(200,200,200),BorderColor3=Color3.fromRGB(0,0,0),
-BorderSizePixel=0,Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromOffset(24,24)
-,ac'ImageLabel'{Name='Image',AnchorPoint=Vector2.new(0.5,0.5),BackgroundColor3=
-Color3.fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.
-fromRGB(0,0,0),BorderSizePixel=0,LayoutOrder=1,Position=UDim2.fromScale(0.5,0.5)
-,Size=UDim2.fromOffset(20,20)},ac'UICorner'{Name='UICorner',CornerRadius=UDim.
-new(0,5)},ac'UIGradient'{Name='UIGradient',Rotation=90,Enabled=true,
-__dynamicKeys={Color=aa.Theme.Controls.ImageSurface.Gradient}}}})local af={Body=
-ae}af.Surface=(ae:FindFirstChild'Surface')af.Image=af.Surface and(af.Surface:
-FindFirstChild'Image')af.Gradient=af.Surface and(af.Surface:FindFirstChild
-'UIGradient')return af end end function a.U()local ab=a.cache.U if not ab then
-ab={c=aa()}a.cache.U=ab end return ab.c end end do local aa=function()a.b()
-return function(aa,ab)local ac,ad=a.c(),a.U()local ae=ad(aa)ab=ab or{}ab.
+Name='UIScale',Scale=0.85}})local ai,aj=ah.LayoutIgnore.Exit,ah.Canvas local ak,
+al=aj.Content,aj.Topbar return ah,ai,aj,ak,al end end function a.S()local ab=a.
+cache.S if not ab then ab={c=aa()}a.cache.S=ab end return ab.c end end do local
+aa=function()a.b()return function(aa,ab)local ac,ad,ae,af=a.e(),a.c(),a.R(),a.S(
+)local ag=ac.TweenService ab=ab or{}ab.Title=ab.Title or'Notification'ab.
+Subtitle=ab.Subtitle or''ab.Duration=ab.Duration or 6 if ab.App then ab.App=
+string.upper(ab.App)end local ah,ai,aj=false,4,{Age=0}local ak,al,am,an,ao=af(aa
+,ab,aj,ai)local ap={Title=function(ap)an.TitleContainer.Title.Text=ap end,
+Subtitle=function(ap)an.Subtitle.Text=ap an.Subtitle.Visible=ap~=''end,App=
+function(ap)local aq=string.upper(ap or'')ao.App.Text=aq ao.App.Visible=ap~=nil
+ao.Visible=(ap~=nil)or(ab.AppIcon~=nil)if ab.App~=aq then ab.App=aq end end,
+AppIcon=function(ap)ao.Icon.Image=ap or''ao.Icon.Visible=ap~=nil ao.Visible=(ab.
+App~=nil)or(ap~=nil)end,Icon=function(ap)if ap then an.TitleContainer.Icon.Image
+=ap end an.TitleContainer.Icon.Visible=ap~=nil end}local aq=ad.Wrap(ab,ap,ak,{
+'App','Icon'})aq.Type='Notification'aq.Theme=aa.Theme ad.Apply(ab,aq)local ar=
+function(ar)if ah then return end ah=true if not ak.Parent then return end if ab
+.Closed then task.spawn(ab.Closed,aq,ar)end local b=ag:Create(aq.__instance,
+TweenInfo.new(0.4,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{
+Position=aq.__instance.Position+UDim2.fromOffset(350,0)})aq:UpdateState(ai,false
+)local c=aq.__instance:FindFirstChild'UIScale'if c then ag:Create(c,TweenInfo.
+new(0.4,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Scale=0.85}):
+Play()end b:Play()b.Completed:Connect(function()if ak.Parent then ae.
+RemoveNotification(aq)ak:Destroy()end end)end al.MouseButton1Click:Connect(
+function()ar(true)end)function aq:Close(b)ar(b)end function aq:UpdateState(b,c)
+aj.Age=b local d,e=b>=(ai-1),b==0 local f,g,h,i=e and 0.1 or 1,e and 0.96 or 1,e
+and 0.9 or 1,e and 0.5 or 1 if d then f=1 g=1 h=1 i=1 end local j,k=d and 1 or
+0.1,function(j,k)if c then for l,m in pairs(k)do j[l]=m end else ag:Create(j,
+TweenInfo.new(0.4,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),k):
+Play()end end k(am,{BackgroundTransparency=j})for l,m in ipairs(am:
+GetDescendants())do if m:IsA'TextLabel'then local n=1 if not d then if m.Name==
+'Title'then n=self.Theme.Text.Primary[2].Value elseif m.Name=='Subtitle'then n=
+self.Theme.Text.Secondary[2].Value elseif m.Name=='App'then n=0.5 end end k(m,{
+TextTransparency=n})elseif m:IsA'ImageLabel'and m.Name~='Icon'then k(m,{
+ImageTransparency=d and 1 or 0})end end if an:FindFirstChild'TitleContainer'and
+an.TitleContainer:FindFirstChild'Icon'then k(an.TitleContainer.Icon,{
+ImageTransparency=d and 1 or 0})end if ao:FindFirstChild'Icon'then k(ao.Icon,{
+ImageTransparency=d and 1 or 0})end k(al,{BackgroundTransparency=f})k(al.Icon,{
+ImageTransparency=i})k(al.UIStroke,{Transparency=g})local l=al:FindFirstChild
+'Shadow'if l and l:FindFirstChild'UIStroke'then k(l.UIStroke,{Transparency=h})
+end end ak.Position=UDim2.new(1,187.5,1,0)aq:UpdateState(0,true)ae.
+AddNotification(aq,ak)if ak:FindFirstChild'UIScale'then ak.UIScale.Scale=0.85 ag
+:Create(ak.UIScale,TweenInfo.new(0.4,Enum.EasingStyle.Exponential,Enum.
+EasingDirection.Out),{Scale=1}):Play()end ag:Create(ak.__instance,TweenInfo.new(
+0.4,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Position=UDim2.new(1
+,-162.5,1,0)}):Play()if ab.Duration>0 then task.delay(ab.Duration,function()ar()
+end)end return aq end end function a.T()local ab=a.cache.T if not ab then ab={c=
+aa()}a.cache.T=ab end return ab.c end end do local aa=function()return function(
+aa)local ab=a.d()local ac,ad=ab.Create,aa.__container or aa.__instance or aa
+local ae=(ac'Frame'{Name='ImageSurface',BackgroundColor3=Color3.fromRGB(255,255,
+255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel
+=0,Size=UDim2.fromOffset(26,26),Parent=ad,ac'Frame'{Name='Surface',AnchorPoint=
+Vector2.new(0.5,0.5),BackgroundColor3=Color3.fromRGB(200,200,200),BorderColor3=
+Color3.fromRGB(0,0,0),BorderSizePixel=0,Position=UDim2.fromScale(0.5,0.5),Size=
+UDim2.fromOffset(24,24),ac'ImageLabel'{Name='Image',AnchorPoint=Vector2.new(0.5,
+0.5),BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
+BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,LayoutOrder=1,Position=
+UDim2.fromScale(0.5,0.5),Size=UDim2.fromOffset(20,20)},ac'UICorner'{Name=
+'UICorner',CornerRadius=UDim.new(0,5)},ac'UIGradient'{Name='UIGradient',Rotation
+=90,Enabled=true,__dynamicKeys={Color=aa.Theme.Controls.ImageSurface.Gradient}}}
+})local af={Body=ae}af.Surface=(ae:FindFirstChild'Surface')af.Image=af.Surface
+and(af.Surface:FindFirstChild'Image')af.Gradient=af.Surface and(af.Surface:
+FindFirstChild'UIGradient')return af end end function a.U()local ab=a.cache.U if
+not ab then ab={c=aa()}a.cache.U=ab end return ab.c end end do local aa=function
+()a.b()return function(aa,ab)local ac,ad=a.c(),a.U()local ae=ad(aa)ab=ab or{}ab.
 SurfaceColor=ab.SurfaceColor or Color3.fromRGB(200,200,200)ab.ImageColor=ab.
 ImageColor or Color3.fromRGB(255,255,255)ab.Gradient=ab.Gradient~=false local af
 ,ag={Image=function(af)ae.Image.Image=af end,Gradient=function(af)ae.Gradient.
@@ -7972,203 +8037,207 @@ AutomaticSize.Y,BackgroundTransparency=1,BorderSizePixel=0,Size=UDim2.fromScale(
 1,0),Parent=af,ae'UIListLayout'{Name='UIListLayout',FillDirection=Enum.
 FillDirection.Horizontal,Padding=UDim.new(0,ab.Spacing),SortOrder=Enum.SortOrder
 .LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Top}})local ai,aj=ab.Count
-,ab.Spacing for b=1,ai do local c=ae'Frame'{Name='Column'..b,AutomaticSize=Enum.
-AutomaticSize.Y,BackgroundTransparency=1,BorderSizePixel=0,LayoutOrder=b,Size=
-UDim2.new(1/ai,-math.ceil(aj*(ai-1)/ai),0,0),Parent=ag.Body.__instance,ae
+,ab.Spacing for ak=1,ai do local al=ae'Frame'{Name='Column'..ak,AutomaticSize=
+Enum.AutomaticSize.Y,BackgroundTransparency=1,BorderSizePixel=0,LayoutOrder=ak,
+Size=UDim2.new(1/ai,-math.ceil(aj*(ai-1)/ai),0,0),Parent=ag.Body.__instance,ae
 'UIListLayout'{Name='UIListLayout',Padding=UDim.new(0,aj),SortOrder=Enum.
-SortOrder.LayoutOrder}}ag.Columns[b]=c.__instance ah[b]=setmetatable({Type=
-'Column',Theme=aa.Theme,Structures={Body=c.__instance},__container=c.__instance,
-__instance=c.__instance,__window=aa.__window},{__index=aa})end local b=ad.Wrap(
-ab,{},ag.Body)b.Type='Columns'b.Theme=aa.Theme b.Structures=ag b.Column=function
-(c,d)return ah[d]end b.Left=function()return ah[1]end b.Right=function()return
-ah[ai]end return b end end function a.W()local ab=a.cache.W if not ab then ab={c
-=aa()}a.cache.W=ab end return ab.c end end do local aa=function()local aa,ab,ac=
-a.b(),setmetatable({},{__mode='k'}),function(aa)if aa==2 or(typeof(aa)=='string'
-and string.lower(aa)=='right')then return 2 end return 1 end return function(ad,
-ae)local af,ag,ah,ai,aj=a.d(),a.c(),a.e(),a.i(),a.n()local b,c,d,e,f,g=af.Create
-,ah.TweenService,ad.__container or ad.__instance or ad,{},{},TweenInfo.new(0.35,
-Enum.EasingStyle.Exponential,Enum.EasingDirection.Out)ae=ae or{}ae.Title=ae.
-Title or'Groupbox'ae.Subtitle=ae.Subtitle or ae.Description ae.Description=nil
-ae.Expanded=ae.Expanded~=false ae.Collapsible=ae.Collapsible~=false if ae.
-Collapsed~=nil then ae.Expanded=not ae.Collapsed ae.Collapsed=nil end if ae.Side
-~=nil then local h=ab[d]if not h or not h.Structures.Body.Parent then h=a.W()(ad
-,{Count=2})ab[d]=h end d=h.Structures.Columns[ac(ae.Side)]ae.Side=nil end e.Body
-=(b'Frame'{Name='Groupbox',AutomaticSize=Enum.AutomaticSize.Y,BorderSizePixel=0,
-Size=UDim2.fromScale(1,0),Parent=d,__dynamicKeys={BackgroundColor3=ad.Theme.
-Controls.View[1],BackgroundTransparency=ad.Theme.Controls.View[2]},b'UICorner'{
-CornerRadius=UDim.new(0,8)},b'UIStroke'{ApplyStrokeMode=Enum.ApplyStrokeMode.
-Border,__dynamicKeys={Color=ad.Theme.Controls.ViewBorder[1],Transparency=ad.
-Theme.Controls.ViewBorder[2]}},b'UIListLayout'{Name='UIListLayout',SortOrder=
-Enum.SortOrder.LayoutOrder},b'TextButton'{Name='Header',AutoButtonColor=false,
-BackgroundTransparency=1,BorderSizePixel=0,Size=UDim2.new(1,0,0,52),Text='',b
-'UIPadding'{PaddingLeft=UDim.new(0,14),PaddingRight=UDim.new(0,14)},b'Frame'{
+SortOrder.LayoutOrder}}ag.Columns[ak]=al.__instance ah[ak]=setmetatable({Type=
+'Column',Theme=aa.Theme,Structures={Body=al.__instance},__container=al.
+__instance,__instance=al.__instance,__window=aa.__window},{__index=aa})end local
+ak=ad.Wrap(ab,{},ag.Body)ak.Type='Columns'ak.Theme=aa.Theme ak.Structures=ag ak.
+Column=function(al,am)return ah[am]end ak.Left=function()return ah[1]end ak.
+Right=function()return ah[ai]end return ak end end function a.W()local ab=a.
+cache.W if not ab then ab={c=aa()}a.cache.W=ab end return ab.c end end do local
+aa=function()local aa,ab,ac=a.b(),setmetatable({},{__mode='k'}),function(aa)if
+aa==2 or(typeof(aa)=='string'and string.lower(aa)=='right')then return 2 end
+return 1 end return function(ad,ae)local af,ag,ah,ai,aj=a.d(),a.c(),a.e(),a.i(),
+a.n()local ak,al,am,an,ao,ap=af.Create,ah.TweenService,ad.__container or ad.
+__instance or ad,{},{},TweenInfo.new(0.35,Enum.EasingStyle.Exponential,Enum.
+EasingDirection.Out)ae=ae or{}ae.Title=ae.Title or'Groupbox'ae.Subtitle=ae.
+Subtitle or ae.Description ae.Description=nil ae.Expanded=ae.Expanded~=false ae.
+Collapsible=ae.Collapsible~=false if ae.Collapsed~=nil then ae.Expanded=not ae.
+Collapsed ae.Collapsed=nil end if ae.Side~=nil then local aq=ab[am]if not aq or
+not aq.Structures.Body.Parent then aq=a.W()(ad,{Count=2})ab[am]=aq end am=aq.
+Structures.Columns[ac(ae.Side)]ae.Side=nil end an.Body=(ak'Frame'{Name=
+'Groupbox',AutomaticSize=Enum.AutomaticSize.Y,BorderSizePixel=0,Size=UDim2.
+fromScale(1,0),Parent=am,__dynamicKeys={BackgroundColor3=ad.Theme.Controls.View[
+1],BackgroundTransparency=ad.Theme.Controls.View[2]},ak'UICorner'{CornerRadius=
+UDim.new(0,8)},ak'UIStroke'{ApplyStrokeMode=Enum.ApplyStrokeMode.Border,
+__dynamicKeys={Color=ad.Theme.Controls.ViewBorder[1],Transparency=ad.Theme.
+Controls.ViewBorder[2]}},ak'UIListLayout'{Name='UIListLayout',SortOrder=Enum.
+SortOrder.LayoutOrder},ak'TextButton'{Name='Header',AutoButtonColor=false,
+BackgroundTransparency=1,BorderSizePixel=0,Size=UDim2.new(1,0,0,52),Text='',ak
+'UIPadding'{PaddingLeft=UDim.new(0,14),PaddingRight=UDim.new(0,14)},ak'Frame'{
 Name='IconHolder',AnchorPoint=Vector2.new(0,0.5),BackgroundTransparency=0.85,
-BorderSizePixel=0,Position=UDim2.fromScale(0,0.5),Size=UDim2.fromOffset(30,30),
-Visible=false,__dynamicKeys={BackgroundColor3=ad.Theme.Controls.Selection[1]},b
-'UICorner'{CornerRadius=UDim.new(0,7)},b'ImageLabel'{ScaleType=Enum.ScaleType.
+BorderSizePixel=0,Position=UDim2.fromScale(0,0.5),Size=UDim2.fromOffset(28,28),
+Visible=false,__dynamicKeys={BackgroundColor3=ad.Theme.Controls.Selection[1]},ak
+'UICorner'{CornerRadius=UDim.new(0,7)},ak'ImageLabel'{ScaleType=Enum.ScaleType.
 Fit,Name='Icon',AnchorPoint=Vector2.new(0.5,0.5),BackgroundTransparency=1,
 Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromOffset(18,18),__dynamicKeys={
-ImageColor3=ad.Theme.Controls.Selection[1]}}},b'Frame'{Name='TitleStack',
+ImageColor3=ad.Theme.Controls.Selection[1]}}},ak'Frame'{Name='TitleStack',
 AnchorPoint=Vector2.new(0,0.5),AutomaticSize=Enum.AutomaticSize.Y,
 BackgroundTransparency=1,Position=UDim2.fromScale(0,0.5),Size=UDim2.new(1,-24,0,
-0),b'UIListLayout'{Padding=UDim.new(0,1),SortOrder=Enum.SortOrder.LayoutOrder},b
-'TextLabel'{Name='Title',BackgroundTransparency=1,FontFace=Font.new(
+0),ak'UIListLayout'{Padding=UDim.new(0,1),SortOrder=Enum.SortOrder.LayoutOrder},
+ak'TextLabel'{Name='Title',BackgroundTransparency=1,FontFace=Font.new(
 'rbxassetid://12187365364',Enum.FontWeight.SemiBold,Enum.FontStyle.Normal),
 RichText=true,Size=UDim2.new(1,0,0,17),TextSize=15,TextTruncate=Enum.
 TextTruncate.AtEnd,TextXAlignment=Enum.TextXAlignment.Left,__dynamicKeys={
 TextColor3=ad.Theme.Text.Primary[1],TextTransparency=ad.Theme.Text.Primary[2]}},
-b'TextLabel'{Name='Subtitle',BackgroundTransparency=1,FontFace=Font.new
+ak'TextLabel'{Name='Subtitle',BackgroundTransparency=1,FontFace=Font.new
 'rbxassetid://12187365364',LayoutOrder=1,RichText=true,Size=UDim2.new(1,0,0,14),
 TextSize=12,TextTruncate=Enum.TextTruncate.AtEnd,TextXAlignment=Enum.
 TextXAlignment.Left,Visible=false,__dynamicKeys={TextColor3=ad.Theme.Text.
-Secondary[1],TextTransparency=ad.Theme.Text.Secondary[2]}}},b'ImageLabel'{
+Secondary[1],TextTransparency=ad.Theme.Text.Secondary[2]}}},ak'ImageLabel'{
 ScaleType=Enum.ScaleType.Fit,Name='Chevron',AnchorPoint=Vector2.new(1,0.5),
 BackgroundTransparency=1,Image=ai.chevronDown,Position=UDim2.fromScale(1,0.5),
 Size=UDim2.fromOffset(14,14),__dynamicKeys={ImageColor3=ad.Theme.Text.Secondary[
-1],ImageTransparency=ad.Theme.Text.Secondary[2]}}},b'Frame'{Name='Divider',
+1],ImageTransparency=ad.Theme.Text.Secondary[2]}}},ak'Frame'{Name='Divider',
 BorderSizePixel=0,LayoutOrder=1,Size=UDim2.new(1,0,0,1),__dynamicKeys={
 BackgroundColor3=ad.Theme.Controls.ViewBorder[1],BackgroundTransparency=ad.Theme
-.Controls.ViewBorder[2]}},b'Frame'{Name='Clip',BackgroundTransparency=1,
+.Controls.ViewBorder[2]}},ak'Frame'{Name='Clip',BackgroundTransparency=1,
 BorderSizePixel=0,ClipsDescendants=true,LayoutOrder=2,Size=UDim2.fromScale(1,0),
-b'Frame'{Name='Content',AutomaticSize=Enum.AutomaticSize.Y,
-BackgroundTransparency=1,BorderSizePixel=0,Size=UDim2.fromScale(1,0),b
-'UIListLayout'{Name='UIListLayout',SortOrder=Enum.SortOrder.LayoutOrder},b
+ak'Frame'{Name='Content',AutomaticSize=Enum.AutomaticSize.Y,
+BackgroundTransparency=1,BorderSizePixel=0,Size=UDim2.fromScale(1,0),ak
+'UIListLayout'{Name='UIListLayout',SortOrder=Enum.SortOrder.LayoutOrder},ak
 'UIPadding'{Name='Margins',PaddingBottom=UDim.new(0,6),PaddingLeft=UDim.new(0,14
-),PaddingRight=UDim.new(0,14),PaddingTop=UDim.new(0,4)}}}})e.Header=(e.Body:
-FindFirstChild'Header')e.IconHolder=(e.Header:FindFirstChild'IconHolder')e.Icon=
-(e.IconHolder:FindFirstChild'Icon')e.TitleStack=(e.Header:FindFirstChild
-'TitleStack')e.Title=(e.TitleStack:FindFirstChild'Title')e.Subtitle=(e.
-TitleStack:FindFirstChild'Subtitle')e.Chevron=(e.Header:FindFirstChild'Chevron')
-e.Divider=(e.Body:FindFirstChild'Divider')e.Clip=(e.Body:FindFirstChild'Clip')e.
-Content=(e.Clip:FindFirstChild'Content')aj.Apply(e.Chevron,'chevron-down',ai.
-chevronDown)local h=function()return e.Content.AbsoluteSize.Y end local i,j=
-function(i)local j=UDim2.new(1,0,0,ae.Expanded and h()or 0)if i then c:Create(e.
-Clip,g,{Size=j}):Play()else e.Clip.Size=j end end,function()local i=e.IconHolder
-.Visible local j,k=i and 42 or 0,ae.Collapsible and 24 or 0 e.TitleStack.
-Position=UDim2.new(0,j,0.5,0)e.TitleStack.Size=UDim2.new(1,-(j+k),0,0)end e.
-Content:GetPropertyChangedSignal'AbsoluteSize':Connect(function()if ae.Expanded
-then i(false)end end)local k=function()for k,l in ipairs(f)do local m=f[k+1]l.
-divider.Visible=l.row.Visible and m~=nil and m.row.Visible==true end end e.
-Content.ChildAdded:Connect(function(l)if l:IsA'Frame'and l:FindFirstChild
-'LayoutIgnore'then local m=l.LayoutIgnore:FindFirstChild'Divider'if m then table
-.insert(f,{row=l,divider=m})l:GetPropertyChangedSignal'Visible':Connect(k)k()end
-end end)e.Content.ChildRemoved:Connect(function(l)for m,n in ipairs(f)do if n.
-row==l then table.remove(f,m)break end end k()end)local l l=ag.Wrap(ae,{Title=
-function(m)e.Title.Text=m end,Subtitle=function(m)e.Subtitle.Visible=m~=nil and
-m~=''e.Subtitle.Text=m or''end,Icon=function(m)e.IconHolder.Visible=m~=nil and
-aj.Apply(e.Icon,m)j()end,Collapsible=function(m)ae.Collapsible=m e.Chevron.
-Visible=m e.Header.Active=m j()end,Expanded=function(m,n)ae.Expanded=m local o=n
-~=false e.Divider.Visible=m i(o)c:Create(e.Chevron,o and g or TweenInfo.new(0),{
-Rotation=m and 0 or-90}):Play()if ae.ExpandedChanged then task.spawn(ae.
-ExpandedChanged,l,m)end end,SearchIndex=function(m)e.Body:SetAttribute(
-'SearchIndex',m)end},e.Body)e.Header.MouseButton1Click:Connect(function()if not
-ae.Collapsible then return end l.Expanded=not ae.Expanded end)l.Type='Groupbox'l
-.Theme=ad.Theme l.Structures=e l.__container=e.Content l.__window=ad.__window ag
-.Apply(ae,l)j()task.defer(i,false)return l end end function a.X()local ab=a.
-cache.X if not ab then ab={c=aa()}a.cache.X=ab end return ab.c end end do local
-aa=function()local aa,ab,ac=a.b(),{Added={Glyph='+',Status='Added'},New={Glyph=
-'+',Status='Added'},Improved={Glyph='+',Status='Added'},Changed={Glyph='~',
-Status='Changed'},Fixed={Glyph='~',Status='Changed'},Removed={Glyph='-',Status=
-'Removed'},Info={Glyph='!',Status='Info'}},{['+']='Added',['~']='Changed',['-']=
-'Removed',['!']='Info'}local ad=function(ad)if typeof(ad)=='string'then local ae
-,af=string.match(ad,'^%s*([%+~%-!])%s*(.*)$')if ae then return ac[ae],af end
-return'Info',ad end local ae=ad.Type or ad.Kind or'Added'return ab[ae]and ae or
-'Info',ad.Text or ad.Title or''end return function(ae,af)local ag,ah,ai,aj=a.d()
-,a.c(),a.e(),a.i()local b,c,d,e,f,g=ag.Create,ai.TweenService,ae.__container or
-ae.__instance or ae,ae.Theme,{},{}af=af or{}af.Title=af.Title or'Update Logs'af.
-Preview=af.Preview or 5 af.Expanded=af.Expanded==true af.Entries=af.Entries or{}
-f.Body=(b'Frame'{Name='UpdateLog',AutomaticSize=Enum.AutomaticSize.Y,
-BorderSizePixel=0,Size=UDim2.fromScale(1,0),Parent=d,__dynamicKeys={
-BackgroundColor3=e.Controls.View[1],BackgroundTransparency=e.Controls.View[2]},b
-'UICorner'{CornerRadius=UDim.new(0,8)},b'UIStroke'{ApplyStrokeMode=Enum.
-ApplyStrokeMode.Border,__dynamicKeys={Color=e.Controls.ViewBorder[1],
-Transparency=e.Controls.ViewBorder[2]}},b'UIPadding'{PaddingBottom=UDim.new(0,8)
-,PaddingLeft=UDim.new(0,12),PaddingRight=UDim.new(0,12),PaddingTop=UDim.new(0,4)
-},b'UIListLayout'{Padding=UDim.new(0,6),SortOrder=Enum.SortOrder.LayoutOrder},b
-'Frame'{Name='Header',BackgroundTransparency=1,BorderSizePixel=0,Size=UDim2.new(
-1,0,0,36),b'Frame'{Name='Leading',AnchorPoint=Vector2.new(0,0.5),AutomaticSize=
-Enum.AutomaticSize.X,BackgroundTransparency=1,Position=UDim2.fromScale(0,0.5),
-Size=UDim2.fromOffset(0,20),b'UIListLayout'{FillDirection=Enum.FillDirection.
-Horizontal,Padding=UDim.new(0,8),SortOrder=Enum.SortOrder.LayoutOrder,
-VerticalAlignment=Enum.VerticalAlignment.Center},b'TextLabel'{Name='Title',
-AutomaticSize=Enum.AutomaticSize.X,BackgroundTransparency=1,FontFace=Font.new(
+),PaddingRight=UDim.new(0,14),PaddingTop=UDim.new(0,4)}}}})an.Header=(an.Body:
+FindFirstChild'Header')an.IconHolder=(an.Header:FindFirstChild'IconHolder')an.
+Icon=(an.IconHolder:FindFirstChild'Icon')an.TitleStack=(an.Header:FindFirstChild
+'TitleStack')an.Title=(an.TitleStack:FindFirstChild'Title')an.Subtitle=(an.
+TitleStack:FindFirstChild'Subtitle')an.Chevron=(an.Header:FindFirstChild
+'Chevron')an.Divider=(an.Body:FindFirstChild'Divider')an.Clip=(an.Body:
+FindFirstChild'Clip')an.Content=(an.Clip:FindFirstChild'Content')aj.Apply(an.
+Chevron,'chevron-down',ai.chevronDown,14)local aq=function()return an.Content.
+AbsoluteSize.Y end local ar,b=function(ar)local b=UDim2.new(1,0,0,ae.Expanded
+and aq()or 0)if ar then al:Create(an.Clip,ap,{Size=b}):Play()else an.Clip.Size=b
+end end,function()local ar=an.IconHolder.Visible local b,c=ar and 40 or 0,ae.
+Collapsible and 24 or 0 an.TitleStack.Position=UDim2.new(0,b,0.5,0)an.TitleStack
+.Size=UDim2.new(1,-(b+c),0,0)end an.Content:GetPropertyChangedSignal
+'AbsoluteSize':Connect(function()if ae.Expanded then ar(false)end end)local c=
+function()for c,d in ipairs(ao)do local e=ao[c+1]d.divider.Visible=d.row.Visible
+and e~=nil and e.row.Visible==true end end an.Content.ChildAdded:Connect(
+function(d)if d:IsA'Frame'and d:FindFirstChild'LayoutIgnore'then local e=d.
+LayoutIgnore:FindFirstChild'Divider'if e then table.insert(ao,{row=d,divider=e})
+d:GetPropertyChangedSignal'Visible':Connect(c)c()end end end)an.Content.
+ChildRemoved:Connect(function(d)for e,f in ipairs(ao)do if f.row==d then table.
+remove(ao,e)break end end c()end)local d d=ag.Wrap(ae,{Title=function(e)an.Title
+.Text=e end,Subtitle=function(e)an.Subtitle.Visible=e~=nil and e~=''an.Subtitle.
+Text=e or''end,Icon=function(e)an.IconHolder.Visible=e~=nil and aj.Apply(an.Icon
+,e,nil,16)b()end,Collapsible=function(e)ae.Collapsible=e an.Chevron.Visible=e an
+.Header.Active=e b()end,Expanded=function(e,f)ae.Expanded=e local g=f~=false an.
+Divider.Visible=e ar(g)al:Create(an.Chevron,g and ap or TweenInfo.new(0),{
+Rotation=e and 0 or-90}):Play()if ae.ExpandedChanged then task.spawn(ae.
+ExpandedChanged,d,e)end end,SearchIndex=function(e)an.Body:SetAttribute(
+'SearchIndex',e)end},an.Body)an.Header.MouseButton1Click:Connect(function()if
+not ae.Collapsible then return end d.Expanded=not ae.Expanded end)d.Type=
+'Groupbox'd.Theme=ad.Theme d.Structures=an d.__container=an.Content d.__window=
+ad.__window ag.Apply(ae,d)b()task.defer(ar,false)return d end end function a.X()
+local ab=a.cache.X if not ab then ab={c=aa()}a.cache.X=ab end return ab.c end
+end do local aa=function()local aa,ab,ac=a.b(),{Added={Glyph='+',Status='Added'}
+,New={Glyph='+',Status='Added'},Improved={Glyph='+',Status='Added'},Changed={
+Glyph='~',Status='Changed'},Fixed={Glyph='~',Status='Changed'},Removed={Glyph=
+'-',Status='Removed'},Info={Glyph='!',Status='Info'}},{['+']='Added',['~']=
+'Changed',['-']='Removed',['!']='Info'}local ad=function(ad)if typeof(ad)==
+'string'then local ae,af=string.match(ad,'^%s*([%+~%-!])%s*(.*)$')if ae then
+return ac[ae],af end return'Info',ad end local ae=ad.Type or ad.Kind or'Added'
+return ab[ae]and ae or'Info',ad.Text or ad.Title or''end return function(ae,af)
+local ag,ah,ai,aj=a.d(),a.c(),a.e(),a.i()local ak,al,am,an,ao,ap=ag.Create,ai.
+TweenService,ae.__container or ae.__instance or ae,ae.Theme,{},{}af=af or{}af.
+Title=af.Title or'Update Logs'af.Preview=af.Preview or 5 af.Expanded=af.Expanded
+==true af.Entries=af.Entries or{}ao.Body=(ak'Frame'{Name='UpdateLog',
+AutomaticSize=Enum.AutomaticSize.Y,BorderSizePixel=0,Size=UDim2.fromScale(1,0),
+Parent=am,__dynamicKeys={BackgroundColor3=an.Controls.View[1],
+BackgroundTransparency=an.Controls.View[2]},ak'UICorner'{CornerRadius=UDim.new(0
+,8)},ak'UIStroke'{ApplyStrokeMode=Enum.ApplyStrokeMode.Border,__dynamicKeys={
+Color=an.Controls.ViewBorder[1],Transparency=an.Controls.ViewBorder[2]}},ak
+'UIPadding'{PaddingBottom=UDim.new(0,8),PaddingLeft=UDim.new(0,12),PaddingRight=
+UDim.new(0,12),PaddingTop=UDim.new(0,4)},ak'UIListLayout'{Padding=UDim.new(0,6),
+SortOrder=Enum.SortOrder.LayoutOrder},ak'Frame'{Name='Header',
+BackgroundTransparency=1,BorderSizePixel=0,Size=UDim2.new(1,0,0,36),ak'Frame'{
+Name='Leading',AnchorPoint=Vector2.new(0,0.5),AutomaticSize=Enum.AutomaticSize.X
+,BackgroundTransparency=1,Position=UDim2.fromScale(0,0.5),Size=UDim2.fromOffset(
+0,20),ak'UIListLayout'{FillDirection=Enum.FillDirection.Horizontal,Padding=UDim.
+new(0,8),SortOrder=Enum.SortOrder.LayoutOrder,VerticalAlignment=Enum.
+VerticalAlignment.Center},ak'TextLabel'{Name='Title',AutomaticSize=Enum.
+AutomaticSize.X,BackgroundTransparency=1,FontFace=Font.new(
 'rbxassetid://12187365364',Enum.FontWeight.SemiBold,Enum.FontStyle.Normal),Size=
-UDim2.fromOffset(0,18),TextSize=14,__dynamicKeys={TextColor3=e.Text.Primary[1],
-TextTransparency=e.Text.Primary[2]}},b'TextLabel'{Name='Count',AutomaticSize=
+UDim2.fromOffset(0,18),TextSize=14,__dynamicKeys={TextColor3=an.Text.Primary[1],
+TextTransparency=an.Text.Primary[2]}},ak'TextLabel'{Name='Count',AutomaticSize=
 Enum.AutomaticSize.X,BorderSizePixel=0,FontFace=Font.new(
 'rbxassetid://12187365364',Enum.FontWeight.Medium,Enum.FontStyle.Normal),
 LayoutOrder=1,Size=UDim2.fromOffset(0,18),Text='0',TextSize=12,__dynamicKeys={
-BackgroundColor3=e.Controls.Card.Hover[1],BackgroundTransparency=e.Controls.Card
-.Hover[2],TextColor3=e.Text.Secondary[1],TextTransparency=e.Text.Secondary[2]},b
-'UICorner'{CornerRadius=UDim.new(0,5)},b'UIPadding'{PaddingLeft=UDim.new(0,6),
-PaddingRight=UDim.new(0,6)}}},b'TextButton'{Name='ViewAll',AnchorPoint=Vector2.
-new(1,0.5),AutoButtonColor=false,AutomaticSize=Enum.AutomaticSize.X,
+BackgroundColor3=an.Controls.Card.Hover[1],BackgroundTransparency=an.Controls.
+Card.Hover[2],TextColor3=an.Text.Secondary[1],TextTransparency=an.Text.Secondary
+[2]},ak'UICorner'{CornerRadius=UDim.new(0,5)},ak'UIPadding'{PaddingLeft=UDim.
+new(0,6),PaddingRight=UDim.new(0,6)}}},ak'TextButton'{Name='ViewAll',AnchorPoint
+=Vector2.new(1,0.5),AutoButtonColor=false,AutomaticSize=Enum.AutomaticSize.X,
 BackgroundTransparency=1,Position=UDim2.fromScale(1,0.5),Size=UDim2.fromOffset(0
-,22),Text='',b'UIListLayout'{FillDirection=Enum.FillDirection.Horizontal,Padding
-=UDim.new(0,6),SortOrder=Enum.SortOrder.LayoutOrder,VerticalAlignment=Enum.
-VerticalAlignment.Center},b'TextLabel'{Name='Label',AutomaticSize=Enum.
+,22),Text='',ak'UIListLayout'{FillDirection=Enum.FillDirection.Horizontal,
+Padding=UDim.new(0,6),SortOrder=Enum.SortOrder.LayoutOrder,VerticalAlignment=
+Enum.VerticalAlignment.Center},ak'TextLabel'{Name='Label',AutomaticSize=Enum.
 AutomaticSize.X,BackgroundTransparency=1,FontFace=Font.new(
 'rbxassetid://12187365364',Enum.FontWeight.Medium,Enum.FontStyle.Normal),Size=
-UDim2.fromOffset(0,16),Text='View all',TextSize=12,__dynamicKeys={TextColor3=e.
-Text.Secondary[1],TextTransparency=e.Text.Secondary[2]}},b'ImageLabel'{ScaleType
-=Enum.ScaleType.Fit,Name='Chevron',BackgroundTransparency=1,Image=aj.
+UDim2.fromOffset(0,16),Text='View all',TextSize=12,__dynamicKeys={TextColor3=an.
+Text.Secondary[1],TextTransparency=an.Text.Secondary[2]}},ak'ImageLabel'{
+ScaleType=Enum.ScaleType.Fit,Name='Chevron',BackgroundTransparency=1,Image=aj.
 chevronRight,LayoutOrder=1,Size=UDim2.fromOffset(10,10),__dynamicKeys={
-ImageColor3=e.Text.Secondary[1],ImageTransparency=e.Text.Secondary[2]}}},b
+ImageColor3=an.Text.Secondary[1],ImageTransparency=an.Text.Secondary[2]}}},ak
 'Frame'{Name='Divider',AnchorPoint=Vector2.new(0,1),BorderSizePixel=0,Position=
-UDim2.fromScale(0,1),Size=UDim2.new(1,0,0,1),__dynamicKeys={BackgroundColor3=e.
-Controls.ViewBorder[1],BackgroundTransparency=e.Controls.ViewBorder[2]}}},b
+UDim2.fromScale(0,1),Size=UDim2.new(1,0,0,1),__dynamicKeys={BackgroundColor3=an.
+Controls.ViewBorder[1],BackgroundTransparency=an.Controls.ViewBorder[2]}}},ak
 'Frame'{Name='List',AutomaticSize=Enum.AutomaticSize.Y,BackgroundTransparency=1,
-BorderSizePixel=0,LayoutOrder=1,Size=UDim2.fromScale(1,0),b'UIListLayout'{
-Padding=UDim.new(0,2),SortOrder=Enum.SortOrder.LayoutOrder}}})f.Header=(f.Body:
-FindFirstChild'Header')f.Leading=(f.Header:FindFirstChild'Leading')f.Title=(f.
-Leading:FindFirstChild'Title')f.Count=(f.Leading:FindFirstChild'Count')f.ViewAll
-=(f.Header:FindFirstChild'ViewAll')f.ViewAllLabel=(f.ViewAll:FindFirstChild
-'Label')f.Chevron=(f.ViewAll:FindFirstChild'Chevron')f.List=(f.Body:
-FindFirstChild'List')a.n().Apply(f.Chevron,'chevron-right',aj.chevronRight)local
-h,i,j=function()local h=#g for i,j in ipairs(g)do j.Frame.Visible=af.Expanded or
-i<=af.Preview end f.Count.Text=tostring(h)f.ViewAll.Visible=h>af.Preview f.
-ViewAllLabel.Text=af.Expanded and'Show less'or'View all'c:Create(f.Chevron,
-TweenInfo.new(0.25,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{
-Rotation=af.Expanded and 90 or 0}):Play()end,function(h)local i,j=ad(h)local k=
-ab[i]local l=e.Controls.Status[k.Status]local m=b'TextButton'{Name='Entry',
-AutoButtonColor=false,BorderSizePixel=0,LayoutOrder=#g+1,Size=UDim2.new(1,0,0,32
-),Text='',Parent=f.List,__dynamicKeys={BackgroundColor3=e.Controls.Card.Fill[1]}
-,b'UICorner'{CornerRadius=UDim.new(0,6)},b'UIPadding'{PaddingLeft=UDim.new(0,4),
-PaddingRight=UDim.new(0,8)},b'UIListLayout'{FillDirection=Enum.FillDirection.
-Horizontal,Padding=UDim.new(0,10),SortOrder=Enum.SortOrder.LayoutOrder,
-VerticalAlignment=Enum.VerticalAlignment.Center},b'TextLabel'{Name='Badge',
-BackgroundTransparency=0.85,BorderSizePixel=0,FontFace=Font.new(
-'rbxassetid://12187365364',Enum.FontWeight.Bold,Enum.FontStyle.Normal),Size=
-UDim2.fromOffset(22,22),Text=k.Glyph,TextSize=14,__dynamicKeys={BackgroundColor3
-=l[1],TextColor3=l[1]},b'UICorner'{CornerRadius=UDim.new(0,5)}},b'TextLabel'{
-Name='Text',BackgroundTransparency=1,FontFace=Font.new'rbxassetid://12187365364'
-,LayoutOrder=1,RichText=true,Size=UDim2.new(1,-32,0,18),Text=j,TextSize=14,
-TextTruncate=Enum.TextTruncate.AtEnd,TextXAlignment=Enum.TextXAlignment.Left,
-__dynamicKeys={TextColor3=e.Text.Primary[1],TextTransparency=e.Text.Primary[2]}}
-}m.BackgroundTransparency=1 m:SetAttribute('SearchIndex',j)m.MouseEnter:Connect(
-function()m.BackgroundTransparency=e.Controls.Card.Fill[2].Value end)m.
-MouseLeave:Connect(function()m.BackgroundTransparency=1 end)local n={Frame=m,
-Type=i,Text=j}table.insert(g,n)return n end j=ah.Wrap(af,{Title=function(k)f.
-Title.Text=k end,Preview=function(k)af.Preview=k h()end,Expanded=function(k)af.
-Expanded=k h()end,Entries=function(k)for l,m in ipairs(g)do m.Frame:Destroy()end
-table.clear(g)for l,m in ipairs(k or{})do i(m)end h()end},f.Body)f.ViewAll.
-MouseButton1Click:Connect(function()j.Expanded=not af.Expanded end)j.Type=
-'UpdateLog'j.Theme=ae.Theme j.Structures=f j.Add=function(k,l)local m=i(l)table.
-insert(af.Entries,l)h()return m end j.Clear=function()j.Entries={}end ah.Apply(
-af,j)h()return j end end function a.Y()local ab=a.cache.Y if not ab then ab={c=
-aa()}a.cache.Y=ab end return ab.c end end do local aa=function()local aa,ab=a.b(
-),function(aa)local ab={setclipboard,toclipboard,set_clipboard,Clipboard and
-Clipboard.set,syn and syn.write_clipboard}for ac,ad in ipairs(ab)do if typeof(ad
-)=='function'and pcall(ad,aa)then return true end end return false end return
-function(ac,ad)local ae,af,ag,ah=a.d(),a.c(),a.i(),a.n()local ai,aj,b,c,d=ae.
-Create,ac.__container or ac.__instance or ac,ac.Theme,{},0 ad=ad or{}ad.Title=ad
-.Title or'Discord'ad.Subtitle=ad.Subtitle or'Click the invite to copy.'ad.Invite
-=ad.Invite or''ad.Icon=ad.Icon or'message-circle'c.Body=(ai'Frame'{Name=
+BorderSizePixel=0,LayoutOrder=1,Size=UDim2.fromScale(1,0),ak'UIListLayout'{
+Padding=UDim.new(0,2),SortOrder=Enum.SortOrder.LayoutOrder}}})ao.Header=(ao.Body
+:FindFirstChild'Header')ao.Leading=(ao.Header:FindFirstChild'Leading')ao.Title=(
+ao.Leading:FindFirstChild'Title')ao.Count=(ao.Leading:FindFirstChild'Count')ao.
+ViewAll=(ao.Header:FindFirstChild'ViewAll')ao.ViewAllLabel=(ao.ViewAll:
+FindFirstChild'Label')ao.Chevron=(ao.ViewAll:FindFirstChild'Chevron')ao.List=(ao
+.Body:FindFirstChild'List')a.n().Apply(ao.Chevron,'chevron-right',aj.
+chevronRight,12)local aq,ar,b=function()local aq=#ap for ar,b in ipairs(ap)do b.
+Frame.Visible=af.Expanded or ar<=af.Preview end ao.Count.Text=tostring(aq)ao.
+ViewAll.Visible=aq>af.Preview ao.ViewAllLabel.Text=af.Expanded and'Show less'or
+'View all'al:Create(ao.Chevron,TweenInfo.new(0.25,Enum.EasingStyle.Exponential,
+Enum.EasingDirection.Out),{Rotation=af.Expanded and 90 or 0}):Play()end,function
+(aq)local ar,b=ad(aq)local c=ab[ar]local d=an.Controls.Status[c.Status]local e=
+ak'TextButton'{Name='Entry',AutoButtonColor=false,BorderSizePixel=0,LayoutOrder=
+#ap+1,Size=UDim2.new(1,0,0,32),Text='',Parent=ao.List,__dynamicKeys={
+BackgroundColor3=an.Controls.Card.Fill[1]},ak'UICorner'{CornerRadius=UDim.new(0,
+6)},ak'UIPadding'{PaddingLeft=UDim.new(0,4),PaddingRight=UDim.new(0,8)},ak
+'UIListLayout'{FillDirection=Enum.FillDirection.Horizontal,Padding=UDim.new(0,10
+),SortOrder=Enum.SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.
+Center},ak'TextLabel'{Name='Badge',BackgroundTransparency=0.85,BorderSizePixel=0
+,FontFace=Font.new('rbxassetid://12187365364',Enum.FontWeight.Bold,Enum.
+FontStyle.Normal),Size=UDim2.fromOffset(22,22),Text=c.Glyph,TextSize=14,
+__dynamicKeys={BackgroundColor3=d[1],TextColor3=d[1]},ak'UICorner'{CornerRadius=
+UDim.new(0,5)}},ak'TextLabel'{Name='Text',BackgroundTransparency=1,FontFace=Font
+.new'rbxassetid://12187365364',LayoutOrder=1,RichText=true,Size=UDim2.new(1,-32,
+0,18),Text=b,TextSize=14,TextTruncate=Enum.TextTruncate.AtEnd,TextXAlignment=
+Enum.TextXAlignment.Left,__dynamicKeys={TextColor3=an.Text.Primary[1],
+TextTransparency=an.Text.Primary[2]}}}e.BackgroundTransparency=1 e:SetAttribute(
+'SearchIndex',b)e.MouseEnter:Connect(function()e.BackgroundTransparency=an.
+Controls.Card.Fill[2].Value end)e.MouseLeave:Connect(function()e.
+BackgroundTransparency=1 end)local f={Frame=e,Type=ar,Text=b}table.insert(ap,f)
+return f end b=ah.Wrap(af,{Title=function(c)ao.Title.Text=c end,Preview=function
+(c)af.Preview=c aq()end,Expanded=function(c)af.Expanded=c aq()end,Entries=
+function(c)for d,e in ipairs(ap)do e.Frame:Destroy()end table.clear(ap)for d,e
+in ipairs(c or{})do ar(e)end aq()end},ao.Body)ao.ViewAll.MouseButton1Click:
+Connect(function()b.Expanded=not af.Expanded end)b.Type='UpdateLog'b.Theme=ae.
+Theme b.Structures=ao b.Add=function(c,d)local e=ar(d)table.insert(af.Entries,d)
+aq()return e end b.Clear=function()b.Entries={}end ah.Apply(af,b)aq()return b
+end end function a.Y()local ab=a.cache.Y if not ab then ab={c=aa()}a.cache.Y=ab
+end return ab.c end end do local aa=function()local aa,ab=a.b(),function(aa)
+local ab={setclipboard,toclipboard,set_clipboard,Clipboard and Clipboard.set,syn
+and syn.write_clipboard}for ac,ad in ipairs(ab)do if typeof(ad)=='function'and
+pcall(ad,aa)then return true end end return false end return function(ac,ad)
+local ae,af,ag,ah=a.d(),a.c(),a.i(),a.n()local ai,aj,ak,al,am=ae.Create,ac.
+__container or ac.__instance or ac,ac.Theme,{},0 ad=ad or{}ad.Title=ad.Title or
+'Discord'ad.Subtitle=ad.Subtitle or'Click the invite to copy.'ad.Invite=ad.
+Invite or''ad.Icon=ad.Icon or'message-circle'al.Body=(ai'Frame'{Name=
 'InviteCard',AutomaticSize=Enum.AutomaticSize.Y,BorderSizePixel=0,Size=UDim2.
-fromScale(1,0),Parent=aj,__dynamicKeys={BackgroundColor3=b.Controls.View[1],
-BackgroundTransparency=b.Controls.View[2]},ai'UICorner'{CornerRadius=UDim.new(0,
-8)},ai'UIStroke'{ApplyStrokeMode=Enum.ApplyStrokeMode.Border,__dynamicKeys={
-Color=b.Controls.ViewBorder[1],Transparency=b.Controls.ViewBorder[2]}},ai
+fromScale(1,0),Parent=aj,__dynamicKeys={BackgroundColor3=ak.Controls.View[1],
+BackgroundTransparency=ak.Controls.View[2]},ai'UICorner'{CornerRadius=UDim.new(0
+,8)},ai'UIStroke'{ApplyStrokeMode=Enum.ApplyStrokeMode.Border,__dynamicKeys={
+Color=ak.Controls.ViewBorder[1],Transparency=ak.Controls.ViewBorder[2]}},ai
 'UIPadding'{PaddingBottom=UDim.new(0,12),PaddingLeft=UDim.new(0,12),PaddingRight
 =UDim.new(0,12),PaddingTop=UDim.new(0,12)},ai'UIListLayout'{Padding=UDim.new(0,
 10),SortOrder=Enum.SortOrder.LayoutOrder},ai'Frame'{Name='Header',AutomaticSize=
@@ -8176,79 +8245,80 @@ Enum.AutomaticSize.Y,BackgroundTransparency=1,Size=UDim2.fromScale(1,0),ai
 'UIListLayout'{FillDirection=Enum.FillDirection.Horizontal,Padding=UDim.new(0,10
 ),SortOrder=Enum.SortOrder.LayoutOrder},ai'Frame'{Name='IconHolder',
 BackgroundTransparency=0.85,BorderSizePixel=0,Size=UDim2.fromOffset(28,28),
-__dynamicKeys={BackgroundColor3=b.Controls.Selection[1]},ai'UICorner'{
+__dynamicKeys={BackgroundColor3=ak.Controls.Selection[1]},ai'UICorner'{
 CornerRadius=UDim.new(0,7)},ai'ImageLabel'{ScaleType=Enum.ScaleType.Fit,Name=
 'Icon',AnchorPoint=Vector2.new(0.5,0.5),BackgroundTransparency=1,Position=UDim2.
-fromScale(0.5,0.5),Size=UDim2.fromOffset(16,16),__dynamicKeys={ImageColor3=b.
+fromScale(0.5,0.5),Size=UDim2.fromOffset(16,16),__dynamicKeys={ImageColor3=ak.
 Controls.Selection[1]}}},ai'Frame'{Name='TitleStack',AutomaticSize=Enum.
 AutomaticSize.Y,BackgroundTransparency=1,LayoutOrder=1,Size=UDim2.new(1,-38,0,0)
 ,ai'UIListLayout'{Padding=UDim.new(0,1),SortOrder=Enum.SortOrder.LayoutOrder},ai
 'TextLabel'{Name='Title',BackgroundTransparency=1,FontFace=Font.new(
 'rbxassetid://12187365364',Enum.FontWeight.SemiBold,Enum.FontStyle.Normal),Size=
 UDim2.new(1,0,0,17),TextSize=14,TextTruncate=Enum.TextTruncate.AtEnd,
-TextXAlignment=Enum.TextXAlignment.Left,__dynamicKeys={TextColor3=b.Text.Primary
-[1],TextTransparency=b.Text.Primary[2]}},ai'TextLabel'{Name='Subtitle',
+TextXAlignment=Enum.TextXAlignment.Left,__dynamicKeys={TextColor3=ak.Text.
+Primary[1],TextTransparency=ak.Text.Primary[2]}},ai'TextLabel'{Name='Subtitle',
 BackgroundTransparency=1,FontFace=Font.new'rbxassetid://12187365364',LayoutOrder
 =1,Size=UDim2.new(1,0,0,14),TextSize=12,TextTruncate=Enum.TextTruncate.AtEnd,
-TextXAlignment=Enum.TextXAlignment.Left,__dynamicKeys={TextColor3=b.Text.
-Secondary[1],TextTransparency=b.Text.Secondary[2]}}}},ai'TextButton'{Name=
+TextXAlignment=Enum.TextXAlignment.Left,__dynamicKeys={TextColor3=ak.Text.
+Secondary[1],TextTransparency=ak.Text.Secondary[2]}}}},ai'TextButton'{Name=
 'Invite',AutoButtonColor=false,AutomaticSize=Enum.AutomaticSize.X,
 BorderSizePixel=0,FontFace=Font.new('rbxassetid://12187365364',Enum.FontWeight.
 Medium,Enum.FontStyle.Normal),LayoutOrder=1,Size=UDim2.fromOffset(0,30),TextSize
-=14,__dynamicKeys={BackgroundColor3=b.Controls.Card.Hover[1],
-BackgroundTransparency=b.Controls.Card.Hover[2],TextColor3=b.Text.Primary[1],
-TextTransparency=b.Text.Primary[2]},ai'UICorner'{CornerRadius=UDim.new(0,7)},ai
+=14,__dynamicKeys={BackgroundColor3=ak.Controls.Card.Hover[1],
+BackgroundTransparency=ak.Controls.Card.Hover[2],TextColor3=ak.Text.Primary[1],
+TextTransparency=ak.Text.Primary[2]},ai'UICorner'{CornerRadius=UDim.new(0,7)},ai
 'UIPadding'{PaddingLeft=UDim.new(0,12),PaddingRight=UDim.new(0,12)},ai'UIStroke'
-{ApplyStrokeMode=Enum.ApplyStrokeMode.Border,__dynamicKeys={Color=b.Controls.
-ViewBorder[1],Transparency=b.Controls.ViewBorder[2]}}}})c.Header=(c.Body:
-FindFirstChild'Header')c.IconHolder=(c.Header:FindFirstChild'IconHolder')c.Icon=
-(c.IconHolder:FindFirstChild'Icon')c.TitleStack=(c.Header:FindFirstChild
-'TitleStack')c.Title=(c.TitleStack:FindFirstChild'Title')c.Subtitle=(c.
-TitleStack:FindFirstChild'Subtitle')c.Invite=(c.Body:FindFirstChild'Invite')
-local e e=af.Wrap(ad,{Title=function(f)c.Title.Text=f end,Subtitle=function(f)c.
-Subtitle.Text=f end,Icon=function(f)c.IconHolder.Visible=f~=nil and ah.Apply(c.
-Icon,f)c.TitleStack.Size=UDim2.new(1,f and-38 or 0,0,0)end,Invite=function(f)ad.
-Invite=f c.Invite.Text=f end,SearchIndex=function(f)c.Body:SetAttribute(
-'SearchIndex',f)end},c.Body)c.Invite.MouseEnter:Connect(function()c.Invite.
-BackgroundTransparency=math.max(0,b.Controls.Card.Hover[2].Value-0.06)end)c.
-Invite.MouseLeave:Connect(function()c.Invite.BackgroundTransparency=b.Controls.
-Card.Hover[2].Value end)c.Invite.MouseButton1Click:Connect(function()local f=ab(
-ad.Invite)d+=1 local g=d c.Invite.Text=f and'Copied to clipboard!'or ad.Invite c
-.Invite.TextColor3=f and b.Controls.Status.Added[1].Value or b.Text.Primary[1].
-Value if ad.Copied then task.spawn(ad.Copied,e,ad.Invite,f)end task.delay(1.5,
-function()if g~=d then return end c.Invite.Text=ad.Invite c.Invite.TextColor3=b.
-Text.Primary[1].Value end)end)e.Type='InviteCard'e.Theme=ac.Theme e.Structures=c
-af.Apply(ad,e)return e end end function a.Z()local ab=a.cache.Z if not ab then
-ab={c=aa()}a.cache.Z=ab end return ab.c end end do local aa=function()a.b()
-return function(aa,ab)ab=ab or{}local ac=aa:Tab{Title=ab.Title or'Dashboard',
-Icon=ab.Icon or'house',Selected=ab.Selected~=false}local ad,ae={Type='Dashboard'
-,Theme=aa.Theme,HomeTab=ac,__container=ac.__container,__window=aa.__window or aa
-},aa.__window or aa if ab.Info~=false then local af='Loading...'task.spawn(
-function()local ag,ah=pcall(function()return game:GetService'MarketplaceService'
-:GetProductInfo(game.PlaceId)end)af=ag and ah and ah.Name or tostring(game.
-PlaceId)end)local ag='Unknown'pcall(function()if identifyexecutor then local ah,
-ai=identifyexecutor()ag=ai and(tostring(ah)..' '..tostring(ai))or tostring(ah)
-elseif getexecutorname then ag=tostring(getexecutorname())end end)local ah={}if
-ae.DisplayName then table.insert(ah,{Label='Player',Value=function()return ae:
-DisplayName()end})end if ae.KeyStatus then table.insert(ah,{Label='Key',Value=
-function()local ai,aj=ae:KeyStatus()return(string.gsub(ai,'^Key: ','')),aj end})
-end table.insert(ah,{Label='Game',Value=function()return af end})table.insert(ah
-,{Label='Executor',Value=ag})if ab.Version then table.insert(ah,{Label='Version'
-,Value=tostring(ab.Version)})end for ai,aj in ipairs(typeof(ab.Info)=='table'and
-ab.Info or{})do table.insert(ah,aj)end ad.Info=ac:InfoCard{Title=ab.InfoTitle or
-'Information',Icon='info',Items=ah}end local af=ac:PageSection{Title=ab.
-UpdatesTitle or'Updates',Subtitle=ab.Version and('Version '..tostring(ab.Version
-))or nil}ad.Updates=af:UpdateLog{Title=ab.LogsTitle or'Update Logs',Preview=ab.
-Preview or math.huge,Entries=ab.Logs or{}}local ag=ab.Links or{}if ab.Discord
-then table.insert(ag,1,{Title='Discord',Subtitle='Click the invite to copy.',
-Invite=ab.Discord})end ad.Links={}if#ag>0 then local ah=ac:PageSection{Title=ab.
-LinksTitle or'Community'}for ai,aj in ipairs(ag)do table.insert(ad.Links,(ah:
-InviteCard(aj)))end end ad.Log=function(ah,ai)return ad.Updates:Add(ai)end
-return setmetatable(ad,{__index=ac})end end function a._()local ab=a.cache._ if
-not ab then ab={c=aa()}a.cache._=ab end return ab.c end end do local aa=function
-()local aa=a.e()local ab=aa.UserInputService return function(ac,ad,ae)local af,
-ag,ah=false ac.InputBegan:Connect(function(ai)if ae and not ae()then return end
-if ai.UserInputType~=Enum.UserInputType.MouseButton1 and ai.UserInputType~=Enum.
+{ApplyStrokeMode=Enum.ApplyStrokeMode.Border,__dynamicKeys={Color=ak.Controls.
+ViewBorder[1],Transparency=ak.Controls.ViewBorder[2]}}}})al.Header=(al.Body:
+FindFirstChild'Header')al.IconHolder=(al.Header:FindFirstChild'IconHolder')al.
+Icon=(al.IconHolder:FindFirstChild'Icon')al.TitleStack=(al.Header:FindFirstChild
+'TitleStack')al.Title=(al.TitleStack:FindFirstChild'Title')al.Subtitle=(al.
+TitleStack:FindFirstChild'Subtitle')al.Invite=(al.Body:FindFirstChild'Invite')
+local an an=af.Wrap(ad,{Title=function(ao)al.Title.Text=ao end,Subtitle=function
+(ao)al.Subtitle.Text=ao end,Icon=function(ao)al.IconHolder.Visible=ao~=nil and
+ah.Apply(al.Icon,ao,nil,15)al.TitleStack.Size=UDim2.new(1,ao and-38 or 0,0,0)end
+,Invite=function(ao)ad.Invite=ao al.Invite.Text=ao end,SearchIndex=function(ao)
+al.Body:SetAttribute('SearchIndex',ao)end},al.Body)al.Invite.MouseEnter:Connect(
+function()al.Invite.BackgroundTransparency=math.max(0,ak.Controls.Card.Hover[2].
+Value-0.06)end)al.Invite.MouseLeave:Connect(function()al.Invite.
+BackgroundTransparency=ak.Controls.Card.Hover[2].Value end)al.Invite.
+MouseButton1Click:Connect(function()local ao=ab(ad.Invite)am+=1 local ap=am al.
+Invite.Text=ao and'Copied to clipboard!'or ad.Invite al.Invite.TextColor3=ao and
+ak.Controls.Status.Added[1].Value or ak.Text.Primary[1].Value if ad.Copied then
+task.spawn(ad.Copied,an,ad.Invite,ao)end task.delay(1.5,function()if ap~=am then
+return end al.Invite.Text=ad.Invite al.Invite.TextColor3=ak.Text.Primary[1].
+Value end)end)an.Type='InviteCard'an.Theme=ac.Theme an.Structures=al af.Apply(ad
+,an)return an end end function a.Z()local ab=a.cache.Z if not ab then ab={c=aa()
+}a.cache.Z=ab end return ab.c end end do local aa=function()a.b()return function
+(aa,ab)ab=ab or{}local ac=aa:Tab{Title=ab.Title or'Dashboard',Icon=ab.Icon or
+'house',Selected=ab.Selected~=false}local ad,ae={Type='Dashboard',Theme=aa.Theme
+,HomeTab=ac,__container=ac.__container,__window=aa.__window or aa},aa.__window
+or aa if ab.Info~=false then local af='Loading...'task.spawn(function()local ag,
+ah=pcall(function()return game:GetService'MarketplaceService':GetProductInfo(
+game.PlaceId)end)af=ag and ah and ah.Name or tostring(game.PlaceId)end)local ag=
+'Unknown'pcall(function()if identifyexecutor then local ah,ai=identifyexecutor()
+ag=ai and(tostring(ah)..' '..tostring(ai))or tostring(ah)elseif getexecutorname
+then ag=tostring(getexecutorname())end end)local ah={}if ae.DisplayName then
+table.insert(ah,{Label='Player',Value=function()return ae:DisplayName()end})end
+if ae.KeyStatus then table.insert(ah,{Label='Key',Value=function()local ai,aj=ae
+:KeyStatus()return(string.gsub(ai,'^Key: ','')),aj end})end table.insert(ah,{
+Label='Game',Value=function()return af end})table.insert(ah,{Label='Executor',
+Value=ag})if ab.Version then table.insert(ah,{Label='Version',Value=tostring(ab.
+Version)})end for ai,aj in ipairs(typeof(ab.Info)=='table'and ab.Info or{})do
+table.insert(ah,aj)end ad.Info=ac:InfoCard{Title=ab.InfoTitle or'Information',
+Icon='info',Items=ah}end local af=ac:PageSection{Title=ab.UpdatesTitle or
+'Updates',Subtitle=ab.Version and('Version '..tostring(ab.Version))or nil}ad.
+Updates=af:UpdateLog{Title=ab.LogsTitle or'Update Logs',Preview=ab.Preview or
+math.huge,Entries=ab.Logs or{}}local ag=ab.Links or{}if ab.Discord then table.
+insert(ag,1,{Title='Discord',Subtitle='Click the invite to copy.',Invite=ab.
+Discord})end ad.Links={}if#ag>0 then local ah=ac:PageSection{Title=ab.LinksTitle
+or'Community'}for ai,aj in ipairs(ag)do table.insert(ad.Links,(ah:InviteCard(aj)
+))end end ad.Log=function(ah,ai)return ad.Updates:Add(ai)end return
+setmetatable(ad,{__index=ac})end end function a._()local ab=a.cache._ if not ab
+then ab={c=aa()}a.cache._=ab end return ab.c end end do local aa=function()local
+aa=a.e()local ab=aa.UserInputService return function(ac,ad,ae)local af,ag,ah=
+false ac.InputBegan:Connect(function(ai)if ae and not ae()then return end if ai.
+UserInputType~=Enum.UserInputType.MouseButton1 and ai.UserInputType~=Enum.
 UserInputType.Touch then return end af=true ag=ai.Position ah=ad.Position local
 aj aj=ai.Changed:Connect(function()if ai.UserInputState==Enum.UserInputState.End
 then af=false aj:Disconnect()end end)end)ab.InputChanged:Connect(function(ai)if
@@ -8258,70 +8328,70 @@ return end local aj=ai.Position-ag ad.Position=UDim2.new(ah.X.Scale,ah.X.Offset+
 aj.X,ah.Y.Scale,ah.Y.Offset+aj.Y)end)end end function a.aa()local ab=a.cache.aa
 if not ab then ab={c=aa()}a.cache.aa=ab end return ab.c end end do local aa=
 function()a.b()return function(aa,ab)local ac,ad,ae,af,ag=a.d(),a.c(),a.e(),a.a(
-),a.aa()local ah,ai,aj,b,c,d,e,f,g=ac.Create,ae.RunService,ae.Players,ae.Stats,
-aa.Theme,{},0,0,0 ab=ab or{}ab.Title=ab.Title or'Cascade'ab.ShowFPS=ab.ShowFPS~=
-false ab.ShowPing=ab.ShowPing~=false ab.ShowTime=ab.ShowTime~=false ab.Draggable
-=ab.Draggable~=false ab.Position=ab.Position or UDim2.fromOffset(16,64)d.Body=(
-ah'Frame'{Name='Watermark',Active=true,AutomaticSize=Enum.AutomaticSize.X,
-BorderSizePixel=0,Size=UDim2.fromOffset(0,30),ZIndex=50,Parent=af.OverlayRoot(aa
-),__dynamicKeys={BackgroundColor3=c.Controls.Card.Overlay[1],
-BackgroundTransparency=c.Controls.Card.Overlay[2]},ah'UICorner'{CornerRadius=
+),a.aa()local ah,ai,aj,ak,al,am,an,ao,ap=ac.Create,ae.RunService,ae.Players,ae.
+Stats,aa.Theme,{},0,0,0 ab=ab or{}ab.Title=ab.Title or'Cascade'ab.ShowFPS=ab.
+ShowFPS~=false ab.ShowPing=ab.ShowPing~=false ab.ShowTime=ab.ShowTime~=false ab.
+Draggable=ab.Draggable~=false ab.Position=ab.Position or UDim2.fromOffset(16,64)
+am.Body=(ah'Frame'{Name='Watermark',Active=true,AutomaticSize=Enum.AutomaticSize
+.X,BorderSizePixel=0,Size=UDim2.fromOffset(0,30),ZIndex=50,Parent=af.
+OverlayRoot(aa),__dynamicKeys={BackgroundColor3=al.Controls.Card.Overlay[1],
+BackgroundTransparency=al.Controls.Card.Overlay[2]},ah'UICorner'{CornerRadius=
 UDim.new(0,8)},ah'UIStroke'{ApplyStrokeMode=Enum.ApplyStrokeMode.Border,
-__dynamicKeys={Color=c.Controls.ViewBorder[1],Transparency=c.Controls.ViewBorder
-[2]}},ah'UIPadding'{PaddingLeft=UDim.new(0,10),PaddingRight=UDim.new(0,12)},ah
-'UIListLayout'{FillDirection=Enum.FillDirection.Horizontal,Padding=UDim.new(0,8)
-,SortOrder=Enum.SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.
-Center},ah'Frame'{Name='Accent',BorderSizePixel=0,Size=UDim2.fromOffset(4,14),
-ZIndex=50,__dynamicKeys={BackgroundColor3=c.Controls.Selection[1]},ah'UICorner'{
-CornerRadius=UDim.new(1,0)}},ah'ImageLabel'{ScaleType=Enum.ScaleType.Fit,Name=
-'Icon',BackgroundTransparency=1,LayoutOrder=1,Size=UDim2.fromOffset(16,16),
-Visible=false,ZIndex=50,__dynamicKeys={ImageColor3=c.Controls.Selection[1]}},ah
-'TextLabel'{Name='Label',AutomaticSize=Enum.AutomaticSize.X,
+__dynamicKeys={Color=al.Controls.ViewBorder[1],Transparency=al.Controls.
+ViewBorder[2]}},ah'UIPadding'{PaddingLeft=UDim.new(0,10),PaddingRight=UDim.new(0
+,12)},ah'UIListLayout'{FillDirection=Enum.FillDirection.Horizontal,Padding=UDim.
+new(0,8),SortOrder=Enum.SortOrder.LayoutOrder,VerticalAlignment=Enum.
+VerticalAlignment.Center},ah'Frame'{Name='Accent',BorderSizePixel=0,Size=UDim2.
+fromOffset(4,14),ZIndex=50,__dynamicKeys={BackgroundColor3=al.Controls.Selection
+[1]},ah'UICorner'{CornerRadius=UDim.new(1,0)}},ah'ImageLabel'{ScaleType=Enum.
+ScaleType.Fit,Name='Icon',BackgroundTransparency=1,LayoutOrder=1,Size=UDim2.
+fromOffset(16,16),Visible=false,ZIndex=50,__dynamicKeys={ImageColor3=al.Controls
+.Selection[1]}},ah'TextLabel'{Name='Label',AutomaticSize=Enum.AutomaticSize.X,
 BackgroundTransparency=1,FontFace=Font.new('rbxassetid://12187365364',Enum.
 FontWeight.Medium,Enum.FontStyle.Normal),LayoutOrder=2,RichText=true,Size=UDim2.
-fromOffset(0,16),TextSize=13,ZIndex=50,__dynamicKeys={TextColor3=c.Text.Primary[
-1],TextTransparency=c.Text.Primary[2]}}})d.Icon=(d.Body:FindFirstChild'Icon')d.
-Label=(d.Body:FindFirstChild'Label')local h,i=function(h)return(string.gsub(
-string.gsub(string.gsub(h,'&','&amp;'),'<','&lt;'),'>','&gt;'))end,function()
-local h,i=pcall(function()return b.Network.ServerStatsItem['Data Ping']:
-GetValue()end)if h and typeof(i)=='number'then return i end local j=aj.
-LocalPlayer h,i=pcall(function()return j:GetNetworkPing()*2000 end)return h and
-i or nil end local j,k=function()local j,k=' <font transparency="0.6">|</font> '
-,{'<b>'..h(tostring(ab.Title))..'</b>'}if ab.Text and ab.Text~=''then table.
-insert(k,h(tostring(ab.Text)))end if ab.ShowFPS then table.insert(k,string.
-format('%d fps',g))end if ab.ShowPing then local l=i()table.insert(k,l and
-string.format('%d ms',math.floor(l+0.5))or'-- ms')end if ab.ShowTime then table.
-insert(k,os.date'%H:%M:%S')end d.Label.Text=table.concat(k,j)end k=ai.
-RenderStepped:Connect(function(l)if not d.Body.Parent then k:Disconnect()return
-end e+=1 f+=l if f>=0.5 then g=math.floor(e/f+0.5)e=0 f=0 if d.Body.Visible then
-j()end end end)ag(d.Body.__instance,d.Body.__instance,function()return ab.
-Draggable end)local l=function(l)return function(m)ab[l]=m j()end end local m=ad
-.Wrap(ab,{Title=l'Title',Text=l'Text',ShowFPS=l'ShowFPS',ShowPing=l'ShowPing',
-ShowTime=l'ShowTime',Draggable=function(m)ab.Draggable=m end,Icon=function(m)d.
-Icon.Visible=m~=nil and a.n().Apply(d.Icon,m)end},d.Body)m.Type='Watermark'm.
-Theme=aa.Theme m.Structures=d ad.Apply(ab,m)j()return m end end function a.ab()
-local ab=a.cache.ab if not ab then ab={c=aa()}a.cache.ab=ab end return ab.c end
-end do local aa=function()a.b()return function(aa,ab)local ac,ad,ae,af,ag=a.d(),
-a.c(),a.a(),a.i(),a.aa()local ah,ai,aj,b,c=ac.Create,aa.Theme,{},{}ab=ab or{}ab.
-Title=ab.Title or'Keybinds'ab.Draggable=ab.Draggable~=false ab.HideInactive=ab.
-HideInactive==true ab.AnchorPoint=ab.AnchorPoint or Vector2.new(0,0.5)ab.
-Position=ab.Position or UDim2.new(0,16,0.5,0)aj.Body=(ah'Frame'{Name=
-'KeybindList',Active=true,AutomaticSize=Enum.AutomaticSize.Y,BorderSizePixel=0,
-Size=UDim2.fromOffset(200,0),ZIndex=50,Parent=ae.OverlayRoot(aa),__dynamicKeys={
-BackgroundColor3=ai.Controls.Card.Overlay[1],BackgroundTransparency=ai.Controls.
-Card.Overlay[2]},ah'UICorner'{CornerRadius=UDim.new(0,8)},ah'UIStroke'{
-ApplyStrokeMode=Enum.ApplyStrokeMode.Border,__dynamicKeys={Color=ai.Controls.
-ViewBorder[1],Transparency=ai.Controls.ViewBorder[2]}},ah'UIPadding'{
-PaddingBottom=UDim.new(0,8),PaddingLeft=UDim.new(0,10),PaddingRight=UDim.new(0,
-10),PaddingTop=UDim.new(0,8)},ah'UIListLayout'{Padding=UDim.new(0,4),SortOrder=
-Enum.SortOrder.LayoutOrder},ah'Frame'{Name='Header',BackgroundTransparency=1,
-Size=UDim2.new(1,0,0,22),ah'UIListLayout'{FillDirection=Enum.FillDirection.
-Horizontal,Padding=UDim.new(0,7),SortOrder=Enum.SortOrder.LayoutOrder,
-VerticalAlignment=Enum.VerticalAlignment.Center},ah'ImageLabel'{ScaleType=Enum.
-ScaleType.Fit,Name='Icon',BackgroundTransparency=1,Image=af.keyboardFill or af.
-keyboard,Size=UDim2.fromOffset(16,16),ZIndex=50,__dynamicKeys={ImageColor3=ai.
-Controls.Selection[1]}},ah'TextLabel'{Name='Title',AutomaticSize=Enum.
-AutomaticSize.X,BackgroundTransparency=1,FontFace=Font.new(
+fromOffset(0,16),TextSize=13,ZIndex=50,__dynamicKeys={TextColor3=al.Text.Primary
+[1],TextTransparency=al.Text.Primary[2]}}})am.Icon=(am.Body:FindFirstChild'Icon'
+)am.Label=(am.Body:FindFirstChild'Label')local aq,ar=function(aq)return(string.
+gsub(string.gsub(string.gsub(aq,'&','&amp;'),'<','&lt;'),'>','&gt;'))end,
+function()local aq,ar=pcall(function()return ak.Network.ServerStatsItem[
+'Data Ping']:GetValue()end)if aq and typeof(ar)=='number'then return ar end
+local b=aj.LocalPlayer aq,ar=pcall(function()return b:GetNetworkPing()*2000 end)
+return aq and ar or nil end local b,c=function()local b,c=
+' <font transparency="0.6">|</font> ',{'<b>'..aq(tostring(ab.Title))..'</b>'}if
+ab.Text and ab.Text~=''then table.insert(c,aq(tostring(ab.Text)))end if ab.
+ShowFPS then table.insert(c,string.format('%d fps',ap))end if ab.ShowPing then
+local d=ar()table.insert(c,d and string.format('%d ms',math.floor(d+0.5))or
+'-- ms')end if ab.ShowTime then table.insert(c,os.date'%H:%M:%S')end am.Label.
+Text=table.concat(c,b)end c=ai.RenderStepped:Connect(function(d)if not am.Body.
+Parent then c:Disconnect()return end an+=1 ao+=d if ao>=0.5 then ap=math.floor(
+an/ao+0.5)an=0 ao=0 if am.Body.Visible then b()end end end)ag(am.Body.__instance
+,am.Body.__instance,function()return ab.Draggable end)local d=function(d)return
+function(e)ab[d]=e b()end end local e=ad.Wrap(ab,{Title=d'Title',Text=d'Text',
+ShowFPS=d'ShowFPS',ShowPing=d'ShowPing',ShowTime=d'ShowTime',Draggable=function(
+e)ab.Draggable=e end,Icon=function(e)am.Icon.Visible=e~=nil and a.n().Apply(am.
+Icon,e,nil,15)end},am.Body)e.Type='Watermark'e.Theme=aa.Theme e.Structures=am ad
+.Apply(ab,e)b()return e end end function a.ab()local ab=a.cache.ab if not ab
+then ab={c=aa()}a.cache.ab=ab end return ab.c end end do local aa=function()a.b(
+)return function(aa,ab)local ac,ad,ae,af,ag=a.d(),a.c(),a.a(),a.i(),a.aa()local
+ah,ai,aj,ak,al=ac.Create,aa.Theme,{},{}ab=ab or{}ab.Title=ab.Title or'Keybinds'
+ab.Draggable=ab.Draggable~=false ab.HideInactive=ab.HideInactive==true ab.
+AnchorPoint=ab.AnchorPoint or Vector2.new(0,0.5)ab.Position=ab.Position or UDim2
+.new(0,16,0.5,0)aj.Body=(ah'Frame'{Name='KeybindList',Active=true,AutomaticSize=
+Enum.AutomaticSize.Y,BorderSizePixel=0,Size=UDim2.fromOffset(200,0),ZIndex=50,
+Parent=ae.OverlayRoot(aa),__dynamicKeys={BackgroundColor3=ai.Controls.Card.
+Overlay[1],BackgroundTransparency=ai.Controls.Card.Overlay[2]},ah'UICorner'{
+CornerRadius=UDim.new(0,8)},ah'UIStroke'{ApplyStrokeMode=Enum.ApplyStrokeMode.
+Border,__dynamicKeys={Color=ai.Controls.ViewBorder[1],Transparency=ai.Controls.
+ViewBorder[2]}},ah'UIPadding'{PaddingBottom=UDim.new(0,8),PaddingLeft=UDim.new(0
+,10),PaddingRight=UDim.new(0,10),PaddingTop=UDim.new(0,8)},ah'UIListLayout'{
+Padding=UDim.new(0,4),SortOrder=Enum.SortOrder.LayoutOrder},ah'Frame'{Name=
+'Header',BackgroundTransparency=1,Size=UDim2.new(1,0,0,22),ah'UIListLayout'{
+FillDirection=Enum.FillDirection.Horizontal,Padding=UDim.new(0,7),SortOrder=Enum
+.SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},ah
+'ImageLabel'{ScaleType=Enum.ScaleType.Fit,Name='Icon',BackgroundTransparency=1,
+Image=af.keyboardFill or af.keyboard,Size=UDim2.fromOffset(16,16),ZIndex=50,
+__dynamicKeys={ImageColor3=ai.Controls.Selection[1]}},ah'TextLabel'{Name='Title'
+,AutomaticSize=Enum.AutomaticSize.X,BackgroundTransparency=1,FontFace=Font.new(
 'rbxassetid://12187365364',Enum.FontWeight.SemiBold,Enum.FontStyle.Normal),
 LayoutOrder=1,Size=UDim2.fromOffset(0,16),TextSize=13,ZIndex=50,__dynamicKeys={
 TextColor3=ai.Text.Primary[1],TextTransparency=ai.Text.Primary[2]}}},ah'Frame'{
@@ -8337,307 +8407,311 @@ ZIndex=50,__dynamicKeys={TextColor3=ai.Text.Tertiary[1],TextTransparency=ai.Text
 .Tertiary[2]}}})aj.Header=(aj.Body:FindFirstChild'Header')aj.Title=(aj.Header:
 FindFirstChild'Title')aj.List=(aj.Body:FindFirstChild'List')aj.Empty=(aj.Body:
 FindFirstChild'Empty')a.n().Apply(aj.Header:FindFirstChild'Icon','keyboard',af.
-keyboardFill or af.keyboard)local d,e,f=function(d)if d==nil then return'None'
-end if typeof(d)=='EnumItem'then local e=d.Name if e=='MouseButton1'then return
-'MB1'elseif e=='MouseButton2'then return'MB2'elseif e=='MouseButton3'then return
-'MB3'end return e end return tostring(d)end,function()local d=0 for e,f in
-ipairs(b)do local g=not ab.HideInactive or f.Active f.Frame.Visible=g if g then
-d+=1 end end aj.Empty.Visible=d==0 end,function(d)local e=d.Active and ai.Text.
-Primary or ai.Text.Tertiary d.NameLabel.TextColor3=e[1].Value d.NameLabel.
-TextTransparency=e[2].Value d.Dot.BackgroundColor3=d.Active and ai.Controls.
-Selection[1].Value or ai.Text.Tertiary[1].Value d.Dot.BackgroundTransparency=d.
-Active and 0 or ai.Text.Tertiary[2].Value end local g=function(g)g=g or{}g.Name=
-g.Name or'Keybind'g.Mode=g.Mode or'Toggle'g.Active=g.Active==true or g.Mode==
-'Always'local h=ah'Frame'{Name='Entry',BackgroundTransparency=1,LayoutOrder=#b+1
-,Size=UDim2.new(1,0,0,22),Parent=aj.List,ah'Frame'{Name='Dot',AnchorPoint=
-Vector2.new(0,0.5),BorderSizePixel=0,Position=UDim2.fromScale(0,0.5),Size=UDim2.
-fromOffset(6,6),ZIndex=50,ah'UICorner'{CornerRadius=UDim.new(1,0)}},ah
-'TextLabel'{Name='Name',AnchorPoint=Vector2.new(0,0.5),BackgroundTransparency=1,
-FontFace=Font.new'rbxassetid://12187365364',Position=UDim2.new(0,13,0.5,0),Size=
-UDim2.new(1,-80,0,16),TextSize=13,TextTruncate=Enum.TextTruncate.AtEnd,
-TextXAlignment=Enum.TextXAlignment.Left,ZIndex=50},ah'Frame'{Name='Trailing',
-AnchorPoint=Vector2.new(1,0.5),AutomaticSize=Enum.AutomaticSize.X,
-BackgroundTransparency=1,Position=UDim2.fromScale(1,0.5),Size=UDim2.fromOffset(0
-,18),ah'UIListLayout'{FillDirection=Enum.FillDirection.Horizontal,
-HorizontalAlignment=Enum.HorizontalAlignment.Right,Padding=UDim.new(0,5),
-SortOrder=Enum.SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.
-Center},ah'TextLabel'{Name='Mode',AutomaticSize=Enum.AutomaticSize.X,
-BackgroundTransparency=1,FontFace=Font.new'rbxassetid://12187365364',Size=UDim2.
-fromOffset(0,14),TextSize=11,ZIndex=50,__dynamicKeys={TextColor3=ai.Text.
-Tertiary[1],TextTransparency=ai.Text.Tertiary[2]}},ah'TextLabel'{Name='Key',
-AutomaticSize=Enum.AutomaticSize.X,BorderSizePixel=0,FontFace=Font.new(
-'rbxassetid://12187365364',Enum.FontWeight.Medium,Enum.FontStyle.Normal),
-LayoutOrder=1,Size=UDim2.fromOffset(0,18),TextSize=11,ZIndex=50,__dynamicKeys={
-BackgroundColor3=ai.Controls.Card.Hover[1],BackgroundTransparency=ai.Controls.
-Card.Hover[2],TextColor3=ai.Text.Secondary[1],TextTransparency=ai.Text.Secondary
-[2]},ah'UICorner'{CornerRadius=UDim.new(0,4)},ah'UIPadding'{PaddingLeft=UDim.
-new(0,6),PaddingRight=UDim.new(0,6)}}}}local i=h:FindFirstChild'Trailing'local j
-,k={Frame=h,Dot=(h:FindFirstChild'Dot'),NameLabel=(h:FindFirstChild'Name'),
-ModeLabel=(i:FindFirstChild'Mode'),KeyLabel=(i:FindFirstChild'Key'),Active=g.
-Active}k=ad.Wrap(g,{Name=function(l)j.NameLabel.Text=l end,Key=function(l)j.
-KeyLabel.Text=d(l)end,Mode=function(l)j.ModeLabel.Text=string.lower(l)end,Active
-=function(l)j.Active=l==true g.Active=j.Active f(j)e()end},h)k.Type=
-'KeybindListEntry'k.Remove=function()local l=table.find(b,j)if l then table.
-remove(b,l)end h:Destroy()e()end k.Toggle=function()k.Active=not j.Active end j.
-KeyLabel.Text=d(g.Key)table.insert(b,j)ad.Apply(g,k)f(j)e()return k end for h,i
-in{ai.Text.Primary[1],ai.Text.Tertiary[1],ai.Controls.Selection[1]}do i:Connect(
-function()task.defer(function()for j,k in ipairs(b)do f(k)end end)end)end ag(aj.
-Body.__instance,aj.Body.__instance,function()return ab.Draggable end)c=ad.Wrap(
-ab,{Title=function(h)aj.Title.Text=h end,HideInactive=function(h)ab.HideInactive
-=h e()end,Draggable=function(h)ab.Draggable=h end},aj.Body)c.Type='KeybindList'c
-.Theme=aa.Theme c.Structures=aj c.Add=function(h,i)return g(i)end c.Clear=
-function()for h=#b,1,-1 do b[h].Frame:Destroy()b[h]=nil end e()end ad.Apply(ab,c
-)e()return c end end function a.ac()local ab=a.cache.ac if not ab then ab={c=aa(
-)}a.cache.ac=ab end return ab.c end end do local aa=function()a.b()return
-function(aa,ab)local ac,ad,ae=a.d(),a.c(),a.n()local af,ag,ah,ai,aj,b=ac.Create,
-aa.__container or aa.__instance or aa,aa.Theme,'rbxassetid://12187365364',{},{}
-ab=ab or{}ab.Title=ab.Title or'Information'ab.Items=ab.Items or{}aj.Body=(af
-'Frame'{Name='InfoCard',AutomaticSize=Enum.AutomaticSize.Y,BorderSizePixel=0,
-Size=UDim2.fromScale(1,0),Parent=ag,__dynamicKeys={BackgroundColor3=ah.Controls.
-View[1],BackgroundTransparency=ah.Controls.View[2]},af'UICorner'{CornerRadius=
-UDim.new(0,8)},af'UIStroke'{ApplyStrokeMode=Enum.ApplyStrokeMode.Border,
-__dynamicKeys={Color=ah.Controls.ViewBorder[1],Transparency=ah.Controls.
-ViewBorder[2]}},af'UIPadding'{PaddingBottom=UDim.new(0,10),PaddingLeft=UDim.new(
-0,14),PaddingRight=UDim.new(0,14),PaddingTop=UDim.new(0,6)},af'UIListLayout'{
-Padding=UDim.new(0,4),SortOrder=Enum.SortOrder.LayoutOrder},af'Frame'{Name=
-'Header',BackgroundTransparency=1,Size=UDim2.new(1,0,0,36),af'UIListLayout'{
-FillDirection=Enum.FillDirection.Horizontal,Padding=UDim.new(0,8),SortOrder=Enum
-.SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},af
-'ImageLabel'{Name='Icon',BackgroundTransparency=1,ScaleType=Enum.ScaleType.Fit,
-Size=UDim2.fromOffset(18,18),Visible=false,__dynamicKeys={ImageColor3=ah.
-Controls.Selection[1]}},af'TextLabel'{Name='Title',AutomaticSize=Enum.
-AutomaticSize.X,BackgroundTransparency=1,FontFace=Font.new(ai,Enum.FontWeight.
-SemiBold,Enum.FontStyle.Normal),LayoutOrder=1,Size=UDim2.fromOffset(0,18),
-TextSize=14,__dynamicKeys={TextColor3=ah.Text.Primary[1],TextTransparency=ah.
-Text.Primary[2]}}},af'Frame'{Name='List',AutomaticSize=Enum.AutomaticSize.Y,
+keyboardFill or af.keyboard,15)local am,an,ao=function(am)if am==nil then return
+'None'end if typeof(am)=='EnumItem'then local an=am.Name if an=='MouseButton1'
+then return'MB1'elseif an=='MouseButton2'then return'MB2'elseif an==
+'MouseButton3'then return'MB3'end return an end return tostring(am)end,function(
+)local am=0 for an,ao in ipairs(ak)do local ap=not ab.HideInactive or ao.Active
+ao.Frame.Visible=ap if ap then am+=1 end end aj.Empty.Visible=am==0 end,function
+(am)local an=am.Active and ai.Text.Primary or ai.Text.Tertiary am.NameLabel.
+TextColor3=an[1].Value am.NameLabel.TextTransparency=an[2].Value am.Dot.
+BackgroundColor3=am.Active and ai.Controls.Selection[1].Value or ai.Text.
+Tertiary[1].Value am.Dot.BackgroundTransparency=am.Active and 0 or ai.Text.
+Tertiary[2].Value end local ap=function(ap)ap=ap or{}ap.Name=ap.Name or'Keybind'
+ap.Mode=ap.Mode or'Toggle'ap.Active=ap.Active==true or ap.Mode=='Always'local aq
+=ah'Frame'{Name='Entry',BackgroundTransparency=1,LayoutOrder=#ak+1,Size=UDim2.
+new(1,0,0,22),Parent=aj.List,ah'Frame'{Name='Dot',AnchorPoint=Vector2.new(0,0.5)
+,BorderSizePixel=0,Position=UDim2.fromScale(0,0.5),Size=UDim2.fromOffset(6,6),
+ZIndex=50,ah'UICorner'{CornerRadius=UDim.new(1,0)}},ah'TextLabel'{Name='Name',
+AnchorPoint=Vector2.new(0,0.5),BackgroundTransparency=1,FontFace=Font.new
+'rbxassetid://12187365364',Position=UDim2.new(0,13,0.5,0),Size=UDim2.new(1,-80,0
+,16),TextSize=13,TextTruncate=Enum.TextTruncate.AtEnd,TextXAlignment=Enum.
+TextXAlignment.Left,ZIndex=50},ah'Frame'{Name='Trailing',AnchorPoint=Vector2.
+new(1,0.5),AutomaticSize=Enum.AutomaticSize.X,BackgroundTransparency=1,Position=
+UDim2.fromScale(1,0.5),Size=UDim2.fromOffset(0,18),ah'UIListLayout'{
+FillDirection=Enum.FillDirection.Horizontal,HorizontalAlignment=Enum.
+HorizontalAlignment.Right,Padding=UDim.new(0,5),SortOrder=Enum.SortOrder.
+LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},ah'TextLabel'{Name=
+'Mode',AutomaticSize=Enum.AutomaticSize.X,BackgroundTransparency=1,FontFace=Font
+.new'rbxassetid://12187365364',Size=UDim2.fromOffset(0,14),TextSize=11,ZIndex=50
+,__dynamicKeys={TextColor3=ai.Text.Tertiary[1],TextTransparency=ai.Text.Tertiary
+[2]}},ah'TextLabel'{Name='Key',AutomaticSize=Enum.AutomaticSize.X,
+BorderSizePixel=0,FontFace=Font.new('rbxassetid://12187365364',Enum.FontWeight.
+Medium,Enum.FontStyle.Normal),LayoutOrder=1,Size=UDim2.fromOffset(0,18),TextSize
+=11,ZIndex=50,__dynamicKeys={BackgroundColor3=ai.Controls.Card.Hover[1],
+BackgroundTransparency=ai.Controls.Card.Hover[2],TextColor3=ai.Text.Secondary[1]
+,TextTransparency=ai.Text.Secondary[2]},ah'UICorner'{CornerRadius=UDim.new(0,4)}
+,ah'UIPadding'{PaddingLeft=UDim.new(0,6),PaddingRight=UDim.new(0,6)}}}}local ar=
+aq:FindFirstChild'Trailing'local b,c={Frame=aq,Dot=(aq:FindFirstChild'Dot'),
+NameLabel=(aq:FindFirstChild'Name'),ModeLabel=(ar:FindFirstChild'Mode'),KeyLabel
+=(ar:FindFirstChild'Key'),Active=ap.Active}c=ad.Wrap(ap,{Name=function(d)b.
+NameLabel.Text=d end,Key=function(d)b.KeyLabel.Text=am(d)end,Mode=function(d)b.
+ModeLabel.Text=string.lower(d)end,Active=function(d)b.Active=d==true ap.Active=b
+.Active ao(b)an()end},aq)c.Type='KeybindListEntry'c.Remove=function()local d=
+table.find(ak,b)if d then table.remove(ak,d)end aq:Destroy()an()end c.Toggle=
+function()c.Active=not b.Active end b.KeyLabel.Text=am(ap.Key)table.insert(ak,b)
+ad.Apply(ap,c)ao(b)an()return c end for aq,ar in{ai.Text.Primary[1],ai.Text.
+Tertiary[1],ai.Controls.Selection[1]}do ar:Connect(function()task.defer(function
+()for b,c in ipairs(ak)do ao(c)end end)end)end ag(aj.Body.__instance,aj.Body.
+__instance,function()return ab.Draggable end)al=ad.Wrap(ab,{Title=function(aq)aj
+.Title.Text=aq end,HideInactive=function(aq)ab.HideInactive=aq an()end,Draggable
+=function(aq)ab.Draggable=aq end},aj.Body)al.Type='KeybindList'al.Theme=aa.Theme
+al.Structures=aj al.Add=function(aq,ar)return ap(ar)end al.Clear=function()for
+aq=#ak,1,-1 do ak[aq].Frame:Destroy()ak[aq]=nil end an()end ad.Apply(ab,al)an()
+return al end end function a.ac()local ab=a.cache.ac if not ab then ab={c=aa()}a
+.cache.ac=ab end return ab.c end end do local aa=function()a.b()return function(
+aa,ab)local ac,ad,ae=a.d(),a.c(),a.n()local af,ag,ah,ai,aj,ak=ac.Create,aa.
+__container or aa.__instance or aa,aa.Theme,'rbxassetid://12187365364',{},{}ab=
+ab or{}ab.Title=ab.Title or'Information'ab.Items=ab.Items or{}aj.Body=(af'Frame'
+{Name='InfoCard',AutomaticSize=Enum.AutomaticSize.Y,BorderSizePixel=0,Size=UDim2
+.fromScale(1,0),Parent=ag,__dynamicKeys={BackgroundColor3=ah.Controls.View[1],
+BackgroundTransparency=ah.Controls.View[2]},af'UICorner'{CornerRadius=UDim.new(0
+,8)},af'UIStroke'{ApplyStrokeMode=Enum.ApplyStrokeMode.Border,__dynamicKeys={
+Color=ah.Controls.ViewBorder[1],Transparency=ah.Controls.ViewBorder[2]}},af
+'UIPadding'{PaddingBottom=UDim.new(0,10),PaddingLeft=UDim.new(0,14),PaddingRight
+=UDim.new(0,14),PaddingTop=UDim.new(0,6)},af'UIListLayout'{Padding=UDim.new(0,4)
+,SortOrder=Enum.SortOrder.LayoutOrder},af'Frame'{Name='Header',
+BackgroundTransparency=1,Size=UDim2.new(1,0,0,36),af'UIListLayout'{FillDirection
+=Enum.FillDirection.Horizontal,Padding=UDim.new(0,8),SortOrder=Enum.SortOrder.
+LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},af'ImageLabel'{Name
+='Icon',BackgroundTransparency=1,ScaleType=Enum.ScaleType.Fit,Size=UDim2.
+fromOffset(18,18),Visible=false,__dynamicKeys={ImageColor3=ah.Controls.Selection
+[1]}},af'TextLabel'{Name='Title',AutomaticSize=Enum.AutomaticSize.X,
+BackgroundTransparency=1,FontFace=Font.new(ai,Enum.FontWeight.SemiBold,Enum.
+FontStyle.Normal),LayoutOrder=1,Size=UDim2.fromOffset(0,18),TextSize=14,
+__dynamicKeys={TextColor3=ah.Text.Primary[1],TextTransparency=ah.Text.Primary[2]
+}}},af'Frame'{Name='List',AutomaticSize=Enum.AutomaticSize.Y,
 BackgroundTransparency=1,LayoutOrder=1,Size=UDim2.fromScale(1,0),af
 'UIListLayout'{Padding=UDim.new(0,2),SortOrder=Enum.SortOrder.LayoutOrder}}})aj.
 Header=(aj.Body:FindFirstChild'Header')aj.Icon=(aj.Header:FindFirstChild'Icon')
 aj.Title=(aj.Header:FindFirstChild'Title')aj.List=(aj.Body:FindFirstChild'List')
-local c=function(c)local d=c.Item.Value local e,f=d if typeof(d)=='function'then
-local g,h,i=pcall(d)e=g and h or'\u{2014}'f=g and i or nil end f=f or ah.Text.
-Primary c.Value.Text=tostring(e==nil and'\u{2014}'or e)c.Value.TextColor3=f[1].
-Value c.Value.TextTransparency=f[2].Value end local d,e=function(d)local e=af
-'Frame'{Name='Row',BackgroundTransparency=1,LayoutOrder=#b+1,Size=UDim2.new(1,0,
-0,26),Parent=aj.List,af'TextLabel'{Name='Label',AnchorPoint=Vector2.new(0,0.5),
-BackgroundTransparency=1,FontFace=Font.new(ai),Position=UDim2.fromScale(0,0.5),
-Size=UDim2.new(0.45,0,0,18),Text=tostring(d.Label or''),TextSize=14,TextTruncate
-=Enum.TextTruncate.AtEnd,TextXAlignment=Enum.TextXAlignment.Left,__dynamicKeys={
-TextColor3=ah.Text.Secondary[1],TextTransparency=ah.Text.Secondary[2]}},af
-'TextLabel'{Name='Value',AnchorPoint=Vector2.new(1,0.5),BackgroundTransparency=1
-,FontFace=Font.new(ai,Enum.FontWeight.Medium,Enum.FontStyle.Normal),Position=
-UDim2.fromScale(1,0.5),Size=UDim2.new(0.55,0,0,18),TextSize=14,TextTruncate=Enum
-.TextTruncate.AtEnd,TextXAlignment=Enum.TextXAlignment.Right}}local f={Item=d,
-Frame=e,Value=(e:FindFirstChild'Value')}table.insert(b,f)c(f)return f end e=ad.
-Wrap(ab,{Title=function(f)aj.Title.Text=f end,Icon=function(f)aj.Icon.Visible=f
-~=nil and ae.Apply(aj.Icon,f)end,Items=function(f)for g,h in ipairs(b)do h.Frame
-:Destroy()end table.clear(b)for g,h in ipairs(f or{})do d(h)end end},aj.Body)e.
-Type='InfoCard'e.Theme=aa.Theme e.Structures=aj e.Add=function(f,g)d(g)end e.
-Refresh=function()for f,g in ipairs(b)do c(g)end end ad.Apply(ab,e)task.defer(
-function()while aj.Body.Parent do e.Refresh()task.wait(1)end end)return e end
-end function a.ad()local ab=a.cache.ad if not ab then ab={c=aa()}a.cache.ad=ab
+local al=function(al)local am=al.Item.Value local an,ao=am if typeof(am)==
+'function'then local ap,aq,ar=pcall(am)an=ap and aq or'\u{2014}'ao=ap and ar or
+nil end ao=ao or ah.Text.Primary al.Value.Text=tostring(an==nil and'\u{2014}'or
+an)al.Value.TextColor3=ao[1].Value al.Value.TextTransparency=ao[2].Value end
+local am,an=function(am)local an=af'Frame'{Name='Row',BackgroundTransparency=1,
+LayoutOrder=#ak+1,Size=UDim2.new(1,0,0,26),Parent=aj.List,af'TextLabel'{Name=
+'Label',AnchorPoint=Vector2.new(0,0.5),BackgroundTransparency=1,FontFace=Font.
+new(ai),Position=UDim2.fromScale(0,0.5),Size=UDim2.new(0.45,0,0,18),Text=
+tostring(am.Label or''),TextSize=14,TextTruncate=Enum.TextTruncate.AtEnd,
+TextXAlignment=Enum.TextXAlignment.Left,__dynamicKeys={TextColor3=ah.Text.
+Secondary[1],TextTransparency=ah.Text.Secondary[2]}},af'TextLabel'{Name='Value',
+AnchorPoint=Vector2.new(1,0.5),BackgroundTransparency=1,FontFace=Font.new(ai,
+Enum.FontWeight.Medium,Enum.FontStyle.Normal),Position=UDim2.fromScale(1,0.5),
+Size=UDim2.new(0.55,0,0,18),TextSize=14,TextTruncate=Enum.TextTruncate.AtEnd,
+TextXAlignment=Enum.TextXAlignment.Right}}local ao={Item=am,Frame=an,Value=(an:
+FindFirstChild'Value')}table.insert(ak,ao)al(ao)return ao end an=ad.Wrap(ab,{
+Title=function(ao)aj.Title.Text=ao end,Icon=function(ao)aj.Icon.Visible=ao~=nil
+and ae.Apply(aj.Icon,ao,nil,16)end,Items=function(ao)for ap,aq in ipairs(ak)do
+aq.Frame:Destroy()end table.clear(ak)for ap,aq in ipairs(ao or{})do am(aq)end
+end},aj.Body)an.Type='InfoCard'an.Theme=aa.Theme an.Structures=aj an.Add=
+function(ao,ap)am(ap)end an.Refresh=function()for ao,ap in ipairs(ak)do al(ap)
+end end ad.Apply(ab,an)task.defer(function()while aj.Body.Parent do an.Refresh()
+task.wait(1)end end)return an end end function a.ad()local ab=a.cache.ad if not
+ab then ab={c=aa()}a.cache.ad=ab end return ab.c end end do local aa=function()a
+.b()return function(aa,ab)local ac=a.h()ab=ab or{}local ad=aa.__window local ae=
+ab.Manager or(ad and ad.Configs)if not ae then ae=ac.new(typeof(ab.Config)==
+'table'and ab.Config or{})end local af,ag,ah,ai,aj=aa.Theme,{},'',(aa:Groupbox{
+Title=ab.Title or'Configs',Subtitle=ab.Subtitle or
+'Save, load and auto-load your settings',Icon=ab.Icon or'folder-cog',Side=ab.
+Side,Collapsible=false})local ak=function(ak)return ai:Row(ak)end local al=ak{
+Title='Auto-load',Subtitle='No default config'}local am,an=al.Structures.
+TitleStack,ak{Title='Config'}local ao,ap=an:Right():PopUpButton{Options={},
+ValueChanged=function(ao,ap)aj=ag[ap]end},ak{Title='Name',Subtitle=
+'Used by Create'}ap:Right():TextField{Placeholder='Config name',ValueChanged=
+function(aq,ar)ah=ar end,TextChanged=function(aq,ar)ah=ar end}local aq,ar,b=
+function(aq,ar)am.Subtitle=aq am.Structures.Subtitle.TextColor3=(ar or af.Text.
+Secondary)[1].Value end,0,false local c=function()if b then return end local c,d
+=ae:GetDefault()if c then aq(string.format('%s (%s)',c,d=='All'and'all accounts'
+or'this account'),af.Controls.Status.Added)else aq'No default config'end end
+local d,e=function(d)ag=ae:List()ao.Options=ag local e=d or aj or ae.Current
+local f=e and table.find(ag,e)aj=f and ag[f]or nil ao.Value=f c()end,function(d,
+e,f)aq(d and f or(e or'Something went wrong'),d and af.Controls.Status.Added or
+af.Controls.Status.Removed)ar+=1 b=true local g=ar task.delay(2.5,function()if g
+==ar then b=false c()end end)end local f,g=function()if not aj then e(false,
+'Pick a config first','')end return aj end,ak{}g:Right():Button{Label='Create',
+State='Primary',Pushed=function()local h=ae:Sanitize(ah)or ae:NextName'Unnamed'
+if ae:Exists(h)then e(false,h..' already exists','')return end local i,j=ae:
+Save(h)d(h)e(i,j,'Created '..h)end}g:Right():Button{Label='Save',State=
+'Secondary',Pushed=function()local h=f()if h then local i,j=ae:Save(h)e(i,j,
+'Saved '..h)end end}g:Right():Button{Label='Load',State='Secondary',Pushed=
+function()local h=f()if h then local i,j=ae:Load(h)e(i,j,'Loaded '..h)end end}
+local h=ak{}h:Right():Button{Label='Refresh',State='Secondary',Pushed=function()
+d()end}h:Right():Button{Label='Delete',State='Destructive',Pushed=function()
+local i=f()if i then local j=ae:Delete(i)aj=nil d()e(j,'Could not delete '..i,
+'Deleted '..i)end end}ak{Title='Auto-load for this account'}:Right():Button{
+Label='Set',State='Secondary',Pushed=function()local i=f()if i then ae:
+SetDefault(i,'Account')e(true,nil,i..' loads on this account')end end}ak{Title=
+'Auto-load for all accounts'}:Right():Button{Label='Set',State='Secondary',
+Pushed=function()local i=f()if i then ae:SetDefault(i,'All')e(true,nil,i..
+' loads on every account')end end}ak{Title='Remove auto-load'}:Right():Button{
+Label='Clear',State='Destructive',Pushed=function()ae:ClearDefault'Account'ae:
+ClearDefault'All'e(true,nil,'Auto-load removed')end}d()local i=ae.Options.
+Changed ae.Options.Changed=function(...)task.defer(d)if i then i(...)end end ai.
+Manager=ae ai.Refresh=function()d()end return ai end end function a.ae()local ab
+=a.cache.ae if not ab then ab={c=aa()}a.cache.ae=ab end return ab.c end end do
+local aa=function()local aa=a.d()local ab=aa.Value local ac=function(ac,ad)local
+ae=(typeof(ac)=='Color3'and ac)or(typeof(ac)=='string'and Color3.fromHex(ac))
+return{ab(ae),ab(1-(ad/100))}end return{_id='Dark',Text={Primary=ac('FFFFFF',85)
+,Secondary=ac('FFFFFF',55),Tertiary=ac('FFFFFF',25),Quaternary=ac('FFFFFF',10),
+Quinary=ac('FFFFFF',5),SelectionPrimary=ac('FFFFFF',100),PrimaryAccent=ac(
+'FFFFFF',38)},Accents={Red=ac('FF453A',100)},Controls={Background=ac('1C1C1E',
+100),View=ac('1F1F21',100),ViewBorder=ac('FFFFFF',5),WindowControlDisabled=ac(
+'FFFFFF',20),WindowControlIcon=ac('000000',50),WindowControlStroke=ac('FFFFFF',
+10),Exit=ac('FF5F57',100),Minimize=ac('FEBC2E',100),Zoom=ac('28C840',100),
+SwitchAccent=ac('478CF6',100),Selection=ac('007AFF',100),SelectionStroke=ac(
+'007AFF',60),SelectionFocused=ac('0A82FF',100),SelectionFocusedAccent=ac(
+'FFFFFF',85),Sidebar=ac('202023',84),ScrollBar=ac('FFFFFF',35),Separator={
+Background=ac('000000',50),Shadow=ac('FFFFFF',0)},Titlebar=ac('363636',100),
+TitlebarShadow={Background=ac('000000',0),Color=ab(ColorSequence.new{
+ColorSequenceKeypoint.new(0,Color3.fromRGB(0,0,0)),ColorSequenceKeypoint.new(1,
+Color3.fromRGB(255,255,255))}),Transparency=ab(NumberSequence.new{
+NumberSequenceKeypoint.new(0,0.5),NumberSequenceKeypoint.new(1,1)})},Toggle={
+Knob=ac('FFFFFF',100),KnobEffects=ac('FFFFFF',100),SwitchOff=ac('7a7a7a',40),
+SwitchOn=ac('478cf6',100),DepthEffect=ab(ColorSequence.new{ColorSequenceKeypoint
+.new(0,Color3.fromRGB(225,225,225)),ColorSequenceKeypoint.new(0.68,Color3.
+fromRGB(255,255,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(255,255,255))})
+},Slider={Track=ac('2C2C2E',100),TrackEffects=ac('000000',10),Thumb=ac('FFFFFF',
+100),ThumbStroke=ac('000000',20),ThumbEffects=ac('FFFFFF',80)},Button={Shadow=
+ab(Color3.fromRGB(0,0,0)),FillPrimary=ab(ColorSequence.new{ColorSequenceKeypoint
+.new(0,Color3.fromRGB(72,148,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(10
+,110,255))}),FillSecondary=ab(ColorSequence.new{ColorSequenceKeypoint.new(0,
+Color3.fromRGB(60,60,60)),ColorSequenceKeypoint.new(1,Color3.fromRGB(55,55,55))}
+)},Stepper={Background=ac('373737',100),Dropshadow=ac('000000',100),Separator=
+ac('FFFFFF',10),Filler=ac('FFFFFF',4),SegmentShadow=ab(ColorSequence.new{
+ColorSequenceKeypoint.new(0,Color3.fromRGB(0,0,0)),ColorSequenceKeypoint.new(1,
+Color3.fromRGB(0,0,0))})},RadioButtonGroup={Background=ac('373737',100),Dot=ac(
+'FFFFFF',100),Stroke=ac('000000',20),Overlay=ac('FFFFFF',8),InnerShadow=ac(
+'FFFFFF',10)},MenuButton={IndicatorBackground=ac('FFFFFF',10),MenuBackground=ac(
+'2C2C2E',95)},ImageSurface={Gradient=ab(ColorSequence.new{ColorSequenceKeypoint.
+new(0,Color3.fromRGB(255,255,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(
+190,190,190))})},Status={Added=ac('30D158',100),Changed=ac('FF9F0A',100),Removed
+=ac('FF453A',100),Info=ac('64D2FF',100)},Card={Fill=ac('FFFFFF',4),Hover=ac(
+'FFFFFF',8),Overlay=ac('2C2C2E',96)}}}end function a.af()local ab=a.cache.af if
+not ab then ab={c=aa()}a.cache.af=ab end return ab.c end end do local aa=
+function()local aa=a.d()local ab=aa.Value local ac=function(ac,ad)local ae=(
+typeof(ac)=='Color3'and ac)or(typeof(ac)=='string'and Color3.fromHex(ac))return{
+ab(ae),ab(1-(ad/100))}end return{_id='Light',Text={Primary=ac('000000',85),
+Secondary=ac('000000',50),Tertiary=ac('000000',25),Quaternary=ac('000000',10),
+Quinary=ac('000000',5),SelectionPrimary=ac('FFFFFF',100),PrimaryAccent=ac(
+'4D4D4D',100)},Accents={Red=ac('FF3B30',100)},Controls={Background=ac('FFFFFF',
+100),View=ac('FCFCFC',100),ViewBorder=ac('000000',5),WindowControlDisabled=ac(
+'000000',20),WindowControlIcon=ac('000000',50),WindowControlStroke=ac('000000',
+20),Exit=ac('FF5F57',100),Minimize=ac('FEBC2E',100),Zoom=ac('28C840',100),
+SwitchAccent=ac('478CF6',100),Selection=ac('007AFF',100),SelectionStroke=ac(
+'007AFF',50),SelectionFocused=ac('0A82FF',100),SelectionFocusedAccent=ac(
+'FFFFFF',85),Sidebar=ac('EAEAEA',84),ScrollBar=ac('000000',40),Separator={
+Background=ac('000000',18),Shadow=ac('000000',10)},Titlebar=ac('EEEEEE',100),
+TitlebarShadow={Background=ac('EAEAEA',25),Color=ab(ColorSequence.new{
+ColorSequenceKeypoint.new(0,Color3.fromRGB(255,255,255)),ColorSequenceKeypoint.
+new(1,Color3.fromRGB(0,0,0))}),Transparency=ab(NumberSequence.new{
+NumberSequenceKeypoint.new(0,0.35),NumberSequenceKeypoint.new(1,0.35)})},Toggle=
+{Knob=ac('FFFFFF',100),KnobEffects=ac('FFFFFF',100),SwitchOff=ac('000000',9),
+SwitchOn=ac('478CF6',100),DepthEffect=ab(ColorSequence.new{ColorSequenceKeypoint
+.new(0,Color3.fromRGB(225,225,225)),ColorSequenceKeypoint.new(0.68,Color3.
+fromRGB(255,255,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(255,255,255))})
+},Slider={Track=ac('000000',5),TrackEffects=ac('000000',0),Thumb=ac('FFFFFF',100
+),ThumbStroke=ac('000000',2),ThumbEffects=ac('FFFFFF',100)},Button={Shadow=ab(
+Color3.new(0,0,0)),FillPrimary=ab(ColorSequence.new{ColorSequenceKeypoint.new(0,
+Color3.fromRGB(43,145,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(0,122,255
+))}),FillSecondary=ab(ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.
+fromRGB(255,255,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(255,255,255))})
+},Stepper={Background=ac('FFFFFF',100),Dropshadow=ac('000000',100),Separator=ac(
+'000000',22),Filler=ac('000000',5),SegmentShadow=ab(ColorSequence.new{
+ColorSequenceKeypoint.new(0,Color3.fromRGB(0,0,0)),ColorSequenceKeypoint.new(1,
+Color3.fromRGB(255,255,255))})},RadioButtonGroup={Background=ac('FFFFFF',100),
+Dot=ac('FFFFFF',100),Stroke=ac('000000',8),Overlay=ac('FFFFFF',17),InnerShadow=
+ac('000000',10)},MenuButton={IndicatorBackground=ac('000000',5),MenuBackground=
+ac('F6F6F6',95)},ImageSurface={Gradient=ab(ColorSequence.new{
+ColorSequenceKeypoint.new(0,Color3.fromRGB(255,255,255)),ColorSequenceKeypoint.
+new(1,Color3.fromRGB(190,190,190))})},Status={Added=ac('34C759',100),Changed=ac(
+'FF9500',100),Removed=ac('FF3B30',100),Info=ac('32ADE6',100)},Card={Fill=ac(
+'000000',3),Hover=ac('000000',6),Overlay=ac('FFFFFF',96)}}}end function a.ag()
+local ab=a.cache.ag if not ab then ab={c=aa()}a.cache.ag=ab end return ab.c end
+end do local aa=function()return{Dark=a.af(),Light=a.ag()}end function a.ah()
+local ab=a.cache.ah if not ab then ab={c=aa()}a.cache.ah=ab end return ab.c end
+end do local aa=function()local aa=function(aa,ab)return ColorSequence.new{
+ColorSequenceKeypoint.new(0,Color3.fromHex(aa)),ColorSequenceKeypoint.new(1,
+Color3.fromHex(ab))}end return{Blue={_id='Blue',Dark={SwitchAccent=Color3.
+fromHex'#0A84FF',Selection=Color3.fromHex'#007AFF',SelectionFocused=Color3.
+fromHex'#0A82FF',Toggle={SwitchOn=Color3.fromHex'#0A84FF'},Button={FillPrimary=
+ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(72,148,255)),
+ColorSequenceKeypoint.new(1,Color3.fromRGB(10,110,255))}}},Light={SwitchAccent=
+Color3.fromHex'#0A84FF',Selection=Color3.fromHex'#007AFF',SelectionFocused=
+Color3.fromHex'#0A82FF',Toggle={SwitchOn=Color3.fromHex'#0A84FF'},Button={
+FillPrimary=ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(43,145,
+255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(0,122,255))}}}},Purple={_id=
+'Purple',Dark={SwitchAccent=Color3.fromHex'#BF5AF2',Selection=Color3.fromHex
+'#9B35D4',SelectionFocused=Color3.fromHex'#AE4FE0',Toggle={SwitchOn=Color3.
+fromHex'#BF5AF2'},Button={FillPrimary=aa('#AE4FE0','#7A18B8')}},Light={
+SwitchAccent=Color3.fromHex'#AF52DE',Selection=Color3.fromHex'#8C2EC0',
+SelectionFocused=Color3.fromHex'#9E42CA',Toggle={SwitchOn=Color3.fromHex
+'#AF52DE'},Button={FillPrimary=aa('#9E42CA','#7010A8')}}},Pink={_id='Pink',Dark=
+{SwitchAccent=Color3.fromHex'#FF375F',Selection=Color3.fromHex'#D4163E',
+SelectionFocused=Color3.fromHex'#E83058',Toggle={SwitchOn=Color3.fromHex
+'#FF375F'},Button={FillPrimary=aa('#E83058','#C00030')}},Light={SwitchAccent=
+Color3.fromHex'#FF2D55',Selection=Color3.fromHex'#C8103A',SelectionFocused=
+Color3.fromHex'#DC2A50',Toggle={SwitchOn=Color3.fromHex'#FF2D55'},Button={
+FillPrimary=aa('#DC2A50','#B4002C')}}},Red={_id='Red',Dark={SwitchAccent=Color3.
+fromHex'#FF453A',Selection=Color3.fromHex'#D4201A',SelectionFocused=Color3.
+fromHex'#E83830',Toggle={SwitchOn=Color3.fromHex'#FF453A'},Button={FillPrimary=
+aa('#E83830','#BC0E08')}},Light={SwitchAccent=Color3.fromHex'#FF3B30',Selection=
+Color3.fromHex'#C81A10',SelectionFocused=Color3.fromHex'#DC2E24',Toggle={
+SwitchOn=Color3.fromHex'#FF3B30'},Button={FillPrimary=aa('#DC2E24','#B00808')}}}
+,Orange={_id='Orange',Dark={SwitchAccent=Color3.fromHex'#FF9F0A',Selection=
+Color3.fromHex'#C86800',SelectionFocused=Color3.fromHex'#E07C00',Toggle={
+SwitchOn=Color3.fromHex'#FF9F0A'},Button={FillPrimary=aa('#E07C00','#A85000')}},
+Light={SwitchAccent=Color3.fromHex'#FF9500',Selection=Color3.fromHex'#BC6000',
+SelectionFocused=Color3.fromHex'#D47000',Toggle={SwitchOn=Color3.fromHex
+'#FF9500'},Button={FillPrimary=aa('#D47000','#A04800')}}},Yellow={_id='Yellow',
+Dark={SwitchAccent=Color3.fromHex'#FFD60A',Selection=Color3.fromHex'#A87800',
+SelectionFocused=Color3.fromHex'#C49000',Toggle={SwitchOn=Color3.fromHex
+'#FFD60A'},Button={FillPrimary=aa('#C49000','#8C6000')}},Light={SwitchAccent=
+Color3.fromHex'#FFCC00',Selection=Color3.fromHex'#9C7000',SelectionFocused=
+Color3.fromHex'#B88400',Toggle={SwitchOn=Color3.fromHex'#FFCC00'},Button={
+FillPrimary=aa('#B88400','#845800')}}},Green={_id='Green',Dark={SwitchAccent=
+Color3.fromHex'#32D74B',Selection=Color3.fromHex'#1A9030',SelectionFocused=
+Color3.fromHex'#24A83C',Toggle={SwitchOn=Color3.fromHex'#32D74B'},Button={
+FillPrimary=aa('#24A83C','#0E7020')}},Light={SwitchAccent=Color3.fromHex
+'#28CD41',Selection=Color3.fromHex'#148428',SelectionFocused=Color3.fromHex
+'#1E9C34',Toggle={SwitchOn=Color3.fromHex'#28CD41'},Button={FillPrimary=aa(
+'#1E9C34','#0C6818')}}},Graphite={_id='Graphite',Dark={SwitchAccent=Color3.
+fromHex'#98989D',Selection=Color3.fromHex'#58585C',SelectionFocused=Color3.
+fromHex'#6E6E72',Toggle={SwitchOn=Color3.fromHex'#98989D'},Button={FillPrimary=
+aa('#6E6E72','#404044')}},Light={SwitchAccent=Color3.fromHex'#8E8E93',Selection=
+Color3.fromHex'#4E4E52',SelectionFocused=Color3.fromHex'#626266',Toggle={
+SwitchOn=Color3.fromHex'#8E8E93'},Button={FillPrimary=aa('#626266','#383838')}}}
+}end function a.ai()local ab=a.cache.ai if not ab then ab={c=aa()}a.cache.ai=ab
 end return ab.c end end do local aa=function()a.b()return function(aa,ab)local
-ac=a.h()ab=ab or{}local ad=aa.__window local ae=ab.Manager or(ad and ad.Configs)
-if not ae then ae=ac.new(typeof(ab.Config)=='table'and ab.Config or{})end local
-af,ag,ah,ai,aj=aa.Theme,{},'',(aa:Groupbox{Title=ab.Title or'Configs',Subtitle=
-ab.Subtitle or'Save, load and auto-load your settings',Icon=ab.Icon or
-'folder-cog',Side=ab.Side,Collapsible=false})local b=function(b)return ai:Row(b)
-end local c=b{Title='Auto-load',Subtitle='No default config'}local d,e=c.
-Structures.TitleStack,b{Title='Config'}local f,g=e:Right():PopUpButton{Options={
-},ValueChanged=function(f,g)aj=ag[g]end},b{Title='Name',Subtitle=
-'Used by Create'}g:Right():TextField{Placeholder='Config name',ValueChanged=
-function(h,i)ah=i end,TextChanged=function(h,i)ah=i end}local h,i,j=function(h,i
-)d.Subtitle=h d.Structures.Subtitle.TextColor3=(i or af.Text.Secondary)[1].Value
-end,0,false local k=function()if j then return end local k,l=ae:GetDefault()if k
-then h(string.format('%s (%s)',k,l=='All'and'all accounts'or'this account'),af.
-Controls.Status.Added)else h'No default config'end end local l,m=function(l)ag=
-ae:List()f.Options=ag local m=l or aj or ae.Current local n=m and table.find(ag,
-m)aj=n and ag[n]or nil f.Value=n k()end,function(l,m,n)h(l and n or(m or
-'Something went wrong'),l and af.Controls.Status.Added or af.Controls.Status.
-Removed)i+=1 j=true local o=i task.delay(2.5,function()if o==i then j=false k()
-end end)end local n,o=function()if not aj then m(false,'Pick a config first','')
-end return aj end,b{}o:Right():Button{Label='Create',State='Primary',Pushed=
-function()local p=ae:Sanitize(ah)or ae:NextName'Unnamed'if ae:Exists(p)then m(
-false,p..' already exists','')return end local q,r=ae:Save(p)l(p)m(q,r,
-'Created '..p)end}o:Right():Button{Label='Save',State='Secondary',Pushed=
-function()local p=n()if p then local q,r=ae:Save(p)m(q,r,'Saved '..p)end end}o:
-Right():Button{Label='Load',State='Secondary',Pushed=function()local p=n()if p
-then local q,r=ae:Load(p)m(q,r,'Loaded '..p)end end}local p=b{}p:Right():Button{
-Label='Refresh',State='Secondary',Pushed=function()l()end}p:Right():Button{Label
-='Delete',State='Destructive',Pushed=function()local q=n()if q then local r=ae:
-Delete(q)aj=nil l()m(r,'Could not delete '..q,'Deleted '..q)end end}b{Title=
-'Auto-load for this account'}:Right():Button{Label='Set',State='Secondary',
-Pushed=function()local q=n()if q then ae:SetDefault(q,'Account')m(true,nil,q..
-' loads on this account')end end}b{Title='Auto-load for all accounts'}:Right():
-Button{Label='Set',State='Secondary',Pushed=function()local q=n()if q then ae:
-SetDefault(q,'All')m(true,nil,q..' loads on every account')end end}b{Title=
-'Remove auto-load'}:Right():Button{Label='Clear',State='Destructive',Pushed=
-function()ae:ClearDefault'Account'ae:ClearDefault'All'm(true,nil,
-'Auto-load removed')end}l()local q=ae.Options.Changed ae.Options.Changed=
-function(...)task.defer(l)if q then q(...)end end ai.Manager=ae ai.Refresh=
-function()l()end return ai end end function a.ae()local ab=a.cache.ae if not ab
-then ab={c=aa()}a.cache.ae=ab end return ab.c end end do local aa=function()
-local aa=a.d()local ab=aa.Value local ac=function(ac,ad)local ae=(typeof(ac)==
-'Color3'and ac)or(typeof(ac)=='string'and Color3.fromHex(ac))return{ab(ae),ab(1-
-(ad/100))}end return{_id='Dark',Text={Primary=ac('FFFFFF',85),Secondary=ac(
-'FFFFFF',55),Tertiary=ac('FFFFFF',25),Quaternary=ac('FFFFFF',10),Quinary=ac(
-'FFFFFF',5),SelectionPrimary=ac('FFFFFF',100),PrimaryAccent=ac('FFFFFF',38)},
-Accents={Red=ac('FF453A',100)},Controls={Background=ac('1C1C1E',100),View=ac(
-'1F1F21',100),ViewBorder=ac('FFFFFF',5),WindowControlDisabled=ac('FFFFFF',20),
-WindowControlIcon=ac('000000',50),WindowControlStroke=ac('FFFFFF',10),Exit=ac(
-'FF5F57',100),Minimize=ac('FEBC2E',100),Zoom=ac('28C840',100),SwitchAccent=ac(
-'478CF6',100),Selection=ac('007AFF',100),SelectionStroke=ac('007AFF',60),
-SelectionFocused=ac('0A82FF',100),SelectionFocusedAccent=ac('FFFFFF',85),Sidebar
-=ac('202023',84),ScrollBar=ac('FFFFFF',35),Separator={Background=ac('000000',50)
-,Shadow=ac('FFFFFF',0)},Titlebar=ac('363636',100),TitlebarShadow={Background=ac(
-'000000',0),Color=ab(ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.
-fromRGB(0,0,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(255,255,255))}),
-Transparency=ab(NumberSequence.new{NumberSequenceKeypoint.new(0,0.5),
-NumberSequenceKeypoint.new(1,1)})},Toggle={Knob=ac('FFFFFF',100),KnobEffects=ac(
-'FFFFFF',100),SwitchOff=ac('7a7a7a',40),SwitchOn=ac('478cf6',100),DepthEffect=
-ab(ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(225,225,225)),
-ColorSequenceKeypoint.new(0.68,Color3.fromRGB(255,255,255)),
-ColorSequenceKeypoint.new(1,Color3.fromRGB(255,255,255))})},Slider={Track=ac(
-'2C2C2E',100),TrackEffects=ac('000000',10),Thumb=ac('FFFFFF',100),ThumbStroke=
-ac('000000',20),ThumbEffects=ac('FFFFFF',80)},Button={Shadow=ab(Color3.fromRGB(0
-,0,0)),FillPrimary=ab(ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.
-fromRGB(72,148,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(10,110,255))}),
-FillSecondary=ab(ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(60
-,60,60)),ColorSequenceKeypoint.new(1,Color3.fromRGB(55,55,55))})},Stepper={
-Background=ac('373737',100),Dropshadow=ac('000000',100),Separator=ac('FFFFFF',10
-),Filler=ac('FFFFFF',4),SegmentShadow=ab(ColorSequence.new{ColorSequenceKeypoint
-.new(0,Color3.fromRGB(0,0,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(0,0,0))
-})},RadioButtonGroup={Background=ac('373737',100),Dot=ac('FFFFFF',100),Stroke=
-ac('000000',20),Overlay=ac('FFFFFF',8),InnerShadow=ac('FFFFFF',10)},MenuButton={
-IndicatorBackground=ac('FFFFFF',10),MenuBackground=ac('2C2C2E',95)},ImageSurface
-={Gradient=ab(ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(255,
-255,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(190,190,190))})},Status={
-Added=ac('30D158',100),Changed=ac('FF9F0A',100),Removed=ac('FF453A',100),Info=
-ac('64D2FF',100)},Card={Fill=ac('FFFFFF',4),Hover=ac('FFFFFF',8),Overlay=ac(
-'2C2C2E',96)}}}end function a.af()local ab=a.cache.af if not ab then ab={c=aa()}
-a.cache.af=ab end return ab.c end end do local aa=function()local aa=a.d()local
-ab=aa.Value local ac=function(ac,ad)local ae=(typeof(ac)=='Color3'and ac)or(
-typeof(ac)=='string'and Color3.fromHex(ac))return{ab(ae),ab(1-(ad/100))}end
-return{_id='Light',Text={Primary=ac('000000',85),Secondary=ac('000000',50),
-Tertiary=ac('000000',25),Quaternary=ac('000000',10),Quinary=ac('000000',5),
-SelectionPrimary=ac('FFFFFF',100),PrimaryAccent=ac('4D4D4D',100)},Accents={Red=
-ac('FF3B30',100)},Controls={Background=ac('FFFFFF',100),View=ac('FCFCFC',100),
-ViewBorder=ac('000000',5),WindowControlDisabled=ac('000000',20),
-WindowControlIcon=ac('000000',50),WindowControlStroke=ac('000000',20),Exit=ac(
-'FF5F57',100),Minimize=ac('FEBC2E',100),Zoom=ac('28C840',100),SwitchAccent=ac(
-'478CF6',100),Selection=ac('007AFF',100),SelectionStroke=ac('007AFF',50),
-SelectionFocused=ac('0A82FF',100),SelectionFocusedAccent=ac('FFFFFF',85),Sidebar
-=ac('EAEAEA',84),ScrollBar=ac('000000',40),Separator={Background=ac('000000',18)
-,Shadow=ac('000000',10)},Titlebar=ac('EEEEEE',100),TitlebarShadow={Background=
-ac('EAEAEA',25),Color=ab(ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.
-fromRGB(255,255,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(0,0,0))}),
-Transparency=ab(NumberSequence.new{NumberSequenceKeypoint.new(0,0.35),
-NumberSequenceKeypoint.new(1,0.35)})},Toggle={Knob=ac('FFFFFF',100),KnobEffects=
-ac('FFFFFF',100),SwitchOff=ac('000000',9),SwitchOn=ac('478CF6',100),DepthEffect=
-ab(ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(225,225,225)),
-ColorSequenceKeypoint.new(0.68,Color3.fromRGB(255,255,255)),
-ColorSequenceKeypoint.new(1,Color3.fromRGB(255,255,255))})},Slider={Track=ac(
-'000000',5),TrackEffects=ac('000000',0),Thumb=ac('FFFFFF',100),ThumbStroke=ac(
-'000000',2),ThumbEffects=ac('FFFFFF',100)},Button={Shadow=ab(Color3.new(0,0,0)),
-FillPrimary=ab(ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(43,
-145,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(0,122,255))}),FillSecondary
-=ab(ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(255,255,255)),
-ColorSequenceKeypoint.new(1,Color3.fromRGB(255,255,255))})},Stepper={Background=
-ac('FFFFFF',100),Dropshadow=ac('000000',100),Separator=ac('000000',22),Filler=
-ac('000000',5),SegmentShadow=ab(ColorSequence.new{ColorSequenceKeypoint.new(0,
-Color3.fromRGB(0,0,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(255,255,255))}
-)},RadioButtonGroup={Background=ac('FFFFFF',100),Dot=ac('FFFFFF',100),Stroke=ac(
-'000000',8),Overlay=ac('FFFFFF',17),InnerShadow=ac('000000',10)},MenuButton={
-IndicatorBackground=ac('000000',5),MenuBackground=ac('F6F6F6',95)},ImageSurface=
-{Gradient=ab(ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(255,
-255,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(190,190,190))})},Status={
-Added=ac('34C759',100),Changed=ac('FF9500',100),Removed=ac('FF3B30',100),Info=
-ac('32ADE6',100)},Card={Fill=ac('000000',3),Hover=ac('000000',6),Overlay=ac(
-'FFFFFF',96)}}}end function a.ag()local ab=a.cache.ag if not ab then ab={c=aa()}
-a.cache.ag=ab end return ab.c end end do local aa=function()return{Dark=a.af(),
-Light=a.ag()}end function a.ah()local ab=a.cache.ah if not ab then ab={c=aa()}a.
-cache.ah=ab end return ab.c end end do local aa=function()local aa=function(aa,
-ab)return ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromHex(aa)),
-ColorSequenceKeypoint.new(1,Color3.fromHex(ab))}end return{Blue={_id='Blue',Dark
-={SwitchAccent=Color3.fromHex'#0A84FF',Selection=Color3.fromHex'#007AFF',
-SelectionFocused=Color3.fromHex'#0A82FF',Toggle={SwitchOn=Color3.fromHex
-'#0A84FF'},Button={FillPrimary=ColorSequence.new{ColorSequenceKeypoint.new(0,
-Color3.fromRGB(72,148,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(10,110,
-255))}}},Light={SwitchAccent=Color3.fromHex'#0A84FF',Selection=Color3.fromHex
-'#007AFF',SelectionFocused=Color3.fromHex'#0A82FF',Toggle={SwitchOn=Color3.
-fromHex'#0A84FF'},Button={FillPrimary=ColorSequence.new{ColorSequenceKeypoint.
-new(0,Color3.fromRGB(43,145,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(0,
-122,255))}}}},Purple={_id='Purple',Dark={SwitchAccent=Color3.fromHex'#BF5AF2',
-Selection=Color3.fromHex'#9B35D4',SelectionFocused=Color3.fromHex'#AE4FE0',
-Toggle={SwitchOn=Color3.fromHex'#BF5AF2'},Button={FillPrimary=aa('#AE4FE0',
-'#7A18B8')}},Light={SwitchAccent=Color3.fromHex'#AF52DE',Selection=Color3.
-fromHex'#8C2EC0',SelectionFocused=Color3.fromHex'#9E42CA',Toggle={SwitchOn=
-Color3.fromHex'#AF52DE'},Button={FillPrimary=aa('#9E42CA','#7010A8')}}},Pink={
-_id='Pink',Dark={SwitchAccent=Color3.fromHex'#FF375F',Selection=Color3.fromHex
-'#D4163E',SelectionFocused=Color3.fromHex'#E83058',Toggle={SwitchOn=Color3.
-fromHex'#FF375F'},Button={FillPrimary=aa('#E83058','#C00030')}},Light={
-SwitchAccent=Color3.fromHex'#FF2D55',Selection=Color3.fromHex'#C8103A',
-SelectionFocused=Color3.fromHex'#DC2A50',Toggle={SwitchOn=Color3.fromHex
-'#FF2D55'},Button={FillPrimary=aa('#DC2A50','#B4002C')}}},Red={_id='Red',Dark={
-SwitchAccent=Color3.fromHex'#FF453A',Selection=Color3.fromHex'#D4201A',
-SelectionFocused=Color3.fromHex'#E83830',Toggle={SwitchOn=Color3.fromHex
-'#FF453A'},Button={FillPrimary=aa('#E83830','#BC0E08')}},Light={SwitchAccent=
-Color3.fromHex'#FF3B30',Selection=Color3.fromHex'#C81A10',SelectionFocused=
-Color3.fromHex'#DC2E24',Toggle={SwitchOn=Color3.fromHex'#FF3B30'},Button={
-FillPrimary=aa('#DC2E24','#B00808')}}},Orange={_id='Orange',Dark={SwitchAccent=
-Color3.fromHex'#FF9F0A',Selection=Color3.fromHex'#C86800',SelectionFocused=
-Color3.fromHex'#E07C00',Toggle={SwitchOn=Color3.fromHex'#FF9F0A'},Button={
-FillPrimary=aa('#E07C00','#A85000')}},Light={SwitchAccent=Color3.fromHex
-'#FF9500',Selection=Color3.fromHex'#BC6000',SelectionFocused=Color3.fromHex
-'#D47000',Toggle={SwitchOn=Color3.fromHex'#FF9500'},Button={FillPrimary=aa(
-'#D47000','#A04800')}}},Yellow={_id='Yellow',Dark={SwitchAccent=Color3.fromHex
-'#FFD60A',Selection=Color3.fromHex'#A87800',SelectionFocused=Color3.fromHex
-'#C49000',Toggle={SwitchOn=Color3.fromHex'#FFD60A'},Button={FillPrimary=aa(
-'#C49000','#8C6000')}},Light={SwitchAccent=Color3.fromHex'#FFCC00',Selection=
-Color3.fromHex'#9C7000',SelectionFocused=Color3.fromHex'#B88400',Toggle={
-SwitchOn=Color3.fromHex'#FFCC00'},Button={FillPrimary=aa('#B88400','#845800')}}}
-,Green={_id='Green',Dark={SwitchAccent=Color3.fromHex'#32D74B',Selection=Color3.
-fromHex'#1A9030',SelectionFocused=Color3.fromHex'#24A83C',Toggle={SwitchOn=
-Color3.fromHex'#32D74B'},Button={FillPrimary=aa('#24A83C','#0E7020')}},Light={
-SwitchAccent=Color3.fromHex'#28CD41',Selection=Color3.fromHex'#148428',
-SelectionFocused=Color3.fromHex'#1E9C34',Toggle={SwitchOn=Color3.fromHex
-'#28CD41'},Button={FillPrimary=aa('#1E9C34','#0C6818')}}},Graphite={_id=
-'Graphite',Dark={SwitchAccent=Color3.fromHex'#98989D',Selection=Color3.fromHex
-'#58585C',SelectionFocused=Color3.fromHex'#6E6E72',Toggle={SwitchOn=Color3.
-fromHex'#98989D'},Button={FillPrimary=aa('#6E6E72','#404044')}},Light={
-SwitchAccent=Color3.fromHex'#8E8E93',Selection=Color3.fromHex'#4E4E52',
-SelectionFocused=Color3.fromHex'#626266',Toggle={SwitchOn=Color3.fromHex
-'#8E8E93'},Button={FillPrimary=aa('#626266','#383838')}}}}end function a.ai()
-local ab=a.cache.ai if not ab then ab={c=aa()}a.cache.ai=ab end return ab.c end
-end do local aa=function()a.b()return function(aa,ab)local ac,ad,ae=a.e(),a.ah()
-,a.ai()local af=ac.UserInputService ab=ab or{}local ag=aa.__window or aa local
-ah,ai=ag.__app,aa:Tab{Title=ab.Title or'Settings',Icon=ab.Icon or'settings',
-Selected=ab.Selected==true}local aj=ai:Groupbox{Side='Left',Title='Interface',
-Subtitle='Look and behaviour of the menu',Icon='palette',Collapsible=false}if ah
-then local b={'Dark','Light'}aj:Row{Title='Theme'}:Right():RadioButtonGroup{Flag
-=ab.ThemeFlag or'UI_Theme',Options=b,Value=(ah.Theme and ah.Theme._id=='Light')
-and 2 or 1,ValueChanged=function(c,d)local e=ad[b[d] ]if e and(not ah.Theme or
-ah.Theme._id~=e._id)then ah.Theme=e end end}local c={}for d in pairs(ae)do table
-.insert(c,d)end table.sort(c)aj:Row{Title='Accent'}:Right():PopUpButton{Flag=ab.
-AccentFlag or'UI_Accent',Options=c,Value=table.find(c,ah.Accent and ah.Accent.
-_id or'Blue')or 1,ValueChanged=function(d,e)local f=ae[d.Options[e] ]if f and(
-not ah.Accent or ah.Accent._id~=f._id)then ah.Accent=f end end}end local b=ab.
-MenuKey or Enum.KeyCode.RightControl aj:Row{Title='Menu keybind',Subtitle=
-'Shows / hides the menu'}:Right():KeybindField{Flag=ab.MenuKeyFlag or
-'UI_MenuKey',Value=b,ValueChanged=function(c,d)b=d end}local c=af.InputBegan:
-Connect(function(c)if c.KeyCode~=b or af:GetFocusedTextBox()then return end ag.
-Minimized=not ag.Minimized end)ag.Destroying:Connect(function()c:Disconnect()end
-)aj:Row{Title='Censor name'}:Right():Toggle{Value=ag.CensorName==true,
-ValueChanged=function(d,e)ag.CensorName=e end}aj:Row{Title='Hide avatar'}:Right(
-):Toggle{Value=ag.HideAvatar==true,ValueChanged=function(d,e)ag.HideAvatar=e end
-}if ab.Watermark then aj:Row{Title='Show watermark'}:Right():Toggle{Flag=
-'UI_Watermark',Value=ab.Watermark.Visible~=false,ValueChanged=function(d,e)ab.
-Watermark.Visible=e end}end if ab.KeybindList then aj:Row{Title=
-'Show keybind list'}:Right():Toggle{Flag='UI_KeybindList',Value=ab.KeybindList.
-Visible~=false,ValueChanged=function(d,e)ab.KeybindList.Visible=e end}end if ag.
-Unload then aj:Row{Title='Unload',Subtitle='Removes the whole UI'}:Right():
-Button{Label='Unload',State='Destructive',Pushed=function()ag:Unload()end}end ai
-:ConfigManager{Side='Right',Manager=ag.Configs}return ai end end function a.aj()
+ac,ad,ae=a.e(),a.ah(),a.ai()local af=ac.UserInputService ab=ab or{}local ag=aa.
+__window or aa local ah,ai=ag.__app,aa:Tab{Title=ab.Title or'Settings',Icon=ab.
+Icon or'settings',Selected=ab.Selected==true}local aj=ai:Groupbox{Side='Left',
+Title='Interface',Subtitle='Look and behaviour of the menu',Icon='palette',
+Collapsible=false}if ah then local ak={'Dark','Light'}aj:Row{Title='Theme'}:
+Right():RadioButtonGroup{Flag=ab.ThemeFlag or'UI_Theme',Options=ak,Value=(ah.
+Theme and ah.Theme._id=='Light')and 2 or 1,ValueChanged=function(al,am)local an=
+ad[ak[am] ]if an and(not ah.Theme or ah.Theme._id~=an._id)then ah.Theme=an end
+end}local al={}for am in pairs(ae)do table.insert(al,am)end table.sort(al)aj:Row
+{Title='Accent'}:Right():PopUpButton{Flag=ab.AccentFlag or'UI_Accent',Options=al
+,Value=table.find(al,ah.Accent and ah.Accent._id or'Blue')or 1,ValueChanged=
+function(am,an)local ao=ae[am.Options[an] ]if ao and(not ah.Accent or ah.Accent.
+_id~=ao._id)then ah.Accent=ao end end}end local ak=ab.MenuKey or Enum.KeyCode.
+RightControl aj:Row{Title='Menu keybind',Subtitle='Shows / hides the menu'}:
+Right():KeybindField{Flag=ab.MenuKeyFlag or'UI_MenuKey',Value=ak,ValueChanged=
+function(al,am)ak=am end}local al=af.InputBegan:Connect(function(al)if al.
+KeyCode~=ak or af:GetFocusedTextBox()then return end ag.Minimized=not ag.
+Minimized end)ag.Destroying:Connect(function()al:Disconnect()end)aj:Row{Title=
+'Censor name'}:Right():Toggle{Value=ag.CensorName==true,ValueChanged=function(am
+,an)ag.CensorName=an end}aj:Row{Title='Hide avatar'}:Right():Toggle{Value=ag.
+HideAvatar==true,ValueChanged=function(am,an)ag.HideAvatar=an end}if ab.
+Watermark then aj:Row{Title='Show watermark'}:Right():Toggle{Flag='UI_Watermark'
+,Value=ab.Watermark.Visible~=false,ValueChanged=function(am,an)ab.Watermark.
+Visible=an end}end if ab.KeybindList then aj:Row{Title='Show keybind list'}:
+Right():Toggle{Flag='UI_KeybindList',Value=ab.KeybindList.Visible~=false,
+ValueChanged=function(am,an)ab.KeybindList.Visible=an end}end if ag.Unload then
+aj:Row{Title='Unload',Subtitle='Removes the whole UI'}:Right():Button{Label=
+'Unload',State='Destructive',Pushed=function()ag:Unload()end}end ai:
+ConfigManager{Side='Right',Manager=ag.Configs}return ai end end function a.aj()
 local ab=a.cache.aj if not ab then ab={c=aa()}a.cache.aj=ab end return ab.c end
 end do local aa=function()local aa,ab,ac,ad,ae=a.c(),a.f(),a.g(),{Window=a.t(),
 Section=a.u(),Tab=a.w(),PageSection=a.y(),Form=a.z(),Row=a.B(),HStack=a.C(),
@@ -8648,56 +8722,58 @@ ImageSurface=a.V(),Groupbox=a.X(),Columns=a.W(),UpdateLog=a.Y(),InviteCard=a.Z()
 ,Dashboard=a._(),Watermark=a.ab(),KeybindList=a.ac(),InfoCard=a.ad(),
 ConfigManager=a.ae(),Settings=a.aj()},function(aa)if debug and debug.traceback
 then return debug.traceback(aa)end return tostring(aa)end local af=function(af,
-ag)return function(ah,...)local ai,aj=table.pack(...),ab.FromContext(ah)local b,
-c,d,e=aj and aj:_Begin(ah,af,ai[1]),xpcall(function()return ag(ah,table.unpack(
-ai,1,ai.n))end,ae)if not c then if aj then aj:_Cancel(b)end error(d,2)end if
-typeof(d)=='Instance'or(typeof(d)=='table'and getmetatable(d)and typeof(
-getmetatable(d))=='Instance')then e=d d=aa.Wrap({},{},d)end if typeof(d)==
-'table'then if d.Type==nil then d.Type=af end if d.Theme==nil and ah and ah.
-Theme then d.Theme=ah.Theme end end aa.Apply(ad,d)local f=ai[1]if typeof(f)==
-'table'and f.Flag~=nil and typeof(d)=='table'then ac:Register(f.Flag,d)end local
-g=e or(typeof(d)=='table'and pcall(function()return d.__instance end)and d.
-__instance)if g~=nil then table.insert(__SH.COMPINDEXES,g)if aj then aj:_Commit(
-b,d,g)end return d,g end if aj then aj:_Commit(b,d,nil)end return d end end for
-ag,ah in pairs(ad)do ad[ag]=af(ag,ah)end function ad.register(ag,ah)ad[ag]=af(ag
-,ah)end return ad end function a.ak()local ab=a.cache.ak if not ab then ab={c=
-aa()}a.cache.ak=ab end return ab.c end end end local aa,ab,ac,ad,ae,af,ag,ah,ai,
-aj,b,c=a.a(),a.b(),a.d(),a.c(),a.e(),a.f(),a.g(),a.h(),a.i(),a.ak(),a.ah(),a.ai(
-)local d,e,f,g,h=ac.Create,ae.TweenService,{Themes=b,Accents=c,Symbols=ai,
-Creator=ac,Binder=ad,Components=aj,AppRecorder=af,Flags=ag,Config=ah},(TweenInfo
-.new(0.4,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out))local function i
-(j,k)local l={}for m,n in pairs(j)do local o=typeof(n)if o=='table'then if n.
-Value~=nil and n.Connect and typeof(n.Connect)=='function'then l[m]=ac.Value(n.
-Value)else l[m]=i(n)end else l[m]=n end end if k and not j._id then j._id=k end
-return l end local function j(k,l)for m,n in pairs(l)do local o=k[m]if not o and
-type(k)=='table'and type(k.Controls)=='table'then o=k.Controls[m]end if not o
-then continue end if type(o)=='table'and o.Connect then o.Value=n elseif type(o)
-=='table'and o[1]and o[1].Connect and typeof(n)=='Color3'then o[1].Value=n
-elseif type(o)=='table'and type(n)=='table'then j(o,n)end end end local k=
-function(k,l,m)local function n(o,p)for q,r in pairs(p)do if type(r)=='table'and
-type(o[q])=='table'and not r.Value then n(o[q],r)elseif o[q]and r and r.Value~=
-nil then o[q].Value=r.Value end end end n(k,l)if m and m[l._id]then j(k,m[l._id]
-)end end f.New=function(l)if not game:IsLoaded()then game.Loaded:Wait()end l=l
-or{}local m,n=l.Theme or b.Light,l.Accent or c.Blue local o=m l.Theme=i(m)l.
-Accent=i(n)k(l.Theme,m,n)local p=(aa.ProtectUI(d'ScreenGui'{Name='Cascade',
+ag)return function(ah,...)local ai,aj=table.pack(...),ab.FromContext(ah)local ak
+,al,am,an=aj and aj:_Begin(ah,af,ai[1]),xpcall(function()return ag(ah,table.
+unpack(ai,1,ai.n))end,ae)if not al then if aj then aj:_Cancel(ak)end error(am,2)
+end if typeof(am)=='Instance'or(typeof(am)=='table'and getmetatable(am)and
+typeof(getmetatable(am))=='Instance')then an=am am=aa.Wrap({},{},am)end if
+typeof(am)=='table'then if am.Type==nil then am.Type=af end if am.Theme==nil and
+ah and ah.Theme then am.Theme=ah.Theme end end aa.Apply(ad,am)local ao=ai[1]if
+typeof(ao)=='table'and ao.Flag~=nil and typeof(am)=='table'then ac:Register(ao.
+Flag,am)end local ap=an or(typeof(am)=='table'and pcall(function()return am.
+__instance end)and am.__instance)if ap~=nil then table.insert(__SH.COMPINDEXES,
+ap)if aj then aj:_Commit(ak,am,ap)end return am,ap end if aj then aj:_Commit(ak,
+am,nil)end return am end end for ag,ah in pairs(ad)do ad[ag]=af(ag,ah)end
+function ad.register(ag,ah)ad[ag]=af(ag,ah)end return ad end function a.ak()
+local ab=a.cache.ak if not ab then ab={c=aa()}a.cache.ak=ab end return ab.c end
+end end local aa,ab,ac,ad,ae,af,ag,ah,ai,aj,ak,al=a.a(),a.b(),a.d(),a.c(),a.e(),
+a.f(),a.g(),a.h(),a.i(),a.ak(),a.ah(),a.ai()local am,an,ao,ap,aq=ac.Create,ae.
+TweenService,{Themes=ak,Accents=al,Symbols=ai,Creator=ac,Binder=ad,Components=aj
+,AppRecorder=af,Flags=ag,Config=ah},(TweenInfo.new(0.4,Enum.EasingStyle.
+Exponential,Enum.EasingDirection.Out))local function ar(b,c)local d={}for e,f in
+pairs(b)do local g=typeof(f)if g=='table'then if f.Value~=nil and f.Connect and
+typeof(f.Connect)=='function'then d[e]=ac.Value(f.Value)else d[e]=ar(f)end else
+d[e]=f end end if c and not b._id then b._id=c end return d end local function b
+(c,d)for e,f in pairs(d)do local g=c[e]if not g and type(c)=='table'and type(c.
+Controls)=='table'then g=c.Controls[e]end if not g then continue end if type(g)
+=='table'and g.Connect then g.Value=f elseif type(g)=='table'and g[1]and g[1].
+Connect and typeof(f)=='Color3'then g[1].Value=f elseif type(g)=='table'and
+type(f)=='table'then b(g,f)end end end local c=function(c,d,e)local function f(g
+,h)for i,j in pairs(h)do if type(j)=='table'and type(g[i])=='table'and not j.
+Value then f(g[i],j)elseif g[i]and j and j.Value~=nil then g[i].Value=j.Value
+end end end f(c,d)if e and e[d._id]then b(c,e[d._id])end end task.spawn(a.n().
+LoadLucide)ao.New=function(d)if not game:IsLoaded()then game.Loaded:Wait()end d=
+d or{}local e,f=d.Theme or ak.Light,d.Accent or al.Blue local g=e d.Theme=ar(e)d
+.Accent=ar(f)c(d.Theme,e,f)local h=(aa.ProtectUI(am'ScreenGui'{Name='Cascade',
 IgnoreGuiInset=true,ResetOnSpawn=false,ZIndexBehavior=Enum.ZIndexBehavior.
-Sibling,DisplayOrder=200,OnTopOfCoreBlur=true}))local q=(d'ImageButton'{Name=
+Sibling,DisplayOrder=200,OnTopOfCoreBlur=true}))local i=(am'ImageButton'{Name=
 'WindowPill',AnchorPoint=Vector2.new(0.5,0),AutoButtonColor=false,
 BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
 BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Image=
 'rbxassetid://93520763686656',ImageTransparency=0.5,Position=UDim2.new(0.5,0,0,
-10),Size=UDim2.fromOffset(180,5),Parent=p.__instance,d'UICorner'{Name='UICorner'
-,CornerRadius=UDim.new(1,0)}})q.MouseEnter:Connect(function()if h then h:Cancel(
-)end h=e:Create(q.__instance,g,{ImageTransparency=0.15})if h then h:Play()end
-end)q.MouseLeave:Connect(function()if h then h:Cancel()end h=e:Create(q.
-__instance,g,{ImageTransparency=0.5})if h then h:Play()end end)local r=ad.Wrap(l
-,{WindowPill=function(r)q.Visible=r end,Theme=function(r)o=r k(l.Theme,r,l.
-Accent)end,Accent=function(r)l.Accent=i(r,r._id)k(l.Theme,o,r)end},p,{'Theme',
-'Accent'})r.Structures={WindowPill=q}setmetatable(l,{__index=aj})ad.Apply(l,r)
-task.defer(ad.Apply,l,r)return r end f.Component=function(l)l=l or{}local m,n=l.
-Theme or b.Light,l.Accent or c.Blue local o=m l.Theme=i(m)l.Accent=i(n)k(l.Theme
-,m,n)local p=ad.Wrap(l,{Theme=function(p)o=p k(l.Theme,p,l.Accent)end,Accent=
-function(p)l.Accent=i(p,p._id)k(l.Theme,o,p)end},nil,{'Theme','Accent'})if l.
-Parent then p.__container=l.Parent end setmetatable(l,{__index=aj})ad.Apply(l,p)
-task.defer(ad.Apply,l,p)return p end f.RegisterComponent=function(l,m)aj.
-register(l,m)end f.AppDump=function(l,m)return af.DumpApp(l,m)end return f
+10),Size=UDim2.fromOffset(180,5),Parent=h.__instance,am'UICorner'{Name=
+'UICorner',CornerRadius=UDim.new(1,0)}})i.MouseEnter:Connect(function()if aq
+then aq:Cancel()end aq=an:Create(i.__instance,ap,{ImageTransparency=0.15})if aq
+then aq:Play()end end)i.MouseLeave:Connect(function()if aq then aq:Cancel()end
+aq=an:Create(i.__instance,ap,{ImageTransparency=0.5})if aq then aq:Play()end end
+)local j=ad.Wrap(d,{WindowPill=function(j)i.Visible=j end,Theme=function(j)g=j
+c(d.Theme,j,d.Accent)end,Accent=function(j)d.Accent=ar(j,j._id)c(d.Theme,g,j)end
+},h,{'Theme','Accent'})j.Structures={WindowPill=i}setmetatable(d,{__index=aj})ad
+.Apply(d,j)task.defer(ad.Apply,d,j)return j end ao.Component=function(d)d=d or{}
+local e,f=d.Theme or ak.Light,d.Accent or al.Blue local g=e d.Theme=ar(e)d.
+Accent=ar(f)c(d.Theme,e,f)local h=ad.Wrap(d,{Theme=function(h)g=h c(d.Theme,h,d.
+Accent)end,Accent=function(h)d.Accent=ar(h,h._id)c(d.Theme,g,h)end},nil,{'Theme'
+,'Accent'})if d.Parent then h.__container=d.Parent end setmetatable(d,{__index=
+aj})ad.Apply(d,h)task.defer(ad.Apply,d,h)return h end ao.RegisterComponent=
+function(d,e)aj.register(d,e)end ao.AppDump=function(d,e)return af.DumpApp(d,e)
+end return ao

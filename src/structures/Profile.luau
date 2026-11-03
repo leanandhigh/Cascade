@@ -205,8 +205,8 @@ return function(self)
 	structures.Settings.BackgroundTransparency = 1
 
 	local icons = require("@modules/icons")
-	icons.Apply(structures.Placeholder, "user", symbols.personFill or symbols.person)
-	icons.Apply(structures.Settings:FindFirstChild("Icon"), "settings", symbols.gearshapeFill)
+	icons.Apply(structures.Placeholder, "user", symbols.personFill or symbols.person, 15)
+	icons.Apply(structures.Settings:FindFirstChild("Icon"), "settings", symbols.gearshapeFill, 14)
 
 	structures.Settings.MouseEnter:Connect(function()
 		structures.Settings.BackgroundTransparency = self.Theme.Controls.Card.Hover[2].Value

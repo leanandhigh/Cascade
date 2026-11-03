@@ -341,6 +341,103 @@ return function(self, properties: types.WindowProperties): types.Window
 	structures.Profile = profileStructure
 	structures.Profile.Body.Parent = structures.Sidebar
 
+	-- Brand header (logo + name) at the top of the sidebar, same height as the titlebar
+	structures.Brand = create("Frame")({
+		Name = "Brand",
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		Size = UDim2.new(1, 0, 0, 52),
+		Visible = false,
+		Parent = structures.Sidebar,
+
+		create("UIPadding")({
+			PaddingLeft = UDim.new(0, 14),
+			PaddingRight = UDim.new(0, 12),
+		}),
+
+		create("UIListLayout")({
+			FillDirection = Enum.FillDirection.Horizontal,
+			Padding = UDim.new(0, 10),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+		}),
+
+		create("Frame")({
+			Name = "LogoHolder",
+			BorderSizePixel = 0,
+			Size = UDim2.fromOffset(30, 30),
+
+			create("UICorner")({
+				CornerRadius = UDim.new(0, 8),
+			}),
+
+			create("ImageLabel")({
+				Name = "Logo",
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				BackgroundTransparency = 1,
+				Position = UDim2.fromScale(0.5, 0.5),
+				ScaleType = Enum.ScaleType.Fit,
+				Size = UDim2.fromScale(1, 1),
+
+				create("UICorner")({
+					CornerRadius = UDim.new(0, 8),
+				}),
+			}),
+		}),
+
+		create("Frame")({
+			Name = "Texts",
+			BackgroundTransparency = 1,
+			LayoutOrder = 1,
+			Size = UDim2.new(1, -40, 1, 0),
+
+			create("UIListLayout")({
+				Padding = UDim.new(0, 1),
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+			}),
+
+			create("TextLabel")({
+				Name = "Name",
+				BackgroundTransparency = 1,
+				FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Bold, Enum.FontStyle.Normal),
+				Size = UDim2.new(1, 0, 0, 18),
+				TextSize = 16,
+				TextTruncate = Enum.TextTruncate.AtEnd,
+				TextXAlignment = Enum.TextXAlignment.Left,
+
+				__dynamicKeys = {
+					TextColor3 = self.Theme.Text.Primary[1],
+					TextTransparency = self.Theme.Text.Primary[2],
+				},
+			}),
+
+			create("TextLabel")({
+				Name = "Subtitle",
+				BackgroundTransparency = 1,
+				FontFace = Font.new("rbxassetid://12187365364"),
+				LayoutOrder = 1,
+				Size = UDim2.new(1, 0, 0, 14),
+				TextSize = 12,
+				TextTruncate = Enum.TextTruncate.AtEnd,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				Visible = false,
+
+				__dynamicKeys = {
+					TextColor3 = self.Theme.Text.Secondary[1],
+					TextTransparency = self.Theme.Text.Secondary[2],
+				},
+			}),
+		}),
+	})
+
+	local brandBody = structures.Brand.__instance
+	local brandLogoHolder = brandBody:FindFirstChild("LogoHolder")
+	local brandLogo = brandLogoHolder:FindFirstChild("Logo")
+	local brandTexts = brandBody:FindFirstChild("Texts")
+	local brandName = brandTexts:FindFirstChild("Name")
+	local brandSubtitle = brandTexts:FindFirstChild("Subtitle")
+
 	structures.ProfileMenu = popover.new(self, { Name = "ProfileMenu", Width = 180 })
 
 	local PROFILE_HEIGHT = 62
@@ -350,8 +447,16 @@ return function(self, properties: types.WindowProperties): types.Window
 		return properties.WindowControls and 52 or 0
 	end
 
+	local function hasBrand(): boolean
+		return properties.Logo ~= nil or properties.Brand ~= nil
+	end
+
 	local function layoutSidebar()
-		local top = toolbarHeight()
+		local controls = toolbarHeight()
+		local top = controls + (hasBrand() and 52 or 0)
+
+		structures.Brand.Visible = hasBrand()
+		structures.Brand.Position = UDim2.fromOffset(0, controls)
 		local bottom = properties.UserProfile and PROFILE_HEIGHT or 0
 		local padding = structures.SidebarList:FindFirstChild("UIPadding")
 
@@ -360,7 +465,7 @@ return function(self, properties: types.WindowProperties): types.Window
 		structures.SidebarList.Size = UDim2.new(1, 0, 1, -(top + bottom))
 
 		if padding then
-			padding.PaddingTop = UDim.new(0, properties.WindowControls and 0 or 12)
+			padding.PaddingTop = UDim.new(0, (properties.WindowControls or hasBrand()) and 4 or 12)
 		end
 	end
 
@@ -662,6 +767,56 @@ return function(self, properties: types.WindowProperties): types.Window
 		properties.WindowControls = value
 		layoutSidebar()
 	end
+	-- Branding (logo + name at the top of the sidebar)
+	local function refreshBrand()
+		local logo = properties.Logo
+		local icon = logo ~= nil and require("@modules/icons").Get(logo)
+		local isGlyph = icon and icon.ImageRectSize.X > 0
+
+		brandLogoHolder.Visible = logo ~= nil
+
+		if logo ~= nil then
+			require("@modules/icons").Apply(brandLogo, logo)
+
+			-- Lucide glyphs get an accent tile; your own logo image is shown as-is
+			brandLogo.Size = isGlyph and UDim2.fromOffset(18, 18) or UDim2.fromScale(1, 1)
+			brandLogo.ImageColor3 = isGlyph and self.Theme.Controls.Selection[1].Value or Color3.new(1, 1, 1)
+			brandLogoHolder.BackgroundColor3 = self.Theme.Controls.Selection[1].Value
+			brandLogoHolder.BackgroundTransparency = isGlyph and 0.85 or 1
+		end
+
+		brandName.Text = properties.Brand or properties.Title or ""
+		brandSubtitle.Text = properties.BrandSubtitle or ""
+		brandSubtitle.Visible = properties.BrandSubtitle ~= nil
+		brandTexts.Size = UDim2.new(1, logo ~= nil and -40 or 0, 1, 0)
+
+		layoutSidebar()
+	end
+
+	self.Theme.Controls.Selection[1]:Connect(function()
+		task.defer(refreshBrand)
+	end)
+
+	-- Lucide may still be loading in the background; restyle the logo when it's ready
+	require("@modules/icons").WhenReady(function()
+		if properties.Logo ~= nil then
+			refreshBrand()
+		end
+	end)
+
+	bindings.Logo = function(value)
+		properties.Logo = value
+		refreshBrand()
+	end
+	bindings.Brand = function(value: string?)
+		properties.Brand = value
+		refreshBrand()
+	end
+	bindings.BrandSubtitle = function(value: string?)
+		properties.BrandSubtitle = value
+		refreshBrand()
+	end
+
 	bindings.CanUnload = function(value: boolean)
 		structures.Titlebar.Unload.Visible = value
 	end
@@ -1080,23 +1235,48 @@ return function(self, properties: types.WindowProperties): types.Window
 
 	binder.Apply(properties, object)
 
-	local function recheck() -- Due to roblox resizing issues
-		-- If there's a better way to do this please tell me or make a PR
-		for i, v in pairs(structures.Body:GetDescendants()) do
-			if not pcall(function()
-				return v.Size
-			end) then
-				continue
+	-- Roblox sometimes lays out AutomaticSize frames wrong on first render. This used to resize
+	-- every descendant twice in one frame (thousands of resizes + their listeners = lag spike on
+	-- execute). Now: one cheap nudge of the window, then a single pass over only the auto-sized
+	-- descendants, spread across frames.
+	local function nudge()
+		local body = structures.Body.__instance
+		local original = body.Size
+
+		body.Size = original + UDim2.fromOffset(1, 0)
+		body.Size = original
+	end
+
+	local function recheck()
+		local body = structures.Body.__instance
+
+		if not body.Parent then
+			return
+		end
+
+		local processed = 0
+
+		for _, descendant in ipairs(body:GetDescendants()) do
+			if descendant:IsA("GuiObject") and descendant.AutomaticSize ~= Enum.AutomaticSize.None then
+				local original = descendant.Size
+
+				descendant.Size = UDim2.fromOffset(0, 0)
+				descendant.Size = original
+
+				processed += 1
+
+				if processed % 150 == 0 then
+					task.wait()
+
+					if not body.Parent then
+						return
+					end
+				end
 			end
-
-			local original = v.Size
-
-			v.Size = UDim2.fromOffset(0, 0)
-			v.Size = original
 		end
 	end
 
-	task.defer(recheck)
+	task.defer(nudge)
 	task.delay(1, recheck)
 
 	return object

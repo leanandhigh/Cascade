@@ -30,7 +30,10 @@ export type Icon = {
 local icons = {
 	Provider = nil,
 	Loaded = false,
+	Loading = false,
 	Cache = {},
+	Pending = {}, -- targets waiting for Lucide: { target, name, fallback, spriteSize }
+	Waiters = {},
 }
 
 local ZERO = Vector2.new(0, 0)
@@ -55,12 +58,20 @@ function icons.SetProvider(provider)
 	table.clear(icons.Cache)
 end
 
+local applyNow
+
+-- Loads Lucide once. Called in the background when Cascade starts, so building the UI never
+-- waits on HttpGet; icons applied before it finishes are updated when it does.
 function icons.LoadLucide(): boolean
 	if icons.Loaded then
 		return icons.Provider ~= nil
 	end
 
-	icons.Loaded = true
+	if icons.Loading then
+		return false
+	end
+
+	icons.Loading = true
 
 	local ok, provider = pcall(function()
 		local source = game:HttpGet(LUCIDE_URL)
@@ -71,10 +82,36 @@ function icons.LoadLucide(): boolean
 
 	if ok and typeof(provider) == "table" and typeof(provider.GetAsset) == "function" then
 		icons.Provider = provider
-		return true
 	end
 
-	return false
+	icons.Loading = false
+	icons.Loaded = true
+	table.clear(icons.Cache)
+
+	local pending = icons.Pending
+	icons.Pending = {}
+
+	for _, entry in ipairs(pending) do
+		pcall(applyNow, entry[1], entry[2], entry[3], entry[4])
+	end
+
+	local waiters = icons.Waiters
+	icons.Waiters = {}
+
+	for _, callback in ipairs(waiters) do
+		task.spawn(callback)
+	end
+
+	return icons.Provider ~= nil
+end
+
+-- Runs `callback` once Lucide finished loading (right away if it already has)
+function icons.WhenReady(callback: () -> ())
+	if icons.Loaded then
+		task.spawn(callback)
+	else
+		table.insert(icons.Waiters, callback)
+	end
 end
 
 function icons.Get(name): Icon?
@@ -102,7 +139,7 @@ function icons.Get(name): Icon?
 		result = plain(name)
 	else
 		-- Lucide first (kebab-case names), then Cascade symbols (camelCase names)
-		if icons.LoadLucide() then
+		if icons.Provider then
 			local ok, asset = pcall(icons.Provider.GetAsset, name)
 
 			if ok and asset then
@@ -119,14 +156,15 @@ function icons.Get(name): Icon?
 		end
 	end
 
-	icons.Cache[name] = result or false
+	-- Don't cache misses while Lucide is still loading, the name may resolve once it's in
+	if result or icons.Loaded then
+		icons.Cache[name] = result or false
+	end
 
 	return result
 end
 
--- Sets Image / ImageRectOffset / ImageRectSize on an ImageLabel or ImageButton.
--- Returns true when an icon was applied.
-function icons.Apply(target, name, fallback): boolean
+function applyNow(target, name, fallback, spriteSize: number?): boolean
 	local icon = icons.Get(name)
 
 	if not icon and fallback ~= nil then
@@ -138,9 +176,34 @@ function icons.Apply(target, name, fallback): boolean
 		target.ImageRectOffset = icon and icon.ImageRectOffset or ZERO
 		target.ImageRectSize = icon and icon.ImageRectSize or ZERO
 		target.ScaleType = Enum.ScaleType.Fit
+
+		-- Lucide glyphs fill their whole box (SF symbols have built-in margin), so they get a smaller box
+		if spriteSize and icon and icon.ImageRectSize.X > 0 then
+			target.Size = UDim2.fromOffset(spriteSize, spriteSize)
+		end
 	end)
 
 	return icon ~= nil
+end
+
+-- Sets Image / ImageRectOffset / ImageRectSize on an ImageLabel or ImageButton.
+-- `spriteSize` (optional) resizes the image when a Lucide sprite is used.
+-- Returns true when an icon was (or will be, once Lucide loads) applied.
+function icons.Apply(target, name, fallback, spriteSize: number?): boolean
+	if name == nil and fallback == nil then
+		return false
+	end
+
+	local applied = applyNow(target, name, fallback, spriteSize)
+
+	-- Lucide still loading and this looks like a Lucide name: update it when it arrives
+	if icons.Loading and typeof(name) == "string" and string.find(name, "^[%l%d%-]+$") then
+		table.insert(icons.Pending, { target, name, fallback, spriteSize })
+
+		return true
+	end
+
+	return applied
 end
 
 return icons

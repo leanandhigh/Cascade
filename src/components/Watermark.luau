@@ -227,7 +227,7 @@ return function(self, properties: types.WatermarkProperties): types.Watermark
 			properties.Draggable = value
 		end,
 		Icon = function(value: string?)
-			structures.Icon.Visible = value ~= nil and require("@modules/icons").Apply(structures.Icon, value)
+			structures.Icon.Visible = value ~= nil and require("@modules/icons").Apply(structures.Icon, value, nil, 15)
 		end,
 	}, structures.Body)
 

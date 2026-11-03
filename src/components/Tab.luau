@@ -187,7 +187,7 @@ return function(self, properties: types.TabProperties): types.Tab
 		end,
 		Icon = function(icon: string?)
 			-- Lucide names ("house"), Cascade symbols or asset ids
-			structures.Symbol.Visible = icon ~= nil and require("@modules/icons").Apply(structures.Symbol, icon)
+			structures.Symbol.Visible = icon ~= nil and require("@modules/icons").Apply(structures.Symbol, icon, nil, 16)
 		end,
 		Indentation = function(indentation: number)
 			structures.Padding.PaddingLeft += UDim.new(0, (11 * indentation))

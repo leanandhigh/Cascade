@@ -210,7 +210,7 @@ return function(self, properties: types.InfoCardProperties): types.InfoCard
 			structures.Title.Text = value
 		end,
 		Icon = function(value)
-			structures.Icon.Visible = value ~= nil and icons.Apply(structures.Icon, value)
+			structures.Icon.Visible = value ~= nil and icons.Apply(structures.Icon, value, nil, 16)
 		end,
 		Items = function(items)
 			for _, row in ipairs(rows) do

@@ -13,7 +13,14 @@
 - `InfoCard` component.
 - `Window`: unload button in the titlebar (`CanUnload`, `Unloaded`, `window:Unload()`).
 - `cascade.Flags` and `cascade.Config`: any component created with `Flag = "..."` is saved by configs.
-- More padding inside Button, TextField and PopUpButton.
+- More padding inside Button, TextField and PopUpButton; TextField is left-aligned with a fill and no longer clips its text.
+- `Window` branding: `Logo`, `Brand`, `BrandSubtitle` (logo header at the top of the sidebar).
+- Lucide icons load in the background (no HttpGet while building the UI) and are sized down to match the old symbols.
+
+### Performance
+
+- Theme values only notify on real changes (thousands fewer updates on load).
+- The window's layout fix no longer resizes every element twice in one frame; it nudges once and spreads a single pass over auto-sized elements across frames.
 - New components: `Groupbox` (with `Side = "Left" | "Right"`), `Columns`, `Dashboard`, `UpdateLog`, `InviteCard`, `Watermark`, `KeybindList`.
 - `Row`: `Title` / `Subtitle` properties create its TitleStack for you.
 - `KeybindField`: `KeybindList`, `KeybindName`, `KeybindMode` to show the bind in a `KeybindList`.

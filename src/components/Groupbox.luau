@@ -121,7 +121,7 @@ return function(self, properties: types.GroupboxProperties): types.Groupbox
 				BackgroundTransparency = 0.85,
 				BorderSizePixel = 0,
 				Position = UDim2.fromScale(0, 0.5),
-				Size = UDim2.fromOffset(30, 30),
+				Size = UDim2.fromOffset(28, 28),
 				Visible = false,
 
 				__dynamicKeys = {
@@ -265,7 +265,7 @@ return function(self, properties: types.GroupboxProperties): types.Groupbox
 	structures.Clip = structures.Body:FindFirstChild("Clip") :: Frame
 	structures.Content = structures.Clip:FindFirstChild("Content") :: Frame
 
-	icons.Apply(structures.Chevron, "chevron-down", symbols.chevronDown)
+	icons.Apply(structures.Chevron, "chevron-down", symbols.chevronDown, 14)
 
 	local function contentHeight(): number
 		return structures.Content.AbsoluteSize.Y
@@ -283,7 +283,7 @@ return function(self, properties: types.GroupboxProperties): types.Groupbox
 
 	local function layoutHeader()
 		local hasIcon = structures.IconHolder.Visible
-		local leading = hasIcon and 42 or 0
+		local leading = hasIcon and 40 or 0
 		local trailing = properties.Collapsible and 24 or 0
 
 		structures.TitleStack.Position = UDim2.new(0, leading, 0.5, 0)
@@ -340,7 +340,7 @@ return function(self, properties: types.GroupboxProperties): types.Groupbox
 			structures.Subtitle.Text = value or ""
 		end,
 		Icon = function(value: string?)
-			structures.IconHolder.Visible = value ~= nil and icons.Apply(structures.Icon, value)
+			structures.IconHolder.Visible = value ~= nil and icons.Apply(structures.Icon, value, nil, 16)
 			layoutHeader()
 		end,
 		Collapsible = function(value: boolean)

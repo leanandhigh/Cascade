@@ -83,6 +83,7 @@ local app = cascade.New({
 --// Overlays (live on the app, outside of the window)
 local watermark = app:Watermark({
 	Title = "My Hub",
+	Icon = "gem", -- same as the window logo
 	Text = "Premium",
 	ShowFPS = true,
 	ShowPing = true,
@@ -95,9 +96,19 @@ local keybinds = app:KeybindList({
 })
 
 --// Window
+local LOGO = "gem" -- your logo: an asset id (eg. 1234567890 / "rbxassetid://1234567890") or a Lucide icon name
+
 local window = app:Window({
 	Title = "My Hub",
 	Subtitle = "Anime Adventures",
+
+	-- Branding: logo + name at the top-left of the sidebar
+	Logo = LOGO,
+	Brand = "My Hub",
+	BrandSubtitle = "Premium",
+
+	-- The acrylic blur uses a DepthOfField effect that costs FPS on weaker devices
+	UIBlur = false,
 	Size = userInputService.TouchEnabled and UDim2.fromOffset(550, 325) or UDim2.fromOffset(850, 530),
 
 	-- Profile card (bottom-left). The gear opens Censor Name / Hide Avatar + the options below.
