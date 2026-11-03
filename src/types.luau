@@ -462,6 +462,9 @@ export type KeybindFieldProperties = Frame & {
 	KeybindName: string?,
 	KeybindMode: ("Toggle" | "Hold" | "Always")?,
 	ModeChanged: ((self: KeybindField, mode: string) -> ())?,
+	ToggleFlag: string?, -- link to a toggle by its Flag: the keybind's mode drives it
+	LinkedToggle: any?, -- or link to a Toggle object directly
+	ActiveChanged: ((self: KeybindField, active: boolean) -> ())?,
 	Value: Enum.KeyCode?,
 	BindPressed: ((
 		self: KeybindField,

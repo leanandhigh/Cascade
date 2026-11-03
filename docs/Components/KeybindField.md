@@ -92,3 +92,23 @@ Right-click a KeybindField (long-press on mobile) for a menu, like Obsidian's ke
 - **Remove**: unbinds it (shows "None"). Pressing Escape while binding does the same.
 
 `KeybindMode` sets the starting mode, `ModeChanged(self, mode)` fires when it changes, and `:OpenMenu()` opens the menu from code. With a `Flag`, configs save the key as `Flag` and the mode as `Flag .. "Mode"`. A removed bind has the value `Enum.KeyCode.Unknown`.
+
+## Linking to a toggle
+
+`ToggleFlag = "AutoFarm"` (or `LinkedToggle = toggleObject`) links the keybind to a toggle, like Obsidian's `SyncToggleState`. The mode then drives the toggle:
+
+- **Toggle**: each press flips it
+- **Hold**: on while the key is held, off when released
+- **Always**: on as soon as the mode is picked
+
+Clicking the toggle (or loading a config) updates the keybind's state, so the keybind list always matches. `:IsActive()`, `:SetActive(bool)` and `ActiveChanged(self, active)` give you the state directly.
+
+```luau
+row:Right():KeybindField({
+    Flag = "FarmKey",
+    Value = Enum.KeyCode.F,
+    KeybindList = keybinds,
+    KeybindName = "Auto Farm",
+    ToggleFlag = "AutoFarm",
+})
+```

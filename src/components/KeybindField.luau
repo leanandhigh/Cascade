@@ -5,6 +5,12 @@
 	Escape while binding also removes it. A removed bind shows "None".
 
 	With a Flag, the key is saved as `Flag` and the mode as `Flag .. "Mode"`.
+
+	Linking to a toggle (like Obsidian's SyncToggleState): ToggleFlag = "AutoFarm" (or LinkedToggle = toggle)
+	makes the keybind drive that toggle according to its mode —
+		Toggle: each press flips it      Hold: on while held, off on release
+		Always: on as soon as the mode is picked
+	and clicking the toggle updates the keybind's state too.
 ]]
 
 local types = require("@types")
@@ -61,7 +67,66 @@ return function(self, properties: types.KeybindFieldProperties): types.KeybindFi
 		})
 	end
 
+	-- Note: not `properties.Toggle` — every component constructor (Toggle, Label...) is copied onto
+	-- component objects, so that name would be the Toggle constructor function.
+	local function linkedToggle()
+		local toggle = properties.LinkedToggle
+
+		return typeof(toggle) == "table" and toggle or nil
+	end
+
+	--// Active state (shared by the keybind list entry and the linked toggle)
 	local object
+	local active = false
+	local syncing = false
+	local ready = false -- mode changes during setup don't touch the toggle (startup sync below)
+
+	local function readToggle(): boolean?
+		if linkedToggle() then
+			return linkedToggle().Value == true
+		elseif properties.ToggleFlag ~= nil then
+			return flags:Get(properties.ToggleFlag) == true
+		end
+
+		return nil
+	end
+
+	local function writeToggle(value: boolean)
+		if linkedToggle() then
+			if linkedToggle().Value ~= value then
+				linkedToggle().Value = value
+			end
+		elseif properties.ToggleFlag ~= nil then
+			if flags:Get(properties.ToggleFlag) ~= value then
+				flags:Set(properties.ToggleFlag, value)
+			end
+		end
+	end
+
+	local function setActive(value: boolean, fromToggle: boolean?)
+		value = value == true
+
+		if active == value and (fromToggle or readToggle() == nil or readToggle() == value) then
+			return
+		end
+
+		active = value
+
+		if listEntry then
+			listEntry.Active = value
+		end
+
+		if not fromToggle and not syncing then
+			syncing = true
+			writeToggle(value)
+			syncing = false
+		end
+
+		if properties.ActiveChanged then
+			task.spawn(properties.ActiveChanged, object, value)
+		end
+	end
+
 	object = binder.Wrap(properties, {
 		Placeholder = function(value: string)
 			structures.Field.PlaceholderText = value
@@ -93,12 +158,15 @@ return function(self, properties: types.KeybindFieldProperties): types.KeybindFi
 
 			if listEntry then
 				listEntry.Mode = value
+			end
 
-				if value == "Always" then
-					listEntry.Active = true
-				elseif previous == "Always" or value == "Hold" then
-					listEntry.Active = false
-				end
+			-- Always = on right away; leaving Always, or switching to Hold (key not held) = off
+			if not ready then
+				-- setup: handled by the startup sync
+			elseif value == "Always" then
+				setActive(true)
+			elseif previous == "Always" or value == "Hold" then
+				setActive(false)
 			end
 
 			if properties.ModeChanged then
@@ -120,11 +188,11 @@ return function(self, properties: types.KeybindFieldProperties): types.KeybindFi
 		-- Only ignored while the player is typing in a TextBox; keys the game also uses still work
 		local typing = userInputService:GetFocusedTextBox() ~= nil
 
-		if listEntry and not typing and not structures.Field:IsFocused() then
+		if not typing and not structures.Field:IsFocused() then
 			if mode() == "Toggle" then
-				listEntry.Active = not listEntry.Active
+				setActive(not active)
 			elseif mode() == "Hold" then
-				listEntry.Active = true
+				setActive(true)
 			end
 		end
 
@@ -149,8 +217,8 @@ return function(self, properties: types.KeybindFieldProperties): types.KeybindFi
 			return
 		end
 
-		if listEntry and mode() == "Hold" then
-			listEntry.Active = false
+		if mode() == "Hold" then
+			setActive(false)
 		end
 
 		if properties.BindPressed then
@@ -162,7 +230,7 @@ return function(self, properties: types.KeybindFieldProperties): types.KeybindFi
 	if listEntry then
 		listEntry.Pressed = function()
 			if mode() == "Toggle" then
-				listEntry.Active = not listEntry.Active
+				setActive(not active)
 			end
 
 			if properties.BindPressed then
@@ -171,9 +239,6 @@ return function(self, properties: types.KeybindFieldProperties): types.KeybindFi
 			end
 		end
 
-		if mode() == "Always" then
-			listEntry.Active = true
-		end
 	end
 
 	--// Mode / remove menu (right-click, or long-press on touch)
@@ -238,11 +303,10 @@ return function(self, properties: types.KeybindFieldProperties): types.KeybindFi
 	object.Type = "KeybindField"
 	object.KeybindEntry = listEntry
 	object.IsActive = function()
-		if mode() == "Always" then
-			return true
-		end
-
-		return listEntry ~= nil and listEntry.Active == true
+		return active
+	end
+	object.SetActive = function(_, value: boolean)
+		setActive(value)
 	end
 	object.OpenMenu = function()
 		openMenu()
@@ -251,6 +315,44 @@ return function(self, properties: types.KeybindFieldProperties): types.KeybindFi
 	object.Structures = structures
 
 	binder.Apply(properties, object)
+
+	-- Toggle -> keybind: clicking the linked toggle (or loading a config) updates the keybind state.
+	-- Keybind -> toggle happens in setActive.
+	if linkedToggle() then
+		local toggle = linkedToggle()
+		local previous = toggle.ValueChanged
+
+		toggle.ValueChanged = function(toggleObject, value, ...)
+			if previous then
+				previous(toggleObject, value, ...)
+			end
+
+			if not syncing then
+				setActive(value == true, true)
+			end
+		end
+	elseif properties.ToggleFlag ~= nil then
+		flags:OnChanged(properties.ToggleFlag, function(value)
+			if not syncing then
+				setActive(value == true, true)
+			end
+		end)
+	end
+
+	ready = true
+
+	-- Start in the toggle's state (or on for Always)
+	task.defer(function()
+		if mode() == "Always" then
+			setActive(true)
+		else
+			local current = readToggle()
+
+			if current ~= nil then
+				setActive(current, true)
+			end
+		end
+	end)
 
 	-- Save the mode next to the key (Flag .. "Mode")
 	if properties.Flag ~= nil then

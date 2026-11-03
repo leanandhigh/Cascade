@@ -7390,54 +7390,64 @@ KeybindMode or'Toggle'al.Field.TextXAlignment=Enum.TextXAlignment.Right al.Field
 function()return af.Value~=nil and af.Value~=ab end,function()return af.
 KeybindMode or'Toggle'end if af.KeybindList and af.KeybindList.Add then ap=af.
 KeybindList:Add{Name=af.KeybindName or'Keybind',Key=an()and af.Value or'None',
-Mode=ao()}end local aq aq=ag.Wrap(af,{Placeholder=function(ar)al.Field.
-PlaceholderText=ar end,Value=function(ar)if ar==nil then ar=ab end al.Field.Text
-=ar==ab and'None'or ar.Name if ap then ap.Key=ar==ab and'None'or ar end if af.
-ValueChanged then af.Value=ar task.spawn(af.ValueChanged,aq,ar)end end,
-KeybindMode=function(ar)if not table.find(ac,ar)then return end local as=af.
-KeybindMode af.KeybindMode=ar if ap then ap.Mode=ar if ar=='Always'then ap.
-Active=true elseif as=='Always'or ar=='Hold'then ap.Active=false end end if af.
-ModeChanged then task.spawn(af.ModeChanged,aq,ar)end end},al.Body)ak.InputBegan:
-Connect(function(ar,as)if ar.UserInputType~=Enum.UserInputType.Keyboard then
-return end if not an()or ar.KeyCode~=af.Value then return end local at=ak:
-GetFocusedTextBox()~=nil if ap and not at and not al.Field:IsFocused()then if
-ao()=='Toggle'then ap.Active=not ap.Active elseif ao()=='Hold'then ap.Active=
-true end end if af.BindPressed then af.BindPressed(aq,ar.KeyCode,false,as)end
-end)ak.InputEnded:Connect(function(ar,as)if ar.UserInputType~=Enum.UserInputType
-.Keyboard then return end if al.Field:IsFocused()then aq.Value=ar.KeyCode==Enum.
-KeyCode.Escape and ab or ar.KeyCode al.Field:ReleaseFocus()return end if not an(
-)or ar.KeyCode~=af.Value then return end if ap and ao()=='Hold'then ap.Active=
-false end if af.BindPressed then af.BindPressed(aq,ar.KeyCode,true,as)end end)if
-ap then ap.Pressed=function()if ao()=='Toggle'then ap.Active=not ap.Active end
-if af.BindPressed then task.spawn(af.BindPressed,aq,af.Value,false,false)task.
-spawn(af.BindPressed,aq,af.Value,true,false)end end if ao()=='Always'then ap.
-Active=true end end local ar=function()if not am then am=ai.new(ae,{Name=
-'KeybindMenu',Width=150})al.Body.Destroying:Connect(function()am:Destroy()end)
-end am:Clear()for ar,as in ipairs(ac)do am:AddItem{Title=as,Checked=ao()==as,
-Changed=function()aq.KeybindMode=as end}end am:AddSeparator()am:AddItem{Title=
-'Remove',Icon='x',Destructive=true,Pushed=function()aq.Value=ab end}al.Field:
-ReleaseFocus()am:Show(al.Body)end al.Field.InputBegan:Connect(function(as)if as.
-UserInputType==Enum.UserInputType.MouseButton2 then ar()elseif as.UserInputType
-==Enum.UserInputType.Touch then local at,au=false au=as.Changed:Connect(function
-()if as.UserInputState==Enum.UserInputState.End then at=true au:Disconnect()end
-end)task.delay(ad,function()if not at then ar()end end)end end)aq.Type=
-'KeybindField'aq.KeybindEntry=ap aq.IsActive=function()if ao()=='Always'then
-return true end return ap~=nil and ap.Active==true end aq.OpenMenu=function()ar(
-)end aq.Theme=ae.Theme aq.Structures=al ag.Apply(af,aq)if af.Flag~=nil then aj:
-Register(tostring(af.Flag)..'Mode',{Get=function()return af.KeybindMode end,Set=
-function(as)aq.KeybindMode=as end})end return aq end end function a.J()local ab=
-a.cache.J if not ab then ab={c=aa()}a.cache.J=ab end return ab.c end end do
-local aa=function()a.b()return function(aa,ab)local ac,ad=a.d(),a.c()local ae,af
-,ag,ah,ai=ac.Create,aa.__container or aa.__instance or aa,aa.Theme.Controls.
-Slider,0,{}ab=ab or{}ab.Value=ab.Value or 0 ab.Maximum=ab.Maximum or 1 ab.
-Minimum=ab.Minimum or 0 ai.Body=(ad.Apply(ab,ae'ImageLabel'{Name='Slider',Active
-=true,AnchorPoint=Vector2.new(0,0.5),BackgroundColor3=Color3.fromRGB(255,255,255
-),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
-Image='rbxassetid://92966982499851',Position=UDim2.fromScale(0,0.5),Selectable=
-true,Size=UDim2.fromOffset(150,4),Parent=af,__dynamicKeys={ImageColor3=ag.Track[
-1],ImageTransparency=ag.Track[2]},ae'ImageLabel'{Name='TrackClip',
-BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
-BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Image=
+Mode=ao()}end local aq,ar,as,at,au=function()local aq=af.LinkedToggle return
+typeof(aq)=='table'and aq or nil end,false,false,false local av,b=function()if
+aq()then return aq().Value==true elseif af.ToggleFlag~=nil then return aj:Get(af
+.ToggleFlag)==true end return nil end,function(av)if aq()then if aq().Value~=av
+then aq().Value=av end elseif af.ToggleFlag~=nil then if aj:Get(af.ToggleFlag)~=
+av then aj:Set(af.ToggleFlag,av)end end end local c=function(c,d)c=c==true if ar
+==c and(d or av()==nil or av()==c)then return end ar=c if ap then ap.Active=c
+end if not d and not as then as=true b(c)as=false end if af.ActiveChanged then
+task.spawn(af.ActiveChanged,au,c)end end au=ag.Wrap(af,{Placeholder=function(d)
+al.Field.PlaceholderText=d end,Value=function(d)if d==nil then d=ab end al.Field
+.Text=d==ab and'None'or d.Name if ap then ap.Key=d==ab and'None'or d end if af.
+ValueChanged then af.Value=d task.spawn(af.ValueChanged,au,d)end end,KeybindMode
+=function(d)if not table.find(ac,d)then return end local e=af.KeybindMode af.
+KeybindMode=d if ap then ap.Mode=d end if not at then elseif d=='Always'then c(
+true)elseif e=='Always'or d=='Hold'then c(false)end if af.ModeChanged then task.
+spawn(af.ModeChanged,au,d)end end},al.Body)ak.InputBegan:Connect(function(d,e)if
+d.UserInputType~=Enum.UserInputType.Keyboard then return end if not an()or d.
+KeyCode~=af.Value then return end local f=ak:GetFocusedTextBox()~=nil if not f
+and not al.Field:IsFocused()then if ao()=='Toggle'then c(not ar)elseif ao()==
+'Hold'then c(true)end end if af.BindPressed then af.BindPressed(au,d.KeyCode,
+false,e)end end)ak.InputEnded:Connect(function(d,e)if d.UserInputType~=Enum.
+UserInputType.Keyboard then return end if al.Field:IsFocused()then au.Value=d.
+KeyCode==Enum.KeyCode.Escape and ab or d.KeyCode al.Field:ReleaseFocus()return
+end if not an()or d.KeyCode~=af.Value then return end if ao()=='Hold'then c(
+false)end if af.BindPressed then af.BindPressed(au,d.KeyCode,true,e)end end)if
+ap then ap.Pressed=function()if ao()=='Toggle'then c(not ar)end if af.
+BindPressed then task.spawn(af.BindPressed,au,af.Value,false,false)task.spawn(af
+.BindPressed,au,af.Value,true,false)end end end local d=function()if not am then
+am=ai.new(ae,{Name='KeybindMenu',Width=150})al.Body.Destroying:Connect(function(
+)am:Destroy()end)end am:Clear()for d,e in ipairs(ac)do am:AddItem{Title=e,
+Checked=ao()==e,Changed=function()au.KeybindMode=e end}end am:AddSeparator()am:
+AddItem{Title='Remove',Icon='x',Destructive=true,Pushed=function()au.Value=ab
+end}al.Field:ReleaseFocus()am:Show(al.Body)end al.Field.InputBegan:Connect(
+function(e)if e.UserInputType==Enum.UserInputType.MouseButton2 then d()elseif e.
+UserInputType==Enum.UserInputType.Touch then local f,g=false g=e.Changed:
+Connect(function()if e.UserInputState==Enum.UserInputState.End then f=true g:
+Disconnect()end end)task.delay(ad,function()if not f then d()end end)end end)au.
+Type='KeybindField'au.KeybindEntry=ap au.IsActive=function()return ar end au.
+SetActive=function(e,f)c(f)end au.OpenMenu=function()d()end au.Theme=ae.Theme au
+.Structures=al ag.Apply(af,au)if aq()then local e=aq()local f=e.ValueChanged e.
+ValueChanged=function(g,h,...)if f then f(g,h,...)end if not as then c(h==true,
+true)end end elseif af.ToggleFlag~=nil then aj:OnChanged(af.ToggleFlag,function(
+e)if not as then c(e==true,true)end end)end at=true task.defer(function()if ao()
+=='Always'then c(true)else local e=av()if e~=nil then c(e,true)end end end)if af
+.Flag~=nil then aj:Register(tostring(af.Flag)..'Mode',{Get=function()return af.
+KeybindMode end,Set=function(e)au.KeybindMode=e end})end return au end end
+function a.J()local ab=a.cache.J if not ab then ab={c=aa()}a.cache.J=ab end
+return ab.c end end do local aa=function()a.b()return function(aa,ab)local ac,ad
+=a.d(),a.c()local ae,af,ag,ah,ai=ac.Create,aa.__container or aa.__instance or aa
+,aa.Theme.Controls.Slider,0,{}ab=ab or{}ab.Value=ab.Value or 0 ab.Maximum=ab.
+Maximum or 1 ab.Minimum=ab.Minimum or 0 ai.Body=(ad.Apply(ab,ae'ImageLabel'{Name
+='Slider',Active=true,AnchorPoint=Vector2.new(0,0.5),BackgroundColor3=Color3.
+fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0)
+,BorderSizePixel=0,Image='rbxassetid://92966982499851',Position=UDim2.fromScale(
+0,0.5),Selectable=true,Size=UDim2.fromOffset(150,4),Parent=af,__dynamicKeys={
+ImageColor3=ag.Track[1],ImageTransparency=ag.Track[2]},ae'ImageLabel'{Name=
+'TrackClip',BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=
+1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Image=
 'rbxassetid://113661976068590',ImageColor3=Color3.fromRGB(252,252,252),
 ResampleMode=Enum.ResamplerMode.Pixelated,Size=UDim2.new(0,2,1,0),ZIndex=3,
 __dynamicKeys={ImageColor3=aa.Theme.Controls.View[1],ImageTransparency=aa.Theme.

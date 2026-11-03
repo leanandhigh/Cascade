@@ -40,6 +40,7 @@
 - New `ColorPicker` (30×18 swatch) (saturation / brightness, hue, optional transparency, hex / RGB, copy / paste; mouse and touch).
 - New components: `Groupbox` (with `Side = "Left" | "Right"`), `Columns`, `Dashboard`, `UpdateLog`, `InviteCard`, `Watermark`, `KeybindList`.
 - `Row`: `Title` / `Subtitle` properties create its TitleStack for you.
+- `KeybindField`: `ToggleFlag` / `LinkedToggle` link a keybind to a toggle so its mode drives it (Toggle flips, Hold = on while held, Always = on); `IsActive`, `SetActive`, `ActiveChanged`.
 - `KeybindList`: entry names size to the space left by the mode and key, so they never overlap.
 - `KeybindField`: `KeybindList`, `KeybindName`, `KeybindMode` to show the bind in a `KeybindList`; right-click (long-press) menu to pick Toggle / Hold / Always or Remove the bind; the mode is saved in configs (`Flag .. "Mode"`).
 - Themes: `Controls.Status` and `Controls.Card` keys.
