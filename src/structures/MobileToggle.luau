@@ -28,7 +28,7 @@ return function(self, onTap: () -> ())
 		AnchorPoint = Vector2.new(0.5, 0),
 		AutoButtonColor = false,
 		BorderSizePixel = 0,
-		Position = UDim2.new(0.5, 0, 0, 22),
+		Position = UDim2.new(0.5, 64, 0, 22),
 		Size = UDim2.fromOffset(SIZE, SIZE),
 		ZIndex = 60,
 
@@ -79,7 +79,7 @@ return function(self, onTap: () -> ())
 		structures.Logo.ImageColor3 = isGlyph and theme.Controls.Selection[1].Value or Color3.new(1, 1, 1)
 	end
 
-	-- Where it sits: "Top" (default, centred under the window pill), "Left" or "Right" edge
+	-- Where it sits: "Top" (default: top, just right of centre, under the window pill), "Left" or "Right" edge
 	structures.SetSide = function(side: string?)
 		if side == "Left" then
 			structures.Body.AnchorPoint = Vector2.new(0, 0)
@@ -89,7 +89,7 @@ return function(self, onTap: () -> ())
 			structures.Body.Position = UDim2.new(1, -14, 0, 74)
 		else
 			structures.Body.AnchorPoint = Vector2.new(0.5, 0)
-			structures.Body.Position = UDim2.new(0.5, 0, 0, 22)
+			structures.Body.Position = UDim2.new(0.5, 64, 0, 22)
 		end
 	end
 

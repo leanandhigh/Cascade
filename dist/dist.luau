@@ -6728,56 +6728,56 @@ cache.s=c end return c.c end end do local b=function()return function(b,c)local
 d,e,f=a.d(),a.e(),a.n()local g,h,i,j,k,l=d.Create,e.UserInputService,52,8,b.
 Theme,{}l.Body=g'ImageButton'{Name='MobileToggle',Active=true,AnchorPoint=
 Vector2.new(0.5,0),AutoButtonColor=false,BorderSizePixel=0,Position=UDim2.new(
-0.5,0,0,22),Size=UDim2.fromOffset(i,i),ZIndex=60,__dynamicKeys={BackgroundColor3
-=k.Controls.Card.Overlay[1],BackgroundTransparency=k.Controls.Card.Overlay[2]},g
-'UICorner'{CornerRadius=UDim.new(1,0)},g'UIStroke'{ApplyStrokeMode=Enum.
-ApplyStrokeMode.Border,Thickness=1.5,__dynamicKeys={Color=k.Controls.ViewBorder[
-1],Transparency=k.Controls.ViewBorder[2]}},g'ImageLabel'{Name='Logo',AnchorPoint
-=Vector2.new(0.5,0.5),BackgroundTransparency=1,Position=UDim2.fromScale(0.5,0.5)
-,ScaleType=Enum.ScaleType.Fit,Size=UDim2.fromOffset(i-12,i-12),ZIndex=61,g
-'UICorner'{CornerRadius=UDim.new(1,0)}}}l.Logo=(l.Body:FindFirstChild'Logo')l.
-SetLogo=function(m)local n=m~=nil and m or'menu'local o=f.IsGlyph(n)or m==nil f.
-Apply(l.Logo,n,a.i().line3Horizontal)l.Logo.Size=o and UDim2.fromOffset(24,24)or
-UDim2.fromOffset(i-12,i-12)l.Logo.ImageColor3=o and k.Controls.Selection[1].
-Value or Color3.new(1,1,1)end l.SetSide=function(m)if m=='Left'then l.Body.
-AnchorPoint=Vector2.new(0,0)l.Body.Position=UDim2.new(0,14,0,74)elseif m==
-'Right'then l.Body.AnchorPoint=Vector2.new(1,0)l.Body.Position=UDim2.new(1,-14,0
-,74)else l.Body.AnchorPoint=Vector2.new(0.5,0)l.Body.Position=UDim2.new(0.5,0,0,
-22)end end local m,n,o,p=false l.Body.InputBegan:Connect(function(q)if q.
-UserInputType~=Enum.UserInputType.Touch and q.UserInputType~=Enum.UserInputType.
-MouseButton1 then return end n=q o=q.Position p=l.Body.Position m=false local r
-r=q.Changed:Connect(function()if q.UserInputState~=Enum.UserInputState.End then
-return end r:Disconnect()if n==q then n=nil if not m then c()end end end)end)h.
-InputChanged:Connect(function(q)if not n or not o or not p then return end if q.
-UserInputType~=Enum.UserInputType.Touch and q.UserInputType~=Enum.UserInputType.
-MouseMovement then return end local r=q.Position-o if not m and math.abs(r.X)+
-math.abs(r.Y)<j then return end m=true l.Body.Position=UDim2.new(p.X.Scale,p.X.
-Offset+r.X,p.Y.Scale,p.Y.Offset+r.Y)end)return l end end function a.t()local c=a
-.cache.t if not c then c={c=b()}a.cache.t=c end return c.c end end do local aa=
-function()a.b()return function(b,c)local d,e,f,g,h,i=a.k(),a.e(),a.d(),a.c(),a.
-o()(b)local j,k,l,m,n,o,p,q,r,s=a.p(),a.q(),a.i(),a.r()(b),a.h(),f.Create,e.
-UserInputService,e.TweenService,e.Players,b.__container or b.__instance or b
-local t,u,v,w,x,y,z,A=o'Frame'{Name='Window',BackgroundTransparency=1,
-BorderSizePixel=0,Size=UDim2.fromScale(1,1),AnchorPoint=Vector2.new(0.5,0.5),
-Position=UDim2.fromScale(0.5,0.5),Parent=s}.__instance,{}c=c or{}local B=c.
-Mobile if B==nil then B=a.a().IsMobile()end local C=B and(c.MobileScale or 0.8)
-or 1 c.Size=c.Size or(B and UDim2.fromOffset(620,380)or UDim2.fromOffset(850,530
-))if B then local D=workspace.CurrentCamera local E=D and D.ViewportSize or
-Vector2.new(1280,720)local F,G=math.floor((E.X-24)/C),math.floor((E.Y-24)/C)c.
-Size=UDim2.fromOffset(math.min(c.Size.X.Offset,F),math.min(c.Size.Y.Offset,G))
-end c.Maximized=c.Maximized==true c.Minimized=c.Minimized==true c.Searching=c.
-Searching~=false c.Resizable=c.Resizable~=false c.Draggable=c.Draggable~=false c
-.CanExit=c.CanExit~=false c.CanMinimize=c.CanMinimize~=false c.CanZoom=c.CanZoom
-~=false c.Resizable=c.Resizable~=false c.Dropshadow=c.Dropshadow~=false c.UIBlur
-=c.UIBlur~=false c.Title=c.Title or'Title'c.WindowControls=c.WindowControls==
-true c.CanUnload=c.CanUnload~=false c.UserProfile=c.UserProfile~=false c.
-CensorName=c.CensorName==true c.HideAvatar=c.HideAvatar==true c.ProfileSubtitle=
-c.ProfileSubtitle or'Account'if c.KeyDuration then c.KeyExpires=os.time()+c.
-KeyDuration end if c.Languages and not c.Language then c.Language=c.Languages[1]
-end local D,E=a.s()(b,c)u.Body=(g.Apply(c,o'Frame'{Name='Body',BorderSizePixel=0
-,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Parent=t,
-__dynamicKeys={BackgroundColor3=b.Theme.Controls.Sidebar[1],
-BackgroundTransparency=b.Theme.Controls.Sidebar[2]},__contextKeys={
+0.5,64,0,22),Size=UDim2.fromOffset(i,i),ZIndex=60,__dynamicKeys={
+BackgroundColor3=k.Controls.Card.Overlay[1],BackgroundTransparency=k.Controls.
+Card.Overlay[2]},g'UICorner'{CornerRadius=UDim.new(1,0)},g'UIStroke'{
+ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Thickness=1.5,__dynamicKeys={Color=k
+.Controls.ViewBorder[1],Transparency=k.Controls.ViewBorder[2]}},g'ImageLabel'{
+Name='Logo',AnchorPoint=Vector2.new(0.5,0.5),BackgroundTransparency=1,Position=
+UDim2.fromScale(0.5,0.5),ScaleType=Enum.ScaleType.Fit,Size=UDim2.fromOffset(i-12
+,i-12),ZIndex=61,g'UICorner'{CornerRadius=UDim.new(1,0)}}}l.Logo=(l.Body:
+FindFirstChild'Logo')l.SetLogo=function(m)local n=m~=nil and m or'menu'local o=f
+.IsGlyph(n)or m==nil f.Apply(l.Logo,n,a.i().line3Horizontal)l.Logo.Size=o and
+UDim2.fromOffset(24,24)or UDim2.fromOffset(i-12,i-12)l.Logo.ImageColor3=o and k.
+Controls.Selection[1].Value or Color3.new(1,1,1)end l.SetSide=function(m)if m==
+'Left'then l.Body.AnchorPoint=Vector2.new(0,0)l.Body.Position=UDim2.new(0,14,0,
+74)elseif m=='Right'then l.Body.AnchorPoint=Vector2.new(1,0)l.Body.Position=
+UDim2.new(1,-14,0,74)else l.Body.AnchorPoint=Vector2.new(0.5,0)l.Body.Position=
+UDim2.new(0.5,64,0,22)end end local m,n,o,p=false l.Body.InputBegan:Connect(
+function(q)if q.UserInputType~=Enum.UserInputType.Touch and q.UserInputType~=
+Enum.UserInputType.MouseButton1 then return end n=q o=q.Position p=l.Body.
+Position m=false local r r=q.Changed:Connect(function()if q.UserInputState~=Enum
+.UserInputState.End then return end r:Disconnect()if n==q then n=nil if not m
+then c()end end end)end)h.InputChanged:Connect(function(q)if not n or not o or
+not p then return end if q.UserInputType~=Enum.UserInputType.Touch and q.
+UserInputType~=Enum.UserInputType.MouseMovement then return end local r=q.
+Position-o if not m and math.abs(r.X)+math.abs(r.Y)<j then return end m=true l.
+Body.Position=UDim2.new(p.X.Scale,p.X.Offset+r.X,p.Y.Scale,p.Y.Offset+r.Y)end)
+return l end end function a.t()local c=a.cache.t if not c then c={c=b()}a.cache.
+t=c end return c.c end end do local aa=function()a.b()return function(b,c)local
+d,e,f,g,h,i=a.k(),a.e(),a.d(),a.c(),a.o()(b)local j,k,l,m,n,o,p,q,r,s=a.p(),a.q(
+),a.i(),a.r()(b),a.h(),f.Create,e.UserInputService,e.TweenService,e.Players,b.
+__container or b.__instance or b local t,u,v,w,x,y,z,A=o'Frame'{Name='Window',
+BackgroundTransparency=1,BorderSizePixel=0,Size=UDim2.fromScale(1,1),AnchorPoint
+=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Parent=s}.__instance,{}c
+=c or{}local B=c.Mobile if B==nil then B=a.a().IsMobile()end local C=B and(c.
+MobileScale or 0.8)or 1 c.Size=c.Size or(B and UDim2.fromOffset(620,380)or UDim2
+.fromOffset(850,530))if B then local D=workspace.CurrentCamera local E=D and D.
+ViewportSize or Vector2.new(1280,720)local F,G=math.floor((E.X-24)/C),math.
+floor((E.Y-24)/C)c.Size=UDim2.fromOffset(math.min(c.Size.X.Offset,F),math.min(c.
+Size.Y.Offset,G))end c.Maximized=c.Maximized==true c.Minimized=c.Minimized==true
+c.Searching=c.Searching~=false c.Resizable=c.Resizable~=false c.Draggable=c.
+Draggable~=false c.CanExit=c.CanExit~=false c.CanMinimize=c.CanMinimize~=false c
+.CanZoom=c.CanZoom~=false c.Resizable=c.Resizable~=false c.Dropshadow=c.
+Dropshadow~=false c.UIBlur=c.UIBlur~=false c.Title=c.Title or'Title'c.
+WindowControls=c.WindowControls==true c.CanUnload=c.CanUnload~=false c.
+UserProfile=c.UserProfile~=false c.CensorName=c.CensorName==true c.HideAvatar=c.
+HideAvatar==true c.ProfileSubtitle=c.ProfileSubtitle or'Account'if c.KeyDuration
+then c.KeyExpires=os.time()+c.KeyDuration end if c.Languages and not c.Language
+then c.Language=c.Languages[1]end local D,E=a.s()(b,c)u.Body=(g.Apply(c,o'Frame'
+{Name='Body',BorderSizePixel=0,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.
+fromScale(0.5,0.5),Parent=t,__dynamicKeys={BackgroundColor3=b.Theme.Controls.
+Sidebar[1],BackgroundTransparency=b.Theme.Controls.Sidebar[2]},__contextKeys={
 BackgroundTransparency=function()return c.UIBlur and b.Theme.Controls.Sidebar[2]
 .Value or 0 end},o'UICorner'{Name='UICorner',CornerRadius=UDim.new(0,10)},o
 'UIListLayout'{Name='UIListLayout',FillDirection=Enum.FillDirection.Horizontal,
