@@ -9,6 +9,7 @@ Theme, accent, menu keybind and the overlay toggles are saved in configs.
 
 | Property      | Type                    | Description                                         |
 | ------------- | ----------------------- | --------------------------------------------------- |
+| `Section`     | `#!luau (string \| boolean)?` | The tab sits in its own sidebar group at the bottom, named `"General"` by default. A string renames it, `false` adds the tab without a group. |
 | `Title`       | `#!luau string?`        | Tab title. Defaults to `"Settings"`.                |
 | `Icon`        | `#!luau string?`        | Tab icon. Defaults to `"settings"`.                 |
 | `MenuKey`     | `#!luau Enum.KeyCode?`  | Key that shows / hides the menu. Default RightControl. Ignored only while typing in a TextBox. |

@@ -901,6 +901,23 @@ return function(self, properties: types.WindowProperties): types.Window
 	object.__window = object
 	object.__app = self
 
+	-- Titlebar shows the selected tab's title when TabTitles is on (default when a brand is set,
+	-- since the brand header already shows the hub name)
+	local function useTabTitles(): boolean
+		if properties.TabTitles ~= nil then
+			return properties.TabTitles == true
+		end
+
+		return properties.Logo ~= nil or properties.Brand ~= nil
+	end
+
+	object.__pageTitle = function(title: string?)
+		if useTabTitles() and title then
+			structures.Titlebar.Title.Visible = true
+			structures.Titlebar.Title.Text = title
+		end
+	end
+
 	-- Text + colour of the key status ("Key: 3d 4h 0m", "Key: Lifetime", "Account"...)
 	object.KeyStatus = function()
 		return keyStatus()

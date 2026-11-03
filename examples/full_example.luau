@@ -268,15 +268,19 @@ do -- Farming tab
 		Value = true,
 	})
 
-	farm:Row({ Title = "Farm Distance" }):Right():Slider({
+	local distanceRow = farm:Row({ Title = "Farm Distance" })
+	local distanceSlider = distanceRow:Right():Slider({
 		Flag = "FarmDistance",
 		Minimum = 5,
 		Maximum = 50,
 		Value = 15,
-		ValueChanged = function(self, value: number)
-			print("Distance:", value)
-		end,
 	})
+	local distanceLabel = distanceRow:Right():Label({ Text = "15" }) -- shows the number next to the slider
+
+	distanceSlider.ValueChanged = function(self, value: number)
+		value = math.floor(value + 0.5)
+		distanceLabel.Text = tostring(value)
+	end
 
 	farm:Row({ Title = "Wave Count" }):Right():Stepper({
 		Flag = "WaveCount",

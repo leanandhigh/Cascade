@@ -112,7 +112,7 @@ return function(self, properties: types.TabProperties): types.Tab
 				create("UIListLayout")({
 					Name = "UIListLayout",
 					FillDirection = Enum.FillDirection.Horizontal,
-					Padding = UDim.new(0, 2),
+					Padding = UDim.new(0, 8),
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 
@@ -166,6 +166,17 @@ return function(self, properties: types.TabProperties): types.Tab
 	structures.Symbol = structures.Leading:FindFirstChild("Symbol") :: ImageLabel
 	structures.Padding = structures.Body:FindFirstChild("UIPadding") :: UIPadding
 
+	-- Leave room for the icon + 8px gap so the title never touches it
+	local function fitTitle()
+		local iconWidth = structures.Symbol.Visible and structures.Symbol.Size.X.Offset + 8 or 0
+
+		structures.Title.Size = UDim2.new(1, -iconWidth, 0, 20)
+	end
+
+	-- Lucide icons can arrive (and shrink) after the tab is created
+	structures.Symbol:GetPropertyChangedSignal("Size"):Connect(fitTitle)
+	structures.Symbol:GetPropertyChangedSignal("Visible"):Connect(fitTitle)
+
 	local pageComponent = nil
 
 	if properties and properties.Page then
@@ -184,10 +195,16 @@ return function(self, properties: types.TabProperties): types.Tab
 	object = binder.Wrap(properties, {
 		Title = function(name: string)
 			structures.Title.Text = name
+
+			if properties.Selected and window and window.__pageTitle then
+				window.__pageTitle(name)
+			end
 		end,
 		Icon = function(icon: string?)
 			-- Lucide names ("house"), Cascade symbols or asset ids
 			structures.Symbol.Visible = icon ~= nil and require("@modules/icons").Apply(structures.Symbol, icon, nil, 16)
+
+			fitTitle()
 		end,
 		Indentation = function(indentation: number)
 			structures.Padding.PaddingLeft += UDim.new(0, (11 * indentation))
@@ -216,6 +233,11 @@ return function(self, properties: types.TabProperties): types.Tab
 				or self.Theme.Controls.Selection[2].Value
 
 			structures.Page.Parent = selected and window and window.__container or nil
+
+			-- With branding on, the titlebar shows the page you're on
+			if selected and window and window.__pageTitle then
+				window.__pageTitle(properties.Title)
+			end
 		end,
 	}, structures.Body)
 

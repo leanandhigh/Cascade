@@ -313,6 +313,12 @@ export type WindowProperties = Frame & {
 	KeyDuration: number?,
 	KeyExpired: ((self: Window) -> ())?,
 
+	-- Branding (logo header at the top of the sidebar)
+	Logo: (string | number)?,
+	Brand: string?,
+	BrandSubtitle: string?,
+	TabTitles: boolean?, -- titlebar shows the selected tab (default: on when a brand is set)
+
 	-- Language picker
 	Languages: { string }?,
 	Language: string?,
@@ -690,6 +696,7 @@ export type ConfigManagerComponent = Groupbox & {
 
 -- Settings
 export type SettingsProperties = {
+	Section: (string | boolean)?,
 	Title: string?,
 	Icon: (string | number)?,
 	Selected: boolean?,

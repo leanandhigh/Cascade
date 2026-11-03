@@ -14,7 +14,9 @@
 - `Window`: unload button in the titlebar (`CanUnload`, `Unloaded`, `window:Unload()`).
 - `cascade.Flags` and `cascade.Config`: any component created with `Flag = "..."` is saved by configs.
 - More padding inside Button, TextField and PopUpButton; TextField is left-aligned with a fill and no longer clips its text.
-- `Window` branding: `Logo`, `Brand`, `BrandSubtitle` (logo header at the top of the sidebar).
+- `Window` branding: `Logo`, `Brand`, `BrandSubtitle` (logo header at the top of the sidebar); with a brand the titlebar shows the selected tab (`TabTitles`).
+- `Tab`: 8px gap between icon and title.
+- `Settings` tab sits in its own sidebar group at the bottom.
 - Lucide icons load in the background (no HttpGet while building the UI) and are sized down to match the old symbols.
 
 ### Performance

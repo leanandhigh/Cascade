@@ -32,7 +32,20 @@ return function(self, properties: types.SettingsProperties): types.Tab
 	local window = self.__window or self
 	local app = window.__app
 
-	local tab = self:Tab({
+	-- Settings live in their own sidebar group at the bottom, apart from the script's tabs.
+	-- Pass Section = false to add the tab directly, or a string to rename the group.
+	local holder = self
+
+	if properties.Section ~= false and self.Type == "Window" then
+		holder = self:Section({
+			Title = typeof(properties.Section) == "string" and properties.Section or "General",
+			Disclosure = false,
+		})
+
+		holder.LayoutOrder = 100000
+	end
+
+	local tab = holder:Tab({
 		Title = properties.Title or "Settings",
 		Icon = properties.Icon or "settings",
 		Selected = properties.Selected == true,

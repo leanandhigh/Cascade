@@ -25,7 +25,7 @@
 
 #### Sidebar, profile & key
 
-Branding: `Logo` (asset id, `"rbxassetid://..."` or a Lucide icon name), `Brand` (name, defaults to `Title`) and `BrandSubtitle` show a logo header at the top-left of the sidebar. Lucide glyphs get an accent tile, your own image is shown as-is.
+Branding: `Logo` (asset id, `"rbxassetid://..."` or a Lucide icon name), `Brand` (name, defaults to `Title`) and `BrandSubtitle` show a logo header at the top-left of the sidebar. Lucide glyphs get an accent tile, your own image is shown as-is. With a brand set, the titlebar shows the selected tab's title instead of repeating the hub name (`TabTitles = false` to turn that off).
 
 Performance: `UIBlur = false` turns off the acrylic blur (a DepthOfField effect that costs FPS on weaker devices).
 
