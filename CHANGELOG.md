@@ -1,5 +1,24 @@
 # Change Log
 
+## Unreleased
+
+### Added
+
+- `Window`: user profile card at the bottom-left of the sidebar, with a settings menu (Censor Name, Hide Avatar, custom `ProfileOptions`).
+- `Window`: key duration for paid scripts (`KeyExpires`, `KeyDuration`, `KeyExpired`) with a live countdown on the profile card.
+- `Window`: language picker next to the search field (`Languages`, `Language`, `LanguageChanged`).
+- `Window`: config bar in the titlebar with a Presets panel (create, rename, search, sort, save, load, delete, default config for this account or all accounts).
+- `Window`: unload button in the titlebar (`CanUnload`, `Unloaded`, `window:Unload()`).
+- `cascade.Flags` and `cascade.Config`: any component created with `Flag = "..."` is saved by configs.
+- New components: `Groupbox` (with `Side = "Left" | "Right"`), `Columns`, `Dashboard`, `UpdateLog`, `InviteCard`, `Watermark`, `KeybindList`.
+- `Row`: `Title` / `Subtitle` properties create its TitleStack for you.
+- `KeybindField`: `KeybindList`, `KeybindName`, `KeybindMode` to show the bind in a `KeybindList`.
+- Themes: `Controls.Status` and `Controls.Card` keys.
+
+### Changed
+
+- `Window`: the macOS window control dots are hidden by default (`WindowControls = true` brings them back), the sidebar list moves up into that space.
+
 ## v1.4.0 (5/19/2026)
 
 > Co-authored by @Androssy

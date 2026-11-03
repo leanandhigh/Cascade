@@ -255,8 +255,72 @@ export type AppRecorder = {
 	Dump: (self: AppRecorder, options: AppDumpOptions?) -> string,
 }
 
+-- Config
+export type ConfigOptions = {
+	Folder: string?,
+	SubFolder: string?,
+	AutoLoad: boolean?,
+	Ignore: { string }?,
+
+	Saved: ((name: string) -> ())?,
+	Loaded: ((name: string) -> ())?,
+	Deleted: ((name: string) -> ())?,
+	Changed: (() -> ())?,
+}
+
+export type ConfigManager = {
+	Current: string?,
+
+	List: (self: ConfigManager) -> { string },
+	Save: (self: ConfigManager, name: string?) -> (boolean, string?),
+	Load: (self: ConfigManager, name: string?) -> (boolean, string?),
+	Delete: (self: ConfigManager, name: string?) -> boolean,
+	Rename: (self: ConfigManager, from: string, to: string) -> (boolean, string?),
+	Exists: (self: ConfigManager, name: string) -> boolean,
+	SetDefault: (self: ConfigManager, name: string?, scope: ("Account" | "All")?) -> (),
+	ClearDefault: (self: ConfigManager, scope: ("Account" | "All")?) -> (),
+	GetDefault: (self: ConfigManager) -> (string?, ("Account" | "All")?),
+	LoadDefault: (self: ConfigManager) -> (boolean, string?),
+}
+
+export type ProfileOption = {
+	Title: string,
+	Icon: string?,
+	Checked: boolean?,
+	Changed: ((value: boolean) -> ())?,
+	Pushed: (() -> ())?,
+}
+
 -- Window
 export type WindowProperties = Frame & {
+	-- Sidebar
+	WindowControls: boolean?,
+	CanUnload: boolean?,
+	Unloaded: ((self: Window) -> ())?,
+
+	-- Profile
+	UserProfile: boolean?,
+	ProfileName: string?,
+	ProfileSubtitle: string?,
+	ProfileImage: string?,
+	CensorName: boolean?,
+	HideAvatar: boolean?,
+	ProfileOptions: { ProfileOption }?,
+	ProfileSettingChanged: ((self: Window, setting: string, value: boolean) -> ())?,
+
+	-- Key duration (paid scripts): unix timestamp, "Lifetime", or a custom string
+	KeyExpires: (number | string | boolean)?,
+	KeyDuration: number?,
+	KeyExpired: ((self: Window) -> ())?,
+
+	-- Language picker
+	Languages: { string }?,
+	Language: string?,
+	LanguageChanged: ((self: Window, language: string) -> ())?,
+
+	-- Configs (false to hide the config bar)
+	Config: (ConfigOptions | boolean)?,
+
 	Searching: boolean?,
 	Draggable: boolean?,
 	Resizable: boolean?,
@@ -272,7 +336,10 @@ export type WindowProperties = Frame & {
 	UIBlur: boolean?,
 }
 
-export type Window = BaseComponent & Components & WindowProperties
+export type Window = BaseComponent & Components & WindowProperties & {
+	Configs: ConfigManager?,
+	Unload: (self: Window) -> (),
+}
 
 -- Section
 export type SectionProperties = Frame & {
@@ -304,6 +371,8 @@ export type Form = BaseComponent & Components & FormProperties
 -- Row
 export type RowProperties = Frame & {
 	SearchIndex: string?,
+	Title: string?,
+	Subtitle: string?,
 }
 
 export type Row = BaseComponent & Components & RowProperties & {
@@ -353,6 +422,7 @@ export type Symbol = BaseComponent & Components & SymbolProperties
 
 -- Toggle
 export type ToggleProperties = Frame & {
+	Flag: string?, -- saved by configs
 	Value: boolean?,
 	ValueChanged: ((self: Toggle, value: boolean) -> unknown)?,
 }
@@ -361,6 +431,7 @@ export type Toggle = BaseComponent & Components & ToggleProperties
 
 -- TextField
 export type TextFieldProperties = Frame & {
+	Flag: string?, -- saved by configs
 	Placeholder: string?,
 	Value: string?,
 	TextChanged: ((self: TextField, text: string) -> unknown)?,
@@ -372,6 +443,10 @@ export type TextField = BaseComponent & Components & TextFieldProperties
 -- KeybindField
 export type KeybindFieldProperties = Frame & {
 	Placeholder: string?,
+	Flag: string?,
+	KeybindList: KeybindList?,
+	KeybindName: string?,
+	KeybindMode: ("Toggle" | "Hold" | "Always")?,
 	Value: Enum.KeyCode?,
 	BindPressed: ((
 		self: KeybindField,
@@ -386,6 +461,7 @@ export type KeybindField = BaseComponent & Components & KeybindFieldProperties
 
 -- Slider
 export type SliderProperties = ImageLabel & {
+	Flag: string?, -- saved by configs
 	Minimum: number?,
 	Maximum: number?,
 	Value: number?,
@@ -405,6 +481,7 @@ export type Button = BaseComponent & Components & ButtonProperties
 
 -- Stepper
 export type StepperProperties = ImageLabel & {
+	Flag: string?, -- saved by configs
 	Minimum: number?,
 	Maximum: number?,
 	Step: number?,
@@ -420,6 +497,7 @@ export type Stepper = BaseComponent & Components & StepperProperties & {
 
 -- RadioButtonGroup
 export type RadioButtonGroupProperties = Frame & {
+	Flag: string?, -- saved by configs
 	Options: { [number]: string }?,
 	Value: number?,
 	ValueChanged: ((self: RadioButtonGroup, value: number) -> unknown)?,
@@ -443,6 +521,7 @@ export type DropdownMenuAnchor = GuiObject | DropdownMenuAnchorConfig
 
 -- PopUpButton
 export type PopUpButtonProperties = Frame & {
+	Flag: string?, -- saved by configs
 	Options: { [number]: string }?,
 	Expanded: boolean?,
 	Anchor: DropdownMenuAnchor?,
@@ -496,6 +575,119 @@ export type ImageSurfaceProperties = Frame & {
 
 export type ImageSurface = BaseComponent & Components & ImageSurfaceProperties
 
+-- Groupbox
+export type GroupboxProperties = Frame & {
+	Title: string?,
+	Subtitle: string?,
+	Description: string?,
+	Icon: string?,
+	Side: (string | number)?,
+	Expanded: boolean?,
+	Collapsed: boolean?,
+	Collapsible: boolean?,
+	SearchIndex: string?,
+	ExpandedChanged: ((self: Groupbox, expanded: boolean) -> ())?,
+}
+
+export type Groupbox = BaseComponent & Components & GroupboxProperties
+
+-- Columns
+export type ColumnsProperties = {
+	Count: number?,
+	Spacing: number?,
+}
+
+export type Columns = BaseComponent & ColumnsProperties & {
+	Column: (self: Columns, index: number) -> Components,
+	Left: (self: Columns) -> Components,
+	Right: (self: Columns) -> Components,
+}
+
+-- UpdateLog
+export type UpdateLogEntry = string | { Type: string?, Text: string }
+
+export type UpdateLogProperties = Frame & {
+	Title: string?,
+	Preview: number?,
+	Expanded: boolean?,
+	Entries: { UpdateLogEntry }?,
+}
+
+export type UpdateLog = BaseComponent & UpdateLogProperties & {
+	Add: (self: UpdateLog, entry: UpdateLogEntry) -> any,
+	Clear: (self: UpdateLog) -> (),
+}
+
+-- InviteCard
+export type InviteCardProperties = Frame & {
+	Title: string?,
+	Subtitle: string?,
+	Invite: string?,
+	Icon: string?,
+	Copied: ((self: InviteCard, invite: string, copied: boolean) -> ())?,
+}
+
+export type InviteCard = BaseComponent & InviteCardProperties
+
+-- Dashboard
+export type DashboardProperties = {
+	Title: string?,
+	Icon: string?,
+	Selected: boolean?,
+	Version: string?,
+	UpdatesTitle: string?,
+	LogsTitle: string?,
+	Preview: number?,
+	Logs: { UpdateLogEntry }?,
+	LinksTitle: string?,
+	Discord: string?,
+	Links: { InviteCardProperties }?,
+}
+
+export type Dashboard = BaseComponent & Components & {
+	Tab: Tab,
+	UpdateLog: UpdateLog,
+	Links: { InviteCard },
+	Log: (self: Dashboard, entry: UpdateLogEntry) -> any,
+}
+
+-- Watermark
+export type WatermarkProperties = Frame & {
+	Title: string?,
+	Text: string?,
+	Icon: string?,
+	ShowFPS: boolean?,
+	ShowPing: boolean?,
+	ShowTime: boolean?,
+	Draggable: boolean?,
+}
+
+export type Watermark = BaseComponent & WatermarkProperties
+
+-- KeybindList
+export type KeybindListEntryProperties = {
+	Name: string?,
+	Key: (Enum.KeyCode | Enum.UserInputType | string)?,
+	Mode: ("Toggle" | "Hold" | "Always")?,
+	Active: boolean?,
+}
+
+export type KeybindListEntry = KeybindListEntryProperties & {
+	Remove: (self: KeybindListEntry) -> (),
+	Toggle: (self: KeybindListEntry) -> (),
+}
+
+export type KeybindListProperties = Frame & {
+	Title: string?,
+	HideInactive: boolean?,
+	Draggable: boolean?,
+}
+
+export type KeybindList = BaseComponent & KeybindListProperties & {
+	Add: (self: KeybindList, properties: KeybindListEntryProperties) -> KeybindListEntry,
+	Clear: (self: KeybindList) -> (),
+}
+
 -- Export
 export type Components = {
 	Window: (self: any, properties: WindowProperties?) -> Window,
@@ -521,6 +713,13 @@ export type Components = {
 	PullDownButton: (self: any, properties: PullDownButtonProperties) -> PullDownButton,
 	Notification: (self: any, properties: NotificationProperties) -> Notification,
 	ImageSurface: (self: any, properties: ImageSurfaceProperties) -> ImageSurface,
+	Groupbox: (self: any, properties: GroupboxProperties?) -> Groupbox,
+	Columns: (self: any, properties: ColumnsProperties?) -> Columns,
+	UpdateLog: (self: any, properties: UpdateLogProperties?) -> UpdateLog,
+	InviteCard: (self: any, properties: InviteCardProperties?) -> InviteCard,
+	Dashboard: (self: any, properties: DashboardProperties?) -> Dashboard,
+	Watermark: (self: any, properties: WatermarkProperties?) -> Watermark,
+	KeybindList: (self: any, properties: KeybindListProperties?) -> KeybindList,
 }
 
 return 1

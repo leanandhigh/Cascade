@@ -1,6 +1,7 @@
 --// Imports
 local binder = require("@modules/binder")
 local appRecorder = require("@modules/appRecorder")
+local flags = require("@modules/flags")
 
 --// Variables
 local components = {
@@ -27,6 +28,13 @@ local components = {
 	Page = require("@components/Page"),
 	Notification = require("@components/Notification"),
 	ImageSurface = require("@components/ImageSurface"),
+	Groupbox = require("@components/Groupbox"),
+	Columns = require("@components/Columns"),
+	UpdateLog = require("@components/UpdateLog"),
+	InviteCard = require("@components/InviteCard"),
+	Dashboard = require("@components/Dashboard"),
+	Watermark = require("@components/Watermark"),
+	KeybindList = require("@components/KeybindList"),
 }
 
 --// Initialize
@@ -74,6 +82,13 @@ local function wrap(name, make)
 		end
 
 		binder.Apply(components, result)
+
+		-- Anything created with a `Flag` is saved / loaded by the config system
+		local componentProperties = args[1]
+
+		if typeof(componentProperties) == "table" and componentProperties.Flag ~= nil and typeof(result) == "table" then
+			flags:Register(componentProperties.Flag, result)
+		end
 
 		local final = raw
 			or (

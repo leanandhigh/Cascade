@@ -5,6 +5,8 @@ local creator = require("@modules/creator")
 local binder = require("@modules/binder")
 local services = require("@modules/services")
 local appRecorder = require("@modules/appRecorder")
+local flags = require("@modules/flags")
+local config = require("@modules/config")
 
 local symbols = require("@modules/symbols")
 local components = require("@components/init")
@@ -27,6 +29,11 @@ local cascade = {
 	Binder = binder,
 	Components = components,
 	AppRecorder = appRecorder,
+
+	-- Every component created with `Flag = "Name"` is registered here (used by configs)
+	Flags = flags,
+	-- Standalone config manager, `Window.Configs` is an instance of it
+	Config = config,
 }
 
 local tweenInfo = TweenInfo.new(0.4, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out)

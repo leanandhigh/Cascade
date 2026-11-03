@@ -13,6 +13,7 @@ return {
 	RunService = cast("RunService") :: RunService,
 	UserInputService = cast("UserInputService") :: UserInputService,
 	GuiService = cast("GuiService") :: GuiService,
+	Stats = cast("Stats") :: Stats,
 
 	Workspace = cast("Workspace") :: Workspace,
 	Players = cast("Players") :: Players,

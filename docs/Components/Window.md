@@ -23,6 +23,36 @@
 | `Dropshadow`  | `#!luau boolean?` | Enables a dropshadow effect on the window.                                         |
 | `UIBlur`      | `#!luau boolean?` | Applies a background blur effect to the sidebar.                                   |
 
+#### Sidebar, profile & key
+
+| Property                | Type                                    | Description                                                                                          |
+| ----------------------- | --------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `WindowControls`        | `#!luau boolean?`                       | Shows the macOS close / minimize / zoom dots. Defaults to `false`, the sidebar uses that space.       |
+| `CanUnload`             | `#!luau boolean?`                       | Shows the unload (power) button in the titlebar. Defaults to `true`.                                 |
+| `Unloaded`              | `#!luau ((self: Window) -> ())?`        | Called when the UI is unloaded (button or `window:Unload()`). Disconnect your stuff here.           |
+| `UserProfile`           | `#!luau boolean?`                       | Shows the user card at the bottom-left of the sidebar. Defaults to `true`.                          |
+| `ProfileName`           | `#!luau string?`                        | Name on the card. Defaults to the local player's display name.                                       |
+| `ProfileSubtitle`       | `#!luau string?`                        | Text under the name when no key is set. Defaults to `"Account"`.                                     |
+| `ProfileImage`          | `#!luau string?`                        | Avatar image. Defaults to the local player's headshot.                                               |
+| `CensorName`            | `#!luau boolean?`                       | Masks the name (`u***1`). Also toggled from the card's settings button.                              |
+| `HideAvatar`            | `#!luau boolean?`                       | Hides the avatar. Also toggled from the card's settings button.                                      |
+| `ProfileOptions`        | `#!luau {ProfileOption}?`               | Extra items for the settings menu: `{ Title, Icon?, Checked?, Changed? }` or `{ Title, Pushed }`.    |
+| `ProfileSettingChanged` | `#!luau ((self, setting: string, value: boolean) -> ())?` | Called when `CensorName` / `HideAvatar` change.                                  |
+| `KeyExpires`            | `#!luau (number \| string)?`            | Unix timestamp the key expires at, `"Lifetime"`, or any text. Shows a live countdown on the card.    |
+| `KeyDuration`           | `#!luau number?`                        | Seconds until the key expires (sets `KeyExpires` for you).                                           |
+| `KeyExpired`            | `#!luau ((self: Window) -> ())?`        | Called once when the countdown hits zero.                                                            |
+
+#### Language & configs
+
+| Property          | Type                                            | Description                                                                                  |
+| ----------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `Languages`       | `#!luau {string}?`                              | Language codes shown next to the search field, eg. `{ "EN", "TH" }`.                        |
+| `Language`        | `#!luau string?`                                | Selected language. Defaults to the first one.                                                |
+| `LanguageChanged` | `#!luau ((self: Window, language: string) -> ())?` | Called when the language changes. Cascade does not translate anything, update your texts here. |
+| `Config`          | `#!luau (ConfigOptions \| boolean)?`            | Config bar options, `false` hides it. See [Configs](./Configs.md).                           |
+
+`window.Configs` is the window's config manager and `window:Unload()` unloads the whole UI.
+
 [View all inherited from `BaseComponent`](./index.md/#properties)
 
 [View all inherited from `Frame`](https://create.roblox.com/docs/reference/engine/classes/Frame#summary-properties)

@@ -137,5 +137,18 @@ return {
 				ColorSequenceKeypoint.new(1, Color3.fromRGB(190, 190, 190)),
 			})),
 		},
+
+		Status = {
+			Added = color4("30D158", 100),
+			Changed = color4("FF9F0A", 100),
+			Removed = color4("FF453A", 100),
+			Info = color4("64D2FF", 100),
+		},
+
+		Card = {
+			Fill = color4("FFFFFF", 4),
+			Hover = color4("FFFFFF", 8),
+			Overlay = color4("2C2C2E", 96),
+		},
 	},
 }

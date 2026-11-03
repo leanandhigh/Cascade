@@ -12,12 +12,18 @@ return function(self, properties: types.WindowProperties): types.Window
 
 	local titleBar, addToHistory = require("@structures/Titlebar")(self)
 	local resizeHandler = require("@modules/resizeHandler")
+	local popover = require("@modules/popover")
+	local symbols = require("@modules/symbols")
+	local profileStructure = require("@structures/Profile")(self)
+	local configModule = require("@modules/config")
+	local configBar = require("@structures/ConfigBar")
 
 	--// References
 	local create = creator.Create
 
 	local userInputService = services.UserInputService
 	local tweenService = services.TweenService
+	local players = services.Players
 
 	--// Variables
 	local parent = self.__container or self.__instance or self
@@ -54,6 +60,26 @@ return function(self, properties: types.WindowProperties): types.Window
 	properties.Dropshadow = properties.Dropshadow ~= false
 	properties.UIBlur = properties.UIBlur ~= false
 	properties.Title = properties.Title or "Title"
+
+	-- macOS traffic-light dots are hidden by default; the sidebar moves up into their space
+	properties.WindowControls = properties.WindowControls == true
+	properties.CanUnload = properties.CanUnload ~= false
+
+	-- User profile (bottom-left of the sidebar)
+	properties.UserProfile = properties.UserProfile ~= false
+	properties.CensorName = properties.CensorName == true
+	properties.HideAvatar = properties.HideAvatar == true
+	properties.ProfileSubtitle = properties.ProfileSubtitle or "Account"
+
+	-- Key duration (seconds from now) is converted to an expiry timestamp
+	if properties.KeyDuration then
+		properties.KeyExpires = os.time() + properties.KeyDuration
+	end
+
+	-- Language picker (left of the search field)
+	if properties.Languages and not properties.Language then
+		properties.Language = properties.Languages[1]
+	end
 
 	local windowControls, windowControlsCKeys = require("@structures/WindowControls")(self, properties)
 
@@ -313,6 +339,170 @@ return function(self, properties: types.WindowProperties): types.Window
 	structures.WindowControls = windowControls
 	structures.WindowControls.Body.Parent = structures.Toolbar
 
+	structures.Profile = profileStructure
+	structures.Profile.Body.Parent = structures.Sidebar
+
+	structures.ProfileMenu = popover.new(self, { Name = "ProfileMenu", Width = 180 })
+
+	local PROFILE_HEIGHT = 62
+	local unloaded = false
+
+	local function toolbarHeight(): number
+		return properties.WindowControls and 52 or 0
+	end
+
+	local function layoutSidebar()
+		local top = toolbarHeight()
+		local bottom = properties.UserProfile and PROFILE_HEIGHT or 0
+		local padding = structures.SidebarList:FindFirstChild("UIPadding")
+
+		structures.Toolbar.Visible = properties.WindowControls
+		structures.SidebarList.Position = UDim2.fromOffset(0, top)
+		structures.SidebarList.Size = UDim2.new(1, 0, 1, -(top + bottom))
+
+		if padding then
+			padding.PaddingTop = UDim.new(0, properties.WindowControls and 0 or 12)
+		end
+	end
+
+	local localPlayer = players.LocalPlayer
+	local keyExpiredFired = false
+	local object
+
+	--// Profile helpers
+	local function censor(name: string): string
+		local length = utf8.len(name) or #name
+
+		if length <= 2 then
+			return string.rep("*", length)
+		end
+
+		local first = utf8.offset(name, 2) and string.sub(name, 1, utf8.offset(name, 2) - 1) or string.sub(name, 1, 1)
+		local lastStart = utf8.offset(name, -1) or #name
+
+		return first .. string.rep("*", math.min(length - 2, 6)) .. string.sub(name, lastStart)
+	end
+
+	local function formatDuration(seconds: number): string
+		seconds = math.max(0, math.floor(seconds))
+
+		local days = seconds // 86400
+		local hours = (seconds % 86400) // 3600
+		local minutes = (seconds % 3600) // 60
+		local secs = seconds % 60
+
+		if days > 0 then
+			return string.format("%dd %dh %dm", days, hours, minutes)
+		elseif hours > 0 then
+			return string.format("%dh %dm %ds", hours, minutes, secs)
+		end
+
+		return string.format("%dm %ds", minutes, secs)
+	end
+
+	local function isLifetime(value): boolean
+		return value == true
+			or value == math.huge
+			or (typeof(value) == "string" and string.lower(value) == "lifetime")
+	end
+
+	local function refreshName()
+		local name = properties.ProfileName or (localPlayer and localPlayer.DisplayName) or "Player"
+
+		structures.Profile.DisplayName.Text = properties.CensorName and censor(name) or name
+	end
+
+	local function refreshAvatar()
+		local image = properties.ProfileImage
+
+		if not image and localPlayer then
+			image = "rbxthumb://type=AvatarHeadShot&id=" .. localPlayer.UserId .. "&w=150&h=150"
+		end
+
+		structures.Profile.Avatar.Image = image or ""
+		structures.Profile.Avatar.Visible = not properties.HideAvatar and image ~= nil
+		structures.Profile.Placeholder.Visible = not structures.Profile.Avatar.Visible
+	end
+
+	local function refreshSubtitle()
+		local label = structures.Profile.Subtitle
+		local theme = self.Theme
+		local expires = properties.KeyExpires
+		local text, color = properties.ProfileSubtitle, theme.Text.Secondary
+
+		if expires ~= nil and expires ~= false then
+			if isLifetime(expires) then
+				text, color = "Key: Lifetime", theme.Controls.Status.Added
+			elseif typeof(expires) == "number" then
+				local remaining = expires - os.time()
+
+				if remaining <= 0 then
+					text, color = "Key expired", theme.Controls.Status.Removed
+
+					if not keyExpiredFired then
+						keyExpiredFired = true
+
+						if properties.KeyExpired then
+							task.spawn(properties.KeyExpired, object)
+						end
+					end
+				else
+					text = "Key: " .. formatDuration(remaining)
+					color = remaining < 86400 and theme.Controls.Status.Changed or theme.Text.Secondary
+				end
+			elseif typeof(expires) == "string" then
+				text = "Key: " .. expires
+			end
+		end
+
+		label.Text = text
+		label.TextColor3 = color[1].Value
+		label.TextTransparency = color[2].Value
+	end
+
+	--// Profile menu
+	local censorItem = structures.ProfileMenu:AddItem({
+		Title = "Censor Name",
+		Icon = symbols.eyeSlash,
+		Checked = properties.CensorName,
+		Changed = function(value: boolean)
+			object.CensorName = value
+		end,
+	})
+
+	local avatarItem = structures.ProfileMenu:AddItem({
+		Title = "Hide Avatar",
+		Icon = symbols.personCropCircle,
+		Checked = properties.HideAvatar,
+		Changed = function(value: boolean)
+			object.HideAvatar = value
+		end,
+	})
+
+	structures.Profile.Settings.MouseButton1Click:Connect(function()
+		structures.ProfileMenu:Toggle(structures.Profile.Settings)
+	end)
+
+	structures.Body.Destroying:Connect(function()
+		structures.ProfileMenu:Destroy()
+
+		if structures.ConfigBar then
+			structures.ConfigBar.Destroy()
+		end
+	end)
+
+	structures.Titlebar.LanguagePicker.OnSelected(function(language: string)
+		object.Language = language
+	end)
+
+	-- Live key countdown + keeps state colors in sync with theme changes
+	task.defer(function()
+		while structures.Body.Parent do
+			refreshSubtitle()
+			task.wait(1)
+		end
+	end)
+
 	originalSize = structures.Body.Size
 	originalPosition = structures.Body.Position
 
@@ -454,7 +644,90 @@ return function(self, properties: types.WindowProperties): types.Window
 			structures.WindowControls.Zoom.Active = value
 		end,
 	}
-	local object = binder.Wrap(properties, bindings, structures.Body)
+	-- Profile bindings
+	bindings.UserProfile = function(value: boolean)
+		properties.UserProfile = value
+		structures.Profile.Body.Visible = value
+		layoutSidebar()
+	end
+	bindings.WindowControls = function(value: boolean)
+		properties.WindowControls = value
+		layoutSidebar()
+	end
+	bindings.CanUnload = function(value: boolean)
+		structures.Titlebar.Unload.Visible = value
+	end
+	bindings.ProfileName = function(value: string?)
+		properties.ProfileName = value
+		refreshName()
+	end
+	bindings.ProfileSubtitle = function(value: string?)
+		properties.ProfileSubtitle = value or "Account"
+		refreshSubtitle()
+	end
+	bindings.ProfileImage = function(value: string?)
+		properties.ProfileImage = value
+		refreshAvatar()
+	end
+	bindings.CensorName = function(value: boolean)
+		local changed = properties.CensorName ~= value
+
+		properties.CensorName = value == true
+		censorItem:Set(properties.CensorName, true)
+		refreshName()
+
+		if changed and properties.ProfileSettingChanged then
+			task.spawn(properties.ProfileSettingChanged, object, "CensorName", properties.CensorName)
+		end
+	end
+	bindings.HideAvatar = function(value: boolean)
+		local changed = properties.HideAvatar ~= value
+
+		properties.HideAvatar = value == true
+		avatarItem:Set(properties.HideAvatar, true)
+		refreshAvatar()
+
+		if changed and properties.ProfileSettingChanged then
+			task.spawn(properties.ProfileSettingChanged, object, "HideAvatar", properties.HideAvatar)
+		end
+	end
+	bindings.ProfileOptions = function(options)
+		if typeof(options) ~= "table" or #options == 0 then
+			return
+		end
+
+		structures.ProfileMenu:AddSeparator()
+
+		for _, option in ipairs(options) do
+			structures.ProfileMenu:AddItem(option)
+		end
+	end
+
+	-- Key duration bindings (paid scripts)
+	bindings.KeyExpires = function(value)
+		properties.KeyExpires = value
+		keyExpiredFired = false
+		refreshSubtitle()
+	end
+	bindings.KeyDuration = function(seconds: number?)
+		bindings.KeyExpires(seconds and (os.time() + seconds) or nil)
+	end
+
+	-- Language bindings
+	bindings.Languages = function(value: { string }?)
+		properties.Languages = value
+		structures.Titlebar.LanguagePicker.SetLanguages(value or {})
+	end
+	bindings.Language = function(value: string?)
+		properties.Language = value
+		structures.Titlebar.LanguagePicker.Select(value)
+
+		if properties.LanguageChanged then
+			task.spawn(properties.LanguageChanged, object, value)
+		end
+	end
+
+	object = binder.Wrap(properties, bindings, structures.Body)
 
 	object.Type = "Window"
 	object.Theme = self.Theme
@@ -462,6 +735,70 @@ return function(self, properties: types.WindowProperties): types.Window
 	object.Tabs = {}
 	object.addToHistory = addToHistory(object)
 	object.__container = structures.Content
+
+	-- Unload: runs the dev's cleanup callback, then removes the whole UI (window, pill, overlays, menus)
+	object.Unload = function()
+		if unloaded then
+			return
+		end
+
+		unloaded = true
+
+		if properties.Unloaded then
+			local ok, err = pcall(properties.Unloaded, object)
+
+			if not ok then
+				warn("[Cascade] Unloaded callback errored:", err)
+			end
+		end
+
+		local root = structures.Body.__instance:FindFirstAncestorWhichIsA("ScreenGui")
+
+		bindings.Minimized(true)
+
+		task.delay(0.25, function()
+			if structures.ConfigBar then
+				structures.ConfigBar.Destroy()
+			end
+
+			structures.ProfileMenu:Destroy()
+			structures.Body:Destroy()
+
+			if root and root.Name == "Cascade" then
+				root:Destroy()
+			end
+		end)
+	end
+
+	-- Config manager + titlebar config bar
+	if properties.Config ~= false then
+		local options = typeof(properties.Config) == "table" and properties.Config or {}
+
+		object.Configs = configModule.new(options)
+		structures.ConfigBar = configBar(self, object.Configs)
+		structures.ConfigBar.Body.Parent = structures.Titlebar.Trailing
+
+		local previousChanged = options.Changed
+
+		options.Changed = function()
+			structures.ConfigBar.Refresh()
+
+			if previousChanged then
+				previousChanged()
+			end
+		end
+
+		if options.AutoLoad ~= false then
+			task.defer(function()
+				local name = object.Configs:GetDefault()
+
+				if name then
+					object.Configs:Load(name)
+					structures.ConfigBar.Select(name)
+				end
+			end)
+		end
+	end
 
 	do -- Resize handler
 		resizeClient = resizeHandler(structures.Body.__instance, Vector2.new(350, 250))
@@ -678,6 +1015,12 @@ return function(self, properties: types.WindowProperties): types.Window
 
 			bindings.Minimized(true)
 			task.delay(0.25, structures.Body.Destroy)
+		end)
+
+		structures.Titlebar.Unload.MouseButton1Click:Connect(function()
+			if properties.CanUnload then
+				object:Unload()
+			end
 		end)
 
 		wcBody.MouseEnter:Connect(rollOver)

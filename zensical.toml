@@ -45,6 +45,12 @@ nav = [
         "Components/PopUpButton.md",
         "Components/PullDownButton.md",
         "Components/Notification.md",
+        "Components/Groupbox.md",
+        "Components/Columns.md",
+        "Components/Dashboard.md",
+        "Components/Watermark.md",
+        "Components/KeybindList.md",
+        "Components/Configs.md",
     ] },
     { "Creating Components" = [
         "Custom Components/introduction.md",

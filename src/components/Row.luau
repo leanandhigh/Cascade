@@ -127,9 +127,37 @@ return function(self, properties: types.RowProperties): types.Row
 	structures.RightAccessories:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateAccessories)
 	structures.LeftAccessories.Parent:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateAccessories)
 
+	-- Optional built-in TitleStack, created on first use: Row({ Title = "...", Subtitle = "..." })
+	local titleStack = nil
+
+	local function getTitleStack()
+		if not titleStack then
+			titleStack = require("@components/TitleStack")({
+				Theme = self.Theme,
+				__container = structures.LeftAccessories,
+			}, {
+				Title = "",
+			})
+
+			structures.TitleStack = titleStack
+		end
+
+		return titleStack
+	end
+
 	local object = binder.Wrap(properties, {
 		SearchIndex = function(value: string)
 			structures.Body:SetAttribute("SearchIndex", value)
+		end,
+		Title = function(value: string)
+			getTitleStack().Title = value
+
+			if properties.SearchIndex == nil then
+				structures.Body:SetAttribute("SearchIndex", value)
+			end
+		end,
+		Subtitle = function(value: string)
+			getTitleStack().Subtitle = value
 		end,
 	}, structures.Body)
 

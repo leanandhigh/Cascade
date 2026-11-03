@@ -41,4 +41,27 @@ utility.ProtectUI = function(gui: Instance): ScreenGui | string
 	return success and gui or returned
 end
 
+-- Finds the ScreenGui an overlay (watermark, keybind list...) should live in, from any component context.
+utility.OverlayRoot = function(context: any): Instance?
+	local candidate = context and (context.__container or context.__instance) or nil
+
+	if typeof(candidate) == "table" then
+		local ok, instance = pcall(function()
+			return candidate.__instance
+		end)
+
+		candidate = ok and instance or nil
+	end
+
+	if typeof(candidate) ~= "Instance" then
+		return nil
+	end
+
+	if candidate:IsA("LayerCollector") then
+		return candidate
+	end
+
+	return candidate:FindFirstAncestorWhichIsA("LayerCollector") or candidate
+end
+
 return utility

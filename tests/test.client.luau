@@ -47,6 +47,16 @@ local recorder = cascade.AppRecorder.new(app)
 recorder:Start()
 -- ^^^ !!!! DO NOT INCLUDE THIS PART IN YOUR ACTUAL SCRIPT !!!! ^^^
 
+-- Overlays live on the app, outside of any window
+local watermark = app:Watermark({
+	Title = "Cascade",
+	Text = "Premium",
+})
+
+local keybinds = app:KeybindList({
+	Title = "Keybinds",
+})
+
 do -- Main window
 	local window = app:Window({
 		Title = "Cascade",
@@ -54,6 +64,57 @@ do -- Main window
 
 		-- Size the UI properly per-device
 		Size = userInputService.TouchEnabled and UDim2.fromOffset(550, 325) or UDim2.fromOffset(850, 530),
+
+		-- Profile card (bottom-left). Click the gear for Censor Name / Hide Avatar.
+		ProfileSubtitle = "Account",
+		ProfileOptions = {
+			{
+				Title = "Show Watermark",
+				Checked = true,
+				Changed = function(value: boolean)
+					watermark.Visible = value
+				end,
+			},
+			{
+				Title = "Show Keybinds",
+				Checked = true,
+				Changed = function(value: boolean)
+					keybinds.Visible = value
+				end,
+			},
+		},
+
+		-- Paid scripts: a unix timestamp (or KeyDuration in seconds, or "Lifetime")
+		KeyExpires = os.time() + 3 * 86400 + 4 * 3600,
+		KeyExpired = function(self)
+			print("Key expired!")
+		end,
+
+		-- Language picker next to the search field. Cascade only reports the choice,
+		-- your script decides what to do with it.
+		Languages = { "EN", "TH" },
+		Language = "EN",
+		LanguageChanged = function(self, language: string)
+			print("Language changed:", language)
+		end,
+
+		-- Config bar in the titlebar. Every component created with `Flag = "..."` is saved.
+		Config = {
+			Folder = "CascadeDemo",
+			SubFolder = tostring(game.PlaceId),
+			AutoLoad = true, -- loads the default config (this account's default first, then all-accounts default)
+			Saved = function(name)
+				print("Saved config:", name)
+			end,
+			Loaded = function(name)
+				print("Loaded config:", name)
+			end,
+		},
+
+		-- The power button in the titlebar unloads the whole UI
+		Unloaded = function(self)
+			print("Unloaded, clean up your connections here")
+		end,
 	})
 
 	-- Cascade does not handle key-minimize, so this is an implementation.
@@ -68,6 +129,100 @@ do -- Main window
 		print("Closed window")
 	end)
 
+	-- Dashboard (home tab)
+	do
+		local dashboard = window:Dashboard({
+			Version = "1.0.16",
+			Logs = {
+				"+ More maps in Dungeon and Macro settings",
+				"~ Card priority could stop the script from loading",
+				"+ Improved UI loading on slower devices",
+				"+ Save Dungeon path previews by floor",
+				"~ Dungeon ignores unwanted maps in current and next-floor paths",
+				{ Type = "Removed", Text = "Old macro recorder" },
+			},
+			LinksTitle = "Cascade \\ Demo",
+			Discord = "https://discord.gg/2cB4vBAEWk",
+		})
+
+		dashboard:Log("! Logs can be added at any time")
+	end
+
+	-- Groupboxes
+	do
+		local tab = window:Tab({
+			Title = "Groupboxes",
+			Icon = cascade.Symbols.squareGrid2x2,
+		})
+
+		local left = tab:Groupbox({
+			Side = "Left",
+			Title = "Groupbox",
+			Description = "boxes",
+			Icon = cascade.Symbols.cube,
+		})
+
+		left:Row({ Title = "This is a toggle" }):Right():Toggle({
+			Flag = "DemoToggle",
+			Value = true,
+		})
+
+		left:Row({ Title = "Keybind", Subtitle = "Linked to the keybind list" }):Right():KeybindField({
+			Flag = "DemoKeybind",
+			Value = Enum.KeyCode.F,
+			KeybindList = keybinds,
+			KeybindName = "Fly",
+			KeybindMode = "Toggle",
+		})
+
+		left:Row({ Title = "This is my slider!" }):Right():Slider({
+			Flag = "DemoSlider",
+			Value = 0.6,
+		})
+
+		left:Row({ Title = "This is a textbox" }):Right():TextField({
+			Flag = "DemoText",
+			Value = "My textbox!",
+		})
+
+		local buttons = left:Row()
+		buttons:Right():Button({ Label = "Button", State = "Primary" })
+		buttons:Right():Button({ Label = "Sub button", State = "Secondary" })
+
+		local right = tab:Groupbox({
+			Side = "Right",
+			Title = "Dropdowns",
+			Icon = cascade.Symbols.listBullet,
+		})
+
+		right:Row({ Title = "A dropdown" }):Right():PopUpButton({
+			Flag = "DemoDropdown",
+			Options = { "This", "is", "a", "dropdown" },
+			Value = 1,
+		})
+
+		right:Row({ Title = "A multi dropdown" }):Right():PopUpButton({
+			Flag = "DemoMultiDropdown",
+			Options = { "This", "is", "multi" },
+			Maximum = 3,
+		})
+
+		right:Row({ Title = "Hold keybind" }):Right():KeybindField({
+			Flag = "DemoHoldKeybind",
+			Value = Enum.KeyCode.LeftAlt,
+			KeybindList = keybinds,
+			KeybindName = "Sprint",
+			KeybindMode = "Hold",
+		})
+
+		tab:Groupbox({
+			Side = "Left",
+			Title = "Collapsed",
+			Description = "Click the header to expand",
+			Collapsed = true,
+		}):Row({ Title = "Hidden until expanded" }):Right():Toggle({ Flag = "DemoHidden" })
+	end
+
 	-- API demo
 	do
 		local section = window:Section({ -- Sections group tabs
@@ -77,7 +232,6 @@ do -- Main window
 
 		do -- Components
 			local tab = section:Tab({
-				Selected = true,
 				Title = "Components",
 				Icon = cascade.Symbols.switch2,
 			})

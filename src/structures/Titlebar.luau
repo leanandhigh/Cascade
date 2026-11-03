@@ -326,7 +326,9 @@ return function(self)
 
 				create("UIListLayout")({
 					Name = "UIListLayout",
+					FillDirection = Enum.FillDirection.Horizontal,
 					HorizontalAlignment = Enum.HorizontalAlignment.Right,
+					Padding = UDim.new(0, 8),
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					VerticalAlignment = Enum.VerticalAlignment.Center,
 				}),
@@ -402,7 +404,61 @@ return function(self)
 		},
 	})
 
+	structures.SearchField.Body.LayoutOrder = 2
 	structures.SearchField.Body.Parent = structures.Trailing
+
+	-- Language picker sits on the left side of the search field
+	structures.LanguagePicker = require("@structures/LanguagePicker")(self)
+	structures.LanguagePicker.Body.Parent = structures.Trailing
+
+	-- Unload button, right-most item of the titlebar
+	structures.Unload = create("ImageButton")({
+		Name = "Unload",
+		AutoButtonColor = false,
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		LayoutOrder = 3,
+		Size = UDim2.fromOffset(28, 28),
+		Parent = structures.Trailing,
+
+		__dynamicKeys = {
+			BackgroundColor3 = self.Theme.Accents.Red[1],
+		},
+
+		create("UICorner")({
+			CornerRadius = UDim.new(0, 7),
+		}),
+
+		create("ImageLabel")({
+			Name = "Icon",
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			BackgroundTransparency = 1,
+			Image = require("@modules/symbols").power,
+			Position = UDim2.fromScale(0.5, 0.5),
+			Size = UDim2.fromOffset(15, 15),
+
+			__dynamicKeys = {
+				ImageColor3 = self.Theme.Text.Secondary[1],
+				ImageTransparency = self.Theme.Text.Secondary[2],
+			},
+		}),
+	})
+
+	do
+		local unloadIcon = structures.Unload:FindFirstChild("Icon") :: ImageLabel
+
+		structures.Unload.MouseEnter:Connect(function()
+			structures.Unload.BackgroundTransparency = 0.85
+			unloadIcon.ImageColor3 = self.Theme.Accents.Red[1].Value
+			unloadIcon.ImageTransparency = 0
+		end)
+
+		structures.Unload.MouseLeave:Connect(function()
+			structures.Unload.BackgroundTransparency = 1
+			unloadIcon.ImageColor3 = self.Theme.Text.Secondary[1].Value
+			unloadIcon.ImageTransparency = self.Theme.Text.Secondary[2].Value
+		end)
+	end
 
 	local function updateNavStates()
 		if not window then
