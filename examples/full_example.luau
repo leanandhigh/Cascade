@@ -225,15 +225,6 @@ targetBox:Row({ Title = "Drops", Subtitle = "Pick up to 3" }):Right():PopUpButto
 -- RadioButtonGroup: Value is the index of the selected option
 targetBox:Row({ Title = "Priority" }):Right():RadioButtonGroup({ Flag = "Priority", Options = { "Closest", "Lowest HP" }, Value = 1 })
 
--- ColorPicker: click the swatch to open it (saturation / brightness, hue, hex, RGB, copy / paste).
---   Transparency = number adds a transparency bar; ValueChanged gets (color, transparency).
-targetBox:Row({ Title = "ESP Color" }):Right():ColorPicker({
-	Flag = "EspColor",
-	Value = Color3.fromRGB(0, 255, 140),
-	Transparency = 0,
-	Title = "ESP Color",
-})
-
 -- TextField (Placeholder, Value)
 targetBox:Row({ Title = "Webhook" }):Right():TextField({ Flag = "Webhook", Placeholder = "https://..." })
 
@@ -251,6 +242,40 @@ targetBox:ButtonRow({
 		},
 	},
 })
+
+-- Chaining: a row's right side holds several controls, in creation order.
+-- This row is  ESP .......... [color] [key] [toggle]  (like Obsidian's Toggle:AddColorPicker / AddKeyPicker)
+local visualsBox = farmingTab:Groupbox({
+	Side = "Right",
+	Title = "Visuals",
+	Description = "Chained controls",
+	Icon = "eye",
+})
+
+local espRow = visualsBox:Row({ Title = "ESP", Subtitle = "Highlight enemies" })
+
+-- ColorPicker: click the swatch (saturation / brightness, hue, hex, RGB, copy / paste).
+--   Transparency = number adds a transparency bar; ValueChanged gets (color, transparency).
+local espColor = espRow:Right():ColorPicker({
+	Flag = "EspColor",
+	Value = Color3.fromRGB(0, 255, 140),
+	Transparency = 0,
+	Title = "ESP Color",
+})
+
+local espKey = espRow:Right():KeybindField({
+	Flag = "EspKey",
+	Value = Enum.KeyCode.E,
+	KeybindList = keybinds,
+	KeybindName = "ESP",
+})
+
+espRow:Right():Toggle({ Flag = "Esp", Value = false })
+
+-- Same idea with just a color: the text color of the ESP labels
+local namesRow = visualsBox:Row({ Title = "Show Names" })
+local namesColor = namesRow:Right():ColorPicker({ Flag = "EspNameColor", Value = Color3.new(1, 1, 1), Title = "Name Color" })
+namesRow:Right():Toggle({ Flag = "EspNames", Value = true })
 
 farmingTab:Groupbox({
 	Side = "Left",
@@ -292,6 +317,23 @@ Flags:OnChanged("FarmDistance", function(value: number)
 	distanceLabel.Text = tostring(math.floor(value + 0.5))
 end)
 
+-- Chained ESP row: the key flips the toggle, the colors only show while their toggle is on
+espKey.BindPressed = function(self, _, inputComplete: boolean)
+	if not inputComplete then
+		Flags:Set("Esp", not Flags:Get("Esp"))
+	end
+end
+
+Flags:OnChanged("Esp", function(enabled: boolean)
+	espColor.Visible = enabled
+	espKey.KeybindEntry.Active = enabled
+	print("ESP:", enabled)
+end)
+
+Flags:OnChanged("EspNames", function(enabled: boolean)
+	namesColor.Visible = enabled
+end)
+
 Flags:OnChanged("EspColor", function(color: Color3)
 	print("ESP color:", color:ToHex())
 end)
@@ -314,6 +356,9 @@ task.spawn(function()
 end)
 
 farmKey.KeybindEntry.Active = Flags:Get("AutoFarm") == true
+espKey.KeybindEntry.Active = Flags:Get("Esp") == true
+espColor.Visible = Flags:Get("Esp") == true
+namesColor.Visible = Flags:Get("EspNames") == true
 
 app:Notification({
 	Title = "Loaded",
