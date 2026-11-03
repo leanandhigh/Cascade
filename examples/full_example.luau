@@ -225,6 +225,15 @@ targetBox:Row({ Title = "Drops", Subtitle = "Pick up to 3" }):Right():PopUpButto
 -- RadioButtonGroup: Value is the index of the selected option
 targetBox:Row({ Title = "Priority" }):Right():RadioButtonGroup({ Flag = "Priority", Options = { "Closest", "Lowest HP" }, Value = 1 })
 
+-- ColorPicker: click the swatch to open it (saturation / brightness, hue, hex, RGB, copy / paste).
+--   Transparency = number adds a transparency bar; ValueChanged gets (color, transparency).
+targetBox:Row({ Title = "ESP Color" }):Right():ColorPicker({
+	Flag = "EspColor",
+	Value = Color3.fromRGB(0, 255, 140),
+	Transparency = 0,
+	Title = "ESP Color",
+})
+
 -- TextField (Placeholder, Value)
 targetBox:Row({ Title = "Webhook" }):Right():TextField({ Flag = "Webhook", Placeholder = "https://..." })
 
@@ -281,6 +290,10 @@ end
 
 Flags:OnChanged("FarmDistance", function(value: number)
 	distanceLabel.Text = tostring(math.floor(value + 0.5))
+end)
+
+Flags:OnChanged("EspColor", function(color: Color3)
+	print("ESP color:", color:ToHex())
 end)
 
 Flags:OnChanged("Enemy", function(index: number)

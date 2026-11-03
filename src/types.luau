@@ -714,6 +714,20 @@ export type SettingsProperties = {
 	MenuKeyFlag: string?,
 }
 
+-- ColorPicker
+export type ColorPickerProperties = {
+	Flag: string?, -- saved by configs (the Color3)
+	Value: Color3?,
+	Transparency: number?, -- give a number (0 = solid) to show the transparency bar
+	Title: string?,
+	ValueChanged: ((self: ColorPicker, color: Color3, transparency: number?) -> ())?,
+}
+
+export type ColorPicker = BaseComponent & ColorPickerProperties & {
+	Open: (self: ColorPicker) -> (),
+	Close: (self: ColorPicker) -> (),
+}
+
 -- ButtonRow
 export type ButtonRowProperties = {
 	Buttons: { ButtonProperties }?,
@@ -799,6 +813,7 @@ export type Components = {
 	ConfigManager: (self: any, properties: ConfigManagerProperties?) -> ConfigManagerComponent,
 	Settings: (self: any, properties: SettingsProperties?) -> Tab,
 	ButtonRow: (self: any, properties: ButtonRowProperties?) -> ButtonRow,
+	ColorPicker: (self: any, properties: ColorPickerProperties?) -> ColorPicker,
 }
 
 return 1

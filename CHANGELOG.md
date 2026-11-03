@@ -37,6 +37,7 @@
 
 - Theme values only notify on real changes (thousands fewer updates on load).
 - The window's layout fix no longer resizes every element twice in one frame; it nudges once and spreads a single pass over auto-sized elements across frames.
+- New `ColorPicker` (saturation / brightness, hue, optional transparency, hex / RGB, copy / paste; mouse and touch).
 - New components: `Groupbox` (with `Side = "Left" | "Right"`), `Columns`, `Dashboard`, `UpdateLog`, `InviteCard`, `Watermark`, `KeybindList`.
 - `Row`: `Title` / `Subtitle` properties create its TitleStack for you.
 - `KeybindField`: `KeybindList`, `KeybindName`, `KeybindMode` to show the bind in a `KeybindList`.

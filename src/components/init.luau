@@ -39,6 +39,7 @@ local components = {
 	ConfigManager = require("@components/ConfigManager"),
 	Settings = require("@components/Settings"),
 	ButtonRow = require("@components/ButtonRow"),
+	ColorPicker = require("@components/ColorPicker"),
 }
 
 --// Initialize
