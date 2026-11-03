@@ -191,10 +191,16 @@ cascade.New = function(properties: types.AppProperties): types.App
 			-- Keep the name in sync: only the colour values are copied, so without this
 			-- app.Theme._id stayed "Dark" after switching to Light (and Dark could never be re-picked)
 			properties.Theme._id = newTheme._id
+
+			-- State-dependent colours (toggle on, selected tab...) follow the new theme too
+			task.defer(creator.RefreshContext)
 		end,
 		Accent = function(newAccent)
 			properties.Accent = deepCopy(newAccent, newAccent._id)
 			updateThemes(properties.Theme, currentBaseTheme, newAccent)
+
+			-- Toggles that are on, selected tabs etc. use accent values they don't listen to
+			task.defer(creator.RefreshContext)
 		end,
 	}, container, { "Theme", "Accent" })
 
@@ -231,10 +237,16 @@ cascade.Component = function(properties: types.ComponentProperties?): types.Comp
 			-- Keep the name in sync: only the colour values are copied, so without this
 			-- app.Theme._id stayed "Dark" after switching to Light (and Dark could never be re-picked)
 			properties.Theme._id = newTheme._id
+
+			-- State-dependent colours (toggle on, selected tab...) follow the new theme too
+			task.defer(creator.RefreshContext)
 		end,
 		Accent = function(newAccent)
 			properties.Accent = deepCopy(newAccent, newAccent._id)
 			updateThemes(properties.Theme, currentBaseTheme, newAccent)
+
+			-- Toggles that are on, selected tabs etc. use accent values they don't listen to
+			task.defer(creator.RefreshContext)
 		end,
 	}, nil, { "Theme", "Accent" })
 

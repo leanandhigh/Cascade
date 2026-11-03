@@ -3,6 +3,31 @@ local binder = require("./binder")
 
 local creator = {}
 
+-- Instances whose colours depend on their own state (__contextKeys: toggle on/off, tab selected...).
+-- Their dynamic keys only listen to ONE theme value, so a theme / accent change that only touches
+-- another value (eg. Toggle.SwitchOn) left them on the old colour. RefreshContext re-applies them.
+local contextual = {}
+
+function creator.RefreshContext()
+	for instance, contextKeys in pairs(contextual) do
+		if contextKeys._general then
+			pcall(contextKeys._general)
+		end
+
+		for property, compute in pairs(contextKeys) do
+			if property ~= "_general" then
+				pcall(function()
+					local value = compute()
+
+					if value ~= nil then
+						instance[property] = value
+					end
+				end)
+			end
+		end
+	end
+end
+
 function creator.Value(value: any): types.ValueState
 	local callbacks = {}
 	local state = {
@@ -33,6 +58,14 @@ function creator.Create(className: string)
 		properties = properties or {}
 
 		local instance = Instance.new(className)
+
+		if typeof(properties.__contextKeys) == "table" then
+			contextual[instance] = properties.__contextKeys
+
+			instance.Destroying:Connect(function()
+				contextual[instance] = nil
+			end)
+		end
 
 		for key, value in pairs(properties) do
 			if key == "__dynamicKeys" and type(value) == "table" then

@@ -25,6 +25,8 @@
 
 - Switching the theme back to Dark after Light did nothing (`app.Theme._id` kept the first theme's name).
 - Real images (logo asset ids) on the watermark are no longer tinted with the accent colour.
+- Changing the accent / theme now reaches state-dependent colours (toggles that are on, selected tabs, radio buttons…); they kept the old accent.
+- Dropdown menus shrink again when their options change (the old height acted as a minimum).
 - `Settings` tab sits in its own sidebar group at the bottom.
 - Lucide icons load in the background (no HttpGet while building the UI) and are sized down to match the old symbols.
 

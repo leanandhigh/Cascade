@@ -222,6 +222,9 @@ function DropdownMenu:Resize()
 		return
 	end
 
+	-- Reset the height before measuring: with AutomaticSize the current Size acts as a minimum,
+	-- so a menu that was sized for many options (or MaxHeight) never shrank when options were removed.
+	menu.Size = UDim2.fromOffset(0, 0)
 	menu.AutomaticSize = Enum.AutomaticSize.XY
 
 	if not self.MaxHeight then

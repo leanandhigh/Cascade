@@ -39,20 +39,24 @@ function(h,i)if c[i]~=nil then return c[i]elseif e then local j,k=pcall(function
 )local k=d[i]if k then k(j)if not(f and table.find(f,i))then c[i]=j end elseif e
 then local l=pcall(function()e[i]=j end)if not l then c[i]=j end else c[i]=j end
 end})return g end return b end function a.c()local c=a.cache.c if not c then c={
-c=b()}a.cache.c=c end return c.c end end do local b=function()local b,c,d=a.b(),
-a.c(),{}function d.Value(e)local f={}local g={Value=e,Connect=function(g,h)table
-.insert(f,h)return h end}return c.Wrap(g,{Value=function(h)if h==g.Value then
-return end for i,j in pairs(f)do pcall(j,h)end end})end function d.Create(e)
-return function(f)f=f or{}local g=Instance.new(e)for h,i in pairs(f)do if h==
-'__dynamicKeys'and type(i)=='table'then for j,k in pairs(i)do pcall(function()g[
-j]=k.Value end)k:Connect(function(l)task.defer(pcall,function()if f.
-__contextKeys and f.__contextKeys._general then f.__contextKeys._general()end g[
-j]=f.__contextKeys and f.__contextKeys[j]and f.__contextKeys[j]()or l end)end)
-end continue end if typeof(i)=='table'and i.__unique then i.Parent=g end pcall(
-function()g[h]=i end)end return setmetatable({__unique=true},{__metatable=g,
-__index=function(h,i)if i=='__instance'then return g end local j=g[i]if typeof(j
-)=='function'then return function(k,...)return j(g,...)end else return j end end
-,__newindex=function(h,i,j)g[i]=j end})end end return d end function a.d()local
+c=b()}a.cache.c=c end return c.c end end do local b=function()local b,c,d,e=a.b(
+),a.c(),{},{}function d.RefreshContext()for f,g in pairs(e)do if g._general then
+pcall(g._general)end for h,i in pairs(g)do if h~='_general'then pcall(function()
+local j=i()if j~=nil then f[h]=j end end)end end end end function d.Value(f)
+local g={}local h={Value=f,Connect=function(h,i)table.insert(g,i)return i end}
+return c.Wrap(h,{Value=function(i)if i==h.Value then return end for j,k in
+pairs(g)do pcall(k,i)end end})end function d.Create(f)return function(g)g=g or{}
+local h=Instance.new(f)if typeof(g.__contextKeys)=='table'then e[h]=g.
+__contextKeys h.Destroying:Connect(function()e[h]=nil end)end for i,j in pairs(g
+)do if i=='__dynamicKeys'and type(j)=='table'then for k,l in pairs(j)do pcall(
+function()h[k]=l.Value end)l:Connect(function(m)task.defer(pcall,function()if g.
+__contextKeys and g.__contextKeys._general then g.__contextKeys._general()end h[
+k]=g.__contextKeys and g.__contextKeys[k]and g.__contextKeys[k]()or m end)end)
+end continue end if typeof(j)=='table'and j.__unique then j.Parent=h end pcall(
+function()h[i]=j end)end return setmetatable({__unique=true},{__metatable=h,
+__index=function(i,j)if j=='__instance'then return h end local k=h[j]if typeof(k
+)=='function'then return function(l,...)return k(h,...)end else return k end end
+,__newindex=function(i,j,k)h[j]=k end})end end return d end function a.d()local
 c=a.cache.d if not c then c={c=b()}a.cache.d=c end return c.c end end do local b
 =function()local b=a.a()local c=function(c)return b.Clone(game:GetService(c))end
 return{HttpService=(c'HttpService'),TweenService=(c'TweenService'),RunService=(c
@@ -7716,58 +7720,59 @@ as-b)if not ar or c<=0 then aq.CanvasPosition=Vector2.new(aq.CanvasPosition.X,0)
 return end local d,e=ar.AbsolutePosition.Y-aq.AbsolutePosition.Y+aq.
 CanvasPosition.Y,ar.AbsoluteSize.Y local f=d-((b-e)/2)aq.CanvasPosition=Vector2.
 new(aq.CanvasPosition.X,math.clamp(f,0,c))end function ag:Resize()local aq=self.
-Structures.Menu if not aq then return end aq.AutomaticSize=Enum.AutomaticSize.XY
-if not self.MaxHeight then return end task.defer(function()if not aq then return
-end local ar=aq.AbsoluteSize.Y if ar>=self.MaxHeight then aq.AutomaticSize=Enum.
-AutomaticSize.X aq.Size=UDim2.fromOffset(0,self.MaxHeight)else aq.Size=UDim2.
-fromOffset(0,ar)aq.AutomaticSize=Enum.AutomaticSize.X end self:AnchorMenu()end)
-end function ag:AnchorMenu()local aq,ar=al(self.Structures.Body),self.Structures
-.Menu local as=ar and ar.Parent if not ar or not aq or not as then return end
-local b=al(self.Structures.MenuContainer)if typeof(b)=='Instance'and not b.
-Parent then return end local c=aj.CurrentCamera if not c then return end if self
-.AutoScroll then self:ScrollToAnchorOption()end local d,e,f,g,h,i=aq.
-AbsolutePosition,aq.AbsoluteSize,ar.AbsolutePosition,as.AbsolutePosition,ar.
-AbsoluteSize,c.ViewportSize local j,k,l,m=d.X+e.X-h.X+ae,d.Y+e.Y+self.Gap,self:
-GetAnchorOffsets()if self.AnchorMode=='SelectedLabel'then local n,o=self:
-GetAnchorElement(),self:GetOptionLabel(self:GetAnchorOption())if n and o then
-local p=o.AbsolutePosition-f j=n.AbsolutePosition.X-p.X k=n.AbsolutePosition.Y-p
-.Y elseif n then j=n.AbsolutePosition.X+ae k=n.AbsolutePosition.Y end end j+=l k
-+=m local n,o=math.max(ad,i.X-ad-h.X),math.max(ad,i.Y-ad-h.Y)j=math.clamp(j,ad,n
-)k=math.clamp(k,ad,o)ar.Position=UDim2.fromOffset(j-g.X,k-g.Y)end function ag:
-SetExpanded(aq)local ar,as,b=aq==true,al(self.Structures.Body),al(self.
-Structures.MenuContainer)self.TweenToken+=1 local c=self.TweenToken if self.
-Tween then self.Tween:Cancel()self.Tween=nil end if ar and as then self.
-Structures.MenuBody.GroupTransparency=1 if not ap(self.Structures.MenuContainer)
-then return end elseif not ar and b and not b.Parent then self.Structures.
-MenuBody.GroupTransparency=1 return end self:Resize()self:AnchorMenu()task.
-defer(function()self:AnchorMenu()end)local d,e={GroupTransparency=ar and 0 or 1}
-,TweenInfo.new(ar and 0 or 0.4,Enum.EasingStyle.Exponential)local f=ai:Create(
-self.Structures.MenuBody,e,d)self.Tween=f f:Play()f.Completed:Connect(function(g
-)if c~=self.TweenToken then return end if self.Tween==f then self.Tween=nil end
-if g~=Enum.PlaybackState.Completed then return end if not ar and self.Object and
-self.Object.Expanded==false then self.Structures.MenuContainer.Parent=nil end
-end)end function ag:SetSelectedMap(aq)if not self.ShowsCheckmarks then return
-end for ar,as in ipairs(self.Structures.Options)do if not as then continue end
-local b,c,d=as:FindFirstChild'Checkmark',as:FindFirstChild'CheckmarkRepl',aq[ar]
-==true if b then b.Visible=d end if c then c.Visible=not d end end end function
-ag:ResetItemColors(aq)local ar,as=aq:FindFirstChild'Label',aq:FindFirstChild
-'Checkmark'aq.BackgroundTransparency=1 if ar then ar.TextColor3=self.Context.
-Theme.Text.Primary[1].Value ar.TextTransparency=self.Context.Theme.Text.Primary[
-2].Value end if as then as.ImageColor3=self.Context.Theme.Text.Primary[1].Value
-as.ImageTransparency=self.Context.Theme.Text.Primary[2].Value end end function
-ag:HighlightItem(aq)local ar,as=aq:FindFirstChild'Label',aq:FindFirstChild
-'Checkmark'aq.BackgroundTransparency=self.Context.Theme.Controls.
-SelectionFocused[2].Value if ar then ar.TextColor3=self.Context.Theme.Controls.
-SelectionFocusedAccent[1].Value ar.TextTransparency=self.Context.Theme.Controls.
-SelectionFocusedAccent[2].Value end if as then as.ImageColor3=self.Context.Theme
-.Controls.SelectionFocusedAccent[1].Value as.ImageTransparency=self.Context.
-Theme.Controls.SelectionFocusedAccent[2].Value end end function ag:AddOption(aq,
-ar)local as=self.MenuStructures.Item(aq,ar,self.ShowsCheckmarks)self.Structures.
-Options[ar]=as as:GetPropertyChangedSignal'GuiState':Connect(function()if not
-self.Object or not self.Object.Expanded then return end if as.GuiState==Enum.
-GuiState.Hover then self:HighlightItem(as)else self:ResetItemColors(as)end end)
-as.MouseButton1Click:Connect(function()if self.OnSelected and self.Object then
-self.OnSelected(self.Object,ar)end end)self:Resize()task.defer(function()self:
+Structures.Menu if not aq then return end aq.Size=UDim2.fromOffset(0,0)aq.
+AutomaticSize=Enum.AutomaticSize.XY if not self.MaxHeight then return end task.
+defer(function()if not aq then return end local ar=aq.AbsoluteSize.Y if ar>=self
+.MaxHeight then aq.AutomaticSize=Enum.AutomaticSize.X aq.Size=UDim2.fromOffset(0
+,self.MaxHeight)else aq.Size=UDim2.fromOffset(0,ar)aq.AutomaticSize=Enum.
+AutomaticSize.X end self:AnchorMenu()end)end function ag:AnchorMenu()local aq,ar
+=al(self.Structures.Body),self.Structures.Menu local as=ar and ar.Parent if not
+ar or not aq or not as then return end local b=al(self.Structures.MenuContainer)
+if typeof(b)=='Instance'and not b.Parent then return end local c=aj.
+CurrentCamera if not c then return end if self.AutoScroll then self:
+ScrollToAnchorOption()end local d,e,f,g,h,i=aq.AbsolutePosition,aq.AbsoluteSize,
+ar.AbsolutePosition,as.AbsolutePosition,ar.AbsoluteSize,c.ViewportSize local j,k
+,l,m=d.X+e.X-h.X+ae,d.Y+e.Y+self.Gap,self:GetAnchorOffsets()if self.AnchorMode==
+'SelectedLabel'then local n,o=self:GetAnchorElement(),self:GetOptionLabel(self:
+GetAnchorOption())if n and o then local p=o.AbsolutePosition-f j=n.
+AbsolutePosition.X-p.X k=n.AbsolutePosition.Y-p.Y elseif n then j=n.
+AbsolutePosition.X+ae k=n.AbsolutePosition.Y end end j+=l k+=m local n,o=math.
+max(ad,i.X-ad-h.X),math.max(ad,i.Y-ad-h.Y)j=math.clamp(j,ad,n)k=math.clamp(k,ad,
+o)ar.Position=UDim2.fromOffset(j-g.X,k-g.Y)end function ag:SetExpanded(aq)local
+ar,as,b=aq==true,al(self.Structures.Body),al(self.Structures.MenuContainer)self.
+TweenToken+=1 local c=self.TweenToken if self.Tween then self.Tween:Cancel()self
+.Tween=nil end if ar and as then self.Structures.MenuBody.GroupTransparency=1 if
+not ap(self.Structures.MenuContainer)then return end elseif not ar and b and not
+b.Parent then self.Structures.MenuBody.GroupTransparency=1 return end self:
+Resize()self:AnchorMenu()task.defer(function()self:AnchorMenu()end)local d,e={
+GroupTransparency=ar and 0 or 1},TweenInfo.new(ar and 0 or 0.4,Enum.EasingStyle.
+Exponential)local f=ai:Create(self.Structures.MenuBody,e,d)self.Tween=f f:Play()
+f.Completed:Connect(function(g)if c~=self.TweenToken then return end if self.
+Tween==f then self.Tween=nil end if g~=Enum.PlaybackState.Completed then return
+end if not ar and self.Object and self.Object.Expanded==false then self.
+Structures.MenuContainer.Parent=nil end end)end function ag:SetSelectedMap(aq)if
+not self.ShowsCheckmarks then return end for ar,as in ipairs(self.Structures.
+Options)do if not as then continue end local b,c,d=as:FindFirstChild'Checkmark',
+as:FindFirstChild'CheckmarkRepl',aq[ar]==true if b then b.Visible=d end if c
+then c.Visible=not d end end end function ag:ResetItemColors(aq)local ar,as=aq:
+FindFirstChild'Label',aq:FindFirstChild'Checkmark'aq.BackgroundTransparency=1 if
+ar then ar.TextColor3=self.Context.Theme.Text.Primary[1].Value ar.
+TextTransparency=self.Context.Theme.Text.Primary[2].Value end if as then as.
+ImageColor3=self.Context.Theme.Text.Primary[1].Value as.ImageTransparency=self.
+Context.Theme.Text.Primary[2].Value end end function ag:HighlightItem(aq)local
+ar,as=aq:FindFirstChild'Label',aq:FindFirstChild'Checkmark'aq.
+BackgroundTransparency=self.Context.Theme.Controls.SelectionFocused[2].Value if
+ar then ar.TextColor3=self.Context.Theme.Controls.SelectionFocusedAccent[1].
+Value ar.TextTransparency=self.Context.Theme.Controls.SelectionFocusedAccent[2].
+Value end if as then as.ImageColor3=self.Context.Theme.Controls.
+SelectionFocusedAccent[1].Value as.ImageTransparency=self.Context.Theme.Controls
+.SelectionFocusedAccent[2].Value end end function ag:AddOption(aq,ar)local as=
+self.MenuStructures.Item(aq,ar,self.ShowsCheckmarks)self.Structures.Options[ar]=
+as as:GetPropertyChangedSignal'GuiState':Connect(function()if not self.Object or
+not self.Object.Expanded then return end if as.GuiState==Enum.GuiState.Hover
+then self:HighlightItem(as)else self:ResetItemColors(as)end end)as.
+MouseButton1Click:Connect(function()if self.OnSelected and self.Object then self
+.OnSelected(self.Object,ar)end end)self:Resize()task.defer(function()self:
 AnchorMenu()end)return as end function ag:ClearOptions()for aq,ar in ipairs(self
 .Structures.Options)do ar:Destroy()end table.clear(self.Structures.Options)self:
 Resize()end function ag:RemoveOption(aq)if aq and self.Structures.Options[aq]
@@ -8828,13 +8833,15 @@ then aq:Cancel()end aq=an:Create(h.__instance,ap,{ImageTransparency=0.15})if aq
 then aq:Play()end end)h.MouseLeave:Connect(function()if aq then aq:Cancel()end
 aq=an:Create(h.__instance,ap,{ImageTransparency=0.5})if aq then aq:Play()end end
 )local i=ad.Wrap(c,{WindowPill=function(i)h.Visible=i end,Theme=function(i)f=i
-b(c.Theme,i,c.Accent)c.Theme._id=i._id end,Accent=function(i)c.Accent=ar(i,i._id
-)b(c.Theme,f,i)end},g,{'Theme','Accent'})i.Structures={WindowPill=h}
-setmetatable(c,{__index=aj})ad.Apply(c,i)task.defer(ad.Apply,c,i)return i end ao
-.Component=function(c)c=c or{}local d,e=c.Theme or ak.Light,c.Accent or al.Blue
-local f=d c.Theme=ar(d)c.Accent=ar(e)b(c.Theme,d,e)local g=ad.Wrap(c,{Theme=
-function(g)f=g b(c.Theme,g,c.Accent)c.Theme._id=g._id end,Accent=function(g)c.
-Accent=ar(g,g._id)b(c.Theme,f,g)end},nil,{'Theme','Accent'})if c.Parent then g.
-__container=c.Parent end setmetatable(c,{__index=aj})ad.Apply(c,g)task.defer(ad.
-Apply,c,g)return g end ao.RegisterComponent=function(c,d)aj.register(c,d)end ao.
-AppDump=function(c,d)return af.DumpApp(c,d)end return ao
+b(c.Theme,i,c.Accent)c.Theme._id=i._id task.defer(ac.RefreshContext)end,Accent=
+function(i)c.Accent=ar(i,i._id)b(c.Theme,f,i)task.defer(ac.RefreshContext)end},g
+,{'Theme','Accent'})i.Structures={WindowPill=h}setmetatable(c,{__index=aj})ad.
+Apply(c,i)task.defer(ad.Apply,c,i)return i end ao.Component=function(c)c=c or{}
+local d,e=c.Theme or ak.Light,c.Accent or al.Blue local f=d c.Theme=ar(d)c.
+Accent=ar(e)b(c.Theme,d,e)local g=ad.Wrap(c,{Theme=function(g)f=g b(c.Theme,g,c.
+Accent)c.Theme._id=g._id task.defer(ac.RefreshContext)end,Accent=function(g)c.
+Accent=ar(g,g._id)b(c.Theme,f,g)task.defer(ac.RefreshContext)end},nil,{'Theme',
+'Accent'})if c.Parent then g.__container=c.Parent end setmetatable(c,{__index=aj
+})ad.Apply(c,g)task.defer(ad.Apply,c,g)return g end ao.RegisterComponent=
+function(c,d)aj.register(c,d)end ao.AppDump=function(c,d)return af.DumpApp(c,d)
+end return ao
