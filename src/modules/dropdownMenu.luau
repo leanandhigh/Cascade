@@ -392,9 +392,20 @@ function DropdownMenu:SetSelectedMap(selected)
 	end
 end
 
+-- Glyph icons (Lucide / symbols) follow the text colour; real images keep theirs
+local function tintIcon(option: Instance, color: Color3)
+	local icon = option:FindFirstChild("Icon")
+
+	if icon and icon:GetAttribute("Glyph") then
+		icon.ImageColor3 = color
+	end
+end
+
 function DropdownMenu:ResetItemColors(option: TextButton)
 	local label = option:FindFirstChild("Label")
 	local checkmark = option:FindFirstChild("Checkmark")
+
+	tintIcon(option, self.Context.Theme.Text.Primary[1].Value)
 
 	option.BackgroundTransparency = 1
 
@@ -414,6 +425,7 @@ function DropdownMenu:HighlightItem(option: TextButton)
 	local checkmark = option:FindFirstChild("Checkmark")
 
 	option.BackgroundTransparency = self.Context.Theme.Controls.SelectionFocused[2].Value
+	tintIcon(option, self.Context.Theme.Controls.SelectionFocusedAccent[1].Value)
 
 	if label then
 		label.TextColor3 = self.Context.Theme.Controls.SelectionFocusedAccent[1].Value
@@ -426,8 +438,8 @@ function DropdownMenu:HighlightItem(option: TextButton)
 	end
 end
 
-function DropdownMenu:AddOption(name: string?, index: number): TextButton
-	local option = self.MenuStructures.Item(name, index, self.ShowsCheckmarks)
+function DropdownMenu:AddOption(name: string?, index: number, icon: any?): TextButton
+	local option = self.MenuStructures.Item(name, index, self.ShowsCheckmarks, icon)
 
 	self.Structures.Options[index] = option
 

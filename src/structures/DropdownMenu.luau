@@ -82,7 +82,8 @@ return function(self, config: DropdownMenuStructureConfig?)
 	structures.Menu = structures.Body:FindFirstChild(config.Name or "DropdownMenu") :: ScrollingFrame
 
 	--// Public Methods
-	function structures.Item(name: string?, index: number, showsCheckmark: boolean?): TextButton
+	-- Row: [tick] [image] name. `icon` (optional) is an asset id / rbxthumb / Lucide name.
+	function structures.Item(name: string?, index: number, showsCheckmark: boolean?, icon: any?): TextButton
 		local item = nil
 		item = create("TextButton")({
 			Name = "Item",
@@ -133,7 +134,7 @@ return function(self, config: DropdownMenuStructureConfig?)
 				BorderColor3 = Color3.fromRGB(0, 0, 0),
 				BorderSizePixel = 0,
 				FontFace = Font.new("rbxassetid://12187365364"),
-				LayoutOrder = 1,
+				LayoutOrder = 2,
 				RichText = true,
 				Text = name or "",
 				TextColor3 = Color3.fromRGB(0, 0, 0),
@@ -153,9 +154,35 @@ return function(self, config: DropdownMenuStructureConfig?)
 			}),
 		}) :: TextButton
 
+		if icon ~= nil then
+			local icons = require("@modules/icons")
+			local isGlyph = icons.IsGlyph(icon)
+			local image = create("ImageLabel")({
+				Name = "Icon",
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				LayoutOrder = 1,
+				ScaleType = Enum.ScaleType.Fit,
+				Size = UDim2.fromOffset(18, 18),
+				Parent = item.__instance,
+
+				create("UICorner")({
+					CornerRadius = UDim.new(0, 4),
+				}),
+			}).__instance :: ImageLabel
+
+			icons.Apply(image, icon, nil, 16)
+			image:SetAttribute("Glyph", isGlyph)
+			image.ImageColor3 = isGlyph and self.Theme.Text.Primary[1].Value or Color3.new(1, 1, 1)
+
+			-- a little room between the image and the name
+			item.__instance:FindFirstChildOfClass("UIListLayout").Padding = UDim.new(0, 6)
+		end
+
 		if showsCheckmark then
 			create("ImageLabel")({
 				Name = "Checkmark",
+				LayoutOrder = 0, -- tick first, then the image, then the name
 				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 				BackgroundTransparency = 1,
 				BorderColor3 = Color3.fromRGB(0, 0, 0),
@@ -175,6 +202,7 @@ return function(self, config: DropdownMenuStructureConfig?)
 
 			create("Frame")({
 				Name = "CheckmarkRepl",
+				LayoutOrder = 0,
 				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 				BackgroundTransparency = 1,
 				BorderColor3 = Color3.fromRGB(0, 0, 0),

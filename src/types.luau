@@ -522,7 +522,7 @@ export type RadioButtonGroupProperties = Frame & {
 }
 
 export type RadioButtonGroup = BaseComponent & Components & RadioButtonGroupProperties & {
-	Option: (Name: string?) -> Frame,
+	Option: (Name: PopUpOption?, Icon: any?) -> Frame,
 }
 
 -- DropdownMenu
@@ -538,9 +538,12 @@ export type DropdownMenuAnchorConfig = {
 export type DropdownMenuAnchor = GuiObject | DropdownMenuAnchorConfig
 
 -- PopUpButton
+export type PopUpOption = string | { Name: string?, Text: string?, Icon: any?, Image: any? }
+
 export type PopUpButtonProperties = Frame & {
 	Flag: string?, -- saved by configs
-	Options: { [number]: string }?,
+	Options: { [number]: PopUpOption }?,
+	Icons: { [number | string]: any }?, -- images in front of options, by index or name
 	Expanded: boolean?,
 	Anchor: DropdownMenuAnchor?,
 	Maximum: number?,
@@ -549,7 +552,7 @@ export type PopUpButtonProperties = Frame & {
 }
 
 export type PopUpButton = BaseComponent & Components & PopUpButtonProperties & {
-	Option: (Name: string?) -> Frame,
+	Option: (Name: PopUpOption?, Icon: any?) -> Frame,
 	Remove: (Index: number?) -> nil,
 }
 
@@ -564,7 +567,7 @@ export type PullDownButtonProperties = Frame & {
 }
 
 export type PullDownButton = BaseComponent & Components & PullDownButtonProperties & {
-	Option: (Name: string?) -> Frame,
+	Option: (Name: PopUpOption?, Icon: any?) -> Frame,
 	Remove: (Index: number?) -> nil,
 }
 

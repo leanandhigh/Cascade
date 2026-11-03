@@ -7785,13 +7785,13 @@ Controls.ScrollBar[1],ScrollBarImageTransparency=ab.Theme.Controls.ScrollBar[2]}
 5),PaddingRight=UDim.new(0,5),PaddingTop=UDim.new(0,5)},ad'UIListLayout'{Name=
 'UIListLayout',SortOrder=Enum.SortOrder.LayoutOrder,Padding=UDim.new(0,1)}}}})af
 .Body=(af.Container:FindFirstChild'MenuBody')af.Menu=(af.Body:FindFirstChild(ac.
-Name or'DropdownMenu'))function af.Item(ag,ah,ai)local aj aj=(ad'TextButton'{
+Name or'DropdownMenu'))function af.Item(ag,ah,ai,aj)local ak ak=(ad'TextButton'{
 Name='Item',Size=UDim2.fromScale(1,0),AutoButtonColor=false,AutomaticSize=Enum.
 AutomaticSize.XY,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
 BackgroundTransparency=1,Selectable=false,Text='',LayoutOrder=ah,Parent=af.Menu,
 __dynamicKeys={BackgroundColor3=ab.Theme.Controls.SelectionFocused[1]},
-__contextKeys={BackgroundTransparency=function()if not aj then return end return
-aj.GuiState==Enum.GuiState.Hover and ab.Theme.Controls.SelectionFocused[2].Value
+__contextKeys={BackgroundTransparency=function()if not ak then return end return
+ak.GuiState==Enum.GuiState.Hover and ab.Theme.Controls.SelectionFocused[2].Value
 or 1 end},ad'UIPadding'{Name='UIPadding',PaddingBottom=UDim.new(0,3),PaddingLeft
 =UDim.new(0,7),PaddingRight=UDim.new(0,12),PaddingTop=UDim.new(0,3)},ad
 'UIListLayout'{Name='UIListLayout',FillDirection=Enum.FillDirection.Horizontal,
@@ -7799,71 +7799,78 @@ Padding=UDim.new(0,2),SortOrder=Enum.SortOrder.LayoutOrder,VerticalAlignment=
 Enum.VerticalAlignment.Center},ad'TextLabel'{Name='Label',AutomaticSize=Enum.
 AutomaticSize.XY,BackgroundColor3=Color3.fromRGB(255,255,255),
 BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
-FontFace=Font.new'rbxassetid://12187365364',LayoutOrder=1,RichText=true,Text=ag
+FontFace=Font.new'rbxassetid://12187365364',LayoutOrder=2,RichText=true,Text=ag
 or'',TextColor3=Color3.fromRGB(0,0,0),TextSize=15,TextTransparency=0.15,
 TextTruncate=Enum.TextTruncate.AtEnd,__dynamicKeys={TextColor3=ab.Theme.Text.
 Primary[1],TextTransparency=ab.Theme.Text.Primary[2]}},ad'UICorner'{Name=
-'UICorner',CornerRadius=UDim.new(0,5)}})if ai then ad'ImageLabel'{Name=
-'Checkmark',BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=
-1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Image=
-'rbxassetid://127464789357538',ImageColor3=Color3.fromRGB(0,0,0),
-ImageTransparency=1,Size=UDim2.fromOffset(16,16),Visible=false,Parent=aj.
-__instance,__dynamicKeys={ImageColor3=ab.Theme.Text.Primary[1],ImageTransparency
-=ab.Theme.Text.Primary[2]}}ad'Frame'{Name='CheckmarkRepl',BackgroundColor3=
-Color3.fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.
-fromRGB(0,0,0),BorderSizePixel=0,Size=UDim2.fromOffset(16,16),Visible=true,
-Parent=aj.__instance}end return aj.__instance end return af end end function a.O
-()local ab=a.cache.O if not ab then ab={c=aa()}a.cache.O=ab end return ab.c end
-end do local aa=function()local aa,ab,ac,ad,ae,af,ag=a.O(),a.e(),a.a(),6,-1,6,{}
-ag.__index=ag local ah,ai,aj,ak,al,am,an,ao=ab.UserInputService,ab.TweenService,
-ab.Workspace,ab.GuiService,function(ah)if typeof(ah)=='table'then local ai,aj=
-pcall(function()return ah.__instance end)if ai and typeof(aj)=='Instance'then
-return aj end end return ah end,function(ah,ai,aj)if not ah then return false
-end local ak,al=ah.AbsolutePosition,ah.AbsoluteSize return ai>=ak.X and ai<=ak.X
-+al.X and aj>=ak.Y and aj<=ak.Y+al.Y end,function(ah)if typeof(ah)=='table'then
-return ah[1]end if typeof(ah)=='number'then return ah end return nil end,
-function(ah,ai)if typeof(ah)~='table'then return nil end return ah[ai]end local
-ap=function(ap)local aq=al(ap)if typeof(aq)~='Instance'then return false end if
-aq.Parent then return true end return typeof(ac.ProtectUI(aq))=='Instance'end
-function ag.new(aq,ar,as)as=as or{}local at=aa(aq,{Name=as.Name})ar.
-MenuContainer=at.Container.__instance ar.MenuBody=at.Body ar.Menu=at.Menu ar.
-Options=ar.Options or{}local au=setmetatable({Context=aq,Structures=ar,
-MenuStructures=at,Object=nil,Anchor=as.Anchor,AnchorMode=as.AnchorMode or
-'BelowButton',Gap=as.Gap or af,MaxHeight=as.MaxHeight,ShowsCheckmarks=as.
-ShowsCheckmarks==true,AutoScroll=as.AutoScroll~=false,OnSelected=as.OnSelected,
-SelectedValue=nil,Tween=nil,TweenToken=0,Bound=false},ag)return au end function
-ag:SetObject(aq)self.Object=aq self:Bind()end function ag:SetAnchor(aq)self.
-Anchor=aq self:AnchorMenu()end function ag:SetAnchorMode(aq)self.AnchorMode=aq
-self:AnchorMenu()end function ag:SetValue(aq)self.SelectedValue=aq self:
-AnchorMenu()end function ag:GetAnchorElement()local aq=self.Anchor local ar=al(
-aq)if typeof(ar)=='Instance'then return ar end local as=ao(aq,'Object')or ao(aq,
-'Element')or ao(aq,'Label')or self.Structures.CurrentTab or self.Structures.Body
-return al(as)end function ag:GetAnchorOption()return ao(self.Anchor,'Option')or
-an(self.SelectedValue)or 1 end function ag:GetAnchorOffsets()local aq=self.
-Anchor local ar,as,at=ao(aq,'Offset'),ao(aq,'XOffset')or 0,ao(aq,'YOffset')or 0
-if typeof(ar)=='Vector2'then as+=ar.X at+=ar.Y end return as,at end function ag:
-GetOptionLabel(aq)local ar=self.Structures.Options[aq]if not ar then return nil
-end return(ar:FindFirstChild'Label')end function ag:ScrollToAnchorOption()local
-aq=self.Structures.Menu if not aq then return end local ar,as,at=self.Structures
-.Options[self:GetAnchorOption()],aq.AbsoluteCanvasSize.Y,aq.AbsoluteSize.Y local
-au=math.max(0,as-at)if not ar or au<=0 then aq.CanvasPosition=Vector2.new(aq.
-CanvasPosition.X,0)return end local av,aw=ar.AbsolutePosition.Y-aq.
-AbsolutePosition.Y+aq.CanvasPosition.Y,ar.AbsoluteSize.Y local b=av-((at-aw)/2)
-aq.CanvasPosition=Vector2.new(aq.CanvasPosition.X,math.clamp(b,0,au))end
-function ag:Resize()local aq=self.Structures.Menu if not aq then return end aq.
-Size=UDim2.fromOffset(0,0)aq.AutomaticSize=Enum.AutomaticSize.XY if not self.
-MaxHeight then return end task.defer(function()if not aq then return end local
-ar=aq.AbsoluteSize.Y if ar>=self.MaxHeight then aq.AutomaticSize=Enum.
-AutomaticSize.X aq.Size=UDim2.fromOffset(0,self.MaxHeight)else aq.Size=UDim2.
-fromOffset(0,ar)aq.AutomaticSize=Enum.AutomaticSize.X end self:AnchorMenu()end)
-end function ag:AnchorMenu()local aq,ar=al(self.Structures.Body),self.Structures
-.Menu local as=ar and ar.Parent if not ar or not aq or not as then return end
-local at=al(self.Structures.MenuContainer)if typeof(at)=='Instance'and not at.
-Parent then return end local au=aj.CurrentCamera if not au then return end if
-self.AutoScroll then self:ScrollToAnchorOption()end local av,aw,b,c,d,e=aq.
-AbsolutePosition,aq.AbsoluteSize,ar.AbsolutePosition,as.AbsolutePosition,ar.
-AbsoluteSize,au.ViewportSize local f,g,h,i=av.X+aw.X-d.X+ae,av.Y+aw.Y+self.Gap,
-self:GetAnchorOffsets()if self.AnchorMode=='SelectedLabel'then local j,k=self:
+'UICorner',CornerRadius=UDim.new(0,5)}})if aj~=nil then local al=a.n()local am,
+an=al.IsGlyph(aj),(ad'ImageLabel'{Name='Icon',BackgroundTransparency=1,
+BorderSizePixel=0,LayoutOrder=1,ScaleType=Enum.ScaleType.Fit,Size=UDim2.
+fromOffset(18,18),Parent=ak.__instance,ad'UICorner'{CornerRadius=UDim.new(0,4)}}
+.__instance)al.Apply(an,aj,nil,16)an:SetAttribute('Glyph',am)an.ImageColor3=am
+and ab.Theme.Text.Primary[1].Value or Color3.new(1,1,1)ak.__instance:
+FindFirstChildOfClass'UIListLayout'.Padding=UDim.new(0,6)end if ai then ad
+'ImageLabel'{Name='Checkmark',LayoutOrder=0,BackgroundColor3=Color3.fromRGB(255,
+255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),
+BorderSizePixel=0,Image='rbxassetid://127464789357538',ImageColor3=Color3.
+fromRGB(0,0,0),ImageTransparency=1,Size=UDim2.fromOffset(16,16),Visible=false,
+Parent=ak.__instance,__dynamicKeys={ImageColor3=ab.Theme.Text.Primary[1],
+ImageTransparency=ab.Theme.Text.Primary[2]}}ad'Frame'{Name='CheckmarkRepl',
+LayoutOrder=0,BackgroundColor3=Color3.fromRGB(255,255,255),
+BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
+Size=UDim2.fromOffset(16,16),Visible=true,Parent=ak.__instance}end return ak.
+__instance end return af end end function a.O()local ab=a.cache.O if not ab then
+ab={c=aa()}a.cache.O=ab end return ab.c end end do local aa=function()local aa,
+ab,ac,ad,ae,af,ag=a.O(),a.e(),a.a(),6,-1,6,{}ag.__index=ag local ah,ai,aj,ak,al,
+am,an,ao=ab.UserInputService,ab.TweenService,ab.Workspace,ab.GuiService,function
+(ah)if typeof(ah)=='table'then local ai,aj=pcall(function()return ah.__instance
+end)if ai and typeof(aj)=='Instance'then return aj end end return ah end,
+function(ah,ai,aj)if not ah then return false end local ak,al=ah.
+AbsolutePosition,ah.AbsoluteSize return ai>=ak.X and ai<=ak.X+al.X and aj>=ak.Y
+and aj<=ak.Y+al.Y end,function(ah)if typeof(ah)=='table'then return ah[1]end if
+typeof(ah)=='number'then return ah end return nil end,function(ah,ai)if typeof(
+ah)~='table'then return nil end return ah[ai]end local ap=function(ap)local aq=
+al(ap)if typeof(aq)~='Instance'then return false end if aq.Parent then return
+true end return typeof(ac.ProtectUI(aq))=='Instance'end function ag.new(aq,ar,as
+)as=as or{}local at=aa(aq,{Name=as.Name})ar.MenuContainer=at.Container.
+__instance ar.MenuBody=at.Body ar.Menu=at.Menu ar.Options=ar.Options or{}local
+au=setmetatable({Context=aq,Structures=ar,MenuStructures=at,Object=nil,Anchor=as
+.Anchor,AnchorMode=as.AnchorMode or'BelowButton',Gap=as.Gap or af,MaxHeight=as.
+MaxHeight,ShowsCheckmarks=as.ShowsCheckmarks==true,AutoScroll=as.AutoScroll~=
+false,OnSelected=as.OnSelected,SelectedValue=nil,Tween=nil,TweenToken=0,Bound=
+false},ag)return au end function ag:SetObject(aq)self.Object=aq self:Bind()end
+function ag:SetAnchor(aq)self.Anchor=aq self:AnchorMenu()end function ag:
+SetAnchorMode(aq)self.AnchorMode=aq self:AnchorMenu()end function ag:SetValue(aq
+)self.SelectedValue=aq self:AnchorMenu()end function ag:GetAnchorElement()local
+aq=self.Anchor local ar=al(aq)if typeof(ar)=='Instance'then return ar end local
+as=ao(aq,'Object')or ao(aq,'Element')or ao(aq,'Label')or self.Structures.
+CurrentTab or self.Structures.Body return al(as)end function ag:GetAnchorOption(
+)return ao(self.Anchor,'Option')or an(self.SelectedValue)or 1 end function ag:
+GetAnchorOffsets()local aq=self.Anchor local ar,as,at=ao(aq,'Offset'),ao(aq,
+'XOffset')or 0,ao(aq,'YOffset')or 0 if typeof(ar)=='Vector2'then as+=ar.X at+=ar
+.Y end return as,at end function ag:GetOptionLabel(aq)local ar=self.Structures.
+Options[aq]if not ar then return nil end return(ar:FindFirstChild'Label')end
+function ag:ScrollToAnchorOption()local aq=self.Structures.Menu if not aq then
+return end local ar,as,at=self.Structures.Options[self:GetAnchorOption()],aq.
+AbsoluteCanvasSize.Y,aq.AbsoluteSize.Y local au=math.max(0,as-at)if not ar or au
+<=0 then aq.CanvasPosition=Vector2.new(aq.CanvasPosition.X,0)return end local av
+,aw=ar.AbsolutePosition.Y-aq.AbsolutePosition.Y+aq.CanvasPosition.Y,ar.
+AbsoluteSize.Y local b=av-((at-aw)/2)aq.CanvasPosition=Vector2.new(aq.
+CanvasPosition.X,math.clamp(b,0,au))end function ag:Resize()local aq=self.
+Structures.Menu if not aq then return end aq.Size=UDim2.fromOffset(0,0)aq.
+AutomaticSize=Enum.AutomaticSize.XY if not self.MaxHeight then return end task.
+defer(function()if not aq then return end local ar=aq.AbsoluteSize.Y if ar>=self
+.MaxHeight then aq.AutomaticSize=Enum.AutomaticSize.X aq.Size=UDim2.fromOffset(0
+,self.MaxHeight)else aq.Size=UDim2.fromOffset(0,ar)aq.AutomaticSize=Enum.
+AutomaticSize.X end self:AnchorMenu()end)end function ag:AnchorMenu()local aq,ar
+=al(self.Structures.Body),self.Structures.Menu local as=ar and ar.Parent if not
+ar or not aq or not as then return end local at=al(self.Structures.MenuContainer
+)if typeof(at)=='Instance'and not at.Parent then return end local au=aj.
+CurrentCamera if not au then return end if self.AutoScroll then self:
+ScrollToAnchorOption()end local av,aw,b,c,d,e=aq.AbsolutePosition,aq.
+AbsoluteSize,ar.AbsolutePosition,as.AbsolutePosition,ar.AbsoluteSize,au.
+ViewportSize local f,g,h,i=av.X+aw.X-d.X+ae,av.Y+aw.Y+self.Gap,self:
+GetAnchorOffsets()if self.AnchorMode=='SelectedLabel'then local j,k=self:
 GetAnchorElement(),self:GetOptionLabel(self:GetAnchorOption())if j and k then
 local l=k.AbsolutePosition-b f=j.AbsolutePosition.X-l.X g=j.AbsolutePosition.Y-l
 .Y elseif j then f=j.AbsolutePosition.X+ae g=j.AbsolutePosition.Y end end f+=h g
@@ -7885,39 +7892,43 @@ end end)end function ag:SetSelectedMap(aq)if not self.ShowsCheckmarks then
 return end for ar,as in ipairs(self.Structures.Options)do if not as then
 continue end local at,au,av=as:FindFirstChild'Checkmark',as:FindFirstChild
 'CheckmarkRepl',aq[ar]==true if at then at.Visible=av end if au then au.Visible=
-not av end end end function ag:ResetItemColors(aq)local ar,as=aq:FindFirstChild
-'Label',aq:FindFirstChild'Checkmark'aq.BackgroundTransparency=1 if ar then ar.
-TextColor3=self.Context.Theme.Text.Primary[1].Value ar.TextTransparency=self.
-Context.Theme.Text.Primary[2].Value end if as then as.ImageColor3=self.Context.
-Theme.Text.Primary[1].Value as.ImageTransparency=self.Context.Theme.Text.Primary
-[2].Value end end function ag:HighlightItem(aq)local ar,as=aq:FindFirstChild
-'Label',aq:FindFirstChild'Checkmark'aq.BackgroundTransparency=self.Context.Theme
-.Controls.SelectionFocused[2].Value if ar then ar.TextColor3=self.Context.Theme.
-Controls.SelectionFocusedAccent[1].Value ar.TextTransparency=self.Context.Theme.
-Controls.SelectionFocusedAccent[2].Value end if as then as.ImageColor3=self.
-Context.Theme.Controls.SelectionFocusedAccent[1].Value as.ImageTransparency=self
+not av end end end local aq=function(aq,ar)local as=aq:FindFirstChild'Icon'if as
+and as:GetAttribute'Glyph'then as.ImageColor3=ar end end function ag:
+ResetItemColors(ar)local as,at=ar:FindFirstChild'Label',ar:FindFirstChild
+'Checkmark'aq(ar,self.Context.Theme.Text.Primary[1].Value)ar.
+BackgroundTransparency=1 if as then as.TextColor3=self.Context.Theme.Text.
+Primary[1].Value as.TextTransparency=self.Context.Theme.Text.Primary[2].Value
+end if at then at.ImageColor3=self.Context.Theme.Text.Primary[1].Value at.
+ImageTransparency=self.Context.Theme.Text.Primary[2].Value end end function ag:
+HighlightItem(ar)local as,at=ar:FindFirstChild'Label',ar:FindFirstChild
+'Checkmark'ar.BackgroundTransparency=self.Context.Theme.Controls.
+SelectionFocused[2].Value aq(ar,self.Context.Theme.Controls.
+SelectionFocusedAccent[1].Value)if as then as.TextColor3=self.Context.Theme.
+Controls.SelectionFocusedAccent[1].Value as.TextTransparency=self.Context.Theme.
+Controls.SelectionFocusedAccent[2].Value end if at then at.ImageColor3=self.
+Context.Theme.Controls.SelectionFocusedAccent[1].Value at.ImageTransparency=self
 .Context.Theme.Controls.SelectionFocusedAccent[2].Value end end function ag:
-AddOption(aq,ar)local as=self.MenuStructures.Item(aq,ar,self.ShowsCheckmarks)
-self.Structures.Options[ar]=as as:GetPropertyChangedSignal'GuiState':Connect(
-function()if not self.Object or not self.Object.Expanded then return end if as.
-GuiState==Enum.GuiState.Hover then self:HighlightItem(as)else self:
-ResetItemColors(as)end end)as.MouseButton1Click:Connect(function()if self.
-OnSelected and self.Object then self.OnSelected(self.Object,ar)end end)self:
-Resize()task.defer(function()self:AnchorMenu()end)return as end function ag:
-ClearOptions()for aq,ar in ipairs(self.Structures.Options)do ar:Destroy()end
-table.clear(self.Structures.Options)self:Resize()end function ag:RemoveOption(aq
-)if aq and self.Structures.Options[aq]then self.Structures.Options[aq]:Destroy()
-self.Structures.Options[aq]=nil end self:Resize()end function ag:Bind()if self.
+AddOption(ar,as,at)local au=self.MenuStructures.Item(ar,as,self.ShowsCheckmarks,
+at)self.Structures.Options[as]=au au:GetPropertyChangedSignal'GuiState':Connect(
+function()if not self.Object or not self.Object.Expanded then return end if au.
+GuiState==Enum.GuiState.Hover then self:HighlightItem(au)else self:
+ResetItemColors(au)end end)au.MouseButton1Click:Connect(function()if self.
+OnSelected and self.Object then self.OnSelected(self.Object,as)end end)self:
+Resize()task.defer(function()self:AnchorMenu()end)return au end function ag:
+ClearOptions()for ar,as in ipairs(self.Structures.Options)do as:Destroy()end
+table.clear(self.Structures.Options)self:Resize()end function ag:RemoveOption(ar
+)if ar and self.Structures.Options[ar]then self.Structures.Options[ar]:Destroy()
+self.Structures.Options[ar]=nil end self:Resize()end function ag:Bind()if self.
 Bound then return end self.Bound=true self.Structures.Body:
 GetPropertyChangedSignal'AbsolutePosition':Connect(function()self:AnchorMenu()
 end)self.Structures.Body:GetPropertyChangedSignal'AbsoluteSize':Connect(function
 ()self:AnchorMenu()end)self.Structures.Menu:GetPropertyChangedSignal
 'AbsoluteSize':Connect(function()self:AnchorMenu()end)ah.InputBegan:Connect(
-function(aq)if not self.Object or not self.Object.Expanded or(aq.UserInputType~=
-Enum.UserInputType.MouseButton1 and aq.UserInputType~=Enum.UserInputType.Touch)
-then return end local ar,as=ah:GetMouseLocation(),ak:GetGuiInset()local at,au=ar
-.Y-as.Y,al(self.Structures.Body)local av=am(au,ar.X,at)or am(au,ar.X,ar.Y)if not
-am(self.Structures.Menu,ar.X,at)and not av then self.Object.Expanded=false end
+function(ar)if not self.Object or not self.Object.Expanded or(ar.UserInputType~=
+Enum.UserInputType.MouseButton1 and ar.UserInputType~=Enum.UserInputType.Touch)
+then return end local as,at=ah:GetMouseLocation(),ak:GetGuiInset()local au,av=as
+.Y-at.Y,al(self.Structures.Body)local aw=am(av,as.X,au)or am(av,as.X,as.Y)if not
+am(self.Structures.Menu,as.X,au)and not aw then self.Object.Expanded=false end
 end)self.Structures.Body.MouseButton1Click:Connect(function()if self.Object then
 self.Object.Expanded=not self.Object.Expanded end end)end return ag end function
 a.P()local ab=a.cache.P if not ab then ab={c=aa()}a.cache.P=ab end return ab.c
@@ -7926,75 +7937,87 @@ c(),a.P()local af,ag,ah,ai,aj=ac.Create,30,aa.__container or aa.__instance or aa
 ,aa.Theme.Controls.MenuButton,{Options={}}local ak,al=function(ak)if#ak>ag then
 return string.sub(ak,1,ag)..'...'end return ak end,function(ak)local al={}if
 typeof(ak)=='table'then for am,an in ipairs(ak)do al[an]=true end elseif ak then
-al[ak]=true end return al end local am=function(am)local an,ao={},al(am)for ap,
-aq in ipairs(aj.Options)do local ar=aq and aq:FindFirstChild'Label'if ao[ap]and
-ar then table.insert(an,ar.Text)end end return an end ab=ab or{}ab.Maximum=ab.
-Maximum or 1 ab.Expanded=ab.Expanded or false ab.Options=ab.Options or{}aj.Body=
-(ad.Apply(ab,af'TextButton'{Name='PopUpButton',AutomaticSize=Enum.AutomaticSize.
-XY,BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
-BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Selectable=false,Text='',
-Parent=ah,af'UIPadding'{Name='UIPadding',PaddingBottom=UDim.new(0,4),PaddingLeft
-=UDim.new(0,9),PaddingRight=UDim.new(0,5),PaddingTop=UDim.new(0,4)},af
-'UIListLayout'{Name='UIListLayout',FillDirection=Enum.FillDirection.Horizontal,
-Padding=UDim.new(0,8),SortOrder=Enum.SortOrder.LayoutOrder,VerticalAlignment=
-Enum.VerticalAlignment.Center},af'Frame'{Name='PopUpIndicator',BorderColor3=
-Color3.fromRGB(0,0,0),BorderSizePixel=0,LayoutOrder=1,Selectable=true,Size=UDim2
-.fromOffset(16,16),__dynamicKeys={BackgroundColor3=ai.IndicatorBackground[1],
-BackgroundTransparency=ai.IndicatorBackground[2]},af'UICorner'{Name='UICorner',
-CornerRadius=UDim.new(0,4)},af'ImageLabel'{Name='Indicators',BackgroundColor3=
-Color3.fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.
-fromRGB(0,0,0),BorderSizePixel=0,Image='rbxassetid://89151647333378',Size=UDim2.
-fromScale(1,1),__dynamicKeys={ImageColor3=aa.Theme.Text.Primary[1],
-ImageTransparency=aa.Theme.Text.Primary[2]}}},af'TextLabel'{Name='Label',
+al[ak]=true end return al end local am,an,ao=function(am)local an,ao={},al(am)
+for ap,aq in ipairs(aj.Options)do local ar=aq and aq:FindFirstChild'Label'if ao[
+ap]and ar then table.insert(an,ar.Text)end end return an end,{},function(am,an)
+local ao,ap=am if typeof(am)=='table'then ao=am.Name or am.Text or am.Title or
+am[1]or''ap=am.Icon or am.Image end ao=tostring(ao)local aq=ab.Icons or ab.
+Images if ap==nil and typeof(aq)=='table'then ap=aq[an]or aq[ao]end return ao,ap
+end ab=ab or{}ab.Maximum=ab.Maximum or 1 ab.Expanded=ab.Expanded or false ab.
+Options=ab.Options or{}aj.Body=(ad.Apply(ab,af'TextButton'{Name='PopUpButton',
 AutomaticSize=Enum.AutomaticSize.XY,BackgroundColor3=Color3.fromRGB(255,255,255)
 ,BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
-FontFace=Font.new'rbxassetid://12187365364',RichText=true,Text='None',TextSize=
-15,TextTransparency=0.15,TextTruncate=Enum.TextTruncate.AtEnd,__dynamicKeys={
-TextColor3=aa.Theme.Text.Primary[1],TextTransparency=aa.Theme.Text.Primary[2]}}}
-))aj.PopUpIndicator=(aj.Body:FindFirstChild'PopUpIndicator')aj.CurrentTab=(aj.
-Body:FindFirstChild'Label')local an,ao=(ae.new(aa,aj,{Name='PopUpMenu',Anchor=ab
-.Anchor,AnchorMode='SelectedLabel',ShowsCheckmarks=true,MaxHeight=239,OnSelected
-=function(an,ao)if an.Maximum and an.Maximum>1 then local ap=an.Value or{}if
-typeof(ap)~='table'then ap=ap and{ap}or{}else ap=table.clone(ap)end local aq for
-ar,as in ipairs(ap)do if as==ao then aq=ar break end end if aq then table.
-remove(ap,aq)else if#ap<an.Maximum then table.insert(ap,ao)else table.remove(ap,
-1)table.insert(ap,ao)end end an.Value=ap else an.Expanded=false task.wait(0.2)an
-.Value=ao end end}))local ap=function(ap,aq)local ar=ao and ao.Maximum and ao.
-Maximum>1 an:SetAnchorMode(ar and'BelowButton'or'SelectedLabel')an:SetValue(ap)
-if ar then local as=am(ap)if#as==0 then aj.CurrentTab.Text='None'else aj.
-CurrentTab.Text=ak(table.concat(as,', '))end an:SetSelectedMap(al(ap))else local
-as=ap and aj.Options[ap]and aj.Options[ap]:FindFirstChild'Label'if not as then
-aj.CurrentTab.Text='None'else aj.CurrentTab.Text=ak(as.Text)end an:
-SetSelectedMap(al(ap))end if aq and ab.ValueChanged then ab.Value=ap task.spawn(
-ab.ValueChanged,ao,ap)end end local aq={Anchor=function(aq)an:SetAnchor(aq)end,
-Options=function(aq)an:ClearOptions()for ar,as in ipairs(aq)do an:AddOption(as,
-ar)end if ao then ap(ao.Value,false)end end,Expanded=function(aq)an:
-SetAnchorMode(ao and ao.Maximum and ao.Maximum>1 and'BelowButton'or
-'SelectedLabel')an:SetExpanded(aq)end,Value=function(aq)ap(aq,true)end}ao=ad.
-Wrap(ab,aq,aj.Body)an:SetObject(ao)ao.Type='PopUpButton'ao.Theme=aa.Theme ao.
-Structures=aj ao.Option=function(ar,as)local at=#aj.Options+1 local au=an:
-AddOption(as,at)table.insert(ao.Options,as)ap(ao.Value,false)return au end ao.
-Remove=function(ar,as)if as then an:RemoveOption(as)ao.Options[as]=nil ap(ao.
-Value,false)end end ad.Apply(ab,ao)ap(ao.Value,false)return ao end end function
-a.Q()local ab=a.cache.Q if not ab then ab={c=aa()}a.cache.Q=ab end return ab.c
-end end do local aa=function()a.b()return function(aa,ab)local ac,ad,ae=a.d(),a.
-c(),a.P()local af,ag,ah,ai=ac.Create,aa.__container or aa.__instance or aa,aa.
-Theme.Controls.MenuButton,{Options={}}ab=ab or{}ab.Expanded=ab.Expanded or false
-ab.Options=ab.Options or{}ai.Body=(ad.Apply(ab,af'TextButton'{Name=
-'PullDownButton',AutomaticSize=Enum.AutomaticSize.XY,BackgroundColor3=Color3.
-fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0)
-,BorderSizePixel=0,Selectable=false,Text='',Parent=ag,af'UIPadding'{Name=
-'UIPadding',PaddingBottom=UDim.new(0,3),PaddingLeft=UDim.new(0,7),PaddingRight=
-UDim.new(0,3),PaddingTop=UDim.new(0,3)},af'UIListLayout'{Name='UIListLayout',
-FillDirection=Enum.FillDirection.Horizontal,Padding=UDim.new(0,7),SortOrder=Enum
-.SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},af
-'Frame'{Name='PullDownIndicator',BorderColor3=Color3.fromRGB(0,0,0),
-BorderSizePixel=0,LayoutOrder=1,Selectable=true,Size=UDim2.fromOffset(16,16),
-__dynamicKeys={BackgroundColor3=ah.IndicatorBackground[1],BackgroundTransparency
-=ah.IndicatorBackground[2]},af'UICorner'{Name='UICorner',CornerRadius=UDim.new(0
-,4)},af'ImageLabel'{Name='Indicators',BackgroundColor3=Color3.fromRGB(255,255,
-255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel
-=0,Image='rbxassetid://86693411280110',Size=UDim2.fromScale(1,1),__dynamicKeys={
+Selectable=false,Text='',Parent=ah,af'UIPadding'{Name='UIPadding',PaddingBottom=
+UDim.new(0,4),PaddingLeft=UDim.new(0,9),PaddingRight=UDim.new(0,5),PaddingTop=
+UDim.new(0,4)},af'UIListLayout'{Name='UIListLayout',FillDirection=Enum.
+FillDirection.Horizontal,Padding=UDim.new(0,8),SortOrder=Enum.SortOrder.
+LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},af'Frame'{Name=
+'PopUpIndicator',BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
+LayoutOrder=1,Selectable=true,Size=UDim2.fromOffset(16,16),__dynamicKeys={
+BackgroundColor3=ai.IndicatorBackground[1],BackgroundTransparency=ai.
+IndicatorBackground[2]},af'UICorner'{Name='UICorner',CornerRadius=UDim.new(0,4)}
+,af'ImageLabel'{Name='Indicators',BackgroundColor3=Color3.fromRGB(255,255,255),
+BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
+Image='rbxassetid://89151647333378',Size=UDim2.fromScale(1,1),__dynamicKeys={
+ImageColor3=aa.Theme.Text.Primary[1],ImageTransparency=aa.Theme.Text.Primary[2]}
+}},af'ImageLabel'{Name='SelectedIcon',BackgroundTransparency=1,BorderSizePixel=0
+,LayoutOrder=-1,ScaleType=Enum.ScaleType.Fit,Size=UDim2.fromOffset(18,18),
+Visible=false,af'UICorner'{CornerRadius=UDim.new(0,4)}},af'TextLabel'{Name=
+'Label',AutomaticSize=Enum.AutomaticSize.XY,BackgroundColor3=Color3.fromRGB(255,
+255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),
+BorderSizePixel=0,FontFace=Font.new'rbxassetid://12187365364',RichText=true,Text
+='None',TextSize=15,TextTransparency=0.15,TextTruncate=Enum.TextTruncate.AtEnd,
+__dynamicKeys={TextColor3=aa.Theme.Text.Primary[1],TextTransparency=aa.Theme.
+Text.Primary[2]}}}))aj.PopUpIndicator=(aj.Body:FindFirstChild'PopUpIndicator')aj
+.CurrentTab=(aj.Body:FindFirstChild'Label')aj.SelectedIcon=(aj.Body:
+FindFirstChild'SelectedIcon')local ap,aq,ar=function(ap)local aq=aj.SelectedIcon
+if ap==nil then aq.Visible=false return end local ar=a.n()local as=ar.IsGlyph(ap
+)aq.Visible=ar.Apply(aq,ap,nil,16)aq.ImageColor3=as and aa.Theme.Text.Primary[1]
+.Value or Color3.new(1,1,1)end,(ae.new(aa,aj,{Name='PopUpMenu',Anchor=ab.Anchor,
+AnchorMode='SelectedLabel',ShowsCheckmarks=true,MaxHeight=239,OnSelected=
+function(ap,aq)if ap.Maximum and ap.Maximum>1 then local ar=ap.Value or{}if
+typeof(ar)~='table'then ar=ar and{ar}or{}else ar=table.clone(ar)end local as for
+at,au in ipairs(ar)do if au==aq then as=at break end end if as then table.
+remove(ar,as)else if#ar<ap.Maximum then table.insert(ar,aq)else table.remove(ar,
+1)table.insert(ar,aq)end end ap.Value=ar else ap.Expanded=false task.wait(0.2)ap
+.Value=aq end end}))local as=function(as,at)local au=ar and ar.Maximum and ar.
+Maximum>1 aq:SetAnchorMode(au and'BelowButton'or'SelectedLabel')aq:SetValue(as)
+if au then local av=am(as)ap(nil)if#av==0 then aj.CurrentTab.Text='None'else aj.
+CurrentTab.Text=ak(table.concat(av,', '))end aq:SetSelectedMap(al(as))else local
+av=as and aj.Options[as]and aj.Options[as]:FindFirstChild'Label'if not av then
+aj.CurrentTab.Text='None'else aj.CurrentTab.Text=ak(av.Text)end ap(as and an[as]
+or nil)aq:SetSelectedMap(al(as))end if at and ab.ValueChanged then ab.Value=as
+task.spawn(ab.ValueChanged,ar,as)end end local at={Anchor=function(at)aq:
+SetAnchor(at)end,Options=function(at)aq:ClearOptions()table.clear(an)for au,av
+in ipairs(at)do local aw,b=ao(av,au)an[au]=b aq:AddOption(aw,au,b)end if ar then
+as(ar.Value,false)end end,Expanded=function(at)aq:SetAnchorMode(ar and ar.
+Maximum and ar.Maximum>1 and'BelowButton'or'SelectedLabel')aq:SetExpanded(at)end
+,Value=function(at)as(at,true)end,Icons=function(at)ab.Icons=at if ar then ar.
+Options=ar.Options end end}ar=ad.Wrap(ab,at,aj.Body)aq:SetObject(ar)ar.Type=
+'PopUpButton'ar.Theme=aa.Theme ar.Structures=aj ar.Option=function(au,av,aw)
+local b=#aj.Options+1 local c,d=ao(av,b)an[b]=aw or d local e=aq:AddOption(c,b,
+an[b])table.insert(ar.Options,av)as(ar.Value,false)return e end ar.Remove=
+function(au,av)if av then aq:RemoveOption(av)ar.Options[av]=nil as(ar.Value,
+false)end end ad.Apply(ab,ar)as(ar.Value,false)return ar end end function a.Q()
+local ab=a.cache.Q if not ab then ab={c=aa()}a.cache.Q=ab end return ab.c end
+end do local aa=function()a.b()return function(aa,ab)local ac,ad,ae=a.d(),a.c(),
+a.P()local af,ag,ah,ai=ac.Create,aa.__container or aa.__instance or aa,aa.Theme.
+Controls.MenuButton,{Options={}}ab=ab or{}ab.Expanded=ab.Expanded or false ab.
+Options=ab.Options or{}ai.Body=(ad.Apply(ab,af'TextButton'{Name='PullDownButton'
+,AutomaticSize=Enum.AutomaticSize.XY,BackgroundColor3=Color3.fromRGB(255,255,255
+),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
+Selectable=false,Text='',Parent=ag,af'UIPadding'{Name='UIPadding',PaddingBottom=
+UDim.new(0,3),PaddingLeft=UDim.new(0,7),PaddingRight=UDim.new(0,3),PaddingTop=
+UDim.new(0,3)},af'UIListLayout'{Name='UIListLayout',FillDirection=Enum.
+FillDirection.Horizontal,Padding=UDim.new(0,7),SortOrder=Enum.SortOrder.
+LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},af'Frame'{Name=
+'PullDownIndicator',BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
+LayoutOrder=1,Selectable=true,Size=UDim2.fromOffset(16,16),__dynamicKeys={
+BackgroundColor3=ah.IndicatorBackground[1],BackgroundTransparency=ah.
+IndicatorBackground[2]},af'UICorner'{Name='UICorner',CornerRadius=UDim.new(0,4)}
+,af'ImageLabel'{Name='Indicators',BackgroundColor3=Color3.fromRGB(255,255,255),
+BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
+Image='rbxassetid://86693411280110',Size=UDim2.fromScale(1,1),__dynamicKeys={
 ImageColor3=aa.Theme.Text.Primary[1],ImageTransparency=aa.Theme.Text.Primary[2]}
 }},af'TextLabel'{Name='Label',AutomaticSize=Enum.AutomaticSize.XY,
 BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
