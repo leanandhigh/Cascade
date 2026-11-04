@@ -60,7 +60,7 @@ Read this before touching `src/`, `examples/full_example.luau` or `dist/dist.lua
 - Pointer positions exclude the top-bar inset; AbsolutePosition in an IgnoreGuiInset gui may not. For
   drags use **deltas from the grab point** plus the element's own AbsolutePosition, relative to a
   full-screen layer frame (PriorityList ghost). For overlap checks use Position/AnchorPoint/size.
-- Resize: Obsidian-style grip (20px, 26px mobile, `move-diagonal-2` unrotated, text colour at 0.5) in the
+- Resize: invisible grip (20px, 26px mobile, **no arrow**: the user didn't want one) in the
   bottom-right corner, parented to the **Handles Folder**: the window body has a horizontal list layout,
   so a direct child gets laid out beside the sidebar. Start size from `Size` offsets, not AbsoluteSize.
 - Mobile toggle default: top, 64px right of centre, y 22 (`UDim2.new(0.5, 64, 0, 22)`), under the window
@@ -93,6 +93,12 @@ Read this before touching `src/`, `examples/full_example.luau` or `dist/dist.lua
 - When re-parenting into layout frames, move children **before** destroying old frames (destroying
   a frame destroys the buttons still inside).
 - Deferred layout work must bail out if the element was destroyed (`body.Parent == nil`).
+
+## Sidebar grid (keep things lined up)
+
+- Tab highlight spans sidebar + 10 … sidebar − 10; tab icons start at sidebar + 20 (20px box), tab names
+  at sidebar + 48. Brand: padding 17, 26px logo (centred on the icon column), 5px gap, so the name starts
+  at + 48; divider spans like the highlight. Section labels start at + 20. Profile avatar starts at + 20.
 
 ## Things the user asked for (keep them this way)
 
