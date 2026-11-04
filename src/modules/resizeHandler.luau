@@ -316,8 +316,12 @@ return function(object, minScale)
 		local symbols = require("@modules/symbols")
 		local userInputService = services.UserInputService
 
-		size = size or 18
+		size = size or 20
 
+		-- Like Obsidian's resize button: bottom-right corner, move-diagonal-2 icon in the text
+		-- colour at half transparency, icon filling the button minus 2px.
+		-- Parented to the Handles folder: the window body has a list layout, and a direct child
+		-- got laid out next to the sidebar (that's why it showed up at the top).
 		grip = create("ImageButton")({
 			Name = "ResizeGrip",
 			Active = true,
@@ -325,28 +329,26 @@ return function(object, minScale)
 			AutoButtonColor = false,
 			BackgroundTransparency = 1,
 			Position = UDim2.new(1, -3, 1, -3),
-			Size = UDim2.fromOffset(size + 8, size + 8),
+			Size = UDim2.fromOffset(size, size),
 			ZIndex = 20,
-			Parent = object,
+			Parent = structures.Handles.__instance or structures.Handles,
 
 			create("ImageLabel")({
 				Name = "Icon",
-				AnchorPoint = Vector2.new(0.5, 0.5),
 				BackgroundTransparency = 1,
-				Position = UDim2.fromScale(0.5, 0.5),
-				Rotation = 90,
+				ImageTransparency = 0.5,
+				Position = UDim2.fromOffset(2, 2),
 				ScaleType = Enum.ScaleType.Fit,
-				Size = UDim2.fromOffset(size - 4, size - 4),
+				Size = UDim2.new(1, -4, 1, -4),
 				ZIndex = 20,
 
 				__dynamicKeys = theme and {
-					ImageColor3 = theme.Text.Secondary[1],
-					ImageTransparency = theme.Text.Secondary[2],
+					ImageColor3 = theme.Text.Primary[1],
 				} or nil,
 			}),
 		}).__instance
 
-		icons.Apply(grip:FindFirstChild("Icon"), "move-diagonal-2", symbols.arrowUpLeftAndArrowDownRight, size - 4)
+		icons.Apply(grip:FindFirstChild("Icon"), "move-diagonal-2", symbols.arrowUpLeftAndArrowDownRight)
 
 		local activeInput = nil
 		local inputStart = nil

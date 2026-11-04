@@ -60,7 +60,9 @@ Read this before touching `src/`, `examples/full_example.luau` or `dist/dist.lua
 - Pointer positions exclude the top-bar inset; AbsolutePosition in an IgnoreGuiInset gui may not. For
   drags use **deltas from the grab point** plus the element's own AbsolutePosition, relative to a
   full-screen layer frame (PriorityList ghost). For overlap checks use Position/AnchorPoint/size.
-- Resize: visible bottom-right grip (touch); start size from `Size` offsets, not AbsoluteSize.
+- Resize: Obsidian-style grip (20px, 26px mobile, `move-diagonal-2` unrotated, text colour at 0.5) in the
+  bottom-right corner, parented to the **Handles Folder**: the window body has a horizontal list layout,
+  so a direct child gets laid out beside the sidebar. Start size from `Size` offsets, not AbsoluteSize.
 - Mobile toggle default: top, 64px right of centre, y 22 (`UDim2.new(0.5, 64, 0, 22)`), under the window
   pill. The user rejected "move it under the farm HUD"; keep it simple.
 - Narrow screens: Columns / Side groupboxes stack under `StackBelow` (480); rows shrink a slider (to 80px)

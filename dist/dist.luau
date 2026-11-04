@@ -6523,69 +6523,68 @@ end local o if n and k then o=n-k else o=Vector2.new(l.DragUDim2.X.Offset,l.
 DragUDim2.Y.Offset)end j(o,m)end)l.DragEnd:Connect(function()i=nil k=nil end)end
 function g.CreateClient()l(f.NW,'NW')l(f.NE,'NE')l(f.SW,'SW')l(f.SE,'SE')l(f.E,
 'E')l(f.W,'W')l(f.S,'S')l(f.N,'N')end local m,n=true function g.CreateGrip(o,p)
-local q,r,s=a.e(),a.o(),a.i()local t=q.UserInputService p=p or 18 n=e
+local q,r,s=a.e(),a.o(),a.i()local t=q.UserInputService p=p or 20 n=e
 'ImageButton'{Name='ResizeGrip',Active=true,AnchorPoint=Vector2.new(1,1),
 AutoButtonColor=false,BackgroundTransparency=1,Position=UDim2.new(1,-3,1,-3),
-Size=UDim2.fromOffset(p+8,p+8),ZIndex=20,Parent=b,e'ImageLabel'{Name='Icon',
-AnchorPoint=Vector2.new(0.5,0.5),BackgroundTransparency=1,Position=UDim2.
-fromScale(0.5,0.5),Rotation=90,ScaleType=Enum.ScaleType.Fit,Size=UDim2.
-fromOffset(p-4,p-4),ZIndex=20,__dynamicKeys=o and{ImageColor3=o.Text.Secondary[1
-],ImageTransparency=o.Text.Secondary[2]}or nil}}.__instance r.Apply(n:
-FindFirstChild'Icon','move-diagonal-2',s.arrowUpLeftAndArrowDownRight,p-4)local
-u,v n.InputBegan:Connect(function(w)if not m then return end if w.UserInputType
-~=Enum.UserInputType.MouseButton1 and w.UserInputType~=Enum.UserInputType.Touch
-then return end u=w v=Vector2.new(w.Position.X,w.Position.Y)i=Vector2.new(b.Size
-.X.Offset,b.Size.Y.Offset)h=Vector2.new(b.Position.X.Offset,b.Position.Y.Offset)
-local x x=w.Changed:Connect(function()if w.UserInputState==Enum.UserInputState.
-End then x:Disconnect()if u==w then u=nil i=nil end end end)end)t.InputChanged:
-Connect(function(w)if not u or not v or not i then return end if w.UserInputType
-~=Enum.UserInputType.MouseMovement and w.UserInputType~=Enum.UserInputType.Touch
-then return end if w.UserInputType==Enum.UserInputType.Touch and u.UserInputType
-==Enum.UserInputType.Touch and w~=u then return end j(Vector2.new(w.Position.X-v
-.X,w.Position.Y-v.Y),'SE')end)t.InputEnded:Connect(function(w)if u and(w==u or w
-.UserInputType==Enum.UserInputType.MouseButton1)then u=nil i=nil end end)return
-n end function g.SetEnabled(o)for p,q in pairs(f)do if typeof(q)=='Instance'and
-q:IsA'UIDragDetector'then q.Enabled=o end end m=o if n then n.Visible=o end end
-return g end end function a.q()local c=a.cache.q if not c then c={c=b()}a.cache.
-q=c end return c.c end end do local b=function()local b,c,d,e,f=a.d(),a.e(),a.a(
-),a.i(),a.o()local g,h,i,j,k,l,m,n=b.Create,c.TweenService,c.UserInputService,c.
-Workspace,6,6,TweenInfo.new(0.18,Enum.EasingStyle.Exponential,Enum.
-EasingDirection.Out),{}n.__index=n local o,p=function(o)if typeof(o)=='table'
-then local p,q=pcall(function()return o.__instance end)if p and typeof(q)==
-'Instance'then return q end end return o end,function(o,p,q)if not o then return
-false end local r,s=o.AbsolutePosition,o.AbsoluteSize return p>=r.X and p<=r.X+s
-.X and q>=r.Y and q<=r.Y+s.Y end function n.new(q,r)r=r or{}local s,t=q.Theme,
-setmetatable({Context=q,Items={},Open=false,Anchor=nil,Token=0},n)t.Container=g
-'ScreenGui'{Name=r.Name or'Popover',IgnoreGuiInset=true,ResetOnSpawn=false,
-ScreenInsets=Enum.ScreenInsets.None,ZIndexBehavior=Enum.ZIndexBehavior.Sibling,
-DisplayOrder=202,OnTopOfCoreBlur=true,Enabled=false}t.Group=g'CanvasGroup'{Name=
-'Menu',AutomaticSize=Enum.AutomaticSize.XY,BorderSizePixel=0,GroupTransparency=1
-,Size=UDim2.fromOffset(r.Width or 170,0),Parent=t.Container.__instance,
-__dynamicKeys={BackgroundColor3=s.Controls.MenuButton.MenuBackground[1],
-BackgroundTransparency=s.Controls.MenuButton.MenuBackground[2]},g'UICorner'{
-CornerRadius=UDim.new(0,8)},g'UIStroke'{ApplyStrokeMode=Enum.ApplyStrokeMode.
-Border,__dynamicKeys={Color=s.Controls.ViewBorder[1],Transparency=s.Controls.
-ViewBorder[2]}},g'UIPadding'{PaddingBottom=UDim.new(0,5),PaddingLeft=UDim.new(0,
-5),PaddingRight=UDim.new(0,5),PaddingTop=UDim.new(0,5)},g'UIListLayout'{
-SortOrder=Enum.SortOrder.LayoutOrder,Padding=UDim.new(0,1)}}d.ProtectUI(t.
-Container.__instance)i.InputBegan:Connect(function(u)if not t.Open then return
-end if u.UserInputType~=Enum.UserInputType.MouseButton1 and u.UserInputType~=
-Enum.UserInputType.Touch then return end local v,w=u.Position.X,u.Position.Y if
-p(t.Group.__instance,v,w)or p(o(t.Anchor),v,w)then return end t:Close()end)
-return t end function n:AddItem(q)local r,s=self.Context.Theme,{Title=q.Title,
-Checked=q.Checked==true,Checkable=q.Checkable~=false and q.Pushed==nil}local t=
-function()return q.Destructive and r.Accents.Red or r.Text.Primary end local u=g
-'TextButton'{Name='Item',AutoButtonColor=false,BackgroundTransparency=1,
-BorderSizePixel=0,LayoutOrder=#self.Items+1,Size=UDim2.new(1,0,0,24),Text='',
-Parent=self.Group.__instance,__dynamicKeys={BackgroundColor3=r.Controls.
-SelectionFocused[1]},g'UICorner'{CornerRadius=UDim.new(0,5)},g'UIPadding'{
-PaddingLeft=UDim.new(0,6),PaddingRight=UDim.new(0,10)},g'UIListLayout'{
-FillDirection=Enum.FillDirection.Horizontal,Padding=UDim.new(0,6),SortOrder=Enum
-.SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},g
-'ImageLabel'{ScaleType=Enum.ScaleType.Fit,Name='Check',BackgroundTransparency=1,
-Image=e.checkmark,Size=UDim2.fromOffset(12,12),Visible=s.Checkable,
-ImageTransparency=s.Checked and 0 or 1,__dynamicKeys={ImageColor3=r.Text.Primary
-[1]}},g'ImageLabel'{ScaleType=Enum.ScaleType.Fit,Name='Icon',
+Size=UDim2.fromOffset(p,p),ZIndex=20,Parent=f.Handles.__instance or f.Handles,e
+'ImageLabel'{Name='Icon',BackgroundTransparency=1,ImageTransparency=0.5,Position
+=UDim2.fromOffset(2,2),ScaleType=Enum.ScaleType.Fit,Size=UDim2.new(1,-4,1,-4),
+ZIndex=20,__dynamicKeys=o and{ImageColor3=o.Text.Primary[1]}or nil}}.__instance
+r.Apply(n:FindFirstChild'Icon','move-diagonal-2',s.arrowUpLeftAndArrowDownRight)
+local u,v n.InputBegan:Connect(function(w)if not m then return end if w.
+UserInputType~=Enum.UserInputType.MouseButton1 and w.UserInputType~=Enum.
+UserInputType.Touch then return end u=w v=Vector2.new(w.Position.X,w.Position.Y)
+i=Vector2.new(b.Size.X.Offset,b.Size.Y.Offset)h=Vector2.new(b.Position.X.Offset,
+b.Position.Y.Offset)local x x=w.Changed:Connect(function()if w.UserInputState==
+Enum.UserInputState.End then x:Disconnect()if u==w then u=nil i=nil end end end)
+end)t.InputChanged:Connect(function(w)if not u or not v or not i then return end
+if w.UserInputType~=Enum.UserInputType.MouseMovement and w.UserInputType~=Enum.
+UserInputType.Touch then return end if w.UserInputType==Enum.UserInputType.Touch
+and u.UserInputType==Enum.UserInputType.Touch and w~=u then return end j(Vector2
+.new(w.Position.X-v.X,w.Position.Y-v.Y),'SE')end)t.InputEnded:Connect(function(w
+)if u and(w==u or w.UserInputType==Enum.UserInputType.MouseButton1)then u=nil i=
+nil end end)return n end function g.SetEnabled(o)for p,q in pairs(f)do if
+typeof(q)=='Instance'and q:IsA'UIDragDetector'then q.Enabled=o end end m=o if n
+then n.Visible=o end end return g end end function a.q()local c=a.cache.q if not
+c then c={c=b()}a.cache.q=c end return c.c end end do local b=function()local b,
+c,d,e,f=a.d(),a.e(),a.a(),a.i(),a.o()local g,h,i,j,k,l,m,n=b.Create,c.
+TweenService,c.UserInputService,c.Workspace,6,6,TweenInfo.new(0.18,Enum.
+EasingStyle.Exponential,Enum.EasingDirection.Out),{}n.__index=n local o,p=
+function(o)if typeof(o)=='table'then local p,q=pcall(function()return o.
+__instance end)if p and typeof(q)=='Instance'then return q end end return o end,
+function(o,p,q)if not o then return false end local r,s=o.AbsolutePosition,o.
+AbsoluteSize return p>=r.X and p<=r.X+s.X and q>=r.Y and q<=r.Y+s.Y end function
+n.new(q,r)r=r or{}local s,t=q.Theme,setmetatable({Context=q,Items={},Open=false,
+Anchor=nil,Token=0},n)t.Container=g'ScreenGui'{Name=r.Name or'Popover',
+IgnoreGuiInset=true,ResetOnSpawn=false,ScreenInsets=Enum.ScreenInsets.None,
+ZIndexBehavior=Enum.ZIndexBehavior.Sibling,DisplayOrder=202,OnTopOfCoreBlur=true
+,Enabled=false}t.Group=g'CanvasGroup'{Name='Menu',AutomaticSize=Enum.
+AutomaticSize.XY,BorderSizePixel=0,GroupTransparency=1,Size=UDim2.fromOffset(r.
+Width or 170,0),Parent=t.Container.__instance,__dynamicKeys={BackgroundColor3=s.
+Controls.MenuButton.MenuBackground[1],BackgroundTransparency=s.Controls.
+MenuButton.MenuBackground[2]},g'UICorner'{CornerRadius=UDim.new(0,8)},g
+'UIStroke'{ApplyStrokeMode=Enum.ApplyStrokeMode.Border,__dynamicKeys={Color=s.
+Controls.ViewBorder[1],Transparency=s.Controls.ViewBorder[2]}},g'UIPadding'{
+PaddingBottom=UDim.new(0,5),PaddingLeft=UDim.new(0,5),PaddingRight=UDim.new(0,5)
+,PaddingTop=UDim.new(0,5)},g'UIListLayout'{SortOrder=Enum.SortOrder.LayoutOrder,
+Padding=UDim.new(0,1)}}d.ProtectUI(t.Container.__instance)i.InputBegan:Connect(
+function(u)if not t.Open then return end if u.UserInputType~=Enum.UserInputType.
+MouseButton1 and u.UserInputType~=Enum.UserInputType.Touch then return end local
+v,w=u.Position.X,u.Position.Y if p(t.Group.__instance,v,w)or p(o(t.Anchor),v,w)
+then return end t:Close()end)return t end function n:AddItem(q)local r,s=self.
+Context.Theme,{Title=q.Title,Checked=q.Checked==true,Checkable=q.Checkable~=
+false and q.Pushed==nil}local t=function()return q.Destructive and r.Accents.Red
+or r.Text.Primary end local u=g'TextButton'{Name='Item',AutoButtonColor=false,
+BackgroundTransparency=1,BorderSizePixel=0,LayoutOrder=#self.Items+1,Size=UDim2.
+new(1,0,0,24),Text='',Parent=self.Group.__instance,__dynamicKeys={
+BackgroundColor3=r.Controls.SelectionFocused[1]},g'UICorner'{CornerRadius=UDim.
+new(0,5)},g'UIPadding'{PaddingLeft=UDim.new(0,6),PaddingRight=UDim.new(0,10)},g
+'UIListLayout'{FillDirection=Enum.FillDirection.Horizontal,Padding=UDim.new(0,6)
+,SortOrder=Enum.SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.
+Center},g'ImageLabel'{ScaleType=Enum.ScaleType.Fit,Name='Check',
+BackgroundTransparency=1,Image=e.checkmark,Size=UDim2.fromOffset(12,12),Visible=
+s.Checkable,ImageTransparency=s.Checked and 0 or 1,__dynamicKeys={ImageColor3=r.
+Text.Primary[1]}},g'ImageLabel'{ScaleType=Enum.ScaleType.Fit,Name='Icon',
 BackgroundTransparency=1,LayoutOrder=1,Size=UDim2.fromOffset(14,14),Visible=q.
 Icon~=nil,Image=q.Icon or'',__dynamicKeys={ImageColor3=t()[1],ImageTransparency=
 t()[2]}},g'TextLabel'{Name='Title',AutomaticSize=Enum.AutomaticSize.X,
@@ -7041,7 +7040,7 @@ delay(0.25,function()u.ProfileMenu:Destroy()u.Body:Destroy()if ak and ak.Name==
 'Cascade'then ak:Destroy()end end)end if c.Config~=false then local ak=typeof(c.
 Config)=='table'and c.Config or{}Y.Configs=n.new(ak)if ak.AutoLoad~=false then
 task.defer(function()Y.Configs:LoadDefault()end)end end do A=j(u.Body.__instance
-,Vector2.new(350,250))A.CreateClient()A.CreateGrip(b.Theme,B and 22 or 16)end do
+,Vector2.new(350,250))A.CreateClient()A.CreateGrip(b.Theme,B and 26 or 20)end do
 local ak=true local al=function()ak=not ak local al,am,an,ao,ap=ak and UDim.new(
 0,0)or UDim.new(0,-200),ak and UDim2.new(0,200,1,0)or UDim2.new(0,0,1,0),ak and
 UDim2.new(1,-201,1,0)or UDim2.new(1,0,1,0),ak and UDim2.new(0,10,1,0)or UDim2.
