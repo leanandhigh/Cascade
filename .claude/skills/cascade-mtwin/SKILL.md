@@ -94,16 +94,16 @@ Read this before touching `src/`, `examples/full_example.luau` or `dist/dist.lua
   a frame destroys the buttons still inside).
 - Deferred layout work must bail out if the element was destroyed (`body.Parent == nil`).
 
-## Sidebar grid (keep things lined up)
+## Sidebar (leave as is)
 
-- Tab highlight spans sidebar + 10 … sidebar − 10 (Margins frame has no extra right padding: equal gaps); tab icons start at sidebar + 20 (20px box), tab names
-  at sidebar + 48. Brand: padding 17, 26px logo (centred on the icon column), 5px gap, so the name starts
-  at + 48; divider spans like the highlight. Section labels start at + 20. Profile avatar starts at + 20.
+- The user asked to **keep the original sidebar**: brand (padding 14, 30px logo, 10px gap), section
+  label padding 8, Margins right padding 2. A re-alignment of brand / sections / equal tab gaps was reverted.
 
 ## Things the user asked for (keep them this way)
 
 - Key countdown: ticking clock `3d 04:00:00` / `04:00:00`; keeps running while the page is hidden.
-- Profile card: even 10px gaps, 32px avatar, gear icon right gap ≈ avatar left gap.
+- Profile card: even 10px gaps, 32px avatar, gear pinned right; card PaddingRight 5 (+ ~4px empty space
+  around the glyph) so the gear glyph's right gap equals the avatar's left gap (measured from screenshots).
 - Titlebar description copies on click/tap and is accent-blue when it is a link ("Copied!" for 1.2s);
   an invisible TextButton over it gives the hand cursor, and hover underlines it.
 - Disabled / DependsOn / ShowIf on every element (cover in the groupbox colour blocks input).
@@ -117,7 +117,7 @@ Read this before touching `src/`, `examples/full_example.luau` or `dist/dist.lua
   background (grey in Light). Accent setting is a ColorPicker (`cascade.CustomAccent`).
 - Keybind list: capitalised modes (`Toggle`, `Hold`), name sized to the space left by mode + key.
 - Reverted on request, don't redo unless asked: dropdown option images; keybind-list restyle; mobile
-  toggle "under the HUD".
+  toggle "under the HUD"; sidebar brand / section re-alignment and equal tab gaps.
 
 ## Testing
 

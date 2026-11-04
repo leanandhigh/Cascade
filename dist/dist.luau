@@ -6633,7 +6633,7 @@ BackgroundTransparency=b.Theme.Controls.Card.Fill[2]},e'UICorner'{CornerRadius=
 UDim.new(0,8)},e'UIStroke'{ApplyStrokeMode=Enum.ApplyStrokeMode.Border,
 __dynamicKeys={Color=b.Theme.Controls.ViewBorder[1],Transparency=b.Theme.
 Controls.ViewBorder[2]}},e'UIPadding'{PaddingLeft=UDim.new(0,10),PaddingRight=
-UDim.new(0,7)},e'UIListLayout'{FillDirection=Enum.FillDirection.Horizontal,
+UDim.new(0,5)},e'UIListLayout'{FillDirection=Enum.FillDirection.Horizontal,
 HorizontalFlex=Enum.UIFlexAlignment.None,Padding=UDim.new(0,10),SortOrder=Enum.
 SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},e'Frame'{
 Name='AvatarHolder',BorderSizePixel=0,Size=UDim2.fromOffset(32,32),__dynamicKeys
@@ -6822,7 +6822,7 @@ BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Size=UDim2.new(0,200,1,0),o
 Controls.Separator.Shadow[1],BackgroundTransparency=b.Theme.Controls.Separator.
 Shadow[2]},o'UIGradient'{Name='UIGradient',Transparency=NumberSequence.new{
 NumberSequenceKeypoint.new(0,1),NumberSequenceKeypoint.new(1,0)}}}},o'UIPadding'
-{Name='UIPadding',PaddingRight=UDim.new(0,0)},o'Frame'{Name='Toolbar',
+{Name='UIPadding',PaddingRight=UDim.new(0,2)},o'Frame'{Name='Toolbar',
 BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
 BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Size=UDim2.new(1,0,0,52)},o
 'ScrollingFrame'{Name='SidebarList',AutomaticCanvasSize=Enum.AutomaticSize.Y,
@@ -6873,40 +6873,41 @@ FindFirstChild'CornerClip')u.Titlebar=h u.Titlebar.Body.Parent=u.ContentBody u.
 WindowControls=D u.WindowControls.Body.Parent=u.Toolbar u.Profile=m u.Profile.
 Body.Parent=u.Sidebar u.Brand=o'Frame'{Name='Brand',BackgroundTransparency=1,
 BorderSizePixel=0,Size=UDim2.new(1,0,0,52),Visible=false,Parent=u.Sidebar,o
-'UIPadding'{PaddingLeft=UDim.new(0,17),PaddingRight=UDim.new(0,10)},o'Folder'{
+'UIPadding'{PaddingLeft=UDim.new(0,14),PaddingRight=UDim.new(0,12)},o'Folder'{
 Name='LayoutIgnore',o'Frame'{Name='Divider',AnchorPoint=Vector2.new(0,1),
-BorderSizePixel=0,Position=UDim2.new(0,-7,1,0),Size=UDim2.new(1,7,0,1),
+BorderSizePixel=0,Position=UDim2.fromScale(0,1),Size=UDim2.new(1,0,0,1),
 __dynamicKeys={BackgroundColor3=b.Theme.Controls.ViewBorder[1],
 BackgroundTransparency=b.Theme.Controls.ViewBorder[2]}}},o'UIListLayout'{
-FillDirection=Enum.FillDirection.Horizontal,Padding=UDim.new(0,5),SortOrder=Enum
-.SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},o'Frame'
-{Name='LogoHolder',BorderSizePixel=0,Size=UDim2.fromOffset(26,26),o'UICorner'{
-CornerRadius=UDim.new(0,8)},o'ImageLabel'{Name='Logo',AnchorPoint=Vector2.new(
-0.5,0.5),BackgroundTransparency=1,Position=UDim2.fromScale(0.5,0.5),ScaleType=
-Enum.ScaleType.Fit,Size=UDim2.fromScale(1,1),o'UICorner'{CornerRadius=UDim.new(0
-,8)}}},o'Frame'{Name='Texts',BackgroundTransparency=1,LayoutOrder=1,Size=UDim2.
-new(1,-31,1,0),o'UIListLayout'{Padding=UDim.new(0,1),SortOrder=Enum.SortOrder.
-LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},o'TextLabel'{Name=
-'Name',BackgroundTransparency=1,FontFace=Font.new('rbxassetid://12187365364',
-Enum.FontWeight.Bold,Enum.FontStyle.Normal),Size=UDim2.new(1,0,0,18),TextSize=16
-,TextTruncate=Enum.TextTruncate.AtEnd,TextXAlignment=Enum.TextXAlignment.Left,
-__dynamicKeys={TextColor3=b.Theme.Text.Primary[1],TextTransparency=b.Theme.Text.
-Primary[2]}},o'TextLabel'{Name='Subtitle',BackgroundTransparency=1,FontFace=Font
-.new'rbxassetid://12187365364',LayoutOrder=1,Size=UDim2.new(1,0,0,14),TextSize=
-12,TextTruncate=Enum.TextTruncate.AtEnd,TextXAlignment=Enum.TextXAlignment.Left,
-Visible=false,__dynamicKeys={TextColor3=b.Theme.Text.Secondary[1],
-TextTransparency=b.Theme.Text.Secondary[2]}}}}local F=u.Brand.__instance local G
-=F:FindFirstChild'LogoHolder'local H,I=G:FindFirstChild'Logo',F:FindFirstChild
-'Texts'local J,K=I:FindFirstChild'Name',I:FindFirstChild'Subtitle'u.ProfileMenu=
-k.new(b,{Name='ProfileMenu',Width=180})local L,M,N,O=62,false,function()if c.
-SubtitleCopy~=nil then return c.SubtitleCopy==true end local L=tostring(c.
-Subtitle or'')return string.find(L,'://',1,true)~=nil or string.find(string.
-lower(L),'discord.gg',1,true)~=nil end O=function()local P=u.Titlebar and u.
-Titlebar.Subtitle if not P then return end if N()then P.TextColor3=b.Theme.
-Controls.Selection[1].Value P.TextTransparency=0 else P.TextColor3=b.Theme.Text.
-Secondary[1].Value P.TextTransparency=b.Theme.Text.Secondary[2].Value end end do
-local P,Q,R=u.Titlebar.Subtitle,a.a(),Instance.new'Folder'R.Name='CopyHit'R.
-Parent=P local S=Instance.new'TextButton'S.Name='Hit'S.AutoButtonColor=false S.
+FillDirection=Enum.FillDirection.Horizontal,Padding=UDim.new(0,10),SortOrder=
+Enum.SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},o
+'Frame'{Name='LogoHolder',BorderSizePixel=0,Size=UDim2.fromOffset(30,30),o
+'UICorner'{CornerRadius=UDim.new(0,8)},o'ImageLabel'{Name='Logo',AnchorPoint=
+Vector2.new(0.5,0.5),BackgroundTransparency=1,Position=UDim2.fromScale(0.5,0.5),
+ScaleType=Enum.ScaleType.Fit,Size=UDim2.fromScale(1,1),o'UICorner'{CornerRadius=
+UDim.new(0,8)}}},o'Frame'{Name='Texts',BackgroundTransparency=1,LayoutOrder=1,
+Size=UDim2.new(1,-40,1,0),o'UIListLayout'{Padding=UDim.new(0,1),SortOrder=Enum.
+SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},o
+'TextLabel'{Name='Name',BackgroundTransparency=1,FontFace=Font.new(
+'rbxassetid://12187365364',Enum.FontWeight.Bold,Enum.FontStyle.Normal),Size=
+UDim2.new(1,0,0,18),TextSize=16,TextTruncate=Enum.TextTruncate.AtEnd,
+TextXAlignment=Enum.TextXAlignment.Left,__dynamicKeys={TextColor3=b.Theme.Text.
+Primary[1],TextTransparency=b.Theme.Text.Primary[2]}},o'TextLabel'{Name=
+'Subtitle',BackgroundTransparency=1,FontFace=Font.new'rbxassetid://12187365364',
+LayoutOrder=1,Size=UDim2.new(1,0,0,14),TextSize=12,TextTruncate=Enum.
+TextTruncate.AtEnd,TextXAlignment=Enum.TextXAlignment.Left,Visible=false,
+__dynamicKeys={TextColor3=b.Theme.Text.Secondary[1],TextTransparency=b.Theme.
+Text.Secondary[2]}}}}local F=u.Brand.__instance local G=F:FindFirstChild
+'LogoHolder'local H,I=G:FindFirstChild'Logo',F:FindFirstChild'Texts'local J,K=I:
+FindFirstChild'Name',I:FindFirstChild'Subtitle'u.ProfileMenu=k.new(b,{Name=
+'ProfileMenu',Width=180})local L,M,N,O=62,false,function()if c.SubtitleCopy~=nil
+then return c.SubtitleCopy==true end local L=tostring(c.Subtitle or'')return
+string.find(L,'://',1,true)~=nil or string.find(string.lower(L),'discord.gg',1,
+true)~=nil end O=function()local P=u.Titlebar and u.Titlebar.Subtitle if not P
+then return end if N()then P.TextColor3=b.Theme.Controls.Selection[1].Value P.
+TextTransparency=0 else P.TextColor3=b.Theme.Text.Secondary[1].Value P.
+TextTransparency=b.Theme.Text.Secondary[2].Value end end do local P,Q,R=u.
+Titlebar.Subtitle,a.a(),Instance.new'Folder'R.Name='CopyHit'R.Parent=P local S=
+Instance.new'TextButton'S.Name='Hit'S.AutoButtonColor=false S.
 BackgroundTransparency=1 S.Size=UDim2.fromScale(1,1)S.Text=''S.ZIndex=P.ZIndex+1
 S.Parent=R u.Titlebar.SubtitleHit=S local T=false local U=function()local U=
 tostring(c.Subtitle or'')P.Text=(T and N())and('<u>'..U..'</u>')or U end S.
@@ -7129,8 +7130,8 @@ fromScale(0.5,0.5),Size=UDim2.fromOffset(11,7),__dynamicKeys={ImageColor3=aa.
 Theme.Text.Tertiary[1],ImageTransparency=aa.Theme.Text.Tertiary[2]}}},af
 'UIListLayout'{FillDirection=Enum.FillDirection.Horizontal,HorizontalFlex=Enum.
 UIFlexAlignment.SpaceBetween,Padding=UDim.new(0,10),SortOrder=Enum.SortOrder.
-LayoutOrder},af'UIPadding'{PaddingBottom=UDim.new(0,6),PaddingLeft=UDim.new(0,10
-),PaddingRight=UDim.new(0,12),PaddingTop=UDim.new(0,3)},af'TextLabel'{Name=
+LayoutOrder},af'UIPadding'{PaddingBottom=UDim.new(0,6),PaddingLeft=UDim.new(0,8)
+,PaddingRight=UDim.new(0,12),PaddingTop=UDim.new(0,3)},af'TextLabel'{Name=
 'Title',AutomaticSize=Enum.AutomaticSize.X,BackgroundColor3=Color3.fromRGB(255,
 255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),
 BorderSizePixel=0,FontFace=Font.new('rbxassetid://12187365364',Enum.FontWeight.

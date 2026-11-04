@@ -60,7 +60,7 @@ return function(self)
 			-- the empty space around the 14px icon in its 22px button), 10px between the parts
 			create("UIPadding")({
 				PaddingLeft = UDim.new(0, 10),
-				PaddingRight = UDim.new(0, 7),
+				PaddingRight = UDim.new(0, 5), -- + ~4px of empty space around the gear glyph = same as the left gap
 			}),
 
 			create("UIListLayout")({

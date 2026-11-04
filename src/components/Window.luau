@@ -181,11 +181,9 @@ return function(self, properties: types.WindowProperties): types.Window
 						}),
 					}),
 
-					-- No extra right padding: the tab list, brand and profile card use 10px on both
-					-- sides, so the left and right gaps match (this used to make the right one 12px)
 					create("UIPadding")({
 						Name = "UIPadding",
-						PaddingRight = UDim.new(0, 0),
+						PaddingRight = UDim.new(0, 2),
 					}),
 
 					create("Frame")({
@@ -374,11 +372,9 @@ return function(self, properties: types.WindowProperties): types.Window
 		Visible = false,
 		Parent = structures.Sidebar,
 
-		-- Lined up with the tab list: the logo is centred on the tab icon column and the name
-		-- starts where tab names start (sidebar + 48)
 		create("UIPadding")({
-			PaddingLeft = UDim.new(0, 17),
-			PaddingRight = UDim.new(0, 10),
+			PaddingLeft = UDim.new(0, 14),
+			PaddingRight = UDim.new(0, 12),
 		}),
 
 		-- Divider under the brand so it doesn't run straight into the tab list
@@ -389,9 +385,8 @@ return function(self, properties: types.WindowProperties): types.Window
 				Name = "Divider",
 				AnchorPoint = Vector2.new(0, 1),
 				BorderSizePixel = 0,
-				-- same span as the tab highlight (sidebar + 10 … sidebar - 10)
-				Position = UDim2.new(0, -7, 1, 0),
-				Size = UDim2.new(1, 7, 0, 1),
+				Position = UDim2.fromScale(0, 1),
+				Size = UDim2.new(1, 0, 0, 1),
 
 				__dynamicKeys = {
 					BackgroundColor3 = self.Theme.Controls.ViewBorder[1],
@@ -402,7 +397,7 @@ return function(self, properties: types.WindowProperties): types.Window
 
 		create("UIListLayout")({
 			FillDirection = Enum.FillDirection.Horizontal,
-			Padding = UDim.new(0, 5),
+			Padding = UDim.new(0, 10),
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 		}),
@@ -410,7 +405,7 @@ return function(self, properties: types.WindowProperties): types.Window
 		create("Frame")({
 			Name = "LogoHolder",
 			BorderSizePixel = 0,
-			Size = UDim2.fromOffset(26, 26),
+			Size = UDim2.fromOffset(30, 30),
 
 			create("UICorner")({
 				CornerRadius = UDim.new(0, 8),
@@ -434,7 +429,7 @@ return function(self, properties: types.WindowProperties): types.Window
 			Name = "Texts",
 			BackgroundTransparency = 1,
 			LayoutOrder = 1,
-			Size = UDim2.new(1, -31, 1, 0),
+			Size = UDim2.new(1, -40, 1, 0),
 
 			create("UIListLayout")({
 				Padding = UDim.new(0, 1),

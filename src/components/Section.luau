@@ -138,7 +138,7 @@ return function(self, properties: types.SectionProperties): types.Section
 
 				create("UIPadding")({
 					PaddingBottom = UDim.new(0, 6),
-					PaddingLeft = UDim.new(0, 10), -- section names start where the tab icons do
+					PaddingLeft = UDim.new(0, 8),
 					PaddingRight = UDim.new(0, 12),
 					PaddingTop = UDim.new(0, 3),
 				}),
