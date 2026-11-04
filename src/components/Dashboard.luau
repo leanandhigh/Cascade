@@ -3,7 +3,7 @@
 	A ready-made home tab: update logs + community links, built from Cascade components.
 
 	local dashboard = window:Dashboard({
-		Version = "1.0.16",
+		Updated = "4 Nov 2026",     -- shown as "Updated" in Information (or Version = "1.0.16")
 		Logs = {
 			"+ More maps in Dungeon and Macro settings",
 			"~ Card priority could stop the script from loading",
@@ -94,7 +94,10 @@ return function(self, properties: types.DashboardProperties): types.Dashboard
 		})
 		table.insert(items, { Label = "Executor", Value = executor })
 
-		if properties.Version then
+		-- Update date reads better than a version number (and is short); Version still works
+		if properties.Updated then
+			table.insert(items, { Label = "Updated", Value = tostring(properties.Updated) })
+		elseif properties.Version then
 			table.insert(items, { Label = "Version", Value = tostring(properties.Version) })
 		end
 
@@ -117,6 +120,7 @@ return function(self, properties: types.DashboardProperties): types.Dashboard
 	object.Updates = updates:UpdateLog({
 		Title = properties.LogsTitle or "What's new",
 		Subtitle = properties.LogsSubtitle
+			or (properties.Updated and ("Updated " .. tostring(properties.Updated)))
 			or (properties.Version and ("Version " .. tostring(properties.Version)) or nil),
 		-- Every entry is visible by default; pass Preview = 5 to collapse behind "View all"
 		Preview = properties.Preview or math.huge,

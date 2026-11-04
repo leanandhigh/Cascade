@@ -481,6 +481,73 @@ return function(self, properties: types.WindowProperties): types.Window
 	structures.ProfileMenu = popover.new(self, { Name = "ProfileMenu", Width = 180 })
 
 	local PROFILE_HEIGHT = 62
+	-- Titlebar description: links (or SubtitleCopy = true) are drawn in the accent blue and copy
+	-- to the clipboard when clicked / tapped ("Copied!" for a moment)
+	local paintSubtitle
+	local subtitleCopied = false
+
+	local function subtitleCopyable(): boolean
+		if properties.SubtitleCopy ~= nil then
+			return properties.SubtitleCopy == true
+		end
+
+		local text = tostring(properties.Subtitle or "")
+
+		return string.find(text, "://", 1, true) ~= nil or string.find(string.lower(text), "discord.gg", 1, true) ~= nil
+	end
+
+	paintSubtitle = function()
+		local label = structures.Titlebar and structures.Titlebar.Subtitle
+
+		if not label then
+			return
+		end
+
+		if subtitleCopyable() then
+			label.TextColor3 = self.Theme.Controls.Selection[1].Value
+			label.TextTransparency = 0
+		else
+			label.TextColor3 = self.Theme.Text.Secondary[1].Value
+			label.TextTransparency = self.Theme.Text.Secondary[2].Value
+		end
+	end
+
+	do
+		local label = structures.Titlebar.Subtitle
+
+		label.InputBegan:Connect(function(input)
+			if
+				input.UserInputType ~= Enum.UserInputType.MouseButton1
+				and input.UserInputType ~= Enum.UserInputType.Touch
+			then
+				return
+			end
+
+			if subtitleCopied or not subtitleCopyable() then
+				return
+			end
+
+			local text = tostring(properties.Subtitle or "")
+
+			subtitleCopied = true
+			label.Text = require("@modules/utility").CopyToClipboard(text) and "Copied!" or text
+
+			task.delay(1.2, function()
+				subtitleCopied = false
+				label.Text = tostring(properties.Subtitle or "")
+			end)
+		end)
+
+		-- Re-paint after theme / accent changes (the label's own theme binding resets it to grey)
+		for _, state in ipairs({ self.Theme.Controls.Selection[1], self.Theme.Text.Secondary[1], self.Theme.Text.Secondary[2] }) do
+			state:Connect(function()
+				task.defer(paintSubtitle)
+			end)
+		end
+
+		task.defer(paintSubtitle)
+	end
+
 	local unloaded = false
 
 	local function toolbarHeight(): number
@@ -609,9 +676,16 @@ return function(self, properties: types.WindowProperties): types.Window
 		local label = structures.Profile.Subtitle
 		local text, color = keyStatus()
 
-		label.Text = text
+		-- "Key: 3d 03:59:52" -> key icon + "3d 03:59:52": the word made it too long for the card
+		local keyText = string.match(text or "", "^Key:%s*(.*)$")
+
+		label.Text = keyText or text
 		label.TextColor3 = color[1].Value
 		label.TextTransparency = color[2].Value
+
+		if structures.Profile.SetKeyIcon then
+			structures.Profile.SetKeyIcon(keyText ~= nil, color[1].Value)
+		end
 	end
 
 	--// Profile menu
@@ -678,6 +752,10 @@ return function(self, properties: types.WindowProperties): types.Window
 
 			if value then
 				structures.Titlebar.Subtitle.Text = value
+			end
+
+			if paintSubtitle then
+				paintSubtitle()
 			end
 		end,
 		Searching = function(value: boolean)

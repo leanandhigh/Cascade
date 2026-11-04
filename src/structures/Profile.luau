@@ -143,10 +143,33 @@ return function(self)
 					},
 				}),
 
+				-- Key time row: small key icon + "3d 03:59:52" (no "Key:" word, so it fits)
+				create("Frame")({
+					Name = "SubtitleRow",
+					BackgroundTransparency = 1,
+					LayoutOrder = 1,
+					Size = UDim2.new(1, 0, 0, 14),
+
+					create("UIListLayout")({
+						FillDirection = Enum.FillDirection.Horizontal,
+						Padding = UDim.new(0, 4),
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+					}),
+
+					create("ImageLabel")({
+						Name = "KeyIcon",
+						BackgroundTransparency = 1,
+						ScaleType = Enum.ScaleType.Fit,
+						Size = UDim2.fromOffset(11, 11),
+						Visible = false,
+					}),
+				}),
+
 				create("TextLabel")({
 					Name = "Subtitle",
 					BackgroundTransparency = 1,
-					FontFace = Font.new("rbxassetid://12187365364"),
+					FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
 					LayoutOrder = 1,
 					RichText = true,
 					Size = UDim2.new(1, 0, 0, 14),
@@ -202,7 +225,21 @@ return function(self)
 	structures.Placeholder = structures.AvatarHolder:FindFirstChild("Placeholder") :: ImageLabel
 	structures.Info = structures.Card:FindFirstChild("Info") :: Frame
 	structures.DisplayName = structures.Info:FindFirstChild("DisplayName") :: TextLabel
+	structures.SubtitleRow = structures.Info:FindFirstChild("SubtitleRow") :: Frame
+	structures.KeyIcon = structures.SubtitleRow:FindFirstChild("KeyIcon") :: ImageLabel
 	structures.Subtitle = structures.Info:FindFirstChild("Subtitle") :: TextLabel
+	structures.Subtitle.LayoutOrder = 1
+	structures.Subtitle.Parent = structures.SubtitleRow
+
+	-- Shows the key icon in front of the text (key time) or just the text (eg. "Account")
+	structures.SetKeyIcon = function(show: boolean, color: Color3?)
+		structures.KeyIcon.Visible = show
+		structures.Subtitle.Size = UDim2.new(1, show and -15 or 0, 0, 14)
+
+		if color then
+			structures.KeyIcon.ImageColor3 = color
+		end
+	end
 	structures.Settings = structures.Card:FindFirstChild("Settings") :: ImageButton
 
 	structures.Settings.BackgroundTransparency = 1
@@ -210,6 +247,7 @@ return function(self)
 	local icons = require("@modules/icons")
 	icons.Apply(structures.Placeholder, "user", symbols.personFill or symbols.person, 15)
 	icons.Apply(structures.Settings:FindFirstChild("Icon"), "settings", symbols.gearshapeFill, 14)
+	icons.Apply(structures.KeyIcon, "key-round", symbols.key or symbols.keyFill, 11)
 
 	structures.Settings.MouseEnter:Connect(function()
 		structures.Settings.BackgroundTransparency = self.Theme.Controls.Card.Hover[2].Value

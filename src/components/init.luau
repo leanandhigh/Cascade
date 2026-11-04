@@ -2,6 +2,7 @@
 local binder = require("@modules/binder")
 local appRecorder = require("@modules/appRecorder")
 local flags = require("@modules/flags")
+local disabledLook = require("@modules/disabled")
 
 --// Variables
 local components = {
@@ -96,6 +97,75 @@ local function wrap(name, make)
 
 		if typeof(componentProperties) == "table" and componentProperties.Flag ~= nil and typeof(result) == "table" then
 			flags:Register(componentProperties.Flag, result)
+		end
+
+		-- Disabled / DependsOn / ShowIf for every element (see modules/disabled)
+		if typeof(result) == "table" and name ~= "Window" then
+			local body = nil
+
+			pcall(function()
+				local structures = rawget(result, "Structures") or result.Structures
+				local candidate = structures and structures.Body
+
+				if typeof(candidate) == "table" then
+					candidate = candidate.__instance
+				end
+
+				body = typeof(candidate) == "Instance" and candidate or nil
+			end)
+
+			if body and body:IsA("GuiObject") then
+				local theme = self and self.Theme
+				local manual = false
+				local dependency = false
+
+				local function refresh()
+					disabledLook.Apply(body, theme, manual or dependency)
+				end
+
+				pcall(function()
+					result.SetDisabled = function(_, value: boolean)
+						manual = value == true
+						refresh()
+					end
+					result.IsDisabled = function()
+						return manual or dependency
+					end
+				end)
+
+				if typeof(componentProperties) == "table" then
+					manual = componentProperties.Disabled == true
+
+					local dependsOn = componentProperties.DependsOn
+					local dependsFlag = disabledLook.FlagOf(dependsOn)
+
+					if dependsFlag then
+						local function update(value)
+							dependency = not disabledLook.Condition(dependsOn, value)
+							refresh()
+						end
+
+						update(flags:Get(dependsFlag))
+						flags:OnChanged(dependsFlag, update)
+					end
+
+					local showIf = componentProperties.ShowIf
+					local showFlag = disabledLook.FlagOf(showIf)
+
+					if showFlag then
+						local function update(value)
+							body.Visible = disabledLook.Condition(showIf, value)
+						end
+
+						update(flags:Get(showFlag))
+						flags:OnChanged(showFlag, update)
+					end
+
+					if manual then
+						refresh()
+					end
+				end
+			end
 		end
 
 		local final = raw

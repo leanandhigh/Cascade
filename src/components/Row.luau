@@ -133,7 +133,21 @@ return function(self, properties: types.RowProperties): types.Row
 			end
 		end
 
+		-- Room the label needs: its title's text width (+ padding), not a fixed 90px, so short
+		-- labels ("Priority", "Config") stay beside wide controls instead of stacking
 		local minLeftWidth = 90
+		local titleLabel = structures.TitleStack and structures.TitleStack.Structures
+			and structures.TitleStack.Structures.Title
+
+		if titleLabel then
+			local ok, bounds = pcall(function()
+				return (typeof(titleLabel) == "Instance" and titleLabel or titleLabel.__instance).TextBounds
+			end)
+
+			if ok and typeof(bounds) == "Vector2" and bounds.X > 0 then
+				minLeftWidth = math.clamp(math.ceil(bounds.X / scale) + 16, 40, 90)
+			end
+		end
 
 		-- A slider gives up width first (down to 80) so its label keeps a line of its own;
 		-- the row only stacks when that still isn't enough
@@ -195,6 +209,17 @@ return function(self, properties: types.RowProperties): types.Row
 			})
 
 			structures.TitleStack = titleStack
+
+			-- re-check the layout once the title's real width is known (text set, font loaded)
+			local title = titleStack.Structures and titleStack.Structures.Title
+
+			if title then
+				pcall(function()
+					local instance = typeof(title) == "Instance" and title or title.__instance
+
+					instance:GetPropertyChangedSignal("TextBounds"):Connect(updateAccessories)
+				end)
+			end
 		end
 
 		return titleStack

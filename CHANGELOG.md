@@ -35,8 +35,14 @@
 - Update log badges use centred Lucide icons (text glyphs only as a fallback).
 - Key countdown shows a ticking clock (`3d 04:00:00`).
 
+- `Disabled`, `DependsOn` and `ShowIf` on every element (greyed + locked, or hidden, depending on a toggle / flag); `:SetDisabled()`.
+- Window: the titlebar description copies to the clipboard when clicked / tapped and is drawn in the accent when it's a link (`SubtitleCopy`).
+- Dashboard: `Updated` (update date) replaces Version in the Information card.
+- Profile card: key time shows a key icon and `3d 03:59:52` (no "Key:" word), so it fits.
+
 ### Fixed
 
+- Rows only stack when the label's actual title text doesn't fit (short labels like "Priority" / "Config" stay beside wide controls).
 - Mobile (0.8 UI scale): sidebar sections, groupboxes and rows measured screen pixels as offsets, so tabs and groupboxes were clipped and labels overlapped controls; the resize handles shrank the window when grabbed and dragging moved slower than the finger; slider fills were short.
 - Key countdown and Dashboard info stopped updating if their page wasn't on screen when created.
 - Switching the theme back to Dark after Light did nothing (`app.Theme._id` kept the first theme's name).

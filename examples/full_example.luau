@@ -99,7 +99,7 @@ local window = app:Window({
 
 --// 3. UI
 local dashboard = window:Dashboard({
-	Version = "1.0.16",
+	Updated = "4 Nov 2026",
 	Logs = {
 
 		"+ More maps in Dungeon and Macro settings",
@@ -140,11 +140,11 @@ autoFarmRow:Right():Toggle({ Flag = "AutoFarm", Value = false })
 
 farmBox:Row({ Title = "Auto Collect" }):Right():Toggle({ Flag = "AutoCollect", Value = true })
 
-local distanceRow = farmBox:Row({ Title = "Farm Distance" })
+local distanceRow = farmBox:Row({ Title = "Farm Distance", DependsOn = "AutoFarm" })
 distanceRow:Right():Slider({ Flag = "FarmDistance", Minimum = 5, Maximum = 50, Value = 15 })
 local distanceLabel = distanceRow:Right():Label({ Text = "15" })
 
-farmBox:Row({ Title = "Wave Count" }):Right():Stepper({ Flag = "WaveCount", Minimum = 1, Maximum = 50, Step = 1, Value = 10, Fielded = true })
+farmBox:Row({ Title = "Wave Count", ShowIf = "AutoFarm" }):Right():Stepper({ Flag = "WaveCount", Minimum = 1, Maximum = 50, Step = 1, Value = 10, Fielded = true })
 
 farmBox:Row({ Title = "Toggle Farm Key" }):Right():KeybindField({
 	Flag = "ToggleFarmKey",
@@ -181,6 +181,7 @@ targetBox:Row({ Title = "Webhook" }):Right():TextField({ Flag = "Webhook", Place
 targetBox:ButtonRow({
 	Buttons = {
 		{ Label = "Teleport", State = "Primary", Pushed = function() print("Teleport!") end },
+		{ Label = "Server Hop", State = "Secondary", Disabled = true },
 		{
 			Label = "Reset",
 			State = "Destructive",

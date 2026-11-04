@@ -114,6 +114,25 @@ utility.FitText = function(label: TextLabel, paddingX: number, height: number?)
 	measure()
 end
 
+-- Copies text with whichever clipboard function the executor has. Returns true on success.
+utility.CopyToClipboard = function(text: string): boolean
+	local candidates = {
+		setclipboard,
+		toclipboard,
+		set_clipboard,
+		Clipboard and Clipboard.set,
+		syn and syn.write_clipboard,
+	}
+
+	for _, fn in ipairs(candidates) do
+		if typeof(fn) == "function" and pcall(fn, text) then
+			return true
+		end
+	end
+
+	return false
+end
+
 -- Phone / tablet check (same idea as Obsidian): Android / iOS platform, or touch without a mouse.
 utility.IsMobile = function(): boolean
 	local userInputService = utility.Clone(game:GetService("UserInputService"))

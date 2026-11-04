@@ -29,3 +29,19 @@ export type BaseComponent = {
     Structures: { [string]: Instance | { any } },
 }
 ```
+
+## Disabled, DependsOn and ShowIf
+
+Every element (rows, toggles, buttons, sliders, dropdowns, groupboxes…) accepts:
+
+| Property    | Type                          | Description                                                                                       |
+| ----------- | ----------------------------- | ------------------------------------------------------------------------------------------------- |
+| `Disabled`  | `#!luau boolean?`             | Greys the element out and blocks clicks / taps / drags. Change it later with `:SetDisabled(bool)`. |
+| `DependsOn` | `#!luau string or {Flag, Value}?` | Disabled until that flag is on (`"AutoFarm"`) or equals `Value` (`{ Flag = "Mode", Value = 2 }`). |
+| `ShowIf`    | `#!luau string or {Flag, Value}?` | Hidden until that flag is on / equals `Value` (like Obsidian's dependency boxes).              |
+
+```luau
+box:Row({ Title = "Farm Distance", DependsOn = "AutoFarm" }):Right():Slider({ ... })
+box:Row({ Title = "Wave Count", ShowIf = "AutoFarm" }):Right():Stepper({ ... })
+box:ButtonRow({ Buttons = { { Label = "Server Hop", Disabled = true } } })
+```

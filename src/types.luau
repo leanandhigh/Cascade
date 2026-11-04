@@ -338,6 +338,7 @@ export type WindowProperties = Frame & {
 	Resizable: boolean?,
 	Title: string?,
 	Subtitle: string?,
+	SubtitleCopy: boolean?, -- clicking the titlebar description copies it (default: on for links)
 	CanExit: boolean?,
     CanMinimize: boolean?,
     CanZoom: boolean?,
@@ -658,6 +659,7 @@ export type DashboardProperties = {
 	Icon: string?,
 	Selected: boolean?,
 	Version: string?,
+	Updated: string?, -- update date, shown in Information and under the update log title
 	UpdatesTitle: string?,
 	LogsTitle: string?,
 	Preview: number?,
