@@ -49,12 +49,12 @@ return function(self, properties: types.ButtonRowProperties): types.ButtonRow
 			PaddingTop = UDim.new(0, 10),
 		}),
 
+		-- Lines of buttons (see layout): one line normally, more when the labels don't fit
 		create("UIListLayout")({
 			Name = "UIListLayout",
-			FillDirection = Enum.FillDirection.Horizontal,
+			FillDirection = Enum.FillDirection.Vertical,
 			Padding = UDim.new(0, properties.Spacing),
 			SortOrder = Enum.SortOrder.LayoutOrder,
-			VerticalAlignment = Enum.VerticalAlignment.Center,
 		}),
 
 		-- Same divider as Row, so Groupbox / Form separate it from the row above like any other row
@@ -85,15 +85,128 @@ return function(self, properties: types.ButtonRowProperties): types.ButtonRow
 		__window = self.__window,
 	}, { __index = self })
 
+	local utility = require("@modules/utility")
+	local layoutQueued = false
+
+	local lineFrames = {}
+
+	local function bodyOf(button)
+		local body = button.Structures and button.Structures.Body
+
+		if typeof(body) == "table" then
+			body = body.__instance
+		end
+
+		return typeof(body) == "Instance" and body or nil
+	end
+
+	local function labelOf(button)
+		local label = button.Structures and button.Structures.Label
+
+		if typeof(label) == "table" then
+			label = label.__instance
+		end
+
+		return typeof(label) == "Instance" and label or nil
+	end
+
+	-- Uses the whole width: as many buttons per line as fit their (unwrapped) labels, the rest
+	-- go to the next line, and every line's buttons share that line's full width. Labels never
+	-- wrap ("Server / Hop") and no line is left half empty.
 	local function layout()
+		layoutQueued = false
+
 		local count = #buttons
+
+		if count == 0 then
+			return
+		end
+
 		local spacing = properties.Spacing
+		local body = structures.Body.__instance
+
+		-- queued layouts can run after the UI was unloaded
+		if not body.Parent then
+			return
+		end
+		local scale = utility.GetScale(body)
+		local available = scale > 0.05 and body.AbsoluteSize.X / scale or 0
+
+		-- Widest label decides how many fit on one line
+		local widest = 0
 
 		for _, button in ipairs(buttons) do
-			button.AutomaticSize = Enum.AutomaticSize.None
-			button.Size = UDim2.new(1 / count, -math.ceil(spacing * (count - 1) / count), 0, properties.Height)
+			local label = labelOf(button)
+
+			if label then
+				label.TextWrapped = false
+				label.TextTruncate = Enum.TextTruncate.AtEnd
+
+				local bounds = label.TextBounds.X / (scale > 0.05 and scale or 1)
+
+				widest = math.max(widest, bounds + 28) -- label padding + breathing room
+			end
+		end
+
+		local columns = count
+
+		if available > 0 and widest > 0 then
+			while columns > 1 and columns * widest + (columns - 1) * spacing > available do
+				columns -= 1
+			end
+		end
+
+		local lines = math.ceil(count / columns)
+		local perLine = math.ceil(count / lines) -- balance lines: 3 buttons -> 2 + 1 becomes 2 + 1, 4 -> 2 + 2
+
+		-- One frame per line
+		for index = #lineFrames + 1, lines do
+			lineFrames[index] = create("Frame")({
+				Name = "Line",
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				LayoutOrder = index,
+				Size = UDim2.new(1, 0, 0, properties.Height),
+				Parent = body,
+
+				create("UIListLayout")({
+					FillDirection = Enum.FillDirection.Horizontal,
+					Padding = UDim.new(0, spacing),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+				}),
+			}).__instance
+		end
+
+		for index, button in ipairs(buttons) do
+			local line = math.ceil(index / perLine)
+			local inLine = math.min(perLine, count - (line - 1) * perLine)
+			local instance = bodyOf(button)
+
+			if instance then
+				instance.AutomaticSize = Enum.AutomaticSize.None
+				instance.LayoutOrder = index
+				instance.Size = UDim2.new(1 / inLine, -math.ceil(spacing * (inLine - 1) / inLine), 0, properties.Height)
+				instance.Parent = lineFrames[line]
+			end
+		end
+
+		-- Only now remove lines that are no longer needed (destroying them earlier would destroy
+		-- the buttons still inside)
+		for index = #lineFrames, lines + 1, -1 do
+			lineFrames[index]:Destroy()
+			lineFrames[index] = nil
 		end
 	end
+
+	local function queueLayout()
+		if not layoutQueued then
+			layoutQueued = true
+			task.defer(layout)
+		end
+	end
+
+	structures.Body.__instance:GetPropertyChangedSignal("AbsoluteSize"):Connect(queueLayout)
 
 	local object = binder.Wrap(properties, {}, structures.Body)
 
@@ -107,6 +220,12 @@ return function(self, properties: types.ButtonRowProperties): types.ButtonRow
 
 		table.insert(buttons, button)
 		layout()
+
+		local label = labelOf(button)
+
+		if label then
+			label:GetPropertyChangedSignal("TextBounds"):Connect(queueLayout)
+		end
 
 		return button
 	end

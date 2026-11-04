@@ -514,15 +514,50 @@ return function(self, properties: types.WindowProperties): types.Window
 
 	do
 		local label = structures.Titlebar.Subtitle
+		local utility = require("@modules/utility")
 
-		label.InputBegan:Connect(function(input)
-			if
-				input.UserInputType ~= Enum.UserInputType.MouseButton1
-				and input.UserInputType ~= Enum.UserInputType.Touch
-			then
-				return
+		-- An invisible button over the text: buttons get the hand (click) cursor on PC, labels
+		-- don't. In a Folder so the label's layout ignores it. Hover underlines the link.
+		local holder = Instance.new("Folder")
+		holder.Name = "CopyHit"
+		holder.Parent = label
+
+		local hit = Instance.new("TextButton")
+		hit.Name = "Hit"
+		hit.AutoButtonColor = false
+		hit.BackgroundTransparency = 1
+		hit.Size = UDim2.fromScale(1, 1)
+		hit.Text = ""
+		hit.ZIndex = label.ZIndex + 1
+		hit.Parent = holder
+
+		structures.Titlebar.SubtitleHit = hit
+
+		local hovering = false
+
+		local function showText()
+			local text = tostring(properties.Subtitle or "")
+
+			label.Text = (hovering and subtitleCopyable()) and ("<u>" .. text .. "</u>") or text
+		end
+
+		hit.MouseEnter:Connect(function()
+			hovering = true
+
+			if not subtitleCopied then
+				showText()
 			end
+		end)
 
+		hit.MouseLeave:Connect(function()
+			hovering = false
+
+			if not subtitleCopied then
+				showText()
+			end
+		end)
+
+		hit.MouseButton1Click:Connect(function()
 			if subtitleCopied or not subtitleCopyable() then
 				return
 			end
@@ -530,13 +565,21 @@ return function(self, properties: types.WindowProperties): types.Window
 			local text = tostring(properties.Subtitle or "")
 
 			subtitleCopied = true
-			label.Text = require("@modules/utility").CopyToClipboard(text) and "Copied!" or text
+			label.Text = utility.CopyToClipboard(text) and "Copied!" or text
 
 			task.delay(1.2, function()
 				subtitleCopied = false
-				label.Text = tostring(properties.Subtitle or "")
+				showText()
 			end)
 		end)
+
+		-- Only clickable (and pointing) when it's a link / SubtitleCopy
+		local paintColour = paintSubtitle
+
+		paintSubtitle = function()
+			paintColour()
+			hit.Visible = subtitleCopyable()
+		end
 
 		-- Re-paint after theme / accent changes (the label's own theme binding resets it to grey)
 		for _, state in ipairs({ self.Theme.Controls.Selection[1], self.Theme.Text.Secondary[1], self.Theme.Text.Secondary[2] }) do

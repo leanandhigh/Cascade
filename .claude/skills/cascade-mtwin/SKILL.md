@@ -79,11 +79,26 @@ Read this before touching `src/`, `examples/full_example.luau` or `dist/dist.lua
 - Long texts that broke layouts: "Key: 3d …" on the profile card → key icon + `3d 03:59:52`; the version
   line → `Updated = "<date>"`.
 
+## "Use the full space" (recurring complaint, check every new layout)
+
+- Never split a row with fixed percentages (45 % / 55 %) or fixed offsets that assume a width. Size the
+  label from its real text (`TextBounds` / scale + a few px) and give the rest to the value
+  (InfoCard, FarmHud rows, Row label vs controls).
+- Pin trailing buttons to the edge (AnchorPoint 1, Position scale 1, in a Folder outside the list layout)
+  instead of letting them follow a computed column (profile gear).
+- Button labels never wrap ("Server / Hop"). ButtonRow measures labels, puts as many buttons per line
+  as fit, and every line's buttons share that line's full width (line frames, balanced 2+1, 2+2…).
+- When re-parenting into layout frames, move children **before** destroying old frames (destroying
+  a frame destroys the buttons still inside).
+- Deferred layout work must bail out if the element was destroyed (`body.Parent == nil`).
+
 ## Things the user asked for (keep them this way)
 
 - Key countdown: ticking clock `3d 04:00:00` / `04:00:00`; keeps running while the page is hidden.
 - Profile card: even 10px gaps, 32px avatar, gear icon right gap ≈ avatar left gap.
-- Titlebar description copies on click/tap and is accent-blue when it is a link ("Copied!" for 1.2s).
+- Titlebar description copies on click/tap and is accent-blue when it is a link ("Copied!" for 1.2s);
+  an invisible TextButton over it gives the hand cursor, and hover underlines it.
+- Disabled / DependsOn / ShowIf on every element (cover in the groupbox colour blocks input).
 - Update log: card header (title, subtitle, count, chevron), entry cards with centred Lucide badge + type tag.
 - PriorityList: grid of numbered cards (`01`), **drag to reorder** (not a number picker, not arrows); card stays under the finger.
 - FarmStats = **external full-screen "black screen"** (own ScreenGui, big timer only, no duplicate

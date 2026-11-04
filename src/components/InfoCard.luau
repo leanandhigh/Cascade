@@ -153,6 +153,50 @@ return function(self, properties: types.InfoCardProperties): types.InfoCard
 		row.Value.TextTransparency = color[2].Value
 	end
 
+	-- Label column as wide as the widest label's text (+14), the value gets everything else.
+	-- (A fixed 45% / 55% split wasted space after short labels and cut long values.)
+	local fitQueued = false
+
+	local function fitColumns()
+		fitQueued = false
+
+		local scale = require("@modules/utility").GetScale(structures.List)
+		scale = scale > 0.05 and scale or 1
+
+		local widest = 0
+
+		for _, row in ipairs(rows) do
+			local label = row.Frame:FindFirstChild("Label")
+
+			if label then
+				widest = math.max(widest, label.TextBounds.X / scale)
+			end
+		end
+
+		if widest <= 0 then
+			return
+		end
+
+		local column = math.ceil(widest) + 14
+
+		for _, row in ipairs(rows) do
+			local label = row.Frame:FindFirstChild("Label")
+
+			if label then
+				label.Size = UDim2.new(0, column, 0, 18)
+			end
+
+			row.Value.Size = UDim2.new(1, -column, 0, 18)
+		end
+	end
+
+	local function queueFit()
+		if not fitQueued then
+			fitQueued = true
+			task.defer(fitColumns)
+		end
+	end
+
 	local function addRow(item)
 		local frame = create("Frame")({
 			Name = "Row",
@@ -200,6 +244,9 @@ return function(self, properties: types.InfoCardProperties): types.InfoCard
 
 		table.insert(rows, row)
 		renderRow(row)
+
+		frame:FindFirstChild("Label"):GetPropertyChangedSignal("TextBounds"):Connect(queueFit)
+		queueFit()
 
 		return row
 	end

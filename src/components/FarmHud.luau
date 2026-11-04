@@ -417,17 +417,37 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 		local icon = frame:FindFirstChild("Icon") :: ImageLabel
 		local text = frame:FindFirstChild("Label") :: TextLabel
 
+		local labelStart = 22
+
 		if definition.Icon then
 			icons.Apply(icon, definition.Icon, nil, 14)
 		else
 			icon.Visible = false
+			labelStart = 0
 			text.Position = UDim2.new(0, 0, 0.5, 0)
-			text.Size = UDim2.new(0.45, 0, 0, 16)
 		end
+
+		local valueLabel = frame:FindFirstChild("Value") :: TextLabel
+
+		-- Label only as wide as its text; the value (+ rate) gets the rest of the row,
+		-- instead of a fixed 45 / 55 split that cut long values
+		local function fit()
+			local width = math.ceil(text.TextBounds.X)
+
+			if width <= 0 then
+				return
+			end
+
+			text.Size = UDim2.new(0, width + 2, 0, 16)
+			valueLabel.Size = UDim2.new(1, -(labelStart + width + 12), 0, 16)
+		end
+
+		text:GetPropertyChangedSignal("TextBounds"):Connect(fit)
+		task.defer(fit)
 
 		rows[definition.Name] = {
 			Frame = frame,
-			Value = frame:FindFirstChild("Value") :: TextLabel,
+			Value = valueLabel,
 		}
 		renderRow(definition.Name)
 	end

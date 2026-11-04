@@ -242,6 +242,18 @@ return function(self)
 	end
 	structures.Settings = structures.Card:FindFirstChild("Settings") :: ImageButton
 
+	-- Gear pinned to the card's right edge (outside the row layout, in a Folder), so it always
+	-- sits at the edge however wide the name / key text column ends up
+	do
+		local pinned = Instance.new("Folder")
+		pinned.Name = "Pinned"
+		pinned.Parent = structures.Card
+
+		structures.Settings.AnchorPoint = Vector2.new(1, 0.5)
+		structures.Settings.Position = UDim2.fromScale(1, 0.5)
+		structures.Settings.Parent = pinned
+	end
+
 	structures.Settings.BackgroundTransparency = 1
 
 	local icons = require("@modules/icons")
