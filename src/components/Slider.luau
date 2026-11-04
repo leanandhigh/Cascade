@@ -173,24 +173,32 @@ return function(self, properties: types.SliderProperties): types.Slider
 	}) :: UIDragDetector
 
 	local object
+
+	-- Fill width for a value, in offset units (AbsoluteSize includes the mobile UIScale,
+	-- Fill.Size doesn't)
+	local function renderFill(value: number?)
+		value = tonumber(value) or properties.Minimum or 0
+
+		local scale = utility.GetScale(structures.Body)
+		scale = scale > 0.05 and scale or 1
+
+		local sliderWidth = structures.Body.AbsoluteSize.X / scale
+		local thumbWidth = structures.Thumb.AbsoluteSize.X / scale
+		local thumbHalfWidth = thumbWidth / 2
+
+		local min = properties.Minimum
+		local max = properties.Maximum
+		local alpha = max ~= min and math.clamp((value - min) / (max - min), 0, 1) or 0
+
+		local availableWidth = sliderWidth - thumbWidth
+		local fillWidth = thumbHalfWidth + (availableWidth * alpha)
+
+		structures.Fill.Size = UDim2.new(0, fillWidth, 1, 0)
+	end
+
 	local bindings = {
 		Value = function(value: number)
-			-- Measured in offset units (AbsoluteSize includes the mobile UIScale, Fill.Size doesn't)
-			local scale = utility.GetScale(structures.Body)
-			scale = scale > 0.05 and scale or 1
-
-			local sliderWidth = structures.Body.AbsoluteSize.X / scale
-			local thumbWidth = structures.Thumb.AbsoluteSize.X / scale
-			local thumbHalfWidth = thumbWidth / 2
-
-			local min = properties.Minimum
-			local max = properties.Maximum
-			local alpha = max ~= min and (value - min) / (max - min) or 0
-
-			local availableWidth = sliderWidth - thumbWidth
-			local fillWidth = thumbHalfWidth + (availableWidth * alpha)
-
-			structures.Fill.Size = UDim2.new(0, fillWidth, 1, 0)
+			renderFill(value)
 
 			if properties.ValueChanged then
 				properties.Value = value
@@ -198,6 +206,11 @@ return function(self, properties: types.SliderProperties): types.Slider
 			end
 		end,
 	}
+
+	-- A row may narrow the slider to make room for its label: keep the fill in step
+	structures.Body:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
+		renderFill(properties.Value)
+	end)
 
 	object = binder.Wrap(properties, bindings, structures.Body)
 

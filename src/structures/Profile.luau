@@ -56,17 +56,17 @@ return function(self)
 				},
 			}),
 
-			-- Right padding is smaller than the left: the gear's 22px button has ~4px of empty space
-			-- around its 14px icon, so this puts the icon as close to the edge as the avatar
+			-- Even gaps: 10px left of the avatar and ~10px right of the gear glyph (7px padding plus
+			-- the empty space around the 14px icon in its 22px button), 10px between the parts
 			create("UIPadding")({
-				PaddingLeft = UDim.new(0, 9),
-				PaddingRight = UDim.new(0, 5),
+				PaddingLeft = UDim.new(0, 10),
+				PaddingRight = UDim.new(0, 7),
 			}),
 
 			create("UIListLayout")({
 				FillDirection = Enum.FillDirection.Horizontal,
 				HorizontalFlex = Enum.UIFlexAlignment.None,
-				Padding = UDim.new(0, 8),
+				Padding = UDim.new(0, 10),
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 			}),
@@ -74,7 +74,7 @@ return function(self)
 			create("Frame")({
 				Name = "AvatarHolder",
 				BorderSizePixel = 0,
-				Size = UDim2.fromOffset(30, 30),
+				Size = UDim2.fromOffset(32, 32),
 
 				__dynamicKeys = {
 					BackgroundColor3 = self.Theme.Controls.Card.Hover[1],
@@ -118,8 +118,8 @@ return function(self)
 				Name = "Info",
 				BackgroundTransparency = 1,
 				LayoutOrder = 1,
-				-- avatar 30 + gap 8 + gap 8 + gear 22 = 68: fills the card exactly, no leftover after the gear
-				Size = UDim2.new(1, -68, 1, 0),
+				-- avatar 32 + gap 10 + gap 10 + gear 22 = 74: fills the card exactly, no leftover after the gear
+				Size = UDim2.new(1, -74, 1, 0),
 
 				create("UIListLayout")({
 					Padding = UDim.new(0, 1),

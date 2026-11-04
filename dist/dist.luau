@@ -6615,11 +6615,11 @@ fromScale(1,1),__dynamicKeys={BackgroundColor3=b.Theme.Controls.Card.Fill[1],
 BackgroundTransparency=b.Theme.Controls.Card.Fill[2]},e'UICorner'{CornerRadius=
 UDim.new(0,8)},e'UIStroke'{ApplyStrokeMode=Enum.ApplyStrokeMode.Border,
 __dynamicKeys={Color=b.Theme.Controls.ViewBorder[1],Transparency=b.Theme.
-Controls.ViewBorder[2]}},e'UIPadding'{PaddingLeft=UDim.new(0,9),PaddingRight=
-UDim.new(0,5)},e'UIListLayout'{FillDirection=Enum.FillDirection.Horizontal,
-HorizontalFlex=Enum.UIFlexAlignment.None,Padding=UDim.new(0,8),SortOrder=Enum.
+Controls.ViewBorder[2]}},e'UIPadding'{PaddingLeft=UDim.new(0,10),PaddingRight=
+UDim.new(0,7)},e'UIListLayout'{FillDirection=Enum.FillDirection.Horizontal,
+HorizontalFlex=Enum.UIFlexAlignment.None,Padding=UDim.new(0,10),SortOrder=Enum.
 SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},e'Frame'{
-Name='AvatarHolder',BorderSizePixel=0,Size=UDim2.fromOffset(30,30),__dynamicKeys
+Name='AvatarHolder',BorderSizePixel=0,Size=UDim2.fromOffset(32,32),__dynamicKeys
 ={BackgroundColor3=b.Theme.Controls.Card.Hover[1],BackgroundTransparency=b.Theme
 .Controls.Card.Hover[2]},e'UICorner'{CornerRadius=UDim.new(1,0)},e'ImageLabel'{
 Name='Avatar',BackgroundTransparency=1,BorderSizePixel=0,Size=UDim2.fromScale(1,
@@ -6629,7 +6629,7 @@ Name='Avatar',BackgroundTransparency=1,BorderSizePixel=0,Size=UDim2.fromScale(1,
 UDim2.fromScale(0.5,0.5),Size=UDim2.fromOffset(16,16),Visible=false,
 __dynamicKeys={ImageColor3=b.Theme.Text.Secondary[1],ImageTransparency=b.Theme.
 Text.Secondary[2]}}},e'Frame'{Name='Info',BackgroundTransparency=1,LayoutOrder=1
-,Size=UDim2.new(1,-68,1,0),e'UIListLayout'{Padding=UDim.new(0,1),SortOrder=Enum.
+,Size=UDim2.new(1,-74,1,0),e'UIListLayout'{Padding=UDim.new(0,1),SortOrder=Enum.
 SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},e
 'TextLabel'{Name='DisplayName',BackgroundTransparency=1,FontFace=Font.new(
 'rbxassetid://12187365364',Enum.FontWeight.SemiBold,Enum.FontStyle.Normal),Size=
@@ -6915,79 +6915,79 @@ u.Titlebar.Trailing or nil u.Titlebar.SearchField.Body.Visible=ad end,Draggable=
 function(ad)z=not ad and false end,Resizable=function(ad)if A and not c.
 Maximized then A.SetEnabled(ad)end end,Minimized=function(ad,ae)local af=ae~=
 false if ad and not y then x=u.Body.Position if u.BlurModel then u.BlurModel.
-SetVisibility(false)end end local ag,ah,ai=TweenInfo.new(0.25,Enum.EasingStyle.
-Exponential,Enum.EasingDirection.Out),{Position=ad and UDim2.new(0.5,0,0.5,u.
-Body.AbsoluteSize.Y*2)or x},{Scale=ad and 0 or C}if af then y=true q:Create(u.
-Body.__instance,ag,ah):Play()local aj=q:Create(u.Scale.__instance,ag,ai)aj:Play(
-)aj.Completed:Once(function()y=false if u.BlurModel and not c.Minimized then u.
-BlurModel.SetVisibility(true)end end)else u.Body.Position=ah.Position u.Scale.
-Scale=ai.Scale if ad and u.BlurModel then u.BlurModel.SetVisibility(false)end
-end end,Maximized=function(ad,ae)ae=ae~=false if ad then v=u.Body.Size w=u.Body.
-Position A.SetEnabled(false)else z=false end local af,ag,ah=TweenInfo.new(0.5,
-Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Size=ad and UDim2.
-fromScale(1,1)or v,Position=ad and UDim2.fromScale(0.5,0.5)or w},{CornerRadius=
-ad and UDim.new(0,0)or UDim.new(0,10)}if ae then q:Create(u.Body.__instance,af,
-ag):Play()q:Create(u.Cornering,af,ah):Play()else u.Body.Size=ag.Size u.Body.
-Position=ag.Position u.Cornering.CornerRadius=ah.CornerRadius end if not ad then
-A.SetEnabled(c.Resizable)end end,Dropshadow=function(ad)u.Dropshadow.Visible=ad
-end,UIBlur=function(ad)if u.BlurModel then u.BlurModel.Model:Destroy()u.
-BlurModel=nil end u.Body.BackgroundTransparency=ad and b.Theme.Controls.Sidebar[
-2].Value or 0 if ad and not c.Minimized then u.BlurModel=d.UIBlur(u.Body)end end
-,CanExit=function(ad)c.CanExit=ad u.WindowControls.Exit.ImageColor3=E.Exit.
-ImageColor3()u.WindowControls.Exit.ImageTransparency=E.Exit.ImageTransparency()u
-.WindowControls.Exit.Active=ad end,CanMinimize=function(ad)c.CanMinimize=ad u.
-Titlebar.Minimize.Visible=ad u.WindowControls.Minimize.ImageColor3=E.Minimize.
-ImageColor3()u.WindowControls.Minimize.ImageTransparency=E.Minimize.
-ImageTransparency()u.WindowControls.Minimize.Active=ad end,CanZoom=function(ad)c
-.CanZoom=ad u.WindowControls.Zoom.ImageColor3=E.Zoom.ImageColor3()u.
-WindowControls.Zoom.ImageTransparency=E.Zoom.ImageTransparency()u.WindowControls
-.Zoom.Active=ad end}ad.UserProfile=function(ae)c.UserProfile=ae u.Profile.Body.
-Visible=ae P()end ad.WindowControls=function(ae)c.WindowControls=ae P()end local
-ae=function()local ae=c.Logo local af=ae~=nil and a.n().IsGlyph(ae)G.Visible=ae
-~=nil if ae~=nil then a.n().Apply(H,ae)H.Size=af and UDim2.fromOffset(18,18)or
-UDim2.fromScale(1,1)H.ImageColor3=af and b.Theme.Controls.Selection[1].Value or
-Color3.new(1,1,1)G.BackgroundColor3=b.Theme.Controls.Selection[1].Value G.
-BackgroundTransparency=af and 0.85 or 1 end if u.MobileToggle then u.
-MobileToggle.SetLogo(ae)end J.Text=c.Brand or c.Title or''K.Text=c.BrandSubtitle
-or''K.Visible=c.BrandSubtitle~=nil I.Size=UDim2.new(1,ae~=nil and-40 or 0,1,0)P(
-)end b.Theme.Controls.Selection[1]:Connect(function()task.defer(ae)end)local af=
-c.MobileToggle if af==nil then af=B end if af then u.MobileToggle=a.t()(b,
-function()if c.CanMinimize==false and not c.Minimized then return end c.
-Minimized=not c.Minimized ad.Minimized(c.Minimized,true)end)u.MobileToggle.
-SetSide(c.MobileToggleSide)u.MobileToggle.SetLogo(c.Logo)u.MobileToggle.Body.
-Parent=a.a().OverlayRoot(b)or u.Body.__instance:FindFirstAncestorWhichIsA
-'ScreenGui'end a.n().WhenReady(function()if c.Logo~=nil then ae()end end)ad.Logo
-=function(ag)c.Logo=ag ae()end ad.Brand=function(ag)c.Brand=ag ae()end ad.
-BrandSubtitle=function(ag)c.BrandSubtitle=ag ae()end ad.CanUnload=function(ag)c.
-CanUnload=ag end ad.ProfileName=function(ag)c.ProfileName=ag aa()end ad.
-ProfileSubtitle=function(ag)c.ProfileSubtitle=ag or'Account'ab()end ad.
-ProfileImage=function(ag)c.ProfileImage=ag X()end ad.CensorName=function(ag)
-local ah=c.CensorName~=ag c.CensorName=ag==true Z:Set(c.CensorName,true)aa()if
-ah and c.ProfileSettingChanged then task.spawn(c.ProfileSettingChanged,V,
-'CensorName',c.CensorName)end end ad.HideAvatar=function(ag)local ah=c.
-HideAvatar~=ag c.HideAvatar=ag==true _:Set(c.HideAvatar,true)X()if ah and c.
-ProfileSettingChanged then task.spawn(c.ProfileSettingChanged,V,'HideAvatar',c.
-HideAvatar)end end ad.ProfileOptions=function(ag)if typeof(ag)~='table'or#ag==0
-then return end u.ProfileMenu:AddSeparator()for ah,ai in ipairs(ag)do u.
-ProfileMenu:AddItem(ai)end end ad.KeyExpires=function(ag)c.KeyExpires=ag R=false
-ab()end ad.KeyDuration=function(ag)ad.KeyExpires(ag and(os.time()+ag)or nil)end
-ad.Languages=function(ag)c.Languages=ag u.Titlebar.LanguagePicker.SetLanguages(
-ag or{})end ad.Language=function(ag)c.Language=ag u.Titlebar.LanguagePicker.
-Select(ag)if c.LanguageChanged then task.spawn(c.LanguageChanged,V,ag)end end V=
-g.Wrap(c,ad,u.Body)V.Type='Window'V.Theme=b.Theme V.Structures=u V.Tabs={}V.
-addToHistory=i(V)V.__container=u.Content V.__window=V V.__app=b local ag=
-function()if c.TabTitles~=nil then return c.TabTitles==true end return c.Logo~=
-nil or c.Brand~=nil end V.__pageTitle=function(ah)if ag()and ah then u.Titlebar.
-Title.Visible=true u.Titlebar.Title.Text=ah end end V.KeyStatus=function()return
-Y()end V.DisplayName=function()return W()end V.Unload=function()if M then return
-end M=true if c.Unloaded then local ah,ai=pcall(c.Unloaded,V)if not ah then
-warn('[Cascade] Unloaded callback errored:',ai)end end local ah=u.Body.
-__instance:FindFirstAncestorWhichIsA'ScreenGui'ad.Minimized(true)task.delay(0.25
-,function()u.ProfileMenu:Destroy()u.Body:Destroy()if ah and ah.Name=='Cascade'
-then ah:Destroy()end end)end if c.Config~=false then local ah=typeof(c.Config)==
-'table'and c.Config or{}V.Configs=n.new(ah)if ah.AutoLoad~=false then task.
-defer(function()V.Configs:LoadDefault()end)end end do A=j(u.Body.__instance,
-Vector2.new(350,250))A.CreateClient()A.CreateGrip(b.Theme,B and 22 or 16)end do
+SetVisibility(false)end end local ag,ah=u.Body.__instance,TweenInfo.new(0.25,
+Enum.EasingStyle.Exponential,Enum.EasingDirection.Out)local ai={Position=ad and
+UDim2.new(0.5,0,1.5,ag.AbsoluteSize.Y)or x}u.Scale.Scale=C if not ad then ag.
+Visible=true end if af then y=true local aj=q:Create(ag,ah,ai)aj:Play()aj.
+Completed:Once(function()y=false if c.Minimized then ag.Visible=false elseif u.
+BlurModel then u.BlurModel.SetVisibility(true)end end)else ag.Position=ai.
+Position ag.Visible=not ad if ad and u.BlurModel then u.BlurModel.SetVisibility(
+false)end end end,Maximized=function(ad,ae)ae=ae~=false if ad then v=u.Body.Size
+w=u.Body.Position A.SetEnabled(false)else z=false end local af,ag,ah=TweenInfo.
+new(0.5,Enum.EasingStyle.Exponential,Enum.EasingDirection.Out),{Size=ad and
+UDim2.fromScale(1,1)or v,Position=ad and UDim2.fromScale(0.5,0.5)or w},{
+CornerRadius=ad and UDim.new(0,0)or UDim.new(0,10)}if ae then q:Create(u.Body.
+__instance,af,ag):Play()q:Create(u.Cornering,af,ah):Play()else u.Body.Size=ag.
+Size u.Body.Position=ag.Position u.Cornering.CornerRadius=ah.CornerRadius end if
+not ad then A.SetEnabled(c.Resizable)end end,Dropshadow=function(ad)u.Dropshadow
+.Visible=ad end,UIBlur=function(ad)if u.BlurModel then u.BlurModel.Model:
+Destroy()u.BlurModel=nil end u.Body.BackgroundTransparency=ad and b.Theme.
+Controls.Sidebar[2].Value or 0 if ad and not c.Minimized then u.BlurModel=d.
+UIBlur(u.Body)end end,CanExit=function(ad)c.CanExit=ad u.WindowControls.Exit.
+ImageColor3=E.Exit.ImageColor3()u.WindowControls.Exit.ImageTransparency=E.Exit.
+ImageTransparency()u.WindowControls.Exit.Active=ad end,CanMinimize=function(ad)c
+.CanMinimize=ad u.Titlebar.Minimize.Visible=ad u.WindowControls.Minimize.
+ImageColor3=E.Minimize.ImageColor3()u.WindowControls.Minimize.ImageTransparency=
+E.Minimize.ImageTransparency()u.WindowControls.Minimize.Active=ad end,CanZoom=
+function(ad)c.CanZoom=ad u.WindowControls.Zoom.ImageColor3=E.Zoom.ImageColor3()u
+.WindowControls.Zoom.ImageTransparency=E.Zoom.ImageTransparency()u.
+WindowControls.Zoom.Active=ad end}ad.UserProfile=function(ae)c.UserProfile=ae u.
+Profile.Body.Visible=ae P()end ad.WindowControls=function(ae)c.WindowControls=ae
+P()end local ae=function()local ae=c.Logo local af=ae~=nil and a.n().IsGlyph(ae)
+G.Visible=ae~=nil if ae~=nil then a.n().Apply(H,ae)H.Size=af and UDim2.
+fromOffset(18,18)or UDim2.fromScale(1,1)H.ImageColor3=af and b.Theme.Controls.
+Selection[1].Value or Color3.new(1,1,1)G.BackgroundColor3=b.Theme.Controls.
+Selection[1].Value G.BackgroundTransparency=af and 0.85 or 1 end if u.
+MobileToggle then u.MobileToggle.SetLogo(ae)end J.Text=c.Brand or c.Title or''K.
+Text=c.BrandSubtitle or''K.Visible=c.BrandSubtitle~=nil I.Size=UDim2.new(1,ae~=
+nil and-40 or 0,1,0)P()end b.Theme.Controls.Selection[1]:Connect(function()task.
+defer(ae)end)local af=c.MobileToggle if af==nil then af=B end if af then u.
+MobileToggle=a.t()(b,function()if c.CanMinimize==false and not c.Minimized then
+return end c.Minimized=not c.Minimized ad.Minimized(c.Minimized,true)end)u.
+MobileToggle.SetSide(c.MobileToggleSide)u.MobileToggle.SetLogo(c.Logo)u.
+MobileToggle.Body.Parent=a.a().OverlayRoot(b)or u.Body.__instance:
+FindFirstAncestorWhichIsA'ScreenGui'end a.n().WhenReady(function()if c.Logo~=nil
+then ae()end end)ad.Logo=function(ag)c.Logo=ag ae()end ad.Brand=function(ag)c.
+Brand=ag ae()end ad.BrandSubtitle=function(ag)c.BrandSubtitle=ag ae()end ad.
+CanUnload=function(ag)c.CanUnload=ag end ad.ProfileName=function(ag)c.
+ProfileName=ag aa()end ad.ProfileSubtitle=function(ag)c.ProfileSubtitle=ag or
+'Account'ab()end ad.ProfileImage=function(ag)c.ProfileImage=ag X()end ad.
+CensorName=function(ag)local ah=c.CensorName~=ag c.CensorName=ag==true Z:Set(c.
+CensorName,true)aa()if ah and c.ProfileSettingChanged then task.spawn(c.
+ProfileSettingChanged,V,'CensorName',c.CensorName)end end ad.HideAvatar=function
+(ag)local ah=c.HideAvatar~=ag c.HideAvatar=ag==true _:Set(c.HideAvatar,true)X()
+if ah and c.ProfileSettingChanged then task.spawn(c.ProfileSettingChanged,V,
+'HideAvatar',c.HideAvatar)end end ad.ProfileOptions=function(ag)if typeof(ag)~=
+'table'or#ag==0 then return end u.ProfileMenu:AddSeparator()for ah,ai in ipairs(
+ag)do u.ProfileMenu:AddItem(ai)end end ad.KeyExpires=function(ag)c.KeyExpires=ag
+R=false ab()end ad.KeyDuration=function(ag)ad.KeyExpires(ag and(os.time()+ag)or
+nil)end ad.Languages=function(ag)c.Languages=ag u.Titlebar.LanguagePicker.
+SetLanguages(ag or{})end ad.Language=function(ag)c.Language=ag u.Titlebar.
+LanguagePicker.Select(ag)if c.LanguageChanged then task.spawn(c.LanguageChanged,
+V,ag)end end V=g.Wrap(c,ad,u.Body)V.Type='Window'V.Theme=b.Theme V.Structures=u
+V.Tabs={}V.addToHistory=i(V)V.__container=u.Content V.__window=V V.__app=b local
+ag=function()if c.TabTitles~=nil then return c.TabTitles==true end return c.Logo
+~=nil or c.Brand~=nil end V.__pageTitle=function(ah)if ag()and ah then u.
+Titlebar.Title.Visible=true u.Titlebar.Title.Text=ah end end V.KeyStatus=
+function()return Y()end V.DisplayName=function()return W()end V.Unload=function(
+)if M then return end M=true if c.Unloaded then local ah,ai=pcall(c.Unloaded,V)
+if not ah then warn('[Cascade] Unloaded callback errored:',ai)end end local ah=u
+.Body.__instance:FindFirstAncestorWhichIsA'ScreenGui'ad.Minimized(true)task.
+delay(0.25,function()u.ProfileMenu:Destroy()u.Body:Destroy()if ah and ah.Name==
+'Cascade'then ah:Destroy()end end)end if c.Config~=false then local ah=typeof(c.
+Config)=='table'and c.Config or{}V.Configs=n.new(ah)if ah.AutoLoad~=false then
+task.defer(function()V.Configs:LoadDefault()end)end end do A=j(u.Body.__instance
+,Vector2.new(350,250))A.CreateClient()A.CreateGrip(b.Theme,B and 22 or 16)end do
 local ah=true local ai=function()ah=not ah local ai,aj,ak,al,am=ah and UDim.new(
 0,0)or UDim.new(0,-200),ah and UDim2.new(0,200,1,0)or UDim2.new(0,0,1,0),ah and
 UDim2.new(1,-201,1,0)or UDim2.new(1,0,1,0),ah and UDim2.new(0,10,1,0)or UDim2.
@@ -7306,9 +7306,14 @@ local ah,ai=a.a(),false local aj=function()local aj=ah.GetScale(ag.Body)if aj<
 0.05 then return end local ak,al,am=ag.LeftAccessories.Parent.AbsoluteSize.X/aj,
 ag.RightAccessories.AbsoluteSize.X/aj,false for an,ao in ipairs(ag.
 LeftAccessories:GetChildren())do if ao:IsA'GuiObject'and ao.Visible then am=true
-break end end local an=90 ai=am and ak>0 and ak-al<an if ai then local ao=ag.
+break end end local an,ao=90,ag.RightAccessories:FindFirstChild'Slider'if ao and
+ao:IsA'GuiObject'and am and ak>0 then local ap=ao:GetAttribute'BaseWidth'if not
+ap then ap=ao.Size.X.Offset ao:SetAttribute('BaseWidth',ap)end local aq=ao.Size.
+X.Offset local ar=al-aq local as=math.clamp(math.floor(ak-ar-an),80,ap)if as~=aq
+then ao.Size=UDim2.new(ao.Size.X.Scale,as,ao.Size.Y.Scale,ao.Size.Y.Offset)
+return end end ai=am and ak>0 and ak-al<an if ai then local ap=ag.
 LeftAccessories.AbsoluteSize.Y/aj ag.LeftAccessories.Size=UDim2.new(1,0,0,0)ag.
-RightAccessories.Position=UDim2.new(1,0,0,math.max(ao-10,0))ag.RightAccessories.
+RightAccessories.Position=UDim2.new(1,0,0,math.max(ap-10,0))ag.RightAccessories.
 Size=UDim2.fromScale(0,0)else ag.LeftAccessories.Size=UDim2.new(0,math.max(ak-al
 ,an),1,0)ag.RightAccessories.Position=UDim2.fromScale(1,0)ag.RightAccessories.
 Size=UDim2.fromScale(0,1)end end aj()ag.RightAccessories:
@@ -7531,41 +7536,43 @@ ThumbEffects[1],ImageTransparency=ah.ThumbEffects[2]},af'UICorner'{Name=
 Name='UIDragDetector',ResponseStyle=Enum.UIDragDetectorResponseStyle.
 CustomOffset,SelectionModeDragSpeed=UDim2.new(),SelectionModeRotateSpeed=0,
 ActivatedCursorIcon='rbxassetid://0',CursorIcon='rbxassetid://0',Parent=aj.Thumb
-})local ak local al={Value=function(al)local am=ae.GetScale(aj.Body)am=am>0.05
-and am or 1 local an,ao=aj.Body.AbsoluteSize.X/am,aj.Thumb.AbsoluteSize.X/am
-local ap,aq,ar=ao/2,ab.Minimum,ab.Maximum local as,at=ar~=aq and(al-aq)/(ar-aq)
-or 0,an-ao local au=ap+(at*as)aj.Fill.Size=UDim2.new(0,au,1,0)if ab.ValueChanged
-then ab.Value=al task.spawn(ab.ValueChanged,ak,al)end end}ak=ad.Wrap(ab,al,aj.
-Body)ak.Type='Slider'ak.Theme=aa.Theme ak.Structures=aj aj.Dragger.DragStart:
-Connect(function(am)local an=aj.Body.AbsolutePosition.X+aj.Fill.AbsoluteSize.X
-ai=am and(am.X-an)or 0 end)aj.Dragger.DragContinue:Connect(function(am)if not am
-then return end local an,ao=aj.Body.AbsoluteSize.X,aj.Thumb.AbsoluteSize.X/2
-local ap,aq=ao,an-ao if aq<=ap then return end local ar=am.X-aj.Body.
-AbsolutePosition.X-ai local as=(math.clamp(ar,ap,aq)-ap)/(aq-ap)ak.Value=ak.
-Minimum+(ak.Maximum-ak.Minimum)*as end)ad.Apply(ab,ak)return ak end end function
-a.K()local ab=a.cache.K if not ab then ab={c=aa()}a.cache.K=ab end return ab.c
-end end do local aa=function()a.b()return function(aa,ab)local ac,ad,ae=a.d(),a.
-c(),a.e()local af,ag,ah,ai,aj=ac.Create,ae.TweenService,aa.__container or aa.
-__instance or aa,aa.Theme.Controls.Button,{}ab=ab or{}ab.State=ab.State or
-'Primary'ab.Label=ab.Label or'Label'aj.Body=(ad.Apply(ab,af'TextButton'{Name=
-'Button',AutoButtonColor=false,AutomaticSize=Enum.AutomaticSize.XY,
-BackgroundColor3=Color3.fromRGB(255,255,255),BorderColor3=Color3.fromRGB(0,0,0),
-BorderSizePixel=0,Text='',Parent=ah,af'UICorner'{Name='UICorner',CornerRadius=
-UDim.new(0,5)},af'Folder'{Name='ShadowLayers',af'Frame'{Name='Layer1',
-BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
+})local ak,al=function(ak)ak=tonumber(ak)or ab.Minimum or 0 local al=ae.
+GetScale(aj.Body)al=al>0.05 and al or 1 local am,an=aj.Body.AbsoluteSize.X/al,aj
+.Thumb.AbsoluteSize.X/al local ao,ap,aq=an/2,ab.Minimum,ab.Maximum local ar,as=
+aq~=ap and math.clamp((ak-ap)/(aq-ap),0,1)or 0,am-an local at=ao+(as*ar)aj.Fill.
+Size=UDim2.new(0,at,1,0)end local am={Value=function(am)ak(am)if ab.ValueChanged
+then ab.Value=am task.spawn(ab.ValueChanged,al,am)end end}aj.Body:
+GetPropertyChangedSignal'AbsoluteSize':Connect(function()ak(ab.Value)end)al=ad.
+Wrap(ab,am,aj.Body)al.Type='Slider'al.Theme=aa.Theme al.Structures=aj aj.Dragger
+.DragStart:Connect(function(an)local ao=aj.Body.AbsolutePosition.X+aj.Fill.
+AbsoluteSize.X ai=an and(an.X-ao)or 0 end)aj.Dragger.DragContinue:Connect(
+function(an)if not an then return end local ao,ap=aj.Body.AbsoluteSize.X,aj.
+Thumb.AbsoluteSize.X/2 local aq,ar=ap,ao-ap if ar<=aq then return end local as=
+an.X-aj.Body.AbsolutePosition.X-ai local at=(math.clamp(as,aq,ar)-aq)/(ar-aq)al.
+Value=al.Minimum+(al.Maximum-al.Minimum)*at end)ad.Apply(ab,al)return al end end
+function a.K()local ab=a.cache.K if not ab then ab={c=aa()}a.cache.K=ab end
+return ab.c end end do local aa=function()a.b()return function(aa,ab)local ac,ad
+,ae=a.d(),a.c(),a.e()local af,ag,ah,ai,aj=ac.Create,ae.TweenService,aa.
+__container or aa.__instance or aa,aa.Theme.Controls.Button,{}ab=ab or{}ab.State
+=ab.State or'Primary'ab.Label=ab.Label or'Label'aj.Body=(ad.Apply(ab,af
+'TextButton'{Name='Button',AutoButtonColor=false,AutomaticSize=Enum.
+AutomaticSize.XY,BackgroundColor3=Color3.fromRGB(255,255,255),BorderColor3=
+Color3.fromRGB(0,0,0),BorderSizePixel=0,Text='',Parent=ah,af'UICorner'{Name=
+'UICorner',CornerRadius=UDim.new(0,5)},af'Folder'{Name='ShadowLayers',af'Frame'{
+Name='Layer1',BackgroundColor3=Color3.fromRGB(255,255,255),
+BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
+Size=UDim2.fromScale(1,1),ZIndex=0,af'UICorner'{Name='UICorner',CornerRadius=
+UDim.new(0,5)},af'UIStroke'{Name='UIStroke',ApplyStrokeMode=Enum.ApplyStrokeMode
+.Border,Transparency=0.95,__dynamicKeys={Color=ai.Shadow}}},af'Frame'{Name=
+'Layer2',BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
 BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Size=UDim2.fromScale(1,1),
-ZIndex=0,af'UICorner'{Name='UICorner',CornerRadius=UDim.new(0,5)},af'UIStroke'{
-Name='UIStroke',ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Transparency=0.95,
-__dynamicKeys={Color=ai.Shadow}}},af'Frame'{Name='Layer2',BackgroundColor3=
-Color3.fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.
-fromRGB(0,0,0),BorderSizePixel=0,Size=UDim2.fromScale(1,1),ZIndex=-1,af
-'UICorner'{Name='UICorner',CornerRadius=UDim.new(0,5)},af'UIStroke'{Name=
-'UIStroke',ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Thickness=2,Transparency=
-0.98,__dynamicKeys={Color=ai.Shadow}}}},af'Folder'{Name='PressOverlay',af'Frame'
-{Name='Overlay',BackgroundColor3=Color3.fromRGB(0,0,0),BackgroundTransparency=1,
-BorderSizePixel=0,Size=UDim2.fromScale(1,1),ZIndex=0,af'UICorner'{Name=
-'UICorner',CornerRadius=UDim.new(0,5)}}}}))aj.PressOverlay=aj.Body:
-FindFirstChild'PressOverlay':FindFirstChild'Overlay'aj.Shadows=aj.Body:
+ZIndex=-1,af'UICorner'{Name='UICorner',CornerRadius=UDim.new(0,5)},af'UIStroke'{
+Name='UIStroke',ApplyStrokeMode=Enum.ApplyStrokeMode.Border,Thickness=2,
+Transparency=0.98,__dynamicKeys={Color=ai.Shadow}}}},af'Folder'{Name=
+'PressOverlay',af'Frame'{Name='Overlay',BackgroundColor3=Color3.fromRGB(0,0,0),
+BackgroundTransparency=1,BorderSizePixel=0,Size=UDim2.fromScale(1,1),ZIndex=0,af
+'UICorner'{Name='UICorner',CornerRadius=UDim.new(0,5)}}}}))aj.PressOverlay=aj.
+Body:FindFirstChild'PressOverlay':FindFirstChild'Overlay'aj.Shadows=aj.Body:
 FindFirstChild'ShadowLayers'aj.Shadow1=aj.Shadows:FindFirstChild'Layer1':
 FindFirstChild'UIStroke'aj.Shadow2=aj.Shadows:FindFirstChild'Layer2':
 FindFirstChild'UIStroke'local ak,al={TextColor3=function()local ak=ab.State

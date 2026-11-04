@@ -703,29 +703,40 @@ return function(self, properties: types.WindowProperties): types.Window
 				end
 			end
 
+			-- Slide only. Tweening the UIScale changed every element's AbsoluteSize each frame, which
+			-- re-ran every layout listener (rows, sections, groupboxes...) for the whole animation:
+			-- that was the lag when tapping the mobile toggle. Once off-screen the window is hidden,
+			-- so it costs nothing while minimized.
+			local body = structures.Body.__instance
 			local tweenInfo = TweenInfo.new(0.25, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out)
 			local bodyTarget = {
-				Position = value and UDim2.new(0.5, 0, 0.5, structures.Body.AbsoluteSize.Y * 2) or originalPosition2,
+				Position = value and UDim2.new(0.5, 0, 1.5, body.AbsoluteSize.Y) or originalPosition2,
 			}
-			local scaleTarget = { Scale = value and 0 or baseScale }
+
+			structures.Scale.Scale = baseScale
+
+			if not value then
+				body.Visible = true
+			end
 
 			if useTween then
 				minimizing = true
-				tweenService:Create(structures.Body.__instance, tweenInfo, bodyTarget):Play()
 
-				local scaleTween: Tween = tweenService:Create(structures.Scale.__instance, tweenInfo, scaleTarget)
+				local slide: Tween = tweenService:Create(body, tweenInfo, bodyTarget)
 
-				scaleTween:Play()
-				scaleTween.Completed:Once(function()
+				slide:Play()
+				slide.Completed:Once(function()
 					minimizing = false
 
-					if structures["BlurModel"] and not properties.Minimized then
+					if properties.Minimized then
+						body.Visible = false
+					elseif structures["BlurModel"] then
 						structures["BlurModel"].SetVisibility(true)
 					end
 				end)
 			else
-				structures.Body.Position = bodyTarget.Position
-				structures.Scale.Scale = scaleTarget.Scale
+				body.Position = bodyTarget.Position
+				body.Visible = not value
 
 				if value and structures["BlurModel"] then
 					structures["BlurModel"].SetVisibility(false)

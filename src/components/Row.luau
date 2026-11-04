@@ -134,6 +134,29 @@ return function(self, properties: types.RowProperties): types.Row
 		end
 
 		local minLeftWidth = 90
+
+		-- A slider gives up width first (down to 80) so its label keeps a line of its own;
+		-- the row only stacks when that still isn't enough
+		local slider = structures.RightAccessories:FindFirstChild("Slider")
+
+		if slider and slider:IsA("GuiObject") and leftHasContent and parentWidth > 0 then
+			local base = slider:GetAttribute("BaseWidth")
+
+			if not base then
+				base = slider.Size.X.Offset
+				slider:SetAttribute("BaseWidth", base)
+			end
+
+			local current = slider.Size.X.Offset
+			local others = rightWidth - current
+			local width = math.clamp(math.floor(parentWidth - others - minLeftWidth), 80, base)
+
+			if width ~= current then
+				slider.Size = UDim2.new(slider.Size.X.Scale, width, slider.Size.Y.Scale, slider.Size.Y.Offset)
+				return -- AbsoluteSize changes and runs this again with the new width
+			end
+		end
+
 		stacked = leftHasContent and parentWidth > 0 and parentWidth - rightWidth < minLeftWidth
 
 		if stacked then
