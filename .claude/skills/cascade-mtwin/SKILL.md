@@ -67,6 +67,9 @@ Read this before touching `src/`, `examples/full_example.luau` or `dist/dist.lua
   pill. The user rejected "move it under the farm HUD"; keep it simple.
 - Narrow screens: Columns / Side groupboxes stack under `StackBelow` (480); rows shrink a slider (to 80px)
   before stacking; rows stack only when the **title text width** (TextBounds/scale + 16, 40..90) doesn't fit.
+  Stacked controls go **under the text, left-aligned** (anchor 0, list Left, no left inset), never
+  right-aligned under it. Measure the controls with the layout's AbsoluteContentSize (+11), not the
+  frame's AbsoluteSize (full width while stacked, so it would never un-stack).
 - Keybinds can't be bound without a keyboard: long-press opens the mode menu; keybind list entries are tappable.
 
 ## Fonts and text
@@ -102,7 +105,8 @@ Read this before touching `src/`, `examples/full_example.luau` or `dist/dist.lua
 ## Things the user asked for (keep them this way)
 
 - Key countdown: ticking clock `3d 04:00:00` / `04:00:00`; keeps running while the page is hidden.
-- Profile card: even 10px gaps, 32px avatar, gear pinned right; card PaddingRight 5 (+ ~4px empty space
+- Profile card: outside gaps equal too (body PaddingRight 8 because the sidebar Margins frame adds 2 on
+  the right); even 10px gaps, 32px avatar, gear pinned right; card PaddingRight 5 (+ ~4px empty space
   around the glyph) so the gear glyph's right gap equals the avatar's left gap (measured from screenshots).
 - Titlebar description copies on click/tap and is accent-blue when it is a link ("Copied!" for 1.2s);
   an invisible TextButton over it gives the hand cursor, and hover underlines it.

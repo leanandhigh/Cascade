@@ -115,6 +115,24 @@ return function(self, properties: types.RowProperties): types.Row
 	-- AbsoluteSize is in screen pixels; offsets aren't (mobile UIScale), so measure in offset units.
 	-- When the controls don't leave room for the label (narrow phone columns), they move onto
 	-- their own line under it instead of overlapping.
+	local rightLayout = structures.RightAccessories:FindFirstChildOfClass("UIListLayout")
+	local rightPadding = structures.RightAccessories:FindFirstChildOfClass("UIPadding")
+	local RIGHT_INSET = 11 -- gap between the label and the controls when side by side
+
+	-- Width the controls need (their content + the gap), the same whether stacked or not.
+	-- (While stacked the frame itself spans the row, so its AbsoluteSize would keep it stacked.)
+	local function naturalRightWidth(scale: number): number
+		local ok, content = pcall(function()
+			return rightLayout.AbsoluteContentSize
+		end)
+
+		if ok and typeof(content) == "Vector2" and content.X > 0 then
+			return content.X / scale + RIGHT_INSET
+		end
+
+		return structures.RightAccessories.AbsoluteSize.X / scale
+	end
+
 	local function updateAccessories()
 		local scale = utility.GetScale(structures.Body)
 
@@ -123,7 +141,7 @@ return function(self, properties: types.RowProperties): types.Row
 		end
 
 		local parentWidth = structures.LeftAccessories.Parent.AbsoluteSize.X / scale
-		local rightWidth = structures.RightAccessories.AbsoluteSize.X / scale
+		local rightWidth = naturalRightWidth(scale)
 		local leftHasContent = false
 
 		for _, child in ipairs(structures.LeftAccessories:GetChildren()) do
@@ -174,21 +192,45 @@ return function(self, properties: types.RowProperties): types.Row
 		stacked = leftHasContent and parentWidth > 0 and parentWidth - rightWidth < minLeftWidth
 
 		if stacked then
+			-- Controls go on their own line *under* the label, starting where the text starts
 			local leftHeight = structures.LeftAccessories.AbsoluteSize.Y / scale
 
 			structures.LeftAccessories.Size = UDim2.new(1, 0, 0, 0)
-			structures.RightAccessories.Position = UDim2.new(1, 0, 0, math.max(leftHeight - 10, 0))
-			-- content-sized while stacked: a row-height (scale) size here would feed back into the row's AutomaticSize
-			structures.RightAccessories.Size = UDim2.fromScale(0, 0)
+			structures.RightAccessories.AnchorPoint = Vector2.new(0, 0)
+			structures.RightAccessories.Position = UDim2.new(0, 0, 0, math.max(leftHeight - 10, 0))
+			-- full width, no row-height scale (that would feed back into the row's AutomaticSize)
+			structures.RightAccessories.Size = UDim2.new(1, 0, 0, 0)
+
+			if rightLayout then
+				rightLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
+			end
+
+			if rightPadding then
+				rightPadding.PaddingLeft = UDim.new(0, 0)
+			end
 		else
 			structures.LeftAccessories.Size = UDim2.new(0, math.max(parentWidth - rightWidth, minLeftWidth), 1, 0)
+			structures.RightAccessories.AnchorPoint = Vector2.new(1, 0)
 			structures.RightAccessories.Position = UDim2.fromScale(1, 0)
 			structures.RightAccessories.Size = UDim2.fromScale(0, 1)
+
+			if rightLayout then
+				rightLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
+			end
+
+			if rightPadding then
+				rightPadding.PaddingLeft = UDim.new(0, RIGHT_INSET)
+			end
 		end
 	end
 
 	updateAccessories()
 	structures.RightAccessories:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateAccessories)
+
+	if rightLayout then
+		rightLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateAccessories)
+	end
+
 	structures.LeftAccessories.Parent:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateAccessories)
 	structures.LeftAccessories:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
 		if stacked then

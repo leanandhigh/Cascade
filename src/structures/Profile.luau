@@ -29,7 +29,8 @@ return function(self)
 			Name = "UIPadding",
 			PaddingBottom = UDim.new(0, 10),
 			PaddingLeft = UDim.new(0, 10),
-			PaddingRight = UDim.new(0, 10),
+			-- 8 + the sidebar margin's own 2px on the right = the same 10px gap as on the left
+			PaddingRight = UDim.new(0, 8),
 			PaddingTop = UDim.new(0, 6),
 		}),
 

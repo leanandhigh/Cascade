@@ -6627,7 +6627,7 @@ c,d=a.d(),a.i()local e,f=c.Create,{}f.Body=e'Frame'{Name='Profile',AnchorPoint=
 Vector2.new(0,1),BackgroundTransparency=1,BorderSizePixel=0,Position=UDim2.
 fromScale(0,1),Size=UDim2.new(1,0,0,62),e'UIPadding'{Name='UIPadding',
 PaddingBottom=UDim.new(0,10),PaddingLeft=UDim.new(0,10),PaddingRight=UDim.new(0,
-10),PaddingTop=UDim.new(0,6)},e'Frame'{Name='Card',BorderSizePixel=0,Size=UDim2.
+8),PaddingTop=UDim.new(0,6)},e'Frame'{Name='Card',BorderSizePixel=0,Size=UDim2.
 fromScale(1,1),__dynamicKeys={BackgroundColor3=b.Theme.Controls.Card.Fill[1],
 BackgroundTransparency=b.Theme.Controls.Card.Fill[2]},e'UICorner'{CornerRadius=
 UDim.new(0,8)},e'UIStroke'{ApplyStrokeMode=Enum.ApplyStrokeMode.Border,
@@ -7351,38 +7351,47 @@ fromScale(0,1),Size=UDim2.new(1,0,0,1),Visible=false,__dynamicKeys={
 BackgroundColor3=aa.Theme.Controls.ViewBorder[1],BackgroundTransparency=aa.Theme
 .Controls.ViewBorder[2]}}}}))ag.LeftAccessories=(ag.Body:FindFirstChild
 'LeftAccessory')ag.RightAccessories=(ag.Body:FindFirstChild'RightAccessory')
-local ah,ai=a.a(),false local aj=function()local aj=ah.GetScale(ag.Body)if aj<
-0.05 then return end local ak,al,am=ag.LeftAccessories.Parent.AbsoluteSize.X/aj,
-ag.RightAccessories.AbsoluteSize.X/aj,false for an,ao in ipairs(ag.
-LeftAccessories:GetChildren())do if ao:IsA'GuiObject'and ao.Visible then am=true
-break end end local an,ao=90,ag.TitleStack and ag.TitleStack.Structures and ag.
-TitleStack.Structures.Title if ao then local ap,aq=pcall(function()return(
-typeof(ao)=='Instance'and ao or ao.__instance).TextBounds end)if ap and typeof(
-aq)=='Vector2'and aq.X>0 then an=math.clamp(math.ceil(aq.X/aj)+16,40,90)end end
-local ap=ag.RightAccessories:FindFirstChild'Slider'if ap and ap:IsA'GuiObject'
-and am and ak>0 then local aq=ap:GetAttribute'BaseWidth'if not aq then aq=ap.
-Size.X.Offset ap:SetAttribute('BaseWidth',aq)end local ar=ap.Size.X.Offset local
-as=al-ar local at=math.clamp(math.floor(ak-as-an),80,aq)if at~=ar then ap.Size=
-UDim2.new(ap.Size.X.Scale,at,ap.Size.Y.Scale,ap.Size.Y.Offset)return end end ai=
-am and ak>0 and ak-al<an if ai then local aq=ag.LeftAccessories.AbsoluteSize.Y/
-aj ag.LeftAccessories.Size=UDim2.new(1,0,0,0)ag.RightAccessories.Position=UDim2.
-new(1,0,0,math.max(aq-10,0))ag.RightAccessories.Size=UDim2.fromScale(0,0)else ag
-.LeftAccessories.Size=UDim2.new(0,math.max(ak-al,an),1,0)ag.RightAccessories.
-Position=UDim2.fromScale(1,0)ag.RightAccessories.Size=UDim2.fromScale(0,1)end
-end aj()ag.RightAccessories:GetPropertyChangedSignal'AbsoluteSize':Connect(aj)ag
-.LeftAccessories.Parent:GetPropertyChangedSignal'AbsoluteSize':Connect(aj)ag.
+local ah,ai,aj,ak,al=a.a(),false,ag.RightAccessories:FindFirstChildOfClass
+'UIListLayout',ag.RightAccessories:FindFirstChildOfClass'UIPadding',11 local am=
+function(am)local an,ao=pcall(function()return aj.AbsoluteContentSize end)if an
+and typeof(ao)=='Vector2'and ao.X>0 then return ao.X/am+al end return ag.
+RightAccessories.AbsoluteSize.X/am end local an=function()local an=ah.GetScale(
+ag.Body)if an<0.05 then return end local ao,ap,aq=ag.LeftAccessories.Parent.
+AbsoluteSize.X/an,am(an),false for ar,as in ipairs(ag.LeftAccessories:
+GetChildren())do if as:IsA'GuiObject'and as.Visible then aq=true break end end
+local ar,as=90,ag.TitleStack and ag.TitleStack.Structures and ag.TitleStack.
+Structures.Title if as then local at,au=pcall(function()return(typeof(as)==
+'Instance'and as or as.__instance).TextBounds end)if at and typeof(au)==
+'Vector2'and au.X>0 then ar=math.clamp(math.ceil(au.X/an)+16,40,90)end end local
+at=ag.RightAccessories:FindFirstChild'Slider'if at and at:IsA'GuiObject'and aq
+and ao>0 then local au=at:GetAttribute'BaseWidth'if not au then au=at.Size.X.
+Offset at:SetAttribute('BaseWidth',au)end local av=at.Size.X.Offset local aw=ap-
+av local ax=math.clamp(math.floor(ao-aw-ar),80,au)if ax~=av then at.Size=UDim2.
+new(at.Size.X.Scale,ax,at.Size.Y.Scale,at.Size.Y.Offset)return end end ai=aq and
+ao>0 and ao-ap<ar if ai then local au=ag.LeftAccessories.AbsoluteSize.Y/an ag.
+LeftAccessories.Size=UDim2.new(1,0,0,0)ag.RightAccessories.AnchorPoint=Vector2.
+new(0,0)ag.RightAccessories.Position=UDim2.new(0,0,0,math.max(au-10,0))ag.
+RightAccessories.Size=UDim2.new(1,0,0,0)if aj then aj.HorizontalAlignment=Enum.
+HorizontalAlignment.Left end if ak then ak.PaddingLeft=UDim.new(0,0)end else ag.
+LeftAccessories.Size=UDim2.new(0,math.max(ao-ap,ar),1,0)ag.RightAccessories.
+AnchorPoint=Vector2.new(1,0)ag.RightAccessories.Position=UDim2.fromScale(1,0)ag.
+RightAccessories.Size=UDim2.fromScale(0,1)if aj then aj.HorizontalAlignment=Enum
+.HorizontalAlignment.Right end if ak then ak.PaddingLeft=UDim.new(0,al)end end
+end an()ag.RightAccessories:GetPropertyChangedSignal'AbsoluteSize':Connect(an)if
+aj then aj:GetPropertyChangedSignal'AbsoluteContentSize':Connect(an)end ag.
+LeftAccessories.Parent:GetPropertyChangedSignal'AbsoluteSize':Connect(an)ag.
 LeftAccessories:GetPropertyChangedSignal'AbsoluteSize':Connect(function()if ai
-then aj()end end)local ak local al=function()if not ak then ak=a.C()({Theme=aa.
-Theme,__container=ag.LeftAccessories},{Title=''})ag.TitleStack=ak local al=ak.
-Structures and ak.Structures.Title if al then pcall(function()local am=typeof(al
-)=='Instance'and al or al.__instance am:GetPropertyChangedSignal'TextBounds':
-Connect(aj)end)end end return ak end local am=ad.Wrap(ab,{SearchIndex=function(
-am)ag.Body:SetAttribute('SearchIndex',am)end,Title=function(am)al().Title=am if
-ab.SearchIndex==nil then ag.Body:SetAttribute('SearchIndex',am)end end,Subtitle=
-function(am)al().Subtitle=am end},ag.Body)am.Type='Row'am.Theme=aa.Theme am.
-Structures=ag am.Left=function()local an=table.clone(am)an.__container=ag.
-LeftAccessories return an end am.Right=function()local an=table.clone(am)an.
-__container=ag.RightAccessories return an end ad.Apply(ab,am)return am end end
+then an()end end)local ao local ap=function()if not ao then ao=a.C()({Theme=aa.
+Theme,__container=ag.LeftAccessories},{Title=''})ag.TitleStack=ao local ap=ao.
+Structures and ao.Structures.Title if ap then pcall(function()local aq=typeof(ap
+)=='Instance'and ap or ap.__instance aq:GetPropertyChangedSignal'TextBounds':
+Connect(an)end)end end return ao end local aq=ad.Wrap(ab,{SearchIndex=function(
+aq)ag.Body:SetAttribute('SearchIndex',aq)end,Title=function(aq)ap().Title=aq if
+ab.SearchIndex==nil then ag.Body:SetAttribute('SearchIndex',aq)end end,Subtitle=
+function(aq)ap().Subtitle=aq end},ag.Body)aq.Type='Row'aq.Theme=aa.Theme aq.
+Structures=ag aq.Left=function()local ar=table.clone(aq)ar.__container=ag.
+LeftAccessories return ar end aq.Right=function()local ar=table.clone(aq)ar.
+__container=ag.RightAccessories return ar end ad.Apply(ab,aq)return aq end end
 function a.D()local ab=a.cache.D if not ab then ab={c=aa()}a.cache.D=ab end
 return ab.c end end do local aa=function()a.b()return function(aa,ab)local ac,ad
 =a.d(),a.c()local ae,af,ag=ac.Create,aa.__container or aa.__instance or aa,{}ab=
