@@ -6822,7 +6822,7 @@ BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Size=UDim2.new(0,200,1,0),o
 Controls.Separator.Shadow[1],BackgroundTransparency=b.Theme.Controls.Separator.
 Shadow[2]},o'UIGradient'{Name='UIGradient',Transparency=NumberSequence.new{
 NumberSequenceKeypoint.new(0,1),NumberSequenceKeypoint.new(1,0)}}}},o'UIPadding'
-{Name='UIPadding',PaddingRight=UDim.new(0,2)},o'Frame'{Name='Toolbar',
+{Name='UIPadding',PaddingRight=UDim.new(0,0)},o'Frame'{Name='Toolbar',
 BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
 BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Size=UDim2.new(1,0,0,52)},o
 'ScrollingFrame'{Name='SidebarList',AutomaticCanvasSize=Enum.AutomaticSize.Y,

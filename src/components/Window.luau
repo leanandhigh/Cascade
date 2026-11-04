@@ -181,9 +181,11 @@ return function(self, properties: types.WindowProperties): types.Window
 						}),
 					}),
 
+					-- No extra right padding: the tab list, brand and profile card use 10px on both
+					-- sides, so the left and right gaps match (this used to make the right one 12px)
 					create("UIPadding")({
 						Name = "UIPadding",
-						PaddingRight = UDim.new(0, 2),
+						PaddingRight = UDim.new(0, 0),
 					}),
 
 					create("Frame")({

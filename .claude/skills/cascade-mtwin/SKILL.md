@@ -96,7 +96,7 @@ Read this before touching `src/`, `examples/full_example.luau` or `dist/dist.lua
 
 ## Sidebar grid (keep things lined up)
 
-- Tab highlight spans sidebar + 10 … sidebar − 10; tab icons start at sidebar + 20 (20px box), tab names
+- Tab highlight spans sidebar + 10 … sidebar − 10 (Margins frame has no extra right padding: equal gaps); tab icons start at sidebar + 20 (20px box), tab names
   at sidebar + 48. Brand: padding 17, 26px logo (centred on the icon column), 5px gap, so the name starts
   at + 48; divider spans like the highlight. Section labels start at + 20. Profile avatar starts at + 20.
 
