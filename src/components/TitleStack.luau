@@ -24,6 +24,9 @@ return function(self, properties: types.TitleStackProperties): types.TitleStack
 			structures.Subtitle.Visible = true
 			structures.Subtitle.Text = value
 		end,
+		Wrap = function(value: boolean)
+			structures.SetWrap(value == true)
+		end,
 	}, structures.Body)
 
 	object.Type = "TitleStack"

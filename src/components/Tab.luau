@@ -255,7 +255,14 @@ return function(self, properties: types.TabProperties): types.Tab
 			structures.Symbol.ImageTransparency = selected and self.Theme.Text.SelectionPrimary[2].Value
 				or self.Theme.Controls.Selection[2].Value
 
-			structures.Page.Parent = selected and window and window.__container or nil
+			-- Like Obsidian: every page stays parented and only its visibility changes. Re-parenting
+			-- a page changed the size of everything in it at once, which re-ran every layout
+			-- listener (rows, groupboxes, sliders...) in one frame: a lag spike on big tabs.
+			if window and window.__container and structures.Page.Parent ~= window.__container then
+				structures.Page.Parent = window.__container
+			end
+
+			structures.Page.Visible = selected
 
 			-- With branding on, the titlebar shows the page you're on
 			if selected and window and window.__pageTitle then
@@ -272,11 +279,13 @@ return function(self, properties: types.TabProperties): types.Tab
 
 		local newPageStructure = targetPage.Structures.Page
 
-		if object.Selected and window and window.__container then
+		if window and window.__container then
 			if structures.Page then
-				structures.Page.Parent = nil
+				structures.Page.Visible = false
 			end
+
 			newPageStructure.Parent = window.__container
+			newPageStructure.Visible = object.Selected == true
 		end
 
 		structures.Page = newPageStructure

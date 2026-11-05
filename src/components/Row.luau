@@ -167,29 +167,22 @@ return function(self, properties: types.RowProperties): types.Row
 			end
 		end
 
-		-- A slider gives up width first (down to 80) so its label keeps a line of its own;
-		-- the row only stacks when that still isn't enough
+		-- Like Obsidian: a slider row puts the label on its own line and the slider fills the
+		-- row under it (no squeezed / wrapped labels next to a short slider)
 		local slider = structures.RightAccessories:FindFirstChild("Slider")
+		local sliderRow = slider ~= nil and slider:IsA("GuiObject") and leftHasContent and parentWidth > 0
 
-		if slider and slider:IsA("GuiObject") and leftHasContent and parentWidth > 0 then
-			local base = slider:GetAttribute("BaseWidth")
-
-			if not base then
-				base = slider.Size.X.Offset
-				slider:SetAttribute("BaseWidth", base)
-			end
-
+		if sliderRow then
 			local current = slider.Size.X.Offset
-			local others = rightWidth - current
-			local width = math.clamp(math.floor(parentWidth - others - minLeftWidth), 80, base)
+			local others = math.max(rightWidth - RIGHT_INSET - current, 0)
+			local width = math.max(80, math.floor(parentWidth - others))
 
 			if width ~= current then
 				slider.Size = UDim2.new(slider.Size.X.Scale, width, slider.Size.Y.Scale, slider.Size.Y.Offset)
-				return -- AbsoluteSize changes and runs this again with the new width
 			end
 		end
 
-		stacked = leftHasContent and parentWidth > 0 and parentWidth - rightWidth < minLeftWidth
+		stacked = sliderRow or (leftHasContent and parentWidth > 0 and parentWidth - rightWidth < minLeftWidth)
 
 		if stacked then
 			-- Controls go on their own line *under* the label, starting where the text starts
@@ -280,6 +273,9 @@ return function(self, properties: types.RowProperties): types.Row
 		end,
 		Subtitle = function(value: string)
 			getTitleStack().Subtitle = value
+		end,
+		Wrap = function(value: boolean)
+			getTitleStack().Wrap = value == true
 		end,
 	}, structures.Body)
 

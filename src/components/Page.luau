@@ -50,14 +50,32 @@ return function(self, properties: types.PageProperties)
 		})
 	) :: ScrollingFrame
 
+	-- Only this page's own children (it used to scan every component ever created, on every
+	-- child added: slow on hubs with many features). Batched to once per frame.
+	local paddingQueued = false
+
 	local function refreshPadding()
+		paddingQueued = false
+
 		local scoped = {}
 
-		for _, instance in ipairs(__SH.COMPINDEXES) do
-			if instance.Parent == structures.Page.__instance then
+		local position = {}
+
+		for index, instance in ipairs(structures.Page.__instance:GetChildren()) do
+			if instance:IsA("GuiObject") then
 				table.insert(scoped, instance)
+				position[instance] = index
 			end
 		end
+
+		-- same order as the list layout: LayoutOrder, then creation order (stable)
+		table.sort(scoped, function(a, b)
+			if a.LayoutOrder ~= b.LayoutOrder then
+				return a.LayoutOrder < b.LayoutOrder
+			end
+
+			return position[a] < position[b]
+		end)
 
 		for i, child in ipairs(scoped) do
 			if child.Name == "PageSection" then
@@ -75,8 +93,15 @@ return function(self, properties: types.PageProperties)
 		end
 	end
 
-	structures.Page.ChildAdded:Connect(refreshPadding)
-	structures.Page.ChildRemoved:Connect(refreshPadding)
+	local function queuePadding()
+		if not paddingQueued then
+			paddingQueued = true
+			task.defer(refreshPadding)
+		end
+	end
+
+	structures.Page.ChildAdded:Connect(queuePadding)
+	structures.Page.ChildRemoved:Connect(queuePadding)
 
 	refreshPadding()
 

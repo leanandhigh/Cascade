@@ -1268,7 +1268,15 @@ return function(self, properties: types.WindowProperties): types.Window
 		field:GetPropertyChangedSignal("Text"):Connect(function()
 			local matches = {}
 			local items = {}
-			local page = structures.Content:FindFirstChildOfClass("ScrollingFrame")
+			-- the page on screen (every tab's page stays parented, only the selected one is visible)
+			local page = nil
+
+			for _, child in ipairs(structures.Content:GetChildren()) do
+				if child:IsA("ScrollingFrame") and child.Visible then
+					page = child
+					break
+				end
+			end
 
 			if not page then
 				return

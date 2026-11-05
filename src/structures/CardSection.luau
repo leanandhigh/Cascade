@@ -109,14 +109,14 @@ return function(self, config)
 
 				create("TextLabel")({
 					Name = "Subtitle",
-					AutomaticSize = Enum.AutomaticSize.Y,
 					BackgroundTransparency = 1,
 					FontFace = Font.new("rbxassetid://12187365364"),
 					LayoutOrder = 1,
 					Size = UDim2.new(1, 0, 0, 14),
 					Text = config.Subtitle or "",
 					TextSize = 12,
-					TextWrapped = true,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextWrapped = false,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Top,
 					Visible = config.Subtitle ~= nil and config.Subtitle ~= "",

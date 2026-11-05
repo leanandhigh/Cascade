@@ -16,6 +16,24 @@ return function(self, properties: types.RadioButtonGroupProperties): types.Radio
 	}
 
 	--// Functions
+	-- Selected: accent fill + white dot. Not selected: control fill + thin outline.
+	local function paintRadio(button: Instance, selected: boolean)
+		local outline = button:FindFirstChild("Outline")
+		local dot = button:FindFirstChild("Dot")
+
+		button.BackgroundColor3 = selected and self.Theme.Controls.Selection[1].Value or theme.Background[1].Value
+		button.BackgroundTransparency = selected and self.Theme.Controls.Selection[2].Value or theme.Background[2].Value
+
+		if outline then
+			outline.Color = self.Theme.Controls.ViewBorder[1].Value
+			outline.Transparency = selected and 1 or math.min(self.Theme.Controls.ViewBorder[2].Value, 0.75)
+		end
+
+		if dot then
+			dot.Visible = selected
+		end
+	end
+
 	local function radioButton(object, name, index)
 		structures.RadioButtons[index] = create("Frame")({
 			Name = "RadioButton",
@@ -36,148 +54,37 @@ return function(self, properties: types.RadioButtonGroupProperties): types.Radio
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 			}),
 
-			create("ImageButton")({
+			-- Drawn with frames + UICorner + UIStroke (vector), not 14px images: images got
+			-- resampled when the UI scale changed and the dots looked uneven / blurry
+			create("TextButton")({
 				Name = "Button",
-				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-				BackgroundTransparency = 1,
-				BorderColor3 = Color3.fromRGB(0, 0, 0),
+				AutoButtonColor = false,
 				BorderSizePixel = 0,
-				Image = "rbxassetid://118333468121914",
-				Size = UDim2.fromOffset(14, 14),
+				Size = UDim2.fromOffset(16, 16),
+				Text = "",
 
-				__dynamicKeys = {
-					ImageColor3 = theme.Background[1],
-					ImageTransparency = theme.Background[2],
-				},
-
-				__contextKeys = {
-					ImageColor3 = function()
-						return properties.Value == index and self.Theme.Controls.Selection[1].Value
-							or theme.Background[1].Value
-					end,
-					ImageTransparency = function()
-						return properties.Value == index and self.Theme.Controls.Selection[2].Value
-							or theme.Background[2].Value
-					end,
-				},
-
-				create("ImageLabel")({
-					Name = "Overlay",
-					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-					BackgroundTransparency = 1,
-					BorderColor3 = Color3.fromRGB(0, 0, 0),
-					BorderSizePixel = 0,
-					Image = "rbxassetid://118333468121914",
-					Size = UDim2.fromOffset(14, 14),
-
-					__dynamicKeys = {
-						ImageColor3 = theme.Overlay[1],
-						ImageTransparency = theme.Overlay[2],
-					},
-
-					create("UIGradient")({
-						Name = "UIGradient",
-						Rotation = 90,
-						Transparency = NumberSequence.new({
-							NumberSequenceKeypoint.new(0, 0),
-							NumberSequenceKeypoint.new(1, 1),
-						}),
-					}),
+				create("UICorner")({
+					CornerRadius = UDim.new(1, 0),
 				}),
 
-				create("ImageLabel")({
+				create("UIStroke")({
+					Name = "Outline",
+					ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+					Thickness = 1,
+				}),
+
+				create("Frame")({
 					Name = "Dot",
 					AnchorPoint = Vector2.new(0.5, 0.5),
-					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-					BackgroundTransparency = 1,
-					BorderColor3 = Color3.fromRGB(0, 0, 0),
+					BackgroundColor3 = Color3.new(1, 1, 1),
 					BorderSizePixel = 0,
-					Image = "rbxassetid://118333468121914",
 					Position = UDim2.fromScale(0.5, 0.5),
-					ScaleType = Enum.ScaleType.Fit,
 					Size = UDim2.fromOffset(6, 6),
-					SliceCenter = Rect.new(7, 7, 7, 7),
+					Visible = false,
 
-					__dynamicKeys = {
-						ImageColor3 = theme.Dot[1],
-						ImageTransparency = theme.Dot[2],
-					},
-
-					__contextKeys = {
-						ImageTransparency = function()
-							return properties.Value == index and theme.Dot[2].Value or 1
-						end,
-					},
-				}),
-
-				create("ImageLabel")({
-					Name = "Stroke",
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-					BackgroundTransparency = 1,
-					BorderColor3 = Color3.fromRGB(0, 0, 0),
-					BorderSizePixel = 0,
-					Image = "rbxassetid://132968326823931",
-					Position = UDim2.fromScale(0.5, 0.5),
-					Size = UDim2.fromScale(1, 1),
-
-					__dynamicKeys = {
-						ImageColor3 = theme.Stroke[1],
-						ImageTransparency = theme.Stroke[2],
-					},
-
-					__contextKeys = {
-						ImageTransparency = function()
-							return properties.Value == index and 1 or theme.Stroke[2].Value
-						end,
-					},
-				}),
-
-				create("ImageLabel")({
-					Name = "InnerShadow",
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-					BackgroundTransparency = 1,
-					BorderColor3 = Color3.fromRGB(0, 0, 0),
-					BorderSizePixel = 0,
-					Image = "rbxassetid://95115717327743",
-					Position = UDim2.fromScale(0.5, 0.5),
-					Size = UDim2.fromScale(1, 1),
-
-					__dynamicKeys = {
-						ImageColor3 = theme.InnerShadow[1],
-						ImageTransparency = theme.InnerShadow[2],
-					},
-
-					__contextKeys = {
-						ImageTransparency = function()
-							return properties.Value == index and 1 or theme.InnerShadow[2].Value
-						end,
-					},
-				}),
-
-				create("ImageLabel")({
-					Name = "DropShadow",
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-					BackgroundTransparency = 1,
-					BorderColor3 = Color3.fromRGB(0, 0, 0),
-					BorderSizePixel = 0,
-					Image = "rbxassetid://110994967430153",
-					Position = UDim2.new(0.5, 0, 0.5, 1),
-					ScaleType = Enum.ScaleType.Fit,
-					Size = UDim2.fromOffset(20, 20),
-
-					__dynamicKeys = {
-						ImageColor3 = self.Theme.Controls.Selection[1],
-						ImageTransparency = self.Theme.Controls.Selection[2],
-					},
-
-					__contextKeys = {
-						ImageTransparency = function()
-							return properties.Value == index and 0.76 or 1
-						end,
-					},
+					create("UICorner")({
+						CornerRadius = UDim.new(1, 0),
+					}),
 				}),
 			}),
 
@@ -203,14 +110,29 @@ return function(self, properties: types.RadioButtonGroupProperties): types.Radio
 			}),
 		}) :: Frame
 
-		local button = structures.RadioButtons[index]:FindFirstChild("Button") :: ImageButton
-		if button and button:IsA("ImageButton") then
-			button.MouseButton1Click:Connect(function()
-				if object then
-					object.Value = index
-				end
-			end)
+		local row = structures.RadioButtons[index].__instance or structures.RadioButtons[index]
+		local button = row:FindFirstChild("Button") :: TextButton
+		local label = row:FindFirstChild("Label") :: TextLabel
+
+		local function choose()
+			if object then
+				object.Value = index
+			end
 		end
+
+		button.MouseButton1Click:Connect(choose)
+
+		-- the option name selects it too (bigger target, nicer on phones)
+		label.InputBegan:Connect(function(input)
+			if
+				input.UserInputType == Enum.UserInputType.MouseButton1
+				or input.UserInputType == Enum.UserInputType.Touch
+			then
+				choose()
+			end
+		end)
+
+		paintRadio(button, properties.Value == index)
 	end
 
 	--// UI
@@ -257,19 +179,7 @@ return function(self, properties: types.RadioButtonGroupProperties): types.Radio
 				local currentIndex = index == value
 
 				if radioButton then
-					local button = radioButton:FindFirstChild("Button")
-
-					button.ImageColor3 = currentIndex and self.Theme.Controls.Selection[1].Value
-						or theme.Background[1].Value
-					button.ImageTransparency = currentIndex and self.Theme.Controls.Selection[2].Value
-						or theme.Background[2].Value
-
-					button:FindFirstChild("Dot").ImageTransparency = currentIndex and theme.Dot[2].Value or 1
-
-					button:FindFirstChild("Stroke").ImageTransparency = currentIndex and 1 or theme.Stroke[2].Value
-					button:FindFirstChild("InnerShadow").ImageTransparency = currentIndex and 1
-						or theme.InnerShadow[2].Value
-					button:FindFirstChild("DropShadow").ImageTransparency = currentIndex and 0.76 or 1
+					paintRadio((radioButton.__instance or radioButton):FindFirstChild("Button"), currentIndex)
 				end
 			end
 
@@ -281,6 +191,21 @@ return function(self, properties: types.RadioButtonGroupProperties): types.Radio
 	}
 
 	object = binder.Wrap(properties, bindings, structures.Body)
+
+	-- Theme / accent changes repaint the circles
+	local function repaintAll()
+		for index, radio in ipairs(structures.RadioButtons) do
+			if radio then
+				paintRadio((radio.__instance or radio):FindFirstChild("Button"), properties.Value == index)
+			end
+		end
+	end
+
+	for _, state in ipairs({ self.Theme.Controls.Selection[1], theme.Background[1], self.Theme.Controls.ViewBorder[1] }) do
+		state:Connect(function()
+			task.defer(repaintAll)
+		end)
+	end
 
 	object.Type = "RadioButtonGroup"
 	object.Theme = self.Theme

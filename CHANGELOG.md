@@ -40,8 +40,14 @@
 - Dashboard: `Updated` (update date) replaces Version in the Information card.
 - Profile card: key time shows a key icon and `3d 03:59:52` (no "Key:" word), so it fits.
 
+- Text works like Obsidian: titles, subtitles and labels stay on one line (cut with "…") so long text no longer makes rows taller; `Wrap = true` opts into wrapping.
+- Slider rows: label on its own line, the slider fills the row under it.
+
 ### Fixed
 
+- Lag spike when clicking a tab on big hubs: pages now stay parented and switch by visibility.
+- Page spacing no longer scans every component in the UI each time a child is added.
+- Radio buttons are drawn with frames (crisp at any UI scale) and the option name is clickable.
 - Rows only stack when the label's actual title text doesn't fit (short labels like "Priority" / "Config" stay beside wide controls).
 - Mobile (0.8 UI scale): sidebar sections, groupboxes and rows measured screen pixels as offsets, so tabs and groupboxes were clipped and labels overlapped controls; the resize handles shrank the window when grabbed and dragging moved slower than the finger; slider fills were short.
 - Key countdown and Dashboard info stopped updating if their page wasn't on screen when created.

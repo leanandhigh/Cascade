@@ -27,7 +27,7 @@ return function(self, properties: types.LabelProperties): types.Label
 		RichText = true,
 		TextSize = 15,
 		TextTruncate = Enum.TextTruncate.AtEnd,
-		TextWrapped = true,
+		TextWrapped = false, -- one line like Obsidian; Wrap = true to wrap
 		Parent = parent,
 
 		__dynamicKeys = {
@@ -37,7 +37,13 @@ return function(self, properties: types.LabelProperties): types.Label
 	}) :: TextLabel
 
 	--// Initialize
-	local object = binder.Wrap(properties, {}, structures.Body)
+	local object = binder.Wrap(properties, {
+		-- Obsidian's DoesWrap: long text takes more lines instead of being cut
+		Wrap = function(value: boolean)
+			structures.Body.TextWrapped = value == true
+			structures.Body.TextTruncate = value and Enum.TextTruncate.None or Enum.TextTruncate.AtEnd
+		end,
+	}, structures.Body)
 
 	object.Type = "Label"
 	object.Theme = self.Theme
