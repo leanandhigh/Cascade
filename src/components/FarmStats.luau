@@ -53,9 +53,9 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 	local runService = services.RunService
 
 	--// Constants
-	local REGULAR = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal)
-	local SEMIBOLD = Font.new("rbxassetid://12187365364", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
-	local BOLD = Font.new("rbxassetid://12187365364", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+	local REGULAR = Font.new(require("@modules/fonts").Family, Enum.FontWeight.Medium, Enum.FontStyle.Normal)
+	local SEMIBOLD = Font.new(require("@modules/fonts").Family, Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
+	local BOLD = Font.new(require("@modules/fonts").Family, Enum.FontWeight.Bold, Enum.FontStyle.Normal)
 
 	--// Variables
 	local theme = self.Theme
@@ -399,7 +399,7 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 						Name = "Caption",
 						FontFace = SEMIBOLD,
 						Size = UDim2.new(0.6, 0, 0, 14),
-						Text = "SESSION TIME",
+						Text = properties.SessionText or "SESSION TIME",
 						TextSize = 11,
 						TextXAlignment = Enum.TextXAlignment.Left,
 					}),
@@ -728,6 +728,15 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 		end
 	end
 
+	-- Count: a number ("1,840 owned") or your own text ("12 / 50")
+	local function countText(count): string
+		if typeof(count) == "string" then
+			return count
+		end
+
+		return Store.FormatNumber(tonumber(count) or 0, "comma") .. " owned"
+	end
+
 	local function keyOf(material): string
 		return tostring(material.Name) .. "|" .. tostring(material.Icon)
 	end
@@ -749,7 +758,7 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 			for index, material in ipairs(materials) do
 				local refs = materialRefs[index]
 
-				refs.Count.Text = Store.FormatNumber(tonumber(material.Count) or 0, "comma") .. " owned"
+				refs.Count.Text = countText(material.Count)
 				paintGain(refs.Pill, refs.Gain, tonumber(material.Gain) or 0)
 			end
 
@@ -861,7 +870,7 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 				Gain = gainLabel,
 			}
 
-			refs.Count.Text = Store.FormatNumber(tonumber(material.Count) or 0, "comma") .. " owned"
+			refs.Count.Text = countText(material.Count)
 			paintGain(pill, gainLabel, tonumber(material.Gain) or 0)
 
 			materialRefs[index] = refs
@@ -920,7 +929,7 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 		local elapsed = os.clock() - sessionStart
 
 		structures.Timer.Text = Store.Clock(elapsed)
-		structures.Started.Text = "Started  " .. tostring(startedAt)
+		structures.Started.Text = (properties.StartedText or "Started  ") .. tostring(startedAt)
 	end
 
 	local function setVisible(value: boolean)
@@ -1165,6 +1174,20 @@ return function(self, properties: types.FarmStatsProperties): types.FarmStats
 		end
 	end
 	object.ResetSession = object.Reset
+
+	-- Continue a session that started earlier: started = unix time (os.time()), label = optional
+	-- "Started" text (defaults to that time as HH:MM). Or just a label: farmStats:SetSession(nil, "12:30")
+	object.SetSession = function(_, started: number?, label: string?)
+		if typeof(started) == "number" then
+			sessionStart = os.clock() - math.max(os.time() - started, 0)
+			store.Started = sessionStart -- Timer stats count from the same moment
+			startedAt = label or os.date("%H:%M", started)
+		elseif typeof(label) == "string" then
+			startedAt = label
+		end
+
+		renderTimer()
+	end
 	object.Destroy = function()
 		destroy()
 	end

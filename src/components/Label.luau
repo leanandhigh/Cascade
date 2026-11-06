@@ -23,7 +23,7 @@ return function(self, properties: types.LabelProperties): types.Label
 		BackgroundTransparency = 1,
 		BorderColor3 = Color3.fromRGB(0, 0, 0),
 		BorderSizePixel = 0,
-		FontFace = Font.new("rbxassetid://12187365364"),
+		FontFace = Font.new(require("@modules/fonts").Family),
 		RichText = true,
 		TextSize = 15,
 		TextTruncate = Enum.TextTruncate.AtEnd,

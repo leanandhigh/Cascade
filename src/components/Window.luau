@@ -53,7 +53,8 @@ return function(self, properties: types.WindowProperties): types.Window
 		isMobile = require("@modules/utility").IsMobile()
 	end
 
-	local baseScale = isMobile and (properties.MobileScale or 0.8) or 1
+	-- Scale = overall size on PC (eg. 0.9); MobileScale on phones
+	local baseScale = isMobile and (properties.MobileScale or 0.8) or (properties.Scale or 1)
 
 	properties.Size = properties.Size or (isMobile and UDim2.fromOffset(620, 380) or UDim2.fromOffset(850, 530))
 
@@ -440,7 +441,7 @@ return function(self, properties: types.WindowProperties): types.Window
 			create("TextLabel")({
 				Name = "Name",
 				BackgroundTransparency = 1,
-				FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Bold, Enum.FontStyle.Normal),
+				FontFace = Font.new(require("@modules/fonts").Family, Enum.FontWeight.Bold, Enum.FontStyle.Normal),
 				Size = UDim2.new(1, 0, 0, 18),
 				TextSize = 16,
 				TextTruncate = Enum.TextTruncate.AtEnd,
@@ -455,7 +456,7 @@ return function(self, properties: types.WindowProperties): types.Window
 			create("TextLabel")({
 				Name = "Subtitle",
 				BackgroundTransparency = 1,
-				FontFace = Font.new("rbxassetid://12187365364"),
+				FontFace = Font.new(require("@modules/fonts").Family),
 				LayoutOrder = 1,
 				Size = UDim2.new(1, 0, 0, 14),
 				TextSize = 12,

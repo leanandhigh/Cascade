@@ -24,6 +24,10 @@ local cascade = {
 	Themes = themes,
 	Accents = accents,
 	CustomAccent = require("@themes/customAccent"),
+	-- Font family for every element; call before cascade.New
+	SetFont = function(family: string)
+		require("@modules/fonts").Family = family
+	end,
 	Symbols = symbols,
 
 	Creator = creator,

@@ -52,7 +52,7 @@ return function(self)
 			BorderSizePixel = 0,
 			CursorPosition = -1,
 			TextXAlignment = Enum.TextXAlignment.Left,
-			FontFace = Font.new("rbxassetid://12187365364"),
+			FontFace = Font.new(require("@modules/fonts").Family),
 			PlaceholderText = "",
 			Text = "",
 			TextSize = 14,

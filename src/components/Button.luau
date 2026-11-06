@@ -152,7 +152,7 @@ return function(self, properties: types.ButtonProperties): types.Button
 		BackgroundTransparency = 1,
 		BorderColor3 = Color3.fromRGB(0, 0, 0),
 		BorderSizePixel = 0,
-		FontFace = Font.new("rbxassetid://12187365364"),
+		FontFace = Font.new(require("@modules/fonts").Family),
 		RichText = true,
 		TextSize = 14,
 		TextWrapped = true,

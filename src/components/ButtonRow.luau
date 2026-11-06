@@ -65,7 +65,9 @@ return function(self, properties: types.ButtonRowProperties): types.ButtonRow
 				Name = "Divider",
 				AnchorPoint = Vector2.new(0, 1),
 				BorderSizePixel = 0,
-				Position = UDim2.fromScale(0, 1),
+				-- +10: the row's own bottom padding also applies to this divider, which put it right
+				-- under the buttons (hidden by them); this moves it to the row's real bottom edge
+				Position = UDim2.new(0, 0, 1, 10),
 				Size = UDim2.new(1, 0, 0, 1),
 				Visible = false,
 

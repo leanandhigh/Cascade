@@ -132,7 +132,7 @@ return function(self, config: DropdownMenuStructureConfig?)
 				BackgroundTransparency = 1,
 				BorderColor3 = Color3.fromRGB(0, 0, 0),
 				BorderSizePixel = 0,
-				FontFace = Font.new("rbxassetid://12187365364"),
+				FontFace = Font.new(require("@modules/fonts").Family),
 				LayoutOrder = 1,
 				RichText = true,
 				Text = name or "",

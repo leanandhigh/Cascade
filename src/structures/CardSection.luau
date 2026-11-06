@@ -93,7 +93,7 @@ return function(self, config)
 				create("TextLabel")({
 					Name = "Title",
 					BackgroundTransparency = 1,
-					FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
+					FontFace = Font.new(require("@modules/fonts").Family, Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
 					Size = UDim2.new(1, 0, 0, 17),
 					Text = config.Title or "",
 					TextSize = 15,
@@ -110,7 +110,7 @@ return function(self, config)
 				create("TextLabel")({
 					Name = "Subtitle",
 					BackgroundTransparency = 1,
-					FontFace = Font.new("rbxassetid://12187365364"),
+					FontFace = Font.new(require("@modules/fonts").Family),
 					LayoutOrder = 1,
 					Size = UDim2.new(1, 0, 0, 14),
 					Text = config.Subtitle or "",

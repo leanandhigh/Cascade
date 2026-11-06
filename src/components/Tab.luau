@@ -84,7 +84,7 @@ return function(self, properties: types.TabProperties): types.Tab
 					BackgroundTransparency = 1,
 					BorderColor3 = Color3.fromRGB(0, 0, 0),
 					BorderSizePixel = 0,
-					FontFace = Font.new("rbxassetid://12187365364"),
+					FontFace = Font.new(require("@modules/fonts").Family),
 					LayoutOrder = 2,
 					LineHeight = 0,
 					RichText = true,

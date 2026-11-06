@@ -125,7 +125,7 @@ return function(self, properties: types.WatermarkProperties): types.Watermark
 			Name = "Label",
 			AutomaticSize = Enum.AutomaticSize.X,
 			BackgroundTransparency = 1,
-			FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+			FontFace = Font.new(require("@modules/fonts").Family, Enum.FontWeight.Medium, Enum.FontStyle.Normal),
 			LayoutOrder = 2,
 			RichText = true,
 			Size = UDim2.fromOffset(0, 16),

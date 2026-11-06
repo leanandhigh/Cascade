@@ -60,6 +60,9 @@ return function(self, properties: types.SettingsProperties): types.Tab
 		Collapsible = false,
 	})
 
+	-- settingsTab.Interface:Row(...) adds your own rows to the Interface box
+	tab.Interface = interface
+
 	if app then
 		local themeNames = { "Dark", "Light" }
 		local currentTheme = (app.Theme and app.Theme._id == "Light") and "Light" or "Dark"
@@ -182,11 +185,13 @@ return function(self, properties: types.SettingsProperties): types.Tab
 		})
 	end
 
-	--// Configs
-	tab:ConfigManager({
-		Side = "Right",
-		Manager = window.Configs,
-	})
+	--// Configs (only when the window has a config manager)
+	if window.Configs then
+		tab:ConfigManager({
+			Side = "Right",
+			Manager = window.Configs,
+		})
+	end
 
 	return tab
 end

@@ -234,7 +234,7 @@ function Popover:AddItem(properties: PopoverItemProperties)
 			Name = "Title",
 			AutomaticSize = Enum.AutomaticSize.X,
 			BackgroundTransparency = 1,
-			FontFace = Font.new("rbxassetid://12187365364"),
+			FontFace = Font.new(require("@modules/fonts").Family),
 			LayoutOrder = 2,
 			Size = UDim2.fromOffset(0, 16),
 			Text = properties.Title,

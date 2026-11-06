@@ -121,7 +121,7 @@ return function(self)
 						BackgroundTransparency = 1,
 						BorderColor3 = Color3.fromRGB(0, 0, 0),
 						BorderSizePixel = 0,
-						FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+						FontFace = Font.new(require("@modules/fonts").Family, Enum.FontWeight.Medium, Enum.FontStyle.Normal),
 						LayoutOrder = 1,
 						RichText = true,
 						Size = UDim2.fromOffset(0, 14),
@@ -144,7 +144,7 @@ return function(self)
 						BorderColor3 = Color3.fromRGB(0, 0, 0),
 						BorderSizePixel = 0,
 						FontFace = Font.new(
-							"rbxassetid://12187365364",
+							require("@modules/fonts").Family,
 							Enum.FontWeight.SemiBold,
 							Enum.FontStyle.Normal
 						),

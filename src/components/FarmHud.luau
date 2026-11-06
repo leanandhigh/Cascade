@@ -25,7 +25,7 @@
 local types = require("@types")
 
 --// Constants
-local WIDTH = 260
+local WIDTH = 300 -- default; Width = ... to change
 local ROW_HEIGHT = 20
 
 return function(self, properties: types.FarmHudProperties): types.FarmHud
@@ -42,9 +42,9 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 	local create = creator.Create
 
 	--// Constants
-	local REGULAR = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal)
-	local SEMIBOLD = Font.new("rbxassetid://12187365364", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
-	local BOLD = Font.new("rbxassetid://12187365364", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+	local REGULAR = Font.new(require("@modules/fonts").Family, Enum.FontWeight.Medium, Enum.FontStyle.Normal)
+	local SEMIBOLD = Font.new(require("@modules/fonts").Family, Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
+	local BOLD = Font.new(require("@modules/fonts").Family, Enum.FontWeight.Bold, Enum.FontStyle.Normal)
 
 	--// Variables
 	local theme = self.Theme
@@ -80,7 +80,7 @@ return function(self, properties: types.FarmHudProperties): types.FarmHud
 		AnchorPoint = Vector2.new(1, 0),
 		AutomaticSize = Enum.AutomaticSize.Y,
 		BorderSizePixel = 0,
-		Size = UDim2.fromOffset(WIDTH, 0),
+		Size = UDim2.fromOffset(properties.Width or WIDTH, 0),
 		ZIndex = 50,
 		Parent = utility.OverlayRoot(self),
 

@@ -29,7 +29,7 @@ return function(self, properties: types.InfoCardProperties): types.InfoCard
 	--// Variables
 	local parent = self.__container or self.__instance or self
 	local theme = self.Theme
-	local font = "rbxassetid://12187365364"
+	local font = require("@modules/fonts").Family
 	local structures = {}
 	local rows = {}
 

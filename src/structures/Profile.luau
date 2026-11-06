@@ -131,7 +131,7 @@ return function(self)
 				create("TextLabel")({
 					Name = "DisplayName",
 					BackgroundTransparency = 1,
-					FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
+					FontFace = Font.new(require("@modules/fonts").Family, Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
 					Size = UDim2.new(1, 0, 0, 16),
 					Text = "Player",
 					TextSize = 14,
@@ -170,7 +170,7 @@ return function(self)
 				create("TextLabel")({
 					Name = "Subtitle",
 					BackgroundTransparency = 1,
-					FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+					FontFace = Font.new(require("@modules/fonts").Family, Enum.FontWeight.Medium, Enum.FontStyle.Normal),
 					LayoutOrder = 1,
 					RichText = true,
 					Size = UDim2.new(1, 0, 0, 14),

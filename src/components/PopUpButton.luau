@@ -132,7 +132,7 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 				BackgroundTransparency = 1,
 				BorderColor3 = Color3.fromRGB(0, 0, 0),
 				BorderSizePixel = 0,
-				FontFace = Font.new("rbxassetid://12187365364"),
+				FontFace = Font.new(require("@modules/fonts").Family),
 				RichText = true,
 				Text = "None",
 				TextSize = 15,
@@ -155,7 +155,7 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 	local menu = dropdownMenu.new(self, structures, {
 		Name = "PopUpMenu",
 		Anchor = properties.Anchor,
-		AnchorMode = "SelectedLabel",
+		AnchorMode = properties and properties.OverLabel and "SelectedLabel" or "BelowButton",
 		ShowsCheckmarks = true,
 		MaxHeight = 239,
 		OnSelected = function(target, index)
@@ -198,7 +198,8 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 	local function updateValue(value, fireChanged: boolean)
 		local isMulti = object and object.Maximum and object.Maximum > 1
 
-		menu:SetAnchorMode(isMulti and "BelowButton" or "SelectedLabel")
+		-- The list opens under the button; OverLabel = true opens it over the selected option (macOS style)
+		menu:SetAnchorMode((not isMulti and properties.OverLabel) and "SelectedLabel" or "BelowButton")
 		menu:SetValue(value)
 
 		if isMulti then
@@ -247,7 +248,10 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 		end,
 
 		Expanded = function(value: boolean)
-			menu:SetAnchorMode(object and object.Maximum and object.Maximum > 1 and "BelowButton" or "SelectedLabel")
+			menu:SetAnchorMode(
+				(properties.OverLabel and not (object and object.Maximum and object.Maximum > 1)) and "SelectedLabel"
+					or "BelowButton"
+			)
 			menu:SetExpanded(value)
 		end,
 

@@ -43,8 +43,11 @@
 - Text works like Obsidian: titles, subtitles and labels stay on one line (cut with "…") so long text no longer makes rows taller; `Wrap = true` opts into wrapping.
 - Slider rows: label on its own line, the slider fills the row under it.
 
+- `cascade.SetFont(family)`, Window `Scale`, PopUpButton `OverLabel` (lists open under the button by default), Dashboard `Logs = false`, `settingsTab.Interface`, FarmStats `SessionText` / `StartedText` / text counts / `:SetSession()`, FarmHud `Width`.
+
 ### Fixed
 
+- Button rows: the divider below them was hidden under the buttons (it ignored the row's bottom padding).
 - Lag spike when clicking a tab on big hubs: pages now stay parented and switch by visibility.
 - Page spacing no longer scans every component in the UI each time a child is added.
 - Radio buttons are drawn with frames (crisp at any UI scale) and the option name is clickable.

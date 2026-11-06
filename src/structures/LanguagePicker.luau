@@ -107,7 +107,7 @@ return function(self)
 				Name = language,
 				AutoButtonColor = false,
 				BorderSizePixel = 0,
-				FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
+				FontFace = Font.new(require("@modules/fonts").Family, Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
 				LayoutOrder = index,
 				-- Equal widths so the pill looks balanced whatever the codes are ("EN" vs "TH")
 				Size = UDim2.fromOffset(segmentWidth, 22),

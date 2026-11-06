@@ -147,7 +147,7 @@ return function(self, properties: types.InviteCardProperties): types.InviteCard
 				create("TextLabel")({
 					Name = "Title",
 					BackgroundTransparency = 1,
-					FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
+					FontFace = Font.new(require("@modules/fonts").Family, Enum.FontWeight.SemiBold, Enum.FontStyle.Normal),
 					Size = UDim2.new(1, 0, 0, 17),
 					TextSize = 14,
 					TextTruncate = Enum.TextTruncate.AtEnd,
@@ -162,7 +162,7 @@ return function(self, properties: types.InviteCardProperties): types.InviteCard
 				create("TextLabel")({
 					Name = "Subtitle",
 					BackgroundTransparency = 1,
-					FontFace = Font.new("rbxassetid://12187365364"),
+					FontFace = Font.new(require("@modules/fonts").Family),
 					LayoutOrder = 1,
 					Size = UDim2.new(1, 0, 0, 14),
 					TextSize = 12,
@@ -182,7 +182,7 @@ return function(self, properties: types.InviteCardProperties): types.InviteCard
 			AutoButtonColor = false,
 			AutomaticSize = Enum.AutomaticSize.X,
 			BorderSizePixel = 0,
-			FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+			FontFace = Font.new(require("@modules/fonts").Family, Enum.FontWeight.Medium, Enum.FontStyle.Normal),
 			LayoutOrder = 1,
 			Size = UDim2.fromOffset(0, 30),
 			TextSize = 14,

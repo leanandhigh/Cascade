@@ -150,7 +150,7 @@ return function(self, properties: types.SectionProperties): types.Section
 					BackgroundTransparency = 1,
 					BorderColor3 = Color3.fromRGB(0, 0, 0),
 					BorderSizePixel = 0,
-					FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Bold, Enum.FontStyle.Normal),
+					FontFace = Font.new(require("@modules/fonts").Family, Enum.FontWeight.Bold, Enum.FontStyle.Normal),
 					LineHeight = 0,
 					RichText = true,
 					Size = UDim2.fromOffset(0, 14),

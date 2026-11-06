@@ -339,6 +339,7 @@ export type WindowProperties = Frame & {
 	Title: string?,
 	Subtitle: string?,
 	SubtitleCopy: boolean?, -- clicking the titlebar description copies it (default: on for links)
+	Scale: number?, -- overall size on PC (eg. 0.9); MobileScale on phones
 	CanExit: boolean?,
     CanMinimize: boolean?,
     CanZoom: boolean?,
@@ -540,6 +541,7 @@ export type DropdownMenuAnchor = GuiObject | DropdownMenuAnchorConfig
 
 -- PopUpButton
 export type PopUpButtonProperties = Frame & {
+	OverLabel: boolean?, -- open the list over the selected option (macOS) instead of under the button
 	Flag: string?, -- saved by configs
 	Options: { [number]: string }?,
 	Expanded: boolean?,
@@ -660,6 +662,7 @@ export type DashboardProperties = {
 	Selected: boolean?,
 	Version: string?,
 	Updated: string?, -- update date, shown in Information and under the update log title
+	-- Logs = false leaves the Updates section out
 	UpdatesTitle: string?,
 	LogsTitle: string?,
 	Preview: number?,
@@ -768,6 +771,8 @@ export type FarmMaterial = {
 }
 
 export type FarmStatsProperties = {
+	SessionText: string?, -- caption above the timer (default "SESSION TIME")
+	StartedText: string?, -- prefix before the start time (default "Started  ")
 	Title: string?,
 	Subtitle: string?,
 	Icon: any?,
@@ -799,10 +804,12 @@ export type FarmStats = BaseComponent & FarmStatsProperties & {
 	UpdateMaterial: (self: FarmStats, name: string, count: number?, gain: number?, icon: any?) -> (),
 	SetStatus: (self: FarmStats, text: string?, kind: (string | Color3)?) -> (),
 	Reset: (self: FarmStats, name: string?) -> (),
+	SetSession: (self: FarmStats, started: number?, label: string?) -> (),
 	Destroy: (self: FarmStats) -> (),
 }
 
 export type FarmHudProperties = {
+	Width: number?, -- default 300
 	Title: string?,
 	Icon: any?,
 	Stats: { StatDefinition }?,

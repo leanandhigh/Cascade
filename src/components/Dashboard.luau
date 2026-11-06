@@ -112,20 +112,27 @@ return function(self, properties: types.DashboardProperties): types.Dashboard
 		})
 	end
 
-	--// Updates
-	local updates = tab:PageSection({
-		Title = properties.UpdatesTitle or "Updates",
-	})
+	--// Updates (Logs = false leaves the section out; object.Updates still accepts :Add / :Clear)
+	if properties.Logs == false then
+		object.Updates = {
+			Add = function() end,
+			Clear = function() end,
+		}
+	else
+		local updates = tab:PageSection({
+			Title = properties.UpdatesTitle or "Updates",
+		})
 
-	object.Updates = updates:UpdateLog({
-		Title = properties.LogsTitle or "What's new",
-		Subtitle = properties.LogsSubtitle
-			or (properties.Updated and ("Updated " .. tostring(properties.Updated)))
-			or (properties.Version and ("Version " .. tostring(properties.Version)) or nil),
-		-- Every entry is visible by default; pass Preview = 5 to collapse behind "View all"
-		Preview = properties.Preview or math.huge,
-		Entries = properties.Logs or {},
-	})
+		object.Updates = updates:UpdateLog({
+			Title = properties.LogsTitle or "What's new",
+			Subtitle = properties.LogsSubtitle
+				or (properties.Updated and ("Updated " .. tostring(properties.Updated)))
+				or (properties.Version and ("Version " .. tostring(properties.Version)) or nil),
+			-- Every entry is visible by default; pass Preview = 5 to collapse behind "View all"
+			Preview = properties.Preview or math.huge,
+			Entries = properties.Logs or {},
+		})
+	end
 
 	--// Links (Discord / websites / anything copyable)
 	local links = properties.Links or {}
