@@ -25,7 +25,7 @@ return function(self, properties: types.TitleStackProperties): types.TitleStack
 			structures.Subtitle.Text = value
 		end,
 		Wrap = function(value: boolean)
-			structures.SetWrap(value == true)
+			structures.SetWrap(value ~= false)
 		end,
 	}, structures.Body)
 

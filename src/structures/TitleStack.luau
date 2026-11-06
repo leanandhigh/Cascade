@@ -11,8 +11,7 @@ return function(self)
 	--// UI
 	structures.Body = create("Frame")({
 		Name = "TitleStack",
-		-- Like Obsidian: one line each, cut with "…" when too long (rows keep their height and
-		-- nothing below moves down). Wrap = true makes them wrap instead.
+		-- Names wrap onto more lines (not cut with "…"); Wrap = false keeps them on one line with "…"
 		AutomaticSize = Enum.AutomaticSize.Y,
 		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 		BackgroundTransparency = 1,
@@ -83,7 +82,7 @@ return function(self)
 	structures.Subtitle = structures.Body:FindFirstChild("Subtitle") :: TextLabel
 	structures.Padding = structures.Body:FindFirstChild("UIPadding") :: UIPadding
 
-	-- Wrap = true: long titles / subtitles take more lines instead of being cut
+	-- Wrap (default true): long titles / subtitles take more lines; false = one line with "…"
 	structures.SetWrap = function(wrap: boolean)
 		for _, label in ipairs({ structures.Title, structures.Subtitle }) do
 			label.TextWrapped = wrap
@@ -91,6 +90,8 @@ return function(self)
 			label.AutomaticSize = wrap and Enum.AutomaticSize.Y or Enum.AutomaticSize.None
 		end
 	end
+
+	structures.SetWrap(true)
 
 	return structures
 end

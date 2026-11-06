@@ -7292,27 +7292,27 @@ FindFirstChild'Title')ad.Subtitle=(ad.Body:FindFirstChild'Subtitle')ad.Padding=(
 ad.Body:FindFirstChild'UIPadding')ad.SetWrap=function(ae)for af,ag in ipairs{ad.
 Title,ad.Subtitle}do ag.TextWrapped=ae ag.TextTruncate=ae and Enum.TextTruncate.
 None or Enum.TextTruncate.AtEnd ag.AutomaticSize=ae and Enum.AutomaticSize.Y or
-Enum.AutomaticSize.None end end return ad end end function a.A()local ab=a.cache
-.A if not ab then ab={c=aa()}a.cache.A=ab end return ab.c end end do local aa=
-function()a.b()return function(aa,ab)local ac,ad,ae=a.d(),a.c(),a.A()local af,ag
-,ah=ac.Create,aa.__container or aa.__instance or aa,ae(aa)ab=ab or{}ab.Title=ab.
-Title or'Title'local ai=af'Frame'{Name='PageSection',BackgroundTransparency=1,
-Size=UDim2.fromScale(1,0),AutomaticSize=Enum.AutomaticSize.Y,Parent=ag,af
-'UIListLayout'{Name='UIListLayout',Padding=UDim.new(0,12),SortOrder=Enum.
-SortOrder.LayoutOrder},af'UIPadding'{PaddingBottom=UDim.new(0,18)}}ah.Body.
-Parent=ai.__instance ah.Padding.PaddingLeft=UDim.new(0,8)ah.Padding.PaddingRight
-=UDim.new(0,8)ah.Title.FontFace=Font.new(ah.Title.FontFace.Family,Enum.
-FontWeight.SemiBold)ah.Body.LayoutOrder=-1 local aj=ad.Wrap(ab,{Title=function(
-aj)ah.Title.Text=aj end,Subtitle=function(aj)ah.Subtitle.Visible=true ah.
-Subtitle.Text=aj end},ai)aj.Type='PageSection'aj.Theme=aa.Theme aj.Structures=ah
-aj.__container=ai.__instance ad.Apply(ab,aj)return aj end end function a.B()
-local ab=a.cache.B if not ab then ab={c=aa()}a.cache.B=ab end return ab.c end
-end do local aa=function()a.b()return function(aa,ab)local ac,ad=a.d(),a.c()
-local ae,af,ag,ah,ai=ac.Create,aa.__container or aa.__instance or aa,{},{},{}ab=
-ab or{}ag.Body=(ad.Apply(ab,ae'Frame'{Name='Form',AutomaticSize=Enum.
-AutomaticSize.Y,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Size=UDim2.
-fromScale(1,0),Parent=af,__dynamicKeys={BackgroundColor3=aa.Theme.Controls.View[
-1],BackgroundTransparency=aa.Theme.Controls.View[2]},ae'UIListLayout'{Name=
+Enum.AutomaticSize.None end end ad.SetWrap(true)return ad end end function a.A()
+local ab=a.cache.A if not ab then ab={c=aa()}a.cache.A=ab end return ab.c end
+end do local aa=function()a.b()return function(aa,ab)local ac,ad,ae=a.d(),a.c(),
+a.A()local af,ag,ah=ac.Create,aa.__container or aa.__instance or aa,ae(aa)ab=ab
+or{}ab.Title=ab.Title or'Title'local ai=af'Frame'{Name='PageSection',
+BackgroundTransparency=1,Size=UDim2.fromScale(1,0),AutomaticSize=Enum.
+AutomaticSize.Y,Parent=ag,af'UIListLayout'{Name='UIListLayout',Padding=UDim.new(
+0,12),SortOrder=Enum.SortOrder.LayoutOrder},af'UIPadding'{PaddingBottom=UDim.
+new(0,18)}}ah.Body.Parent=ai.__instance ah.Padding.PaddingLeft=UDim.new(0,8)ah.
+Padding.PaddingRight=UDim.new(0,8)ah.Title.FontFace=Font.new(ah.Title.FontFace.
+Family,Enum.FontWeight.SemiBold)ah.Body.LayoutOrder=-1 local aj=ad.Wrap(ab,{
+Title=function(aj)ah.Title.Text=aj end,Subtitle=function(aj)ah.Subtitle.Visible=
+true ah.Subtitle.Text=aj end},ai)aj.Type='PageSection'aj.Theme=aa.Theme aj.
+Structures=ah aj.__container=ai.__instance ad.Apply(ab,aj)return aj end end
+function a.B()local ab=a.cache.B if not ab then ab={c=aa()}a.cache.B=ab end
+return ab.c end end do local aa=function()a.b()return function(aa,ab)local ac,ad
+=a.d(),a.c()local ae,af,ag,ah,ai=ac.Create,aa.__container or aa.__instance or aa
+,{},{},{}ab=ab or{}ag.Body=(ad.Apply(ab,ae'Frame'{Name='Form',AutomaticSize=Enum
+.AutomaticSize.Y,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Size=UDim2
+.fromScale(1,0),Parent=af,__dynamicKeys={BackgroundColor3=aa.Theme.Controls.View
+[1],BackgroundTransparency=aa.Theme.Controls.View[2]},ae'UIListLayout'{Name=
 'UIListLayout',SortOrder=Enum.SortOrder.LayoutOrder},ae'UIPadding'{Name=
 'Margins',PaddingLeft=UDim.new(0,10),PaddingRight=UDim.new(0,10)},ae'UICorner'{
 Name='UICorner',CornerRadius=UDim.new(0,6)},ae'UIStroke'{Name='UIStroke',
@@ -7330,7 +7330,7 @@ Apply(ab,aj)return aj end end function a.C()local ab=a.cache.C if not ab then ab
 function(aa,ab)local ac,ad=a.c(),a.A()local ae=ad(aa)ab=ab or{}ab.Title=ab.Title
 or'Title'ae.Body.Parent=aa.__container or aa.__instance or aa local af=ac.Wrap(
 ab,{Title=function(af)ae.Title.Text=af end,Subtitle=function(af)ae.Subtitle.
-Visible=true ae.Subtitle.Text=af end,Wrap=function(af)ae.SetWrap(af==true)end},
+Visible=true ae.Subtitle.Text=af end,Wrap=function(af)ae.SetWrap(af~=false)end},
 ae.Body)af.Type='TitleStack'af.Theme=aa.Theme af.Structures=ae ac.Apply(ab,af)
 return af end end function a.D()local ab=a.cache.D if not ab then ab={c=aa()}a.
 cache.D=ab end return ab.c end end do local aa=function()a.b()return function(aa
@@ -7397,7 +7397,7 @@ ap or ap.__instance aq:GetPropertyChangedSignal'TextBounds':Connect(an)end)end
 end return ao end local aq=ad.Wrap(ab,{SearchIndex=function(aq)ag.Body:
 SetAttribute('SearchIndex',aq)end,Title=function(aq)ap().Title=aq if ab.
 SearchIndex==nil then ag.Body:SetAttribute('SearchIndex',aq)end end,Subtitle=
-function(aq)ap().Subtitle=aq end,Wrap=function(aq)ap().Wrap=aq==true end},ag.
+function(aq)ap().Subtitle=aq end,Wrap=function(aq)ap().Wrap=aq~=false end},ag.
 Body)aq.Type='Row'aq.Theme=aa.Theme aq.Structures=ag aq.Left=function()local ar=
 table.clone(aq)ar.__container=ag.LeftAccessories return ar end aq.Right=function
 ()local ar=table.clone(aq)ar.__container=ag.RightAccessories return ar end ad.
@@ -7859,10 +7859,11 @@ LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},ad'TextLabel'{Name=
 BorderSizePixel=0,FontFace=Font.new(a.m().Family),LayoutOrder=1,RichText=true,
 Text=ag or'',TextColor3=Color3.fromRGB(0,0,0),TextSize=15,TextTransparency=0.15,
 TextTruncate=Enum.TextTruncate.AtEnd,__dynamicKeys={TextColor3=ab.Theme.Text.
-Primary[1],TextTransparency=ab.Theme.Text.Primary[2]}},ad'UICorner'{Name=
-'UICorner',CornerRadius=UDim.new(0,5)}})if ai then ad'ImageLabel'{Name=
-'Checkmark',BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=
-1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Image=
+Primary[1],TextTransparency=ab.Theme.Text.Primary[2]},ad'UISizeConstraint'{Name=
+'TextLimit',MaxSize=Vector2.new(240,math.huge)}},ad'UICorner'{Name='UICorner',
+CornerRadius=UDim.new(0,5)}})if ai then ad'ImageLabel'{Name='Checkmark',
+BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
+BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,Image=
 'rbxassetid://127464789357538',ImageColor3=Color3.fromRGB(0,0,0),
 ImageTransparency=1,Size=UDim2.fromOffset(16,16),Visible=false,Parent=aj.
 __instance,__dynamicKeys={ImageColor3=ab.Theme.Text.Primary[1],ImageTransparency
@@ -7980,7 +7981,7 @@ Connect(function()if self.Object then self.Object.Expanded=not self.Object.
 Expanded end end)end return ag end function a.R()local ab=a.cache.R if not ab
 then ab={c=aa()}a.cache.R=ab end return ab.c end end do local aa=function()a.b()
 return function(aa,ab)local ac,ad,ae=a.d(),a.c(),a.R()local af,ag,ah,ai,aj=ac.
-Create,30,aa.__container or aa.__instance or aa,aa.Theme.Controls.MenuButton,{
+Create,80,aa.__container or aa.__instance or aa,aa.Theme.Controls.MenuButton,{
 Options={}}local ak,al=function(ak)if#ak>ag then return string.sub(ak,1,ag)..
 '...'end return ak end,function(ak)local al={}if typeof(ak)=='table'then for am,
 an in ipairs(ak)do al[an]=true end elseif ak then al[ak]=true end return al end
@@ -8008,26 +8009,27 @@ BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
 BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,FontFace=Font.new(a.m().
 Family),RichText=true,Text='None',TextSize=15,TextTransparency=0.15,TextTruncate
 =Enum.TextTruncate.AtEnd,__dynamicKeys={TextColor3=aa.Theme.Text.Primary[1],
-TextTransparency=aa.Theme.Text.Primary[2]}}}))aj.PopUpIndicator=(aj.Body:
-FindFirstChild'PopUpIndicator')aj.CurrentTab=(aj.Body:FindFirstChild'Label')
-local an,ao=(ae.new(aa,aj,{Name='PopUpMenu',Anchor=ab.Anchor,AnchorMode=ab and
-ab.OverLabel and'SelectedLabel'or'BelowButton',ShowsCheckmarks=true,MaxHeight=
-239,OnSelected=function(an,ao)if an.Maximum and an.Maximum>1 then local ap=an.
-Value or{}if typeof(ap)~='table'then ap=ap and{ap}or{}else ap=table.clone(ap)end
-local aq for ar,as in ipairs(ap)do if as==ao then aq=ar break end end if aq then
-table.remove(ap,aq)else if#ap<an.Maximum then table.insert(ap,ao)else table.
-remove(ap,1)table.insert(ap,ao)end end an.Value=ap else an.Expanded=false task.
-wait(0.2)an.Value=ao end end}))local ap=function(ap,aq)local ar=ao and ao.
-Maximum and ao.Maximum>1 an:SetAnchorMode((not ar and ab.OverLabel)and
-'SelectedLabel'or'BelowButton')an:SetValue(ap)if ar then local as=am(ap)if#as==0
-then aj.CurrentTab.Text='None'else aj.CurrentTab.Text=ak(table.concat(as,', '))
-end an:SetSelectedMap(al(ap))else local as=ap and aj.Options[ap]and aj.Options[
-ap]:FindFirstChild'Label'if not as then aj.CurrentTab.Text='None'else aj.
-CurrentTab.Text=ak(as.Text)end an:SetSelectedMap(al(ap))end if aq and ab.
-ValueChanged then ab.Value=ap task.spawn(ab.ValueChanged,ao,ap)end end local aq=
-{Anchor=function(aq)an:SetAnchor(aq)end,Options=function(aq)an:ClearOptions()for
-ar,as in ipairs(aq)do an:AddOption(as,ar)end if ao then ap(ao.Value,false)end
-end,Expanded=function(aq)an:SetAnchorMode((ab.OverLabel and not(ao and ao.
+TextTransparency=aa.Theme.Text.Primary[2]},af'UISizeConstraint'{Name='TextLimit'
+,MaxSize=Vector2.new((ab and ab.MaxTextWidth)or 140,math.huge)}}}))aj.
+PopUpIndicator=(aj.Body:FindFirstChild'PopUpIndicator')aj.CurrentTab=(aj.Body:
+FindFirstChild'Label')local an,ao=(ae.new(aa,aj,{Name='PopUpMenu',Anchor=ab.
+Anchor,AnchorMode=ab and ab.OverLabel and'SelectedLabel'or'BelowButton',
+ShowsCheckmarks=true,MaxHeight=239,OnSelected=function(an,ao)if an.Maximum and
+an.Maximum>1 then local ap=an.Value or{}if typeof(ap)~='table'then ap=ap and{ap}
+or{}else ap=table.clone(ap)end local aq for ar,as in ipairs(ap)do if as==ao then
+aq=ar break end end if aq then table.remove(ap,aq)else if#ap<an.Maximum then
+table.insert(ap,ao)else table.remove(ap,1)table.insert(ap,ao)end end an.Value=ap
+else an.Expanded=false task.wait(0.2)an.Value=ao end end}))local ap=function(ap,
+aq)local ar=ao and ao.Maximum and ao.Maximum>1 an:SetAnchorMode((not ar and ab.
+OverLabel)and'SelectedLabel'or'BelowButton')an:SetValue(ap)if ar then local as=
+am(ap)if#as==0 then aj.CurrentTab.Text='None'else aj.CurrentTab.Text=ak(table.
+concat(as,', '))end an:SetSelectedMap(al(ap))else local as=ap and aj.Options[ap]
+and aj.Options[ap]:FindFirstChild'Label'if not as then aj.CurrentTab.Text='None'
+else aj.CurrentTab.Text=ak(as.Text)end an:SetSelectedMap(al(ap))end if aq and ab
+.ValueChanged then ab.Value=ap task.spawn(ab.ValueChanged,ao,ap)end end local aq
+={Anchor=function(aq)an:SetAnchor(aq)end,Options=function(aq)an:ClearOptions()
+for ar,as in ipairs(aq)do an:AddOption(as,ar)end if ao then ap(ao.Value,false)
+end end,Expanded=function(aq)an:SetAnchorMode((ab.OverLabel and not(ao and ao.
 Maximum and ao.Maximum>1))and'SelectedLabel'or'BelowButton')an:SetExpanded(aq)
 end,Value=function(aq)ap(aq,true)end}ao=ad.Wrap(ab,aq,aj.Body)an:SetObject(ao)ao
 .Type='PopUpButton'ao.Theme=aa.Theme ao.Structures=aj ao.Option=function(ar,as)

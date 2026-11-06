@@ -10,7 +10,7 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 	local create = creator.Create
 
 	--// Constants
-	local MAX_DISPLAY_LENGTH = 30
+	local MAX_DISPLAY_LENGTH = 80 -- characters; the visible width is limited by TextLimit
 
 	--// Variables
 	local parent = self.__container or self.__instance or self
@@ -143,6 +143,13 @@ return function(self, properties: types.PopUpButtonProperties): types.PopUpButto
 					TextColor3 = self.Theme.Text.Primary[1],
 					TextTransparency = self.Theme.Text.Primary[2],
 				},
+
+				-- Long selections end in "…" instead of widening the button (which pushed the
+				-- row's controls onto a new line). MaxTextWidth changes the limit.
+				create("UISizeConstraint")({
+					Name = "TextLimit",
+					MaxSize = Vector2.new((properties and properties.MaxTextWidth) or 140, math.huge),
+				}),
 			}),
 		})
 	) :: TextButton

@@ -275,7 +275,7 @@ return function(self, properties: types.RowProperties): types.Row
 			getTitleStack().Subtitle = value
 		end,
 		Wrap = function(value: boolean)
-			getTitleStack().Wrap = value == true
+			getTitleStack().Wrap = value ~= false
 		end,
 	}, structures.Body)
 

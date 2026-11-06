@@ -145,6 +145,12 @@ return function(self, config: DropdownMenuStructureConfig?)
 					TextColor3 = self.Theme.Text.Primary[1],
 					TextTransparency = self.Theme.Text.Primary[2],
 				},
+
+				-- very long options end in "…" instead of making the whole list wide
+				create("UISizeConstraint")({
+					Name = "TextLimit",
+					MaxSize = Vector2.new(240, math.huge),
+				}),
 			}),
 
 			create("UICorner")({
