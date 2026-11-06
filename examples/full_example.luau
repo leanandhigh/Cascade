@@ -38,6 +38,9 @@ local function applyLanguage(language: string)
 end
 
 --// Branding
+local FONT = "rbxassetid://12187365364"
+cascade.SetFont(FONT)
+
 local LOGO_ID = 77668182651543
 local LOGO = LOGO_ID ~= 0 and ("rbxthumb://type=Asset&id=" .. LOGO_ID .. "&w=150&h=150")
 	or ("rbxthumb://type=GameIcon&id=" .. game.GameId .. "&w=150&h=150")
@@ -63,6 +66,7 @@ local window = app:Window({
 	Title = "MTwin HUB",
 	Subtitle = "https://discord.gg/y35kyZM8sV",
 	Size = userInputService.TouchEnabled and UDim2.fromOffset(550, 325) or UDim2.fromOffset(850, 530),
+	Scale = 1,
 	UIBlur = false,
 
 	Logo = LOGO,
@@ -139,6 +143,18 @@ track(autoFarmRow.Structures.TitleStack, "Subtitle", "AutoFarmInfo")
 autoFarmRow:Right():Toggle({ Flag = "AutoFarm", Value = false })
 
 farmBox:Row({ Title = "Auto Collect" }):Right():Toggle({ Flag = "AutoCollect", Value = true })
+
+local statusRow = farmBox:Row({ Title = "Status: Idle" })
+
+farmBox:Row({
+	Title = "How it works",
+	Subtitle = "Joins the first enabled route, farms until the wave limit, then goes back to the lobby and repeats.",
+	Wrap = true,
+})
+
+local joinDelayRow = farmBox:Row({ Title = "Join Delay (seconds)" })
+joinDelayRow:Right():Slider({ Flag = "JoinDelay", Minimum = 0, Maximum = 30, Value = 5 })
+local joinDelayLabel = joinDelayRow:Right():Label({ Text = "5" })
 
 local distanceRow = farmBox:Row({ Title = "Farm Distance", DependsOn = "AutoFarm" })
 distanceRow:Right():Slider({ Flag = "FarmDistance", Minimum = 5, Maximum = 50, Value = 15 })
@@ -250,11 +266,15 @@ teleportTab:PageSection({ Title = "Priority teleport" }):PriorityList({
 	},
 })
 
+getgenv().MTwinSessionStart = getgenv().MTwinSessionStart or os.time()
+
 local farmStats = app:FarmStats({
 	Title = "MTwin HUB",
 	Subtitle = "https://discord.gg/y35kyZM8sV",
 	Icon = LOGO,
 	Status = "Online",
+	SessionText = "SESSION TIME",
+	StartedText = "Started  ",
 	Stats = {
 		{ Name = "Level", Value = 225 },
 		{ Name = "Money", Value = 8433620 },
@@ -265,14 +285,18 @@ local farmStats = app:FarmStats({
 		{ Name = "Star Fruit", Count = 70, Gain = 2 },
 		{ Name = "Trait Crystal", Count = 12, Gain = 0 },
 		{ Name = "Gold Ore", Count = 1840, Gain = 120 },
+		{ Name = "Raid Keys", Count = "3 / 10", Gain = 1 },
 	},
 	VisibleChanged = function(_, visible)
 		Flags:Set("FarmScreen", visible)
 	end,
 })
 
+farmStats:SetSession(getgenv().MTwinSessionStart)
+
 local hud = app:FarmHud({
 	Title = "MTwin HUB",
+	Width = 300,
 	Icon = LOGO,
 	Source = farmStats,
 	Only = { "Wins", "Gems" },
@@ -295,6 +319,8 @@ local settingsTab = window:Settings({
 	MenuKey = Enum.KeyCode.RightControl,
 })
 track(settingsTab, "Title", "Settings")
+
+settingsTab.Interface:Row({ Title = "Rejoin on kick" }):Right():Toggle({ Flag = "AutoRejoin", Value = false })
 
 --// 4. Logic
 Flags:OnChanged("JoinPriority", function(order)
@@ -321,6 +347,10 @@ Flags:OnChanged("FarmDistance", function(value: number)
 	distanceLabel.Text = tostring(math.floor(value + 0.5))
 end)
 
+Flags:OnChanged("JoinDelay", function(value: number)
+	joinDelayLabel.Text = tostring(math.floor(value + 0.5))
+end)
+
 Flags:OnChanged("Esp", function(enabled: boolean)
 	espColor.Visible = enabled
 	print("ESP:", enabled)
@@ -343,10 +373,12 @@ getgenv().MTwinHubLoaded = true
 task.spawn(function()
 	while getgenv().MTwinHubLoaded do
 		if Flags:Get("AutoFarm") then
-
+			statusRow.Title = string.format("Status: Match: wave %d, %d units placed", math.random(1, 15), math.random(1, 40))
 			farmStats:Increment("Gems", math.random(5, 20))
 			farmStats:UpdateMaterial("Gold Ore", (farmStats:Get("Gems") or 0) // 10, 4)
 			hud:SetItems({ { Name = "Gold Ore", Amount = 4 }, { Name = "Star Fruit", Amount = 1 } })
+		else
+			statusRow.Title = "Status: Idle"
 		end
 
 		task.wait(0.5)
