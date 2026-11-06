@@ -49,7 +49,8 @@ local function fetch(url)
 	error("[Cascade] Could not download the library: " .. tostring(lastError), 2)
 end
 
-local source = fetch(URL)
+-- "?t=<time>" skips GitHub's ~5 minute cache, so a new build shows up right away
+local source = fetch(URL .. "?t=" .. tostring(os.time()))
 local chunk, compileError = loadstring(source, "=Cascade")
 
 if not chunk then

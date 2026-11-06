@@ -1,7 +1,7 @@
 --// 1. Load Cascade
 local CASCADE_URL = "https://raw.githubusercontent.com/leanandhigh/Cascade/claude/friendly-ride-yf5y59/dist/dist.luau"
 
-local source = game:HttpGet(CASCADE_URL)
+local source = game:HttpGet(CASCADE_URL .. "?t=" .. os.time())
 local chunk, compileError = loadstring(source, "Cascade")
 assert(chunk, "Cascade failed to compile: " .. tostring(compileError))
 
