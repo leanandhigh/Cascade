@@ -67,7 +67,24 @@ function creator.Create(className: string)
 			end)
 		end
 
-		for key, value in pairs(properties) do
+		-- Plain properties first, theme-bound ones (__dynamicKeys) last: `pairs` order is not
+		-- defined, so a static colour in the same table (eg. TextColor3 = black) could otherwise
+		-- be applied after the theme colour and win (black row titles)
+		local keys = {}
+
+		for key in pairs(properties) do
+			if key ~= "__dynamicKeys" then
+				table.insert(keys, key)
+			end
+		end
+
+		if properties.__dynamicKeys ~= nil then
+			table.insert(keys, "__dynamicKeys")
+		end
+
+		for _, key in ipairs(keys) do
+			local value = properties[key]
+
 			if key == "__dynamicKeys" and type(value) == "table" then
 				for property, valueObject: types.ValueState in pairs(value) do
 					pcall(function()

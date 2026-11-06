@@ -274,11 +274,22 @@ return function(self, properties: types.GroupboxProperties): types.Groupbox
 		return scale < 0.05 and structures.Clip.Size.Y.Offset or structures.Content.AbsoluteSize.Y / scale
 	end
 
+	local sizeTween = nil
+	local built = false -- no open / close animation while the groupbox is being created
+
 	local function resize(useTween: boolean)
 		local target = UDim2.new(1, 0, 0, properties.Expanded and contentHeight() or 0)
 
-		if useTween then
-			tweenService:Create(structures.Clip, tweenInfo, { Size = target }):Play()
+		-- A running animation would overwrite a direct resize with its old target when it ends
+		-- (that left boxes filled during their first animation at 0 height, eg. the Settings tab)
+		if sizeTween then
+			sizeTween:Cancel()
+			sizeTween = nil
+		end
+
+		if useTween and built then
+			sizeTween = tweenService:Create(structures.Clip, tweenInfo, { Size = target })
+			sizeTween:Play()
 		else
 			structures.Clip.Size = target
 		end
@@ -391,6 +402,7 @@ return function(self, properties: types.GroupboxProperties): types.Groupbox
 
 	binder.Apply(properties, object)
 	layoutHeader()
+	built = true
 	task.defer(resize, false)
 
 	return object

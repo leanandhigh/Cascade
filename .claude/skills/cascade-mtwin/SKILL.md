@@ -91,6 +91,12 @@ Read this before touching `src/`, `examples/full_example.luau` or `dist/dist.lua
 - Never scan `__SH.COMPINDEXES` (every component ever made) per event; use the container's own children.
 - Batch layout work with `task.defer` flags (Page padding, ButtonRow, InfoCard columns).
 
+- With pages kept parented, nothing re-measures a page when it's shown. Size animations must not
+  overwrite later direct resizes: cancel a running tween before setting the size, and don't animate
+  while an element is being built (Groupbox `built` flag). This left the Settings boxes empty.
+- `creator` applies `__dynamicKeys` **after** plain properties. Never rely on property order; a static
+  colour next to a theme key used to win at random (black row titles).
+
 ## Text like Obsidian
 
 - Titles, subtitles, labels and card subtitles are **one line, cut with "…"** (rows keep their height,
