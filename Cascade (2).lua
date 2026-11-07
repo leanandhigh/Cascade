@@ -1,6 +1,6 @@
 -- MTwin HUB build of Cascade (MIT, see LICENSE): made by tools/cascade/sync.py in the
 -- mammothAT repo. Changes: tools/cascade/cascade-src.patch (Obsidian layout / spacing, no resize
--- lag), icons from MTwin-UI/icons, FarmStats SetSession / SessionText /
+-- lag), cascade.SetFont (default Roboto Mono), icons from MTwin-UI/icons, FarmStats SetSession / SessionText /
 -- StartedText, text material counts, lists under the button, Window Scale, Configs box only with a config,
 -- Dashboard without Updates. Do not edit by hand: rerun the tool on a new upstream build.
 --!nolint
@@ -16,7 +16,7 @@
     This file was automatically generated with darklua, it is not intended for manual editing.
 --]]
 
-__SH = { COMPINDEXES = {} }
+__SH = { COMPINDEXES = {}, FONT = 'rbxasset://fonts/families/RobotoMono.json' }
 
 local a={cache={}}do do local b=function()local b={}b.Clone=function(c)local d
 if type(c)=='function'then d=clonefunction and clonefunction(c)elseif typeof(c)
@@ -6205,7 +6205,7 @@ Controls.ViewBorder[2]}},e'TextBox'{Name='Field',AutomaticSize=Enum.
 AutomaticSize.XY,Size=UDim2.fromOffset(132,0),BackgroundColor3=Color3.fromRGB(
 255,255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),
 BorderSizePixel=0,CursorPosition=-1,TextXAlignment=Enum.TextXAlignment.Left,
-FontFace=Font.new'rbxasset://fonts/families/RobotoMono.json',PlaceholderText='',Text='',TextSize=
+FontFace=Font.new(__SH.FONT),PlaceholderText='',Text='',TextSize=
 14,__dynamicKeys={PlaceholderColor3=b.Theme.Text.Tertiary[1],TextTransparency=b.
 Theme.Text.Tertiary[2]},__contextKeys={_general=function()local h=g.Field if not
 h then return end if h.Text==''then h.PlaceholderColor3=b.Theme.Text.Tertiary[1]
@@ -6256,7 +6256,7 @@ end end for i,j in{b.Theme.Controls.Selection[1],b.Theme.Controls.Selection[2],b
 :Destroy()end table.clear(e.Segments)local j=32 for k,l in ipairs(i)do j=math.
 max(j,utf8.len(l)*9+14)end for k,l in ipairs(i)do local m=d'TextButton'{Name=l,
 AutoButtonColor=false,BorderSizePixel=0,FontFace=Font.new(
-'rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.SemiBold,Enum.FontStyle.Normal),
+__SH.FONT,Enum.FontWeight.SemiBold,Enum.FontStyle.Normal),
 LayoutOrder=k,Size=UDim2.fromOffset(j,22),Text=l,TextSize=12,Parent=e.Body.
 __instance,d'UICorner'{CornerRadius=UDim.new(0,4)}}m.MouseButton1Click:Connect(
 function()if g then g(l)end end)e.Segments[l]=m end e.Body.Visible=#i>0 h()end e
@@ -6327,14 +6327,14 @@ BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,LayoutOrder=2,e
 'UIListLayout'{Name='UIListLayout',SortOrder=Enum.SortOrder.LayoutOrder,
 VerticalAlignment=Enum.VerticalAlignment.Center},e'TextLabel'{Name='Subtitle',
 AutomaticSize=Enum.AutomaticSize.X,BackgroundTransparency=1,BorderColor3=Color3.
-fromRGB(0,0,0),BorderSizePixel=0,FontFace=Font.new('rbxasset://fonts/families/RobotoMono.json',
+fromRGB(0,0,0),BorderSizePixel=0,FontFace=Font.new(__SH.FONT,
 Enum.FontWeight.Medium,Enum.FontStyle.Normal),LayoutOrder=1,RichText=true,Size=
 UDim2.fromOffset(0,14),Text='Subtitle',TextColor3=Color3.fromRGB(0,0,0),TextSize
 =12,Visible=false,__dynamicKeys={TextColor3=b.Theme.Text.Secondary[1],
 TextTransparency=b.Theme.Text.Secondary[2]}},e'TextLabel'{Name='Title',
 AutomaticSize=Enum.AutomaticSize.X,BackgroundColor3=Color3.fromRGB(255,255,255),
 BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
-FontFace=Font.new('rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.SemiBold,Enum.
+FontFace=Font.new(__SH.FONT,Enum.FontWeight.SemiBold,Enum.
 FontStyle.Normal),LineHeight=0,RichText=true,Size=UDim2.fromOffset(0,20),Text=
 'Title',TextSize=16,__dynamicKeys={TextColor3=b.Theme.Text.Primary[1],
 TextTransparency=b.Theme.Text.Primary[2]}}},e'UIPadding'{Name='UIPadding',
@@ -6592,7 +6592,7 @@ ImageTransparency=s.Checked and 0 or 1,__dynamicKeys={ImageColor3=r.Text.Primary
 BackgroundTransparency=1,LayoutOrder=1,Size=UDim2.fromOffset(14,14),Visible=q.
 Icon~=nil,Image=q.Icon or'',__dynamicKeys={ImageColor3=t()[1],ImageTransparency=
 t()[2]}},g'TextLabel'{Name='Title',AutomaticSize=Enum.AutomaticSize.X,
-BackgroundTransparency=1,FontFace=Font.new'rbxasset://fonts/families/RobotoMono.json',LayoutOrder
+BackgroundTransparency=1,FontFace=Font.new(__SH.FONT),LayoutOrder
 =2,Size=UDim2.fromOffset(0,16),Text=q.Title,TextSize=14,TextXAlignment=Enum.
 TextXAlignment.Left,__dynamicKeys={TextColor3=t()[1],TextTransparency=t()[2]}}}
 local v,w,x=(u:FindFirstChild'Check'),(u:FindFirstChild'Title'),(u:
@@ -6657,7 +6657,7 @@ Text.Secondary[2]}}},e'Frame'{Name='Info',BackgroundTransparency=1,LayoutOrder=1
 ,Size=UDim2.new(1,-74,1,0),e'UIListLayout'{Padding=UDim.new(0,1),SortOrder=Enum.
 SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},e
 'TextLabel'{Name='DisplayName',BackgroundTransparency=1,FontFace=Font.new(
-'rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.SemiBold,Enum.FontStyle.Normal),Size=
+__SH.FONT,Enum.FontWeight.SemiBold,Enum.FontStyle.Normal),Size=
 UDim2.new(1,0,0,16),Text='Player',TextSize=14,TextTruncate=Enum.TextTruncate.
 AtEnd,TextXAlignment=Enum.TextXAlignment.Left,__dynamicKeys={TextColor3=b.Theme.
 Text.Primary[1],TextTransparency=b.Theme.Text.Primary[2]}},e'Frame'{Name=
@@ -6666,7 +6666,7 @@ Text.Primary[1],TextTransparency=b.Theme.Text.Primary[2]}},e'Frame'{Name=
 ,SortOrder=Enum.SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.
 Center},e'ImageLabel'{Name='KeyIcon',BackgroundTransparency=1,ScaleType=Enum.
 ScaleType.Fit,Size=UDim2.fromOffset(11,11),Visible=false}},e'TextLabel'{Name=
-'Subtitle',BackgroundTransparency=1,FontFace=Font.new('rbxasset://fonts/families/RobotoMono.json'
+'Subtitle',BackgroundTransparency=1,FontFace=Font.new(__SH.FONT
 ,Enum.FontWeight.Medium,Enum.FontStyle.Normal),LayoutOrder=1,RichText=true,Size=
 UDim2.new(1,0,0,14),Text='Account',TextSize=12,TextTruncate=Enum.TextTruncate.
 AtEnd,TextXAlignment=Enum.TextXAlignment.Left,__dynamicKeys={TextColor3=b.Theme.
@@ -6896,11 +6896,11 @@ UDim.new(0,8)}}},o'Frame'{Name='Texts',BackgroundTransparency=1,LayoutOrder=1,
 Size=UDim2.new(1,-40,1,0),o'UIListLayout'{Padding=UDim.new(0,1),SortOrder=Enum.
 SortOrder.LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},o
 'TextLabel'{Name='Name',BackgroundTransparency=1,FontFace=Font.new(
-'rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.Bold,Enum.FontStyle.Normal),Size=
+__SH.FONT,Enum.FontWeight.Bold,Enum.FontStyle.Normal),Size=
 UDim2.new(1,0,0,18),TextSize=16,TextTruncate=Enum.TextTruncate.AtEnd,
 TextXAlignment=Enum.TextXAlignment.Left,__dynamicKeys={TextColor3=b.Theme.Text.
 Primary[1],TextTransparency=b.Theme.Text.Primary[2]}},o'TextLabel'{Name=
-'Subtitle',BackgroundTransparency=1,FontFace=Font.new'rbxasset://fonts/families/RobotoMono.json',
+'Subtitle',BackgroundTransparency=1,FontFace=Font.new(__SH.FONT),
 LayoutOrder=1,Size=UDim2.new(1,0,0,14),TextSize=12,TextTruncate=Enum.
 TextTruncate.AtEnd,TextXAlignment=Enum.TextXAlignment.Left,Visible=false,
 __dynamicKeys={TextColor3=b.Theme.Text.Secondary[1],TextTransparency=b.Theme.
@@ -7143,7 +7143,7 @@ LayoutOrder},af'UIPadding'{PaddingBottom=UDim.new(0,6),PaddingLeft=UDim.new(0,8)
 ,PaddingRight=UDim.new(0,12),PaddingTop=UDim.new(0,3)},af'TextLabel'{Name=
 'Title',AutomaticSize=Enum.AutomaticSize.X,BackgroundColor3=Color3.fromRGB(255,
 255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),
-BorderSizePixel=0,FontFace=Font.new('rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.
+BorderSizePixel=0,FontFace=Font.new(__SH.FONT,Enum.FontWeight.
 Bold,Enum.FontStyle.Normal),LineHeight=0,RichText=true,Size=UDim2.fromOffset(0,
 14),Text='Section Title',TextSize=12,TextTruncate=Enum.TextTruncate.AtEnd,
 TextXAlignment=Enum.TextXAlignment.Left,__dynamicKeys={TextColor3=aa.Theme.Text.
@@ -7213,7 +7213,7 @@ Enum.AutomaticSize.Y,BackgroundColor3=Color3.fromRGB(255,255,255),
 BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
 Size=UDim2.new(1,-34,0,0),af'TextLabel'{Name='Title',BackgroundColor3=Color3.
 fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0)
-,BorderSizePixel=0,FontFace=Font.new'rbxasset://fonts/families/RobotoMono.json',LayoutOrder=2,
+,BorderSizePixel=0,FontFace=Font.new(__SH.FONT),LayoutOrder=2,
 LineHeight=0,RichText=true,Size=UDim2.new(1,-22,0,20),TextSize=15,TextTruncate=
 Enum.TextTruncate.AtEnd,TextXAlignment=Enum.TextXAlignment.Left,__dynamicKeys={
 TextColor3=aa.Theme.Text.SelectionPrimary[1],TextTransparency=aa.Theme.Text.
@@ -7284,13 +7284,13 @@ VerticalAlignment=Enum.VerticalAlignment.Center},ac'UIPadding'{Name='UIPadding'}
 ,ac'TextLabel'{Name='Subtitle',AutomaticSize=Enum.AutomaticSize.XY,
 BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
 BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,FontFace=Font.new
-'rbxasset://fonts/families/RobotoMono.json',LayoutOrder=1,RichText=true,Size=UDim2.new(0,0,0,14),
+__SH.FONT,LayoutOrder=1,RichText=true,Size=UDim2.new(0,0,0,14),
 Text='Subtitle',TextSize=13,TextWrapped=true,TextXAlignment=Enum.TextXAlignment.
 Left,Visible=false,__dynamicKeys={TextColor3=aa.Theme.Text.Secondary[1],
 TextTransparency=aa.Theme.Text.Secondary[2]}},ac'TextLabel'{Name='Title',
 AutomaticSize=Enum.AutomaticSize.XY,BackgroundColor3=Color3.fromRGB(255,255,255)
 ,BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
-FontFace=Font.new'rbxasset://fonts/families/RobotoMono.json',RichText=true,Size=UDim2.new(0,0,0,
+FontFace=Font.new(__SH.FONT),RichText=true,Size=UDim2.new(0,0,0,
 16),Text='Title',TextColor3=Color3.fromRGB(0,0,0),TextSize=15,TextTransparency=
 0.15,TextTruncate=Enum.TextTruncate.AtEnd,TextWrapped=true,TextXAlignment=Enum.
 TextXAlignment.Left,__dynamicKeys={TextColor3=aa.Theme.Text.Primary[1],
@@ -7427,7 +7427,7 @@ Create,aa.__container or aa.__instance or aa,{}ab=ab or{}ab.Text=ab.Text or
 'Label'ag.Body=(ae'TextLabel'{Name='Label',AutomaticSize=Enum.AutomaticSize.XY,
 BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
 BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,FontFace=Font.new
-'rbxasset://fonts/families/RobotoMono.json',RichText=true,TextSize=15,TextTruncate=Enum.
+__SH.FONT,RichText=true,TextSize=15,TextTruncate=Enum.
 TextTruncate.AtEnd,TextWrapped=true,Parent=af,__dynamicKeys={TextColor3=aa.Theme
 .Text.Secondary[1],TextTransparency=aa.Theme.Text.Secondary[2]}})local ah=ad.
 Wrap(ab,{},ag.Body)ah.Type='Label'ah.Theme=aa.Theme ah.Structures=ag ad.Apply(ab
@@ -7650,7 +7650,7 @@ FillPrimary.Value or(ak=='Secondary'or ak=='Destructive')and ai.FillSecondary.
 Value end}aj.Label=(af'TextLabel'{Size=UDim2.fromScale(1,1),Name='Label',
 AutomaticSize=Enum.AutomaticSize.XY,BackgroundColor3=Color3.fromRGB(255,255,255)
 ,BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
-FontFace=Font.new'rbxasset://fonts/families/RobotoMono.json',RichText=true,TextSize=14,
+FontFace=Font.new(__SH.FONT),RichText=true,TextSize=14,
 TextWrapped=true,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.
 TextYAlignment.Center,Parent=aj.Body.__instance,__dynamicKeys={TextColor3=aa.
 Theme.Text.SelectionPrimary[1],TextTransparency=aa.Theme.Text.SelectionPrimary[2
@@ -7785,7 +7785,7 @@ new(0.5,0.5),BackgroundColor3=Color3.new(1,1,1),BorderSizePixel=0,Position=UDim2
 CornerRadius=UDim.new(1,0)}}},ae'TextLabel'{Name='Label',AutomaticSize=Enum.
 AutomaticSize.XY,BackgroundColor3=Color3.fromRGB(255,255,255),
 BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
-FontFace=Font.new'rbxasset://fonts/families/RobotoMono.json',LayoutOrder=1,RichText=true,Text=ak,
+FontFace=Font.new(__SH.FONT),LayoutOrder=1,RichText=true,Text=ak,
 TextSize=15,TextTruncate=Enum.TextTruncate.AtEnd,Visible=not not ak,
 __dynamicKeys={TextColor3=aa.Theme.Text.Primary[1],TextTransparency=aa.Theme.
 Text.Primary[2]}}})local am=ah.RadioButtons[al].__instance or ah.RadioButtons[al
@@ -7845,7 +7845,7 @@ Enum.FillDirection.Horizontal,Padding=UDim.new(0,2),SortOrder=Enum.SortOrder.
 LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},ad'TextLabel'{Name=
 'Label',AutomaticSize=Enum.AutomaticSize.XY,BackgroundColor3=Color3.fromRGB(255,
 255,255),BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),
-BorderSizePixel=0,FontFace=Font.new'rbxasset://fonts/families/RobotoMono.json',LayoutOrder=1,
+BorderSizePixel=0,FontFace=Font.new(__SH.FONT),LayoutOrder=1,
 RichText=true,Text=ag or'',TextColor3=Color3.fromRGB(0,0,0),TextSize=15,
 TextTransparency=0.15,TextTruncate=Enum.TextTruncate.AtEnd,__dynamicKeys={
 TextColor3=ab.Theme.Text.Primary[1],TextTransparency=ab.Theme.Text.Primary[2]}},
@@ -7995,7 +7995,7 @@ ImageColor3=aa.Theme.Text.Primary[1],ImageTransparency=aa.Theme.Text.Primary[2]}
 }},af'TextLabel'{Name='Label',AutomaticSize=Enum.AutomaticSize.XY,
 BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
 BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,FontFace=Font.new
-'rbxasset://fonts/families/RobotoMono.json',RichText=true,Text='None',TextSize=15,
+__SH.FONT,RichText=true,Text='None',TextSize=15,
 TextTransparency=0.15,TextTruncate=Enum.TextTruncate.AtEnd,__dynamicKeys={
 TextColor3=aa.Theme.Text.Primary[1],TextTransparency=aa.Theme.Text.Primary[2]}}}
 ))aj.PopUpIndicator=(aj.Body:FindFirstChild'PopUpIndicator')aj.CurrentTab=(aj.
@@ -8046,7 +8046,7 @@ ImageColor3=aa.Theme.Text.Primary[1],ImageTransparency=aa.Theme.Text.Primary[2]}
 }},af'TextLabel'{Name='Label',AutomaticSize=Enum.AutomaticSize.XY,
 BackgroundColor3=Color3.fromRGB(255,255,255),BackgroundTransparency=1,
 BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,FontFace=Font.new
-'rbxasset://fonts/families/RobotoMono.json',RichText=true,TextSize=15,TextTransparency=0.15,
+__SH.FONT,RichText=true,TextSize=15,TextTransparency=0.15,
 TextTruncate=Enum.TextTruncate.AtEnd,Visible=false,__dynamicKeys={TextColor3=aa.
 Theme.Text.Primary[1],TextTransparency=aa.Theme.Text.Primary[2]}}}))ai.
 PullDownIndicator=(ai.Body:FindFirstChild'PullDownIndicator')ai.CurrentTab=(ai.
@@ -8114,7 +8114,7 @@ Visible=false,__dynamicKeys={ImageColor3=aa.Theme.Text.Primary[1]},__contextKeys
 Primary[2].Value end}},af'TextLabel'{Name='Title',AutomaticSize=Enum.
 AutomaticSize.Y,BackgroundColor3=Color3.fromRGB(255,255,255),
 BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
-LayoutOrder=2,FontFace=Font.new('rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.Bold,
+LayoutOrder=2,FontFace=Font.new(__SH.FONT,Enum.FontWeight.Bold,
 Enum.FontStyle.Normal),LineHeight=0,Size=UDim2.new(1,0,0,20),Text=ab.Title,
 TextColor3=aa.Theme.Text.Primary[1].Value,TextSize=13,TextTransparency=aa.Theme.
 Text.Primary[2].Value,TextWrapped=true,RichText=true,TextXAlignment=Enum.
@@ -8124,7 +8124,7 @@ function()return ac.Age>=(ad-1)and 1 or aa.Theme.Text.Primary[2].Value end}}},af
 'UIListLayout'{Name='UIListLayout',SortOrder=Enum.SortOrder.LayoutOrder},af
 'TextLabel'{Name='Subtitle',AutomaticSize=Enum.AutomaticSize.Y,BackgroundColor3=
 Color3.fromRGB(255,255,255),BackgroundTransparency=1,BorderColor3=Color3.
-fromRGB(0,0,0),BorderSizePixel=0,FontFace=Font.new'rbxasset://fonts/families/RobotoMono.json',
+fromRGB(0,0,0),BorderSizePixel=0,FontFace=Font.new(__SH.FONT),
 LayoutOrder=1,Position=UDim2.fromScale(0,0.147),RichText=true,Size=UDim2.
 fromScale(1,0),Text=ab.Subtitle,TextColor3=aa.Theme.Text.Secondary[1].Value,
 TextSize=13,TextTransparency=aa.Theme.Text.Secondary[2].Value,TextWrapped=true,
@@ -8141,7 +8141,7 @@ Horizontal,Padding=UDim.new(0,5),SortOrder=Enum.SortOrder.LayoutOrder,
 VerticalAlignment=Enum.VerticalAlignment.Center},af'TextLabel'{Name='App',
 AutomaticSize=Enum.AutomaticSize.X,BackgroundColor3=Color3.fromRGB(255,255,255),
 BackgroundTransparency=1,BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,
-FontFace=Font.new('rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.Medium,Enum.
+FontFace=Font.new(__SH.FONT,Enum.FontWeight.Medium,Enum.
 FontStyle.Normal),LayoutOrder=1,LineHeight=0,Size=UDim2.fromOffset(0,14),Text=ab
 .App or'',TextColor3=aa.Theme.Text.Primary[1].Value,TextSize=13,TextTransparency
 =0.5,TextXAlignment=Enum.TextXAlignment.Left,RichText=true,Visible=ab.App~=nil,
@@ -8155,7 +8155,7 @@ ab.AppIcon~=nil,__dynamicKeys={ImageColor3=aa.Theme.Text.Primary[1]}},af
 Name='Exit',AnchorPoint=Vector2.new(0.5,0.5),AutoButtonColor=false,
 BackgroundColor3=aa.Theme.Controls.View[1].Value,BackgroundTransparency=0.1,
 BorderColor3=Color3.fromRGB(0,0,0),BorderSizePixel=0,FontFace=Font.new
-'rbxasset://fonts/families/RobotoMono.json',Position=UDim2.fromOffset(3,3),Size=UDim2.fromOffset(
+__SH.FONT,Position=UDim2.fromOffset(3,3),Size=UDim2.fromOffset(
 20,20),Text='',TextColor3=aa.Theme.Text.Primary[1].Value,TextSize=14,
 TextTransparency=0.5,__dynamicKeys={BackgroundColor3=aa.Theme.Controls.View[1]},
 af'UICorner'{Name='UICorner',CornerRadius=UDim.new(1,0)},af'ImageLabel'{Name=
@@ -8302,12 +8302,12 @@ Theme.Controls.Selection[1]}}},ak'Frame'{Name='TitleStack',AnchorPoint=Vector2.
 new(0,0.5),AutomaticSize=Enum.AutomaticSize.Y,BackgroundTransparency=1,Position=
 UDim2.fromScale(0,0.5),Size=UDim2.new(1,-24,0,0),ak'UIListLayout'{Padding=UDim.
 new(0,1),SortOrder=Enum.SortOrder.LayoutOrder},ak'TextLabel'{Name='Title',
-BackgroundTransparency=1,FontFace=Font.new('rbxasset://fonts/families/RobotoMono.json',Enum.
+BackgroundTransparency=1,FontFace=Font.new(__SH.FONT,Enum.
 FontWeight.SemiBold,Enum.FontStyle.Normal),RichText=true,Size=UDim2.new(1,0,0,17
 ),TextSize=15,TextTruncate=Enum.TextTruncate.AtEnd,TextXAlignment=Enum.
 TextXAlignment.Left,__dynamicKeys={TextColor3=ad.Theme.Text.Primary[1],
 TextTransparency=ad.Theme.Text.Primary[2]}},ak'TextLabel'{Name='Subtitle',
-BackgroundTransparency=1,FontFace=Font.new'rbxasset://fonts/families/RobotoMono.json',LayoutOrder
+BackgroundTransparency=1,FontFace=Font.new(__SH.FONT),LayoutOrder
 =1,RichText=true,Size=UDim2.new(1,0,0,14),TextSize=12,TextTruncate=Enum.
 TextTruncate.AtEnd,TextXAlignment=Enum.TextXAlignment.Left,Visible=false,
 __dynamicKeys={TextColor3=ad.Theme.Text.Secondary[1],TextTransparency=ad.Theme.
@@ -8379,13 +8379,13 @@ Enum.AutomaticSize.Y,BackgroundTransparency=1,BorderSizePixel=0,Size=UDim2.
 fromScale(1,0),Text='',ag'Frame'{Name='Texts',AutomaticSize=Enum.AutomaticSize.Y
 ,BackgroundTransparency=1,Size=UDim2.new(1,-28,0,0),ag'UIListLayout'{Padding=
 UDim.new(0,1),SortOrder=Enum.SortOrder.LayoutOrder},ag'TextLabel'{Name='Title',
-BackgroundTransparency=1,FontFace=Font.new('rbxasset://fonts/families/RobotoMono.json',Enum.
+BackgroundTransparency=1,FontFace=Font.new(__SH.FONT,Enum.
 FontWeight.SemiBold,Enum.FontStyle.Normal),Size=UDim2.new(1,0,0,17),Text=ab.
 Title or'',TextSize=15,TextTruncate=Enum.TextTruncate.AtEnd,TextXAlignment=Enum.
 TextXAlignment.Left,TextYAlignment=Enum.TextYAlignment.Center,__dynamicKeys={
 TextColor3=ai.Text.Primary[1],TextTransparency=ai.Text.Primary[2]}},ag
 'TextLabel'{Name='Subtitle',AutomaticSize=Enum.AutomaticSize.Y,
-BackgroundTransparency=1,FontFace=Font.new'rbxasset://fonts/families/RobotoMono.json',LayoutOrder
+BackgroundTransparency=1,FontFace=Font.new(__SH.FONT),LayoutOrder
 =1,Size=UDim2.new(1,0,0,14),Text=ab.Subtitle or'',TextSize=12,TextWrapped=true,
 TextXAlignment=Enum.TextXAlignment.Left,TextYAlignment=Enum.TextYAlignment.Top,
 Visible=ab.Subtitle~=nil and ab.Subtitle~='',__dynamicKeys={TextColor3=ai.Text.
@@ -8443,7 +8443,7 @@ Name='UpdateLog',Title=af.Title,Subtitle=af.Subtitle,Collapsible=af.Collapsible
 ~=false,Collapsed=af.Collapsed,Parent=ak})local ao={Body=an.Body,Card=an,Title=
 an.Title,Subtitle=an.Subtitle}ao.Count=(aj'TextLabel'{Name='Count',AutomaticSize
 =Enum.AutomaticSize.X,BorderSizePixel=0,FontFace=Font.new(
-'rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.Medium,Enum.FontStyle.Normal),Size=
+__SH.FONT,Enum.FontWeight.Medium,Enum.FontStyle.Normal),Size=
 UDim2.fromOffset(0,20),Text='0',TextSize=12,Parent=an.Trailing,__dynamicKeys={
 BackgroundColor3=al.Controls.Card.Hover[1],BackgroundTransparency=al.Controls.
 Card.Hover[2],TextColor3=al.Text.Secondary[1],TextTransparency=al.Text.Secondary
@@ -8452,7 +8452,7 @@ new(0,7),PaddingRight=UDim.new(0,7)}}.__instance)a.a().FitText(ao.Count,7,20)aj
 'UIListLayout'{Padding=UDim.new(0,6),SortOrder=Enum.SortOrder.LayoutOrder,Parent
 =an.Content}ao.List=an.Content ao.ViewAll=(aj'TextButton'{Name='ViewAll',
 AutoButtonColor=false,BorderSizePixel=0,FontFace=Font.new(
-'rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.Medium,Enum.FontStyle.Normal),
+__SH.FONT,Enum.FontWeight.Medium,Enum.FontStyle.Normal),
 LayoutOrder=1000000,Size=UDim2.new(1,0,0,30),Text='View all',TextSize=12,Parent=
 an.Content,__dynamicKeys={BackgroundColor3=al.Controls.Card.Fill[1],
 BackgroundTransparency=al.Controls.Card.Fill[2],TextColor3=al.Text.Secondary[1],
@@ -8476,17 +8476,17 @@ aj'ImageLabel'{Name='Icon',AnchorPoint=Vector2.new(0.5,0.5),
 BackgroundTransparency=1,Position=UDim2.fromScale(0.5,0.5),ScaleType=Enum.
 ScaleType.Fit,Size=UDim2.fromOffset(12,12),__dynamicKeys={ImageColor3=at[1]}},aj
 'TextLabel'{Name='Glyph',AnchorPoint=Vector2.new(0.5,0.5),BackgroundTransparency
-=1,FontFace=Font.new('rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.Bold,Enum.
+=1,FontFace=Font.new(__SH.FONT,Enum.FontWeight.Bold,Enum.
 FontStyle.Normal),Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromScale(1,1),
 Text=as.Glyph,TextSize=14,__dynamicKeys={TextColor3=at[1]}}},aj'TextLabel'{Name=
 'Text',AutomaticSize=Enum.AutomaticSize.Y,BackgroundTransparency=1,FontFace=Font
-.new'rbxasset://fonts/families/RobotoMono.json',Position=UDim2.fromOffset(32,3),RichText=true,
+.new__SH.FONT,Position=UDim2.fromOffset(32,3),RichText=true,
 Size=UDim2.new(1,-98,0,16),Text=ar,TextSize=14,TextWrapped=true,TextXAlignment=
 Enum.TextXAlignment.Left,TextYAlignment=Enum.TextYAlignment.Top,__dynamicKeys={
 TextColor3=al.Text.Primary[1],TextTransparency=al.Text.Primary[2]}},aj
 'TextLabel'{Name='Tag',AnchorPoint=Vector2.new(1,0),AutomaticSize=Enum.
 AutomaticSize.X,BackgroundTransparency=0.88,BorderSizePixel=0,FontFace=Font.new(
-'rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.Medium,Enum.FontStyle.Normal),
+__SH.FONT,Enum.FontWeight.Medium,Enum.FontStyle.Normal),
 Position=UDim2.new(1,0,0,1),Size=UDim2.fromOffset(0,20),Text=tostring(au),
 TextSize=12,__dynamicKeys={BackgroundColor3=at[1],TextColor3=at[1]},aj'UICorner'
 {CornerRadius=UDim.new(0,5)},aj'UIPadding'{PaddingLeft=UDim.new(0,6),
@@ -8534,16 +8534,16 @@ Controls.Selection[1]}}},ai'Frame'{Name='TitleStack',AutomaticSize=Enum.
 AutomaticSize.Y,BackgroundTransparency=1,LayoutOrder=1,Size=UDim2.new(1,-38,0,0)
 ,ai'UIListLayout'{Padding=UDim.new(0,1),SortOrder=Enum.SortOrder.LayoutOrder},ai
 'TextLabel'{Name='Title',BackgroundTransparency=1,FontFace=Font.new(
-'rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.SemiBold,Enum.FontStyle.Normal),Size=
+__SH.FONT,Enum.FontWeight.SemiBold,Enum.FontStyle.Normal),Size=
 UDim2.new(1,0,0,17),TextSize=14,TextTruncate=Enum.TextTruncate.AtEnd,
 TextXAlignment=Enum.TextXAlignment.Left,__dynamicKeys={TextColor3=ak.Text.
 Primary[1],TextTransparency=ak.Text.Primary[2]}},ai'TextLabel'{Name='Subtitle',
-BackgroundTransparency=1,FontFace=Font.new'rbxasset://fonts/families/RobotoMono.json',LayoutOrder
+BackgroundTransparency=1,FontFace=Font.new(__SH.FONT),LayoutOrder
 =1,Size=UDim2.new(1,0,0,14),TextSize=12,TextTruncate=Enum.TextTruncate.AtEnd,
 TextXAlignment=Enum.TextXAlignment.Left,__dynamicKeys={TextColor3=ak.Text.
 Secondary[1],TextTransparency=ak.Text.Secondary[2]}}}},ai'TextButton'{Name=
 'Invite',AutoButtonColor=false,AutomaticSize=Enum.AutomaticSize.X,
-BorderSizePixel=0,FontFace=Font.new('rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.
+BorderSizePixel=0,FontFace=Font.new(__SH.FONT,Enum.FontWeight.
 Medium,Enum.FontStyle.Normal),LayoutOrder=1,Size=UDim2.fromOffset(0,30),TextSize
 =14,__dynamicKeys={BackgroundColor3=ak.Controls.Card.Hover[1],
 BackgroundTransparency=ak.Controls.Card.Hover[2],TextColor3=ak.Text.Primary[1],
@@ -8632,7 +8632,7 @@ false,ZIndex=50,__dynamicKeys={ImageColor3=al.Controls.Selection[1]},
 __contextKeys={ImageColor3=function()return aq and Color3.new(1,1,1)or al.
 Controls.Selection[1].Value end}},ah'TextLabel'{Name='Label',AutomaticSize=Enum.
 AutomaticSize.X,BackgroundTransparency=1,FontFace=Font.new(
-'rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.Medium,Enum.FontStyle.Normal),
+__SH.FONT,Enum.FontWeight.Medium,Enum.FontStyle.Normal),
 LayoutOrder=2,RichText=true,Size=UDim2.fromOffset(0,16),TextSize=13,ZIndex=50,
 __dynamicKeys={TextColor3=al.Text.Primary[1],TextTransparency=al.Text.Primary[2]
 }}})am.Icon=(am.Body:FindFirstChild'Icon')am.Label=(am.Body:FindFirstChild
@@ -8679,7 +8679,7 @@ FillDirection=Enum.FillDirection.Horizontal,Padding=UDim.new(0,7),SortOrder=Enum
 Image=af.keyboardFill or af.keyboard,Size=UDim2.fromOffset(16,16),ZIndex=50,
 __dynamicKeys={ImageColor3=ai.Controls.Selection[1]}},ah'TextLabel'{Name='Title'
 ,AutomaticSize=Enum.AutomaticSize.X,BackgroundTransparency=1,FontFace=Font.new(
-'rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.SemiBold,Enum.FontStyle.Normal),
+__SH.FONT,Enum.FontWeight.SemiBold,Enum.FontStyle.Normal),
 LayoutOrder=1,Size=UDim2.fromOffset(0,16),TextSize=13,ZIndex=50,__dynamicKeys={
 TextColor3=ai.Text.Primary[1],TextTransparency=ai.Text.Primary[2]}}},ah'Frame'{
 Name='Divider',BorderSizePixel=0,LayoutOrder=1,Size=UDim2.new(1,0,0,1),ZIndex=50
@@ -8688,7 +8688,7 @@ BackgroundTransparency=ai.Controls.ViewBorder[2]}},ah'Frame'{Name='List',
 AutomaticSize=Enum.AutomaticSize.Y,BackgroundTransparency=1,LayoutOrder=2,Size=
 UDim2.fromScale(1,0),ah'UIListLayout'{Padding=UDim.new(0,2),SortOrder=Enum.
 SortOrder.LayoutOrder}},ah'TextLabel'{Name='Empty',BackgroundTransparency=1,
-FontFace=Font.new'rbxasset://fonts/families/RobotoMono.json',LayoutOrder=3,Size=UDim2.new(1,0,0,
+FontFace=Font.new(__SH.FONT),LayoutOrder=3,Size=UDim2.new(1,0,0,
 18),Text='No keybinds',TextSize=12,TextXAlignment=Enum.TextXAlignment.Left,
 ZIndex=50,__dynamicKeys={TextColor3=ai.Text.Tertiary[1],TextTransparency=ai.Text
 .Tertiary[2]}}})aj.Header=(aj.Body:FindFirstChild'Header')aj.Title=(aj.Header:
@@ -8711,7 +8711,7 @@ new(1,0,0,22),Parent=aj.List,ah'Frame'{Name='Dot',AnchorPoint=Vector2.new(0,0.5)
 ,BorderSizePixel=0,Position=UDim2.fromScale(0,0.5),Size=UDim2.fromOffset(6,6),
 ZIndex=50,ah'UICorner'{CornerRadius=UDim.new(1,0)}},ah'TextLabel'{Name='Name',
 AnchorPoint=Vector2.new(0,0.5),BackgroundTransparency=1,FontFace=Font.new
-'rbxasset://fonts/families/RobotoMono.json',Position=UDim2.new(0,13,0.5,0),Size=UDim2.new(1,-80,0
+__SH.FONT,Position=UDim2.new(0,13,0.5,0),Size=UDim2.new(1,-80,0
 ,16),TextSize=13,TextTruncate=Enum.TextTruncate.AtEnd,TextXAlignment=Enum.
 TextXAlignment.Left,ZIndex=50},ah'Frame'{Name='Trailing',AnchorPoint=Vector2.
 new(1,0.5),AutomaticSize=Enum.AutomaticSize.X,BackgroundTransparency=1,Position=
@@ -8720,11 +8720,11 @@ FillDirection=Enum.FillDirection.Horizontal,HorizontalAlignment=Enum.
 HorizontalAlignment.Right,Padding=UDim.new(0,5),SortOrder=Enum.SortOrder.
 LayoutOrder,VerticalAlignment=Enum.VerticalAlignment.Center},ah'TextLabel'{Name=
 'Mode',AutomaticSize=Enum.AutomaticSize.X,BackgroundTransparency=1,FontFace=Font
-.new('rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.Medium,Enum.FontStyle.Normal),
+.new(__SH.FONT,Enum.FontWeight.Medium,Enum.FontStyle.Normal),
 Size=UDim2.fromOffset(0,16),TextSize=12,ZIndex=50,__dynamicKeys={TextColor3=ai.
 Text.Secondary[1],TextTransparency=ai.Text.Secondary[2]}},ah'TextLabel'{Name=
 'Key',AutomaticSize=Enum.AutomaticSize.X,BorderSizePixel=0,FontFace=Font.new(
-'rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.Medium,Enum.FontStyle.Normal),
+__SH.FONT,Enum.FontWeight.Medium,Enum.FontStyle.Normal),
 LayoutOrder=1,Size=UDim2.fromOffset(0,20),TextSize=12,ZIndex=50,__dynamicKeys={
 BackgroundColor3=ai.Controls.Card.Hover[1],BackgroundTransparency=ai.Controls.
 Card.Hover[2],TextColor3=ai.Text.Secondary[1],TextTransparency=ai.Text.Secondary
@@ -8756,7 +8756,7 @@ ak,1,-1 do ak[aq].Frame:Destroy()ak[aq]=nil end an()end ad.Apply(ab,al)an()
 return al end end function a.af()local ab=a.cache.af if not ab then ab={c=aa()}a
 .cache.af=ab end return ab.c end end do local aa=function()a.b()return function(
 aa,ab)local ac,ad,ae=a.d(),a.c(),a.o()local af,ag,ah,ai,aj,ak=ac.Create,aa.
-__container or aa.__instance or aa,aa.Theme,'rbxasset://fonts/families/RobotoMono.json',{},{}ab=
+__container or aa.__instance or aa,aa.Theme,__SH.FONT,{},{}ab=
 ab or{}ab.Title=ab.Title or'Information'ab.Items=ab.Items or{}aj.Body=(af'Frame'
 {Name='InfoCard',AutomaticSize=Enum.AutomaticSize.Y,BorderSizePixel=0,Size=UDim2
 .fromScale(1,0),Parent=ag,__dynamicKeys={BackgroundColor3=ah.Controls.View[1],
@@ -9028,7 +9028,7 @@ local aa={}for ab=0,10 do table.insert(aa,ColorSequenceKeypoint.new(ab/10,Color3
 .fromHSV(ab/10,1,1)))end return ColorSequence.new(aa)end)())return function(ah,
 ai)local aj,ak,al,am=a.d(),a.c(),a.e(),a.a()local an,ao,ap,aq,ar,as,at,au=aj.
 Create,al.UserInputService,al.TweenService,al.Workspace,ah.__container or ah.
-__instance or ah,ah.Theme,'rbxasset://fonts/families/RobotoMono.json',{}ai=ai or{}ai.Value=
+__instance or ah,ah.Theme,__SH.FONT,{}ai=ai or{}ai.Value=
 typeof(ai.Value)=='Color3'and ai.Value or Color3.new(1,1,1)local av,aw,ax,ay=
 typeof(ai.Transparency)=='number',ai.Value:ToHSV()local az,b,c,d=av and ai.
 Transparency or 0,false,0 au.Body=an'TextButton'{Name='ColorPicker',
@@ -9235,13 +9235,13 @@ BackgroundTransparency=ao.Controls.Card.Fill[2]},al'UICorner'{CornerRadius=UDim.
 new(0,7)},al'UIStroke'{ApplyStrokeMode=Enum.ApplyStrokeMode.Border,__dynamicKeys
 ={Color=ao.Controls.ViewBorder[1],Transparency=ao.Controls.ViewBorder[2]}},al
 'TextLabel'{Name='Badge',AnchorPoint=Vector2.new(0,0.5),BorderSizePixel=0,
-FontFace=Font.new('rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.Medium,Enum.
+FontFace=Font.new(__SH.FONT,Enum.FontWeight.Medium,Enum.
 FontStyle.Normal),Position=UDim2.new(0,10,0.5,0),Size=UDim2.fromOffset(26,20),
 Text='01',TextSize=12,__dynamicKeys={BackgroundColor3=ao.Controls.Card.Hover[1],
 BackgroundTransparency=ao.Controls.Card.Hover[2],TextColor3=ao.Text.Secondary[1]
 ,TextTransparency=ao.Text.Secondary[2]},al'UICorner'{CornerRadius=UDim.new(0,5)}
 },al'TextLabel'{Name='Title',AnchorPoint=Vector2.new(0,0.5),
-BackgroundTransparency=1,FontFace=Font.new('rbxasset://fonts/families/RobotoMono.json',Enum.
+BackgroundTransparency=1,FontFace=Font.new(__SH.FONT,Enum.
 FontWeight.Medium,Enum.FontStyle.Normal),Position=UDim2.new(0,46,0.5,0),Size=
 UDim2.new(1,-78,0,16),Text=l,TextSize=14,TextTruncate=Enum.TextTruncate.AtEnd,
 TextXAlignment=Enum.TextXAlignment.Left,__dynamicKeys={TextColor3=ao.Text.
@@ -9315,10 +9315,10 @@ Listeners)end return aa end function a.aq()local ab=a.cache.aq if not ab then ab
 ={c=aa()}a.cache.aq=ab end return ab.c end end do local aa=function()local aa,ab
 =a.b(),760 return function(ac,ad)local ae,af,ag,ah,ai,aj=a.d(),a.c(),a.e(),a.a()
 ,a.o(),a.aq()local ak,al,am,an,ao,ap,aq,ar,as,at,au,av,aw,ax,ay,az,b,c=ae.Create
-,ag.TweenService,ag.RunService,Font.new('rbxasset://fonts/families/RobotoMono.json',Enum.
-FontWeight.Medium,Enum.FontStyle.Normal),Font.new('rbxasset://fonts/families/RobotoMono.json',
+,ag.TweenService,ag.RunService,Font.new(__SH.FONT,Enum.
+FontWeight.Medium,Enum.FontStyle.Normal),Font.new(__SH.FONT,
 Enum.FontWeight.SemiBold,Enum.FontStyle.Normal),Font.new(
-'rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.Bold,Enum.FontStyle.Normal),ac.Theme,
+__SH.FONT,Enum.FontWeight.Bold,Enum.FontStyle.Normal),ac.Theme,
 {},{},{},{},{},false,os.clock(),os.date'%H:%M','Added',false ad=ad or{}ad.Title=
 ad.Title or'Farm'ad.Subtitle=ad.Subtitle or'Farm session'local d,e=aj.new(ad.
 Stats),function(d)d.BackgroundTransparency=1 d.FontFace=d.FontFace or an return
@@ -9542,9 +9542,9 @@ ResetSession=c.Reset c.SetSession=function(O,P,Q)if typeof(P)=='number' then loc
 end end do local aa=function()local aa,ab,ac=a.b(),300,20 return function(ad,ae)
 local af,ag,ah,ai,aj,ak,al=a.d(),a.c(),a.a(),a.o(),a.g(),a.ad(),a.aq()local am,
 an,ao,ap,aq,ar,as,at,au,av,aw,ax,ay=af.Create,Font.new(
-'rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.Medium,Enum.FontStyle.Normal),Font.
-new('rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.SemiBold,Enum.FontStyle.Normal),
-Font.new('rbxasset://fonts/families/RobotoMono.json',Enum.FontWeight.Bold,Enum.FontStyle.Normal),
+__SH.FONT,Enum.FontWeight.Medium,Enum.FontStyle.Normal),Font.
+new(__SH.FONT,Enum.FontWeight.SemiBold,Enum.FontStyle.Normal),
+Font.new(__SH.FONT,Enum.FontWeight.Bold,Enum.FontStyle.Normal),
 ad.Theme,{},{},{},'Info',os.clock(),false ae=ae or{}ae.Title=ae.Title or'Farm'ae
 .Draggable=ae.Draggable~=false ae.Position=ae.Position or UDim2.new(1,-16,0,64)
 ae.MaxItems=ae.MaxItems or 6 local az,b,c=ae.Source==nil,ae.Source and(ae.Source
@@ -9818,5 +9818,5 @@ au.Theme,ay,au.Accent)au.Theme._id=ay._id task.defer(ac.RefreshContext)end,
 Accent=function(ay)au.Accent=ar(ay,ay._id)at(au.Theme,ax,ay)task.defer(ac.
 RefreshContext)end},nil,{'Theme','Accent'})if au.Parent then ay.__container=au.
 Parent end setmetatable(au,{__index=aj})ad.Apply(au,ay)task.defer(ad.Apply,au,ay
-)return ay end ao.RegisterComponent=function(au,av)aj.register(au,av)end ao.
+)return ay end ao.SetFont=function(au)__SH.FONT=au end ao.RegisterComponent=function(au,av)aj.register(au,av)end ao.
 AppDump=function(au,av)return af.DumpApp(au,av)end return ao
